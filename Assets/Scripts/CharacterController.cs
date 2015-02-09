@@ -9,8 +9,6 @@ public class CharacterController : MonoBehaviour {
 	public float startChargeSpaceJump;
 	public float readySpaceJump;
 	public GameObject particleSystemJumpCharge;
-	public GameObject particleSystemAttack;
-	public GameObject smallParticle;
 
 	private bool isAttacking = false;
 	private GravityBody body;
@@ -47,9 +45,12 @@ public class CharacterController : MonoBehaviour {
 
 	void Update() {
 		if (!isMoving) {
-			animCont.StopWalk();
+			if(animCont!=null){
+				animCont.StopWalk();
+			}
 		}
-		if (!isAttacking) {
+
+		/*if (!isAttacking) {
 			animCont.StopAttack();
 			timeSinceAttackStarted = 0f;
 		} else {
@@ -59,7 +60,7 @@ public class CharacterController : MonoBehaviour {
 					attackEffect();
 				}
 			}
-		}
+		}*/
 	}
 
 	void FixedUpdate(){
@@ -67,17 +68,17 @@ public class CharacterController : MonoBehaviour {
 		//rigidbody.MovePosition(rigidbody.position + transform.TransformDirection(moveAmount) * Time.fixedDeltaTime);
 		Vector3 movement = transform.TransformDirection (moveAmount) * Time.fixedDeltaTime;
 		Vector3 newPosition = new Vector3(this.transform.position.x + movement.x,this.transform.position.y + movement.y,this.transform.position.z);
-		this.rigidbody.MovePosition (newPosition);
+		//this.rigidbody.MovePosition (newPosition);
 		//rigidbody.velocity = rigidbody.velocity + movement;
-		//this.transform.position = new Vector3(this.transform.position.x + movement.x,this.transform.position.y + movement.y,this.transform.position.z);
+		this.transform.position = new Vector3(this.transform.position.x + movement.x,this.transform.position.y + movement.y,this.transform.position.z);
 		
 	}
 
 	public void Attack() { 
 		isAttacking = true;
-		animCont.Attack();
+		/*animCont.Attack();
 		particleSystemAttack.particleSystem.Play();
-		attackEffectDone = false;
+		attackEffectDone = false;*/
 	}
 
 	public void SpaceJump() {
@@ -93,7 +94,7 @@ public class CharacterController : MonoBehaviour {
 
 	public void Move() {
 		isMoving = true;
-		if (body.getIsTouchingPlanet ()) {
+		if (!body.getUsesSpaceGravity()) {
 			float inputHorizontal = Input.GetAxisRaw ("Horizontal");
 
 			ParticleSystem particles = particleSystemJumpCharge.GetComponent<ParticleSystem> ();
@@ -103,21 +104,38 @@ public class CharacterController : MonoBehaviour {
 			moveAmount = moveSpeed * moveDir;
 
 			//If we change the character looking direction we change the characters orientation and we invert the z angle
-			if (inputHorizontal > 0f) {
-				if (transform.localEulerAngles.y < 90f) {
-						transform.localEulerAngles = new Vector3 (transform.localEulerAngles.x, 0f, transform.localEulerAngles.z);
+
+			/*if (inputHorizontal > 0f) {
+				if (transform.localEulerAngles.y < 0f) {
+					transform.localEulerAngles = new Vector3 (transform.localEulerAngles.x, -90f, transform.localEulerAngles.z);
 				} else {
-						transform.localEulerAngles = new Vector3 (transform.localEulerAngles.x, 0f, 360f - transform.localEulerAngles.z);
+					transform.localEulerAngles = new Vector3 (transform.localEulerAngles.x, -90f, 360f - transform.localEulerAngles.z);
 				}
 			} else if (inputHorizontal < 0f) {
-				if (transform.localEulerAngles.y < 90f) {
-						transform.localEulerAngles = new Vector3 (transform.localEulerAngles.x, 180f, 360f - transform.localEulerAngles.z);
+				if (transform.localEulerAngles.y < 0f) {
+					transform.localEulerAngles = new Vector3 (transform.localEulerAngles.x, 90f, 360f - transform.localEulerAngles.z);
 				} else {
-						transform.localEulerAngles = new Vector3 (transform.localEulerAngles.x, 180f, transform.localEulerAngles.z);
+					transform.localEulerAngles = new Vector3 (transform.localEulerAngles.x, 90f, transform.localEulerAngles.z);
+				}
+			}*/
+			if (inputHorizontal > 0f) {
+				if (transform.localEulerAngles.y < 180f) {
+						transform.localEulerAngles = new Vector3 (transform.localEulerAngles.x, 90f, transform.localEulerAngles.z);
+				} else {
+						transform.localEulerAngles = new Vector3 (transform.localEulerAngles.x, 90f, 360f - transform.localEulerAngles.z);
+				}
+			} else if (inputHorizontal < 0f) {
+				Debug.Log(transform.localEulerAngles.y);
+				if (transform.localEulerAngles.y > 180f) {
+						transform.localEulerAngles = new Vector3 (transform.localEulerAngles.x, -90f, transform.localEulerAngles.z);
+				} else {
+						transform.localEulerAngles = new Vector3 (transform.localEulerAngles.x, -90f, 360f - transform.localEulerAngles.z);
 				}
 			}
 		}
-		animCont.Walk ();
+		if(animCont!=null){
+			animCont.Walk ();
+		}
 	}
 
 	public void StopMove() {
@@ -134,7 +152,7 @@ public class CharacterController : MonoBehaviour {
 	}
 	
 	void attackEffect(){
-		attackEffectDone = true;
+		/*attackEffectDone = true;
 		foreach(GameObject o in closeEnemies){
 			//o.rigidbody.AddForce((o.transform.position-transform.position).normalized*50f,ForceMode.VelocityChange);
 			
@@ -158,7 +176,7 @@ public class CharacterController : MonoBehaviour {
 			Destroy(o);
 			
 		}
-		closeEnemies = new List<GameObject>();
+		closeEnemies = new List<GameObject>();*/
 	}
 
 }

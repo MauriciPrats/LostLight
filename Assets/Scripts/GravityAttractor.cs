@@ -8,7 +8,7 @@ public class GravityAttractor : MonoBehaviour {
 	private GameObject AthmospherePrefab;
 	void Start(){
 		//We create an athmosphere for this gravity attractor
-
+	/*
 		AthmospherePrefab = (GameObject)Resources.Load ("Athmosphere");
 		GameObject newAthmosphere = (GameObject)Instantiate (AthmospherePrefab, transform.position, Quaternion.identity);
 		newAthmosphere.transform.parent = transform.gameObject.transform;
@@ -16,7 +16,7 @@ public class GravityAttractor : MonoBehaviour {
 		//We calculate the size of the athmosphere of the gravityAttractor
 		float size = 0.5f * Mathf.Max(transform.lossyScale.x,transform.lossyScale.y,transform.lossyScale.z);
 		float factor = (size + Constants.GRAVITY_DISTANCE_FROM_PLANET_FLOOR) / size;
-		newAthmosphere.transform.localScale = new Vector3(factor,factor,factor);
+		newAthmosphere.transform.localScale = new Vector3(factor,factor,factor);*/
 	}
 
 	void FixedUpdate(){
@@ -36,8 +36,11 @@ public class GravityAttractor : MonoBehaviour {
 		distance = distance - sphereRadius;
 
 		if (distance <= Constants.GRAVITY_DISTANCE_FROM_PLANET_FLOOR) {
-			Vector3 targetDir = (objectToAttract.position - transform.position).normalized;
+			Vector3 targetDir = (objectToAttract.position - transform.position);
+			targetDir = new Vector3(targetDir.x,targetDir.y,0f).normalized;
+
 			Vector3 objectUp = objectToAttract.up;
+
 			objectToAttract.rotation = Quaternion.FromToRotation (objectUp, targetDir) * objectToAttract.rotation;
 			objectToAttract.rigidbody.AddForce (targetDir * -Constants.GRAVITY_FORCE_OF_PLANETS,ForceMode.Acceleration);
 			//We only put the body in the hierarchy if it has touched a planet after doing "Space travel".
