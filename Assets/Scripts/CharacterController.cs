@@ -75,7 +75,7 @@ public class CharacterController : MonoBehaviour {
 
 	public void Attack() { 
 		isAttacking = true;
-		AnimationController.Attack();
+		animCont.Attack();
 		particleSystemAttack.particleSystem.Play();
 		attackEffectDone = false;
 	}

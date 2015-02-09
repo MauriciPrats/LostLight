@@ -7,21 +7,22 @@ using System.Collections.Generic;
 
 public class InputController : MonoBehaviour {
 	public float startChargeSpaceJump;
-	public float isSpaceJumpCharged;
-	
+	private float timeIsSpaceJumpCharged;
+	private bool isSpaceJumpCharged;
+
 	private float timeJumpPressed;
 	private bool isSpaceJumping;
 	private CharacterController character;
 
 	void Start () {
 		timeJumpPressed = 0;
-		character = GetComponent(CharacterController);
+		character = GetComponent<CharacterController>();
 	}
 
 	void Update() {
 		if (Input.GetKey(KeyCode.Escape)) { Application.Quit(); }
 		//Movement Input.
-		if (Input.GetAxis ("Horizontal")) {
+		if (Input.GetAxis ("Horizontal")!=0f) {
 			ResetJumping ();
 			character.Move ();
 		} else {
@@ -41,7 +42,7 @@ public class InputController : MonoBehaviour {
 		if (Input.GetKey (KeyCode.Space)) {
 			timeJumpPressed += Time.deltaTime;
 			if (timeJumpPressed >= startChargeSpaceJump) { character.ChargeJump(); }
-			if (timeJumpPressed >= isSpaceJumpCharged) {isSpaceJumpCharged = true; }
+			if (timeJumpPressed >= timeIsSpaceJumpCharged) {isSpaceJumpCharged = true; }
 		} else {
 			ResetJumping();
 		}
