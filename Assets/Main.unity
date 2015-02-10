@@ -84,7 +84,7 @@ GameObject:
   - 4: {fileID: 61026639}
   - 33: {fileID: 61026641}
   - 23: {fileID: 61026640}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.030
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,7 +142,7 @@ GameObject:
   - 4: {fileID: 86595106}
   - 33: {fileID: 86595108}
   - 23: {fileID: 86595107}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -200,7 +200,7 @@ GameObject:
   - 4: {fileID: 134895499}
   - 33: {fileID: 134895501}
   - 23: {fileID: 134895500}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.044
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,7 +258,7 @@ GameObject:
   - 4: {fileID: 165821668}
   - 33: {fileID: 165821670}
   - 23: {fileID: 165821669}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.041
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -316,7 +316,7 @@ GameObject:
   - 4: {fileID: 189765854}
   - 33: {fileID: 189765856}
   - 23: {fileID: 189765855}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.014
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -374,7 +374,7 @@ GameObject:
   - 4: {fileID: 197486621}
   - 33: {fileID: 197486623}
   - 23: {fileID: 197486622}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.028
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -422,6 +422,33 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 197486620}
   m_Mesh: {fileID: 4300040, guid: d181c244f8ead5649ba416601293dd94, type: 3}
+--- !u!1 &203320525
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100016, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 203320526}
+  m_Layer: 9
+  m_Name: Bone_L.002_end
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &203320526
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400016, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 203320525}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 2.78288937, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1726158781}
+  m_RootOrder: 0
 --- !u!1 &228232895
 GameObject:
   m_ObjectHideFlags: 0
@@ -432,7 +459,7 @@ GameObject:
   - 4: {fileID: 228232896}
   - 33: {fileID: 228232898}
   - 23: {fileID: 228232897}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cylinder.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -490,7 +517,7 @@ GameObject:
   - 4: {fileID: 233676032}
   - 33: {fileID: 233676031}
   - 23: {fileID: 233676030}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.029
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -549,7 +576,7 @@ GameObject:
   - 33: {fileID: 239714904}
   - 23: {fileID: 239714903}
   - 64: {fileID: 239714905}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -613,6 +640,286 @@ MeshCollider:
   m_SmoothSphereCollisions: 0
   m_Convex: 0
   m_Mesh: {fileID: 4300090, guid: d181c244f8ead5649ba416601293dd94, type: 3}
+--- !u!1 &250751286
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100008, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 250751287}
+  m_Layer: 9
+  m_Name: Bone.002_end
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &250751287
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400008, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 250751286}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 1.59728694, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2073550847}
+  m_RootOrder: 0
+--- !u!1 &277892396
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 277892403}
+  - 33: {fileID: 277892402}
+  - 65: {fileID: 277892401}
+  - 23: {fileID: 277892400}
+  - 114: {fileID: 277892399}
+  - 54: {fileID: 277892398}
+  - 114: {fileID: 277892397}
+  m_Layer: 0
+  m_Name: Herrera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &277892397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 277892396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe581320da7185b4ea3edde68918af45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsToCollide:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!54 &277892398
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 277892396}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 14
+  m_CollisionDetection: 0
+--- !u!114 &277892399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 277892396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad9ddd7150af8fc4a82b9f28b2445d9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!23 &277892400
+Renderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 277892396}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!65 &277892401
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 277892396}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &277892402
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 277892396}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &277892403
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 277892396}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.77429962, y: 7.16802311, z: .0791342854}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+--- !u!1 &310606636
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100042, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 310606637}
+  - 95: {fileID: 310606642}
+  - 114: {fileID: 310606641}
+  - 54: {fileID: 310606640}
+  - 114: {fileID: 310606639}
+  - 114: {fileID: 310606638}
+  - 136: {fileID: 310606643}
+  - 111: {fileID: 310606644}
+  m_Layer: 9
+  m_Name: papadda anim
+  m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &310606637
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400042, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 310606636}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.38500023, y: 8.88819981, z: .220320001}
+  m_LocalScale: {x: .0729058608, y: .0729058534, z: .0729058534}
+  m_Children:
+  - {fileID: 1188399182}
+  - {fileID: 1242260372}
+  - {fileID: 600724501}
+  - {fileID: 1012596781}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &310606638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 310606636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf2b56fc2490c4941954fba152a7d6e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startChargeSpaceJump: 0
+  maxDistanceToInteract: 1.5
+--- !u!114 &310606639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 310606636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe581320da7185b4ea3edde68918af45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsToCollide:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!54 &310606640
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 310606636}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 120
+  m_CollisionDetection: 2
+--- !u!114 &310606641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 310606636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 084d77489366ef848b7af946dd77d8cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+  normalJumpForce: 10
+  spaceJumpForce: 10
+  startChargeSpaceJump: 1
+  readySpaceJump: 2
+  particleSystemJumpCharge: {fileID: 100000, guid: 0ddc6b724f0bebe4e8e63277816863b2,
+    type: 2}
+--- !u!95 &310606642
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 9500000, guid: 3d25eda7d2921884382bff5387d2846e,
+    type: 3}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 310606636}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_Controller: {fileID: 9100000, guid: 8009fd0bf450e9d4a882ecc1fc66ca4f, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!136 &310606643
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 310606636}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 3.21499538
+  m_Height: 9.88600922
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!111 &310606644
+Animation:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 310606636}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &339764993
 GameObject:
   m_ObjectHideFlags: 0
@@ -623,7 +930,7 @@ GameObject:
   - 4: {fileID: 339764994}
   - 33: {fileID: 339764996}
   - 23: {fileID: 339764995}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: arbol.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -673,6 +980,33 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 339764993}
   m_Mesh: {fileID: 4300102, guid: d181c244f8ead5649ba416601293dd94, type: 3}
+--- !u!1 &340967132
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100024, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 340967133}
+  m_Layer: 9
+  m_Name: Bone_R.002_end
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &340967133
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400024, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 340967132}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 2.78288937, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 577481436}
+  m_RootOrder: 0
 --- !u!1 &377688991
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,7 +1017,7 @@ GameObject:
   - 4: {fileID: 377688992}
   - 33: {fileID: 377688994}
   - 23: {fileID: 377688993}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.037
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -741,7 +1075,7 @@ GameObject:
   - 4: {fileID: 390975467}
   - 33: {fileID: 390975469}
   - 23: {fileID: 390975468}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.009
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -799,7 +1133,7 @@ GameObject:
   - 4: {fileID: 419227234}
   - 33: {fileID: 419227236}
   - 23: {fileID: 419227235}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.011
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -857,7 +1191,7 @@ GameObject:
   - 4: {fileID: 463236447}
   - 33: {fileID: 463236449}
   - 23: {fileID: 463236448}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FrontPlanet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -920,7 +1254,7 @@ GameObject:
   - 4: {fileID: 485283525}
   - 33: {fileID: 485283527}
   - 23: {fileID: 485283526}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.042
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -978,7 +1312,7 @@ GameObject:
   - 4: {fileID: 522136956}
   - 33: {fileID: 522136958}
   - 23: {fileID: 522136957}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sphere.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1026,6 +1360,159 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 522136955}
   m_Mesh: {fileID: 4300092, guid: d181c244f8ead5649ba416601293dd94, type: 3}
+--- !u!1 &576960108
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100012, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 576960109}
+  m_Layer: 9
+  m_Name: Bone_L.001
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &576960109
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400012, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 576960108}
+  m_LocalRotation: {x: .667886138, y: -.663899601, z: .241640374, w: -.234041423}
+  m_LocalPosition: {x: -1.11293048e-07, y: 1.78289747, z: -5.69270924e-08}
+  m_LocalScale: {x: .999999881, y: 1.00000012, z: .999999881}
+  m_Children:
+  - {fileID: 1726158781}
+  m_Father: {fileID: 1696682354}
+  m_RootOrder: 0
+--- !u!1 &577481435
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100022, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 577481436}
+  m_Layer: 9
+  m_Name: Bone_R.002
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &577481436
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400022, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 577481435}
+  m_LocalRotation: {x: .566005826, y: -4.03866203e-08, z: 1.0689746e-07, w: .824401259}
+  m_LocalPosition: {x: 4.09781933e-08, y: 1.86224079, z: 5.0291419e-08}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 340967133}
+  m_Father: {fileID: 1244591041}
+  m_RootOrder: 0
+--- !u!1 &600075306
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100018, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 600075307}
+  m_Layer: 9
+  m_Name: Bone_R
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &600075307
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400018, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 600075306}
+  m_LocalRotation: {x: .00482462766, y: .00440231757, z: -.715824604, w: .698249578}
+  m_LocalPosition: {x: 1.34382227e-16, y: 1.29219174, z: .605203748}
+  m_LocalScale: {x: .999999762, y: 1.00000024, z: 1}
+  m_Children:
+  - {fileID: 1244591041}
+  m_Father: {fileID: 1188399182}
+  m_RootOrder: 2
+--- !u!1 &600724500
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100032, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 600724501}
+  - 137: {fileID: 600724502}
+  m_Layer: 9
+  m_Name: Cylinder.001
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &600724501
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400032, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 600724500}
+  m_LocalRotation: {x: -4.3297803e-17, y: .707106769, z: .707106888, w: -4.32978096e-17}
+  m_LocalPosition: {x: -.0305899605, y: .0214239359, z: -.612657547}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 310606637}
+  m_RootOrder: 2
+--- !u!137 &600724502
+SkinnedMeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 13700002, guid: 3d25eda7d2921884382bff5387d2846e,
+    type: 3}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 600724500}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 2100000, guid: c55a32aa71bfef1459a0a14ad0ff9640, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  serializedVersion: 2
+  m_Quality: 0
+  m_UpdateWhenOffscreen: 0
+  m_Mesh: {fileID: 4300000, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_Bones:
+  - {fileID: 1793982061}
+  - {fileID: 1547901804}
+  - {fileID: 2073550847}
+  - {fileID: 1696682354}
+  - {fileID: 576960109}
+  - {fileID: 1726158781}
+  - {fileID: 600075307}
+  - {fileID: 1244591041}
+  - {fileID: 577481436}
+  m_BlendShapeWeights: []
+  m_RootBone: {fileID: 600075307}
+  m_AABB:
+    m_Center: {x: .433184028, y: -.00662636757, z: -.389969945}
+    m_Extent: {x: 1.65554965, y: 2.58113766, z: 1.61715043}
+  m_DirtyAABB: 0
 --- !u!1 &604145463
 GameObject:
   m_ObjectHideFlags: 0
@@ -1036,7 +1523,7 @@ GameObject:
   - 4: {fileID: 604145464}
   - 33: {fileID: 604145466}
   - 23: {fileID: 604145465}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1094,7 +1581,7 @@ GameObject:
   - 4: {fileID: 631889282}
   - 33: {fileID: 631889284}
   - 23: {fileID: 631889283}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.015
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1152,7 +1639,7 @@ GameObject:
   - 4: {fileID: 734179966}
   - 33: {fileID: 734179968}
   - 23: {fileID: 734179967}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.010
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1210,7 +1697,7 @@ GameObject:
   - 4: {fileID: 747164119}
   - 33: {fileID: 747164121}
   - 23: {fileID: 747164120}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.046
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1268,7 +1755,7 @@ GameObject:
   - 4: {fileID: 760548175}
   - 33: {fileID: 760548177}
   - 23: {fileID: 760548176}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.021
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1326,7 +1813,7 @@ GameObject:
   - 4: {fileID: 785724162}
   - 33: {fileID: 785724164}
   - 23: {fileID: 785724163}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.020
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1384,7 +1871,7 @@ GameObject:
   - 4: {fileID: 863940768}
   - 33: {fileID: 863940770}
   - 23: {fileID: 863940769}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.032
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1442,7 +1929,7 @@ GameObject:
   - 4: {fileID: 883252115}
   - 33: {fileID: 883252117}
   - 23: {fileID: 883252116}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.024
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1500,7 +1987,7 @@ GameObject:
   - 4: {fileID: 926346489}
   - 33: {fileID: 926346491}
   - 23: {fileID: 926346490}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1558,7 +2045,7 @@ GameObject:
   - 4: {fileID: 940447922}
   - 33: {fileID: 940447924}
   - 23: {fileID: 940447923}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.019
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1616,7 +2103,7 @@ GameObject:
   - 4: {fileID: 954163839}
   - 33: {fileID: 954163841}
   - 23: {fileID: 954163840}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BackPlanet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1684,7 +2171,7 @@ GameObject:
   - 4: {fileID: 984201626}
   - 33: {fileID: 984201628}
   - 23: {fileID: 984201627}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.039
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1742,7 +2229,7 @@ GameObject:
   - 4: {fileID: 993974713}
   - 33: {fileID: 993974715}
   - 23: {fileID: 993974714}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.022
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1800,7 +2287,7 @@ GameObject:
   - 4: {fileID: 1003387758}
   - 33: {fileID: 1003387760}
   - 23: {fileID: 1003387759}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.025
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1848,6 +2335,80 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1003387757}
   m_Mesh: {fileID: 4300046, guid: d181c244f8ead5649ba416601293dd94, type: 3}
+--- !u!1 &1012596780
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100034, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1012596781}
+  - 137: {fileID: 1012596782}
+  m_Layer: 9
+  m_Name: Cylinder.002
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1012596781
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400034, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1012596780}
+  m_LocalRotation: {x: -.707106829, y: 0, z: 0, w: .707106829}
+  m_LocalPosition: {x: -.0311576743, y: .116105378, z: -.770338774}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 310606637}
+  m_RootOrder: 3
+--- !u!137 &1012596782
+SkinnedMeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 13700004, guid: 3d25eda7d2921884382bff5387d2846e,
+    type: 3}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1012596780}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 2100000, guid: cbec830801a9aa1409ad38aa2daf3d27, type: 2}
+  - {fileID: 2100000, guid: 2ea7f262eb67eb34e934c97a69e8c849, type: 2}
+  - {fileID: 2100000, guid: 28a544ba1160bd94eb2c7942744ffde6, type: 2}
+  - {fileID: 2100000, guid: 62f1a33ae7fd36b42acd5242645ce220, type: 2}
+  - {fileID: 2100000, guid: 833f9ffcbaceeb04aa7b08b2e454180a, type: 2}
+  - {fileID: 2100000, guid: 9b6975a5b7033794dbfd7ef56f6b08f0, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  serializedVersion: 2
+  m_Quality: 0
+  m_UpdateWhenOffscreen: 0
+  m_Mesh: {fileID: 4300004, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_Bones:
+  - {fileID: 1793982061}
+  - {fileID: 1547901804}
+  - {fileID: 2073550847}
+  - {fileID: 1696682354}
+  - {fileID: 576960109}
+  - {fileID: 1726158781}
+  - {fileID: 600075307}
+  - {fileID: 1244591041}
+  - {fileID: 577481436}
+  m_BlendShapeWeights: []
+  m_RootBone: {fileID: 600075307}
+  m_AABB:
+    m_Center: {x: .834495544, y: .0315690041, z: .0948939323}
+    m_Extent: {x: 4.23855877, y: 4.84929562, z: 5.78272772}
+  m_DirtyAABB: 0
 --- !u!1 &1074339242
 GameObject:
   m_ObjectHideFlags: 0
@@ -1859,7 +2420,7 @@ GameObject:
   - 95: {fileID: 1074339244}
   - 135: {fileID: 1074339246}
   - 114: {fileID: 1074339245}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Planeta inicial
   m_TagString: Planet
   m_Icon: {fileID: 0}
@@ -1925,7 +2486,7 @@ Transform:
   - {fileID: 1325221740}
   - {fileID: 1688581164}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!95 &1074339244
 Animator:
   serializedVersion: 3
@@ -1977,7 +2538,7 @@ GameObject:
   - 4: {fileID: 1103787922}
   - 33: {fileID: 1103787924}
   - 23: {fileID: 1103787923}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.027
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2035,7 +2596,7 @@ GameObject:
   - 4: {fileID: 1130080853}
   - 33: {fileID: 1130080855}
   - 23: {fileID: 1130080854}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.018
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2093,7 +2654,7 @@ GameObject:
   - 4: {fileID: 1168972224}
   - 33: {fileID: 1168972226}
   - 23: {fileID: 1168972225}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2141,6 +2702,36 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1168972223}
   m_Mesh: {fileID: 4300086, guid: d181c244f8ead5649ba416601293dd94, type: 3}
+--- !u!1 &1188399181
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1188399182}
+  m_Layer: 9
+  m_Name: Armature
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1188399182
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1188399181}
+  m_LocalRotation: {x: .707106829, y: 0, z: 0, w: -.707106829}
+  m_LocalPosition: {x: -.0301585291, y: -.74387604, z: -.911537588}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1793982061}
+  - {fileID: 1696682354}
+  - {fileID: 600075307}
+  m_Father: {fileID: 310606637}
+  m_RootOrder: 0
 --- !u!1 &1190892485
 GameObject:
   m_ObjectHideFlags: 0
@@ -2151,7 +2742,7 @@ GameObject:
   - 4: {fileID: 1190892486}
   - 33: {fileID: 1190892488}
   - 23: {fileID: 1190892487}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sphere.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2209,7 +2800,7 @@ GameObject:
   - 4: {fileID: 1226166955}
   - 33: {fileID: 1226166957}
   - 23: {fileID: 1226166956}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.016
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2267,7 +2858,7 @@ GameObject:
   - 4: {fileID: 1239669669}
   - 33: {fileID: 1239669671}
   - 23: {fileID: 1239669670}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: arbol.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2317,6 +2908,103 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1239669668}
   m_Mesh: {fileID: 4300104, guid: d181c244f8ead5649ba416601293dd94, type: 3}
+--- !u!1 &1242260371
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100030, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1242260372}
+  - 137: {fileID: 1242260373}
+  m_Layer: 9
+  m_Name: Cylinder.000
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1242260372
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400030, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1242260371}
+  m_LocalRotation: {x: -4.3297803e-17, y: .707106769, z: .707106888, w: -4.32978096e-17}
+  m_LocalPosition: {x: -.0450883955, y: -.567290723, z: -.897271633}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 310606637}
+  m_RootOrder: 1
+--- !u!137 &1242260373
+SkinnedMeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 13700000, guid: 3d25eda7d2921884382bff5387d2846e,
+    type: 3}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1242260371}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 2100000, guid: 97d02551cd43acf4fa27c69ca28cf630, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  serializedVersion: 2
+  m_Quality: 0
+  m_UpdateWhenOffscreen: 0
+  m_Mesh: {fileID: 4300002, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_Bones:
+  - {fileID: 1793982061}
+  - {fileID: 1547901804}
+  - {fileID: 2073550847}
+  - {fileID: 1696682354}
+  - {fileID: 576960109}
+  - {fileID: 1726158781}
+  - {fileID: 600075307}
+  - {fileID: 1244591041}
+  - {fileID: 577481436}
+  m_BlendShapeWeights: []
+  m_RootBone: {fileID: 600075307}
+  m_AABB:
+    m_Center: {x: 1.3729527, y: .0355356634, z: -.74486208}
+    m_Extent: {x: 1.18275857, y: .743234754, z: 1.44831443}
+  m_DirtyAABB: 0
+--- !u!1 &1244591040
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100020, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1244591041}
+  m_Layer: 9
+  m_Name: Bone_R.001
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1244591041
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400020, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1244591040}
+  m_LocalRotation: {x: .60465467, y: .597928464, z: -.37842676, w: -.365605623}
+  m_LocalPosition: {x: 5.40167093e-08, y: 1.78289747, z: -4.21423465e-08}
+  m_LocalScale: {x: 1, y: 1.00000024, z: .999999762}
+  m_Children:
+  - {fileID: 577481436}
+  m_Father: {fileID: 600075307}
+  m_RootOrder: 0
 --- !u!1 &1251625227
 GameObject:
   m_ObjectHideFlags: 0
@@ -2327,7 +3015,7 @@ GameObject:
   - 4: {fileID: 1251625228}
   - 33: {fileID: 1251625230}
   - 23: {fileID: 1251625229}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.036
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2385,7 +3073,7 @@ GameObject:
   - 4: {fileID: 1258618887}
   - 33: {fileID: 1258618889}
   - 23: {fileID: 1258618888}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.013
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2443,7 +3131,7 @@ GameObject:
   - 4: {fileID: 1259040622}
   - 33: {fileID: 1259040624}
   - 23: {fileID: 1259040623}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: arbol.006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2503,7 +3191,7 @@ GameObject:
   - 4: {fileID: 1269186012}
   - 33: {fileID: 1269186014}
   - 23: {fileID: 1269186013}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cylinder.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2561,7 +3249,7 @@ GameObject:
   - 4: {fileID: 1325221740}
   - 33: {fileID: 1325221742}
   - 23: {fileID: 1325221741}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.047
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2619,7 +3307,7 @@ GameObject:
   - 4: {fileID: 1337874515}
   - 33: {fileID: 1337874517}
   - 23: {fileID: 1337874516}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: arbol.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2679,7 +3367,7 @@ GameObject:
   - 4: {fileID: 1381245701}
   - 33: {fileID: 1381245703}
   - 23: {fileID: 1381245702}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.038
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2737,7 +3425,7 @@ GameObject:
   - 4: {fileID: 1392288011}
   - 33: {fileID: 1392288013}
   - 23: {fileID: 1392288012}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2795,7 +3483,7 @@ GameObject:
   - 4: {fileID: 1423662246}
   - 33: {fileID: 1423662248}
   - 23: {fileID: 1423662247}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sphere.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2843,139 +3531,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1423662245}
   m_Mesh: {fileID: 4300126, guid: d181c244f8ead5649ba416601293dd94, type: 3}
---- !u!1 &1483380159
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1483380168}
-  - 33: {fileID: 1483380167}
-  - 136: {fileID: 1483380166}
-  - 23: {fileID: 1483380165}
-  - 114: {fileID: 1483380163}
-  - 54: {fileID: 1483380162}
-  - 114: {fileID: 1483380161}
-  - 114: {fileID: 1483380160}
-  m_Layer: 0
-  m_Name: Player PlaceHolder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1483380160
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1483380159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 084d77489366ef848b7af946dd77d8cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 5
-  normalJumpForce: 10
-  spaceJumpForce: 10
-  startChargeSpaceJump: 1
-  readySpaceJump: 2
-  particleSystemJumpCharge: {fileID: 100000, guid: 0ddc6b724f0bebe4e8e63277816863b2,
-    type: 2}
---- !u!114 &1483380161
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1483380159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe581320da7185b4ea3edde68918af45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectsToCollide:
-    serializedVersion: 2
-    m_Bits: 4294967295
---- !u!54 &1483380162
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1483380159}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 2
-  m_Constraints: 120
-  m_CollisionDetection: 2
---- !u!114 &1483380163
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1483380159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf2b56fc2490c4941954fba152a7d6e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startChargeSpaceJump: 0
---- !u!23 &1483380165
-Renderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1483380159}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
-  m_Materials:
-  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
---- !u!136 &1483380166
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1483380159}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: .5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!33 &1483380167
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1483380159}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &1483380168
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1483380159}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 9.07830048, z: .134470001}
-  m_LocalScale: {x: .418982565, y: .418982565, z: .418982565}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
 --- !u!1 &1500039542
 GameObject:
   m_ObjectHideFlags: 0
@@ -2986,7 +3541,7 @@ GameObject:
   - 4: {fileID: 1500039543}
   - 33: {fileID: 1500039545}
   - 23: {fileID: 1500039544}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: templo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3047,7 +3602,7 @@ GameObject:
   - 4: {fileID: 1506778107}
   - 33: {fileID: 1506778109}
   - 23: {fileID: 1506778108}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.035
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3105,7 +3660,7 @@ GameObject:
   - 4: {fileID: 1514845081}
   - 33: {fileID: 1514845083}
   - 23: {fileID: 1514845082}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: arbol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3165,7 +3720,7 @@ GameObject:
   - 4: {fileID: 1515757740}
   - 33: {fileID: 1515757742}
   - 23: {fileID: 1515757741}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.026
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3213,6 +3768,34 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1515757739}
   m_Mesh: {fileID: 4300044, guid: d181c244f8ead5649ba416601293dd94, type: 3}
+--- !u!1 &1547901803
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100004, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1547901804}
+  m_Layer: 9
+  m_Name: Bone.001
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1547901804
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400004, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1547901803}
+  m_LocalRotation: {x: -.0592380092, y: -1.18999942e-07, z: -2.11851638e-08, w: .998243928}
+  m_LocalPosition: {x: 4.24800237e-14, y: .934637547, z: -8.94069672e-08}
+  m_LocalScale: {x: 1, y: .99999994, z: .99999994}
+  m_Children:
+  - {fileID: 2073550847}
+  m_Father: {fileID: 1793982061}
+  m_RootOrder: 0
 --- !u!1 &1558471583
 GameObject:
   m_ObjectHideFlags: 0
@@ -3223,7 +3806,7 @@ GameObject:
   - 4: {fileID: 1558471584}
   - 33: {fileID: 1558471586}
   - 23: {fileID: 1558471585}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: arbol.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3283,7 +3866,7 @@ GameObject:
   - 4: {fileID: 1561173327}
   - 33: {fileID: 1561173329}
   - 23: {fileID: 1561173328}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.033
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3341,7 +3924,7 @@ GameObject:
   - 4: {fileID: 1599266677}
   - 33: {fileID: 1599266679}
   - 23: {fileID: 1599266678}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.045
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3399,7 +3982,7 @@ GameObject:
   - 4: {fileID: 1649301569}
   - 33: {fileID: 1649301571}
   - 23: {fileID: 1649301570}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.012
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3457,7 +4040,7 @@ GameObject:
   - 4: {fileID: 1688581164}
   - 33: {fileID: 1688581166}
   - 23: {fileID: 1688581165}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.048
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3505,6 +4088,34 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1688581163}
   m_Mesh: {fileID: 4300000, guid: d181c244f8ead5649ba416601293dd94, type: 3}
+--- !u!1 &1696682353
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100010, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1696682354}
+  m_Layer: 9
+  m_Name: Bone_L
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1696682354
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400010, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1696682353}
+  m_LocalRotation: {x: .00285943947, y: -.00260914653, z: .712290466, w: .701874137}
+  m_LocalPosition: {x: -1.34382227e-16, y: 1.29219174, z: .605203748}
+  m_LocalScale: {x: 1.00000012, y: .999999881, z: 1}
+  m_Children:
+  - {fileID: 576960109}
+  m_Father: {fileID: 1188399182}
+  m_RootOrder: 1
 --- !u!1 &1703418010
 GameObject:
   m_ObjectHideFlags: 0
@@ -3515,7 +4126,7 @@ GameObject:
   - 4: {fileID: 1703418011}
   - 33: {fileID: 1703418013}
   - 23: {fileID: 1703418012}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.023
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3573,7 +4184,7 @@ GameObject:
   - 4: {fileID: 1720006510}
   - 33: {fileID: 1720006512}
   - 23: {fileID: 1720006511}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3621,6 +4232,34 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1720006509}
   m_Mesh: {fileID: 4300082, guid: d181c244f8ead5649ba416601293dd94, type: 3}
+--- !u!1 &1726158780
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100014, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1726158781}
+  m_Layer: 9
+  m_Name: Bone_L.002
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1726158781
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400014, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1726158780}
+  m_LocalRotation: {x: .566005707, y: 3.92922281e-08, z: -1.07321085e-07, w: .824401319}
+  m_LocalPosition: {x: -1.51107088e-07, y: 1.86224079, z: -5.65778464e-08}
+  m_LocalScale: {x: 1, y: .99999994, z: .999999821}
+  m_Children:
+  - {fileID: 203320526}
+  m_Father: {fileID: 576960109}
+  m_RootOrder: 0
 --- !u!1 &1761475724
 GameObject:
   m_ObjectHideFlags: 0
@@ -3631,7 +4270,7 @@ GameObject:
   - 4: {fileID: 1761475725}
   - 33: {fileID: 1761475727}
   - 23: {fileID: 1761475726}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.031
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3679,6 +4318,34 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1761475724}
   m_Mesh: {fileID: 4300034, guid: d181c244f8ead5649ba416601293dd94, type: 3}
+--- !u!1 &1793982060
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100002, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1793982061}
+  m_Layer: 9
+  m_Name: Bone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1793982061
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400002, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1793982060}
+  m_LocalRotation: {x: .794515967, y: 1.4477807e-07, z: 1.89427368e-07, w: .60724324}
+  m_LocalPosition: {x: -1.52541991e-16, y: 1.29219174, z: .686988056}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1547901804}
+  m_Father: {fileID: 1188399182}
+  m_RootOrder: 0
 --- !u!1 &1804364642
 GameObject:
   m_ObjectHideFlags: 0
@@ -3689,7 +4356,7 @@ GameObject:
   - 4: {fileID: 1804364643}
   - 33: {fileID: 1804364645}
   - 23: {fileID: 1804364644}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: arbol.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3739,6 +4406,119 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1804364642}
   m_Mesh: {fileID: 4300120, guid: d181c244f8ead5649ba416601293dd94, type: 3}
+--- !u!1 &1832107733
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1832107740}
+  - 33: {fileID: 1832107739}
+  - 136: {fileID: 1832107738}
+  - 23: {fileID: 1832107737}
+  - 54: {fileID: 1832107736}
+  - 114: {fileID: 1832107735}
+  - 114: {fileID: 1832107734}
+  m_Layer: 0
+  m_Name: WhiteHeart
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1832107734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1832107733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc5b6c5c748cee043804dfaa89041aa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1832107735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1832107733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe581320da7185b4ea3edde68918af45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsToCollide:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!54 &1832107736
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1832107733}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 14
+  m_CollisionDetection: 0
+--- !u!23 &1832107737
+Renderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1832107733}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!136 &1832107738
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1832107733}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: .5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &1832107739
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1832107733}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1832107740
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1832107733}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.59864712, y: 8.06299782, z: .0853347778}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
 --- !u!1 &1840058759
 GameObject:
   m_ObjectHideFlags: 0
@@ -3749,7 +4529,7 @@ GameObject:
   - 4: {fileID: 1840058760}
   - 33: {fileID: 1840058762}
   - 23: {fileID: 1840058761}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.043
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3807,7 +4587,7 @@ GameObject:
   - 4: {fileID: 1873885237}
   - 33: {fileID: 1873885239}
   - 23: {fileID: 1873885238}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cylinder.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3918,7 +4698,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!1 &2007762694
 GameObject:
   m_ObjectHideFlags: 0
@@ -3929,7 +4709,7 @@ GameObject:
   - 4: {fileID: 2007762695}
   - 33: {fileID: 2007762697}
   - 23: {fileID: 2007762696}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.040
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3987,7 +4767,7 @@ GameObject:
   - 4: {fileID: 2019636620}
   - 33: {fileID: 2019636622}
   - 23: {fileID: 2019636621}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.017
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4045,7 +4825,7 @@ GameObject:
   - 4: {fileID: 2052943024}
   - 33: {fileID: 2052943026}
   - 23: {fileID: 2052943025}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.034
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4093,6 +4873,34 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2052943023}
   m_Mesh: {fileID: 4300028, guid: d181c244f8ead5649ba416601293dd94, type: 3}
+--- !u!1 &2073550846
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100006, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2073550847}
+  m_Layer: 9
+  m_Name: Bone.002
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2073550847
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400006, guid: 3d25eda7d2921884382bff5387d2846e, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2073550846}
+  m_LocalRotation: {x: .229752958, y: -1.16020317e-07, z: 2.73886869e-08, w: .973249018}
+  m_LocalPosition: {x: -2.14688242e-14, y: .892910302, z: 2.98023224e-08}
+  m_LocalScale: {x: 1, y: .999999881, z: .999999881}
+  m_Children:
+  - {fileID: 250751287}
+  m_Father: {fileID: 1547901804}
+  m_RootOrder: 0
 --- !u!1 &2089801666
 GameObject:
   m_ObjectHideFlags: 0
@@ -4103,7 +4911,7 @@ GameObject:
   - 4: {fileID: 2089801667}
   - 33: {fileID: 2089801669}
   - 23: {fileID: 2089801668}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4235,7 +5043,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!114 &2094894434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4247,7 +5055,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5096d90ac54869b4aa2cade3dbae4baf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1483380159}
+  player: {fileID: 310606636}
 --- !u!1 &2133929906
 GameObject:
   m_ObjectHideFlags: 0
@@ -4258,7 +5066,7 @@ GameObject:
   - 4: {fileID: 2133929907}
   - 33: {fileID: 2133929909}
   - 23: {fileID: 2133929908}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camino.008
   m_TagString: Untagged
   m_Icon: {fileID: 0}

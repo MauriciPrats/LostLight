@@ -125,11 +125,11 @@ public class CharacterController : MonoBehaviour {
 						transform.localEulerAngles = new Vector3 (transform.localEulerAngles.x, 90f, 360f - transform.localEulerAngles.z);
 				}
 			} else if (inputHorizontal < 0f) {
-				Debug.Log(transform.localEulerAngles.y);
+				//Debug.Log(transform.localEulerAngles.y);
 				if (transform.localEulerAngles.y > 180f) {
-						transform.localEulerAngles = new Vector3 (transform.localEulerAngles.x, -90f, transform.localEulerAngles.z);
+						transform.localEulerAngles = new Vector3 (transform.localEulerAngles.x, 270f, transform.localEulerAngles.z);
 				} else {
-						transform.localEulerAngles = new Vector3 (transform.localEulerAngles.x, -90f, 360f - transform.localEulerAngles.z);
+						transform.localEulerAngles = new Vector3 (transform.localEulerAngles.x, 270f, 360f - transform.localEulerAngles.z);
 				}
 			}
 		}
