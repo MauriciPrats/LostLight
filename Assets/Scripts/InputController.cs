@@ -7,6 +7,8 @@ using System.Collections.Generic;
 
 public class InputController : MonoBehaviour {
 	public float startChargeSpaceJump;
+	public float maxDistanceToInteract;
+
 	private float timeIsSpaceJumpCharged;
 	private bool isSpaceJumpCharged;
 
@@ -45,6 +47,10 @@ public class InputController : MonoBehaviour {
 			if (timeJumpPressed >= timeIsSpaceJumpCharged) {isSpaceJumpCharged = true; }
 		} else {
 			ResetJumping();
+		}
+		if (Input.GetKeyDown (KeyCode.R)) {
+			Interactuable entity = EntityManager.Instance.GetClosestInteractuableEntity(this.gameObject, maxDistanceToInteract);
+			if (entity != null) entity.doInteractAction();
 		}
 	}
 
