@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class CharacterController : MonoBehaviour {
-	public float moveSpeed;
-	public float normalJumpForce;
-	public float spaceJumpForce;
-	public float startChargeSpaceJump;
-	public float readySpaceJump;
+	public float moveSpeed = 5f;
+	public float normalJumpForce = 10f;
+	public float spaceJumpForce = 100f;
+	public float startChargeSpaceJump = 1f;
+	public float readySpaceJump = 2f;
 	public GameObject particleSystemJumpCharge;
 
 	private bool isAttacking = false;

@@ -2,7 +2,10 @@
 using System.Collections;
 
 public class CameraFollowingPlayer : MonoBehaviour {
-
+	
+	//For debugging purposes
+	public Vector3 newUp;
+	
 	public GameObject player;
 	// Use this for initialization
 	void Start () {
@@ -23,6 +26,17 @@ public class CameraFollowingPlayer : MonoBehaviour {
 		//transform.eulerAngles = new Vector3 (transform.eulerAngles.x, 0f, transform.eulerAngles.z);
 		Vector3 objectivePosition = new Vector3 (player.transform.position.x, player.transform.position.y, transform.position.z);
 
+		objectivePosition += transform.up*1.2f;
+		
+
 		transform.position = objectivePosition;
+		
+		//transform.up = Quaternion.Euler(0, -45, 0) * transform.up;
+		newUp = transform.up;
+		
+		
 	}
 }
+
+
+
