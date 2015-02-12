@@ -19,7 +19,7 @@ public class HideFrontPlanetFaceOnEnter : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		SphereCollider sphereCollider = (SphereCollider)collider;
-		Debug.Log (sphereCollider.radius);
+		//Debug.Log (sphereCollider.radius);
 
 		float sphereRadius = sphereCollider.transform.lossyScale.x * sphereCollider.radius;
 
