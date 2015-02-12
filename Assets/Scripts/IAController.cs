@@ -30,9 +30,38 @@ public class IAController : MonoBehaviour {
 
 		return false;
 	}
-	
+
+	private void offensiveMoves(){
+
+	}
+
+	private void idleWalking(){
+
+
+	}
+
+	private void walkRight(){
+
+	}
+
+	private void walkLeft(){
+
+	}
+
+	private void jump(){
+
+	}
+
+	private void attack(){
+
+	}
 	// Update is called once per frame
 	void Update () {
+		if(canSeePlayer ()){
+			offensiveMoves();
+		}else{
+			idleWalking();
+		}
 		//canSeePlayer ();
 	}
 }

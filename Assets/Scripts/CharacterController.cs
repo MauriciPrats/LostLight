@@ -17,6 +17,7 @@ public class CharacterController : MonoBehaviour {
 	private float timeJumpPressed;
 	private bool isMoving;
 	private AnimationController animCont;
+	private bool isLookingRight = true;
 
 	private float timeSinceAttackStarted = 0f;
 	private List<GameObject> closeEnemies = new List<GameObject>();
@@ -40,6 +41,7 @@ public class CharacterController : MonoBehaviour {
 		body = GetComponent<GravityBody> ();
 		GameObject attack = GameObject.Find("skillAttack");
 		animCont = GetComponent<AnimationController> ();
+		transform.forward = new Vector3(1f,0f,0f);
 	}
 
 
@@ -100,9 +102,10 @@ public class CharacterController : MonoBehaviour {
 			ParticleSystem particles = particleSystemJumpCharge.GetComponent<ParticleSystem> ();
 			particles.Stop ();
 
-			Vector3 moveDir = new Vector3 (Mathf.Abs (inputHorizontal), 0, 0).normalized;
-			moveAmount = moveSpeed * moveDir;
+			//Vector3 moveDir = new Vector3 (Mathf.Abs (inputHorizontal), 0, 0).normalized;
+			moveAmount = (moveSpeed * inputHorizontal) * -this.transform.right;
 
+			//Debug.Log(moveAmount);
 			//If we change the character looking direction we change the characters orientation and we invert the z angle
 
 			/*if (inputHorizontal > 0f) {
@@ -118,8 +121,21 @@ public class CharacterController : MonoBehaviour {
 					transform.localEulerAngles = new Vector3 (transform.localEulerAngles.x, 90f, transform.localEulerAngles.z);
 				}
 			}*/
+			Debug.Log (inputHorizontal);
 			if (inputHorizontal > 0f) {
-				if (transform.localEulerAngles.y < 180f) {
+				if(!isLookingRight){
+					transform.Rotate(0f,180f,0f);
+					//transform.eulerAngles = new Vector3(transform.localEulerAngles.x,90f,transform.localEulerAngles.z);
+					isLookingRight = true;
+				}
+			}else if(inputHorizontal<0f){
+				if(isLookingRight){
+					transform.Rotate(0f,180f,0f);
+					//transform.eulerAngles = new Vector3(transform.localEulerAngles.x,-90f,transform.localEulerAngles.z);
+					isLookingRight = false;
+				}
+			}
+				/*if (transform.localEulerAngles.y < 180f) {
 						transform.localEulerAngles = new Vector3 (transform.localEulerAngles.x, 90f, transform.localEulerAngles.z);
 				} else {
 						transform.localEulerAngles = new Vector3 (transform.localEulerAngles.x, 90f, 360f - transform.localEulerAngles.z);
@@ -131,7 +147,7 @@ public class CharacterController : MonoBehaviour {
 				} else {
 						transform.localEulerAngles = new Vector3 (transform.localEulerAngles.x, 270f, 360f - transform.localEulerAngles.z);
 				}
-			}
+			}*/
 		}
 		if(animCont!=null){
 			animCont.Walk ();
