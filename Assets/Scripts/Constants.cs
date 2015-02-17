@@ -16,4 +16,8 @@ public static class Constants{
 
 	public static float GRAVITY_FORCE_OF_ATHMOSPHERE = 2f;
 
+	public static float FRONT_PATH_Z_OFFSET = 0.30f;
+
+	public static float BACK_PATH_Z_OFFSET = 0.01f;
+
 }
