@@ -10,6 +10,12 @@ public class CharacterController : MonoBehaviour {
 	public float readySpaceJump = 2f;
 	public GameObject particleSystemJumpCharge;
 
+	//AttackSystem Stuff
+	public GameObject AttackCube;
+	GameObject cubeInstance = null;
+	public float atkTime = 01.6f;
+	
+	
 	private bool isAttacking = false;
 	private GravityBody body;
 	private Vector3 moveAmount;
@@ -77,10 +83,44 @@ public class CharacterController : MonoBehaviour {
 	}
 
 	public void Attack() { 
-		isAttacking = true;
-		/*animCont.Attack();
+	
+		if (!isAttacking && cubeInstance == null) {
+			isAttacking = true;
+			
+			//Vector3 posCube = gameObject.transform.position;
+			int dir = -1;
+			if (!isLookingRight) {
+				dir = 1;
+			}
+			
+			Vector3 posCube = transform.TransformDirection (dir * this.transform.right*0.8f);
+			
+			
+			
+			
+			posCube += this.transform.position;
+			
+			
+		//	posCube += gameObject.transform.up*3;
+			Quaternion rotCube = this.transform.rotation;
+			
+			cubeInstance = Instantiate(AttackCube,posCube,rotCube) as GameObject;
+			cubeInstance.transform.parent = gameObject.transform;
+			StartCoroutine("AttackFrames");
+			
+		}
+			/*animCont.Attack();
 		particleSystemAttack.particleSystem.Play();
 		attackEffectDone = false;*/
+	}
+	
+	IEnumerator AttackFrames() {
+			yield return new WaitForSeconds(atkTime);
+			Destroy(cubeInstance);
+			cubeInstance = null;
+			isAttacking = false;
+			yield return null;
+			
 	}
 
 	public void SpaceJump() {
