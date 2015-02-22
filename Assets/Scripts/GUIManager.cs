@@ -6,6 +6,7 @@ public class GUIManager : MonoBehaviour {
 	private bool weaponSmithRootMenu;
 	private bool weaponCraftRootMenu;
 	private bool inventory;
+	private float scrwidth, scrheight;
 
 	private static GUIManager singleton;
 	
@@ -21,6 +22,10 @@ public class GUIManager : MonoBehaviour {
 		inventory = true;
 	}
 		
+	public void CloseInventory() {
+		inventory = false;
+	}
+
 	public void CloseAllWindows() {
 		weaponSmithRootMenu = false;
 		weaponCraftRootMenu = false;
@@ -28,19 +33,24 @@ public class GUIManager : MonoBehaviour {
 	}
 
 	void OnGUI() {
+		scrwidth = Screen.width;
+		scrheight = Screen.height;
 		if (weaponSmithRootMenu) {
-			GUI.Box (new Rect (10, 10, 180, 90), "Weaponsmith Ana Marrana");
-			// Make the first button. If it is pressed, Application.Loadlevel (1) will be executed
-			if (GUI.Button (new Rect (20, 40, 160, 20), "Craft weapons")) {
-				weaponSmithRootMenu = false;
-				weaponCraftRootMenu = true;
-			}
-			
-			// Make the second button.
-			if (GUI.Button (new Rect (20, 70, 160, 20), "Exit")) {
-				weaponSmithRootMenu = false;
-				weaponCraftRootMenu = false;
-			}
+			float menuwidth = Constants.WEAPONSMITH_ROOT_MENU_WIDTH;
+			float menuheight = Constants.WEAPONSMITH_ROOT_MENU_HEIGHT;
+			float buttonwidth = Constants.WEAPONSMITH_ROOT_MENU_BUTTONS_WIDTH;
+			float buttonheight = Constants.WEAPONSMITH_ROOT_MENU_BUTTONS_HEIGHT;
+			float vinterspace = Constants.WEAPONSMITH_ROOT_MENU_BUTTONS_V_OFFSET;
+			GUI.BeginGroup(new Rect (scrwidth/2-menuwidth/2, scrheight/2-menuheight/2,menuwidth, menuheight));
+				GUI.Box (new Rect (0,0,menuwidth,menuheight), Constants.WEAPONSMITH_ROOT_MENU_TITLE);
+				if (GUI.Button (new Rect (menuwidth/2 - buttonwidth /2 , menuheight/2 - buttonheight/2, buttonwidth, buttonheight), Constants.WEAPONSMITH_ROOT_MENU_ENTER)) {
+					weaponSmithRootMenu = false;
+					weaponCraftRootMenu = true;
+				}
+				if (GUI.Button (new Rect (menuwidth/2-buttonwidth /2,menuheight/2-buttonheight/2+buttonheight+vinterspace,buttonwidth,buttonheight), Constants.WEAPONSMITH_ROOT_MENU_EXIT)) {
+					CloseAllWindows();
+				}
+			GUI.EndGroup();
 		}
 		
 		if (weaponCraftRootMenu) {
@@ -49,10 +59,10 @@ public class GUIManager : MonoBehaviour {
 
 			//Open Inventory to see what weapon parts we can put into our weapon.
 			OpenInventory();
-			// Make the second button.
 			if (GUI.Button (new Rect (20, 480, 450, 20), "Back")) {
 				weaponSmithRootMenu = true;
 				weaponCraftRootMenu = false;
+				CloseInventory();
 			}
 		}
 
