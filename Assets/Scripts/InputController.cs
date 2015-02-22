@@ -8,12 +8,11 @@ using System.Collections.Generic;
 public class InputController : MonoBehaviour {
 	public float startChargeSpaceJump;
 	public float maxDistanceToInteract;
+	public float timeIsSpaceJumpCharged;
 
-	private float timeIsSpaceJumpCharged;
 	private bool isSpaceJumpCharged;
 
 	private float timeJumpPressed;
-	private bool isSpaceJumping;
 	private CharacterController character;
 
 	void Start () {
@@ -56,7 +55,6 @@ public class InputController : MonoBehaviour {
 
 	void ResetJumping () {
 		isSpaceJumpCharged = false;
-		isSpaceJumping = false;
 		timeJumpPressed = 0;
 	}
 }
