@@ -18,6 +18,7 @@ public class InputController : MonoBehaviour {
 	void Start () {
 		timeJumpPressed = 0;
 		character = GetComponent<CharacterController>();
+		WeaponManager wpm = WeaponManager.Instance;
 	}
 
 	void Update() {

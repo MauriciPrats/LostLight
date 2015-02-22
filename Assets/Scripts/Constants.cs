@@ -21,7 +21,7 @@ public static class Constants{
 
 	//GUI POSITIONING CONSTANTS (POSITION AND SIZE OPTIONS). IN PIXELS.
 	public static float WEAPONSMITH_ROOT_MENU_WIDTH = 180;
-	public static float WEAPONSMITH_ROOT_MENU_HEIGHT = 90;
+	public static float WEAPONSMITH_ROOT_MENU_HEIGHT = 130;
 	public static float WEAPONSMITH_ROOT_MENU_BUTTONS_WIDTH = 150;
 	public static float WEAPONSMITH_ROOT_MENU_BUTTONS_HEIGHT= 20;
 	public static float WEAPONSMITH_ROOT_MENU_BUTTONS_V_OFFSET = 5;

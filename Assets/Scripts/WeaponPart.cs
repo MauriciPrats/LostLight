@@ -27,5 +27,28 @@ public class WeaponPart : Item {
 	public string GetName() {
 		return name;
 	}
+	public Position GetPosition() {
+		return side;
+	}
 
+	public void SetDamage(float value) {
+		damage = value;
+	}
+	public void SetDistance(float value) {
+		distance = value;
+	}
+	public void SetAreaDamage(bool value) {
+		areaDamage = value;
+	}
+	public void SetSpeed(float value) {
+		speed = value;
+	}
+	public void SetName(string value) {
+		name = value;
+	}
+	public void SetPosition(string position) {
+		if (position == "front") {side = Position.FRONT;}
+		if (position == "middle") {side = Position.MIDDLE;}
+		if (position == "rear") {side = Position.REAR;}
+	}
 }
