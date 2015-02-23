@@ -3491,6 +3491,7 @@ GameObject:
   - 114: {fileID: 1294720929}
   - 54: {fileID: 1294720928}
   - 114: {fileID: 1294720927}
+  - 114: {fileID: 1294720931}
   m_Layer: 9
   m_Name: Big Pappada
   m_TagString: Player
@@ -3572,8 +3573,20 @@ MonoBehaviour:
   readySpaceJump: 2
   particleSystemJumpCharge: {fileID: 100000, guid: 0ddc6b724f0bebe4e8e63277816863b2,
     type: 2}
+--- !u!114 &1294720931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1294720925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 614100b1ccae4bd4aa596bd79a721e78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   AttackCube: {fileID: 100000, guid: 72e5b3dbb2ed0dc46a89b9ab82ef90c1, type: 2}
   atkTime: .600000024
+  isAttacking: 0
 --- !u!1 &1325221739
 GameObject:
   m_ObjectHideFlags: 0

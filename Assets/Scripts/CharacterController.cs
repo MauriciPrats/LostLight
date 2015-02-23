@@ -10,11 +10,7 @@ public class CharacterController : MonoBehaviour {
 	public float readySpaceJump = 2f;
 	public GameObject particleSystemJumpCharge;
 
-	//AttackSystem Stuff
-	public GameObject AttackCube;
-	GameObject cubeInstance = null;
-	public float atkTime = 01.6f;
-	
+	private CharacterAttackController cAttackController;
 	
 	private bool isAttacking = false;
 	private GravityBody body;
@@ -30,6 +26,19 @@ public class CharacterController : MonoBehaviour {
 
 	bool attackEffectDone = false;
 	
+	
+	void Start () {
+		timeJumpPressed = 0;
+		body = GetComponent<GravityBody> ();
+		GameObject attack = GameObject.Find("skillAttack");
+		animCont = GetComponent<AnimationController> ();
+		transform.forward = new Vector3(1f,0f,0f);
+		
+		cAttackController = GetComponent<CharacterAttackController>();
+				
+	}
+	
+	
 	void OnTriggerEnter(Collider col)
 	{
 		if (col.gameObject.tag == "Damageable") {
@@ -41,13 +50,6 @@ public class CharacterController : MonoBehaviour {
 		if (col.gameObject.tag == "Damageable") {
 			closeEnemies.Remove(col.gameObject);
 		}
-	}
-	void Start () {
-		timeJumpPressed = 0;
-		body = GetComponent<GravityBody> ();
-		GameObject attack = GameObject.Find("skillAttack");
-		animCont = GetComponent<AnimationController> ();
-		transform.forward = new Vector3(1f,0f,0f);
 	}
 
 
@@ -83,44 +85,7 @@ public class CharacterController : MonoBehaviour {
 	}
 
 	public void Attack() { 
-	
-		if (!isAttacking && cubeInstance == null) {
-			isAttacking = true;
-			
-			//Vector3 posCube = gameObject.transform.position;
-			int dir = -1;
-			if (!isLookingRight) {
-				dir = 1;
-			}
-			
-			Vector3 posCube = transform.TransformDirection (dir * this.transform.right*0.8f);
-			
-			
-			
-			
-			posCube += this.transform.position;
-			
-			
-		//	posCube += gameObject.transform.up*3;
-			Quaternion rotCube = this.transform.rotation;
-			
-			cubeInstance = Instantiate(AttackCube,posCube,rotCube) as GameObject;
-			cubeInstance.transform.parent = gameObject.transform;
-			StartCoroutine("AttackFrames");
-			
-		}
-			/*animCont.Attack();
-		particleSystemAttack.particleSystem.Play();
-		attackEffectDone = false;*/
-	}
-	
-	IEnumerator AttackFrames() {
-			yield return new WaitForSeconds(atkTime);
-			Destroy(cubeInstance);
-			cubeInstance = null;
-			isAttacking = false;
-			yield return null;
-			
+		cAttackController.Attack(isLookingRight,this.transform);
 	}
 
 	public void SpaceJump() {
