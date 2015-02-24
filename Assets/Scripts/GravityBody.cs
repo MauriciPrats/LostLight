@@ -10,25 +10,43 @@ public class GravityBody : MonoBehaviour {
 	GameObject[] planets;
 	bool isTouchingPlanet;
 	bool usesSpaceGravity;
+	float minimumPlanetDistance = float.MaxValue;
 
-	void Awake() {
-		planets = GameObject.FindGameObjectsWithTag ("Planet");
+	void Start() {
+		planets = GravityBodiesManager.getGravityBodies ();
+	}
+
+	void OnTriggerEnter (Collider col)
+	{
+		checkTouchEnter (col.gameObject);
 	}
 
 	void OnCollisionEnter (Collision col)
 	{
-		//If we collide with a planet we put the drag of the player to the defined constant
-		//if (col.gameObject.tag == "Planet") {
+		checkTouchEnter (col.gameObject);
+	}
+
+	void OnTriggerExit(Collider col)
+	{
+		checkTouchExit (col.gameObject);
+	}
+	
+	void OnCollisionExit(Collision col)
+	{
+		checkTouchExit (col.gameObject);
+	}
+	
+
+	void checkTouchEnter(GameObject obj){
+		if (obj.tag == "Planet") {
 			rigidbody.drag = Constants.DRAG_ON_TOUCH_PLANETS;
 			isTouchingPlanet = true;
 			usesSpaceGravity = false;
-		//}
+		}
 	}
 
-	void OnCollisionExit(Collision col){
-
-		//If we stop colliding we put the drag back to 0 to give some "space feeling"
-		if (col.gameObject.tag == "Planet") {
+	void checkTouchExit(GameObject obj){
+		if (obj.tag == "Planet") {
 			rigidbody.drag = 0f;
 			isTouchingPlanet = false;
 		}
@@ -37,10 +55,15 @@ public class GravityBody : MonoBehaviour {
 	void FixedUpdate() {
 		transform.parent = null;
 		int closePlanets = 0;
+		minimumPlanetDistance = float.MaxValue;
 		foreach (GameObject planet in planets) {
 			GravityAttractor gravityAttractor = planet.GetComponent<GravityAttractor> ();
-			if(gravityAttractor.Attract (transform)){
+			float distance = 0f;
+			if(gravityAttractor.Attract (transform,out distance)){
 				closePlanets++;
+			}
+			if(distance<minimumPlanetDistance){
+				minimumPlanetDistance = distance;
 			}
 		}
 		if (closePlanets == 0) 
@@ -50,7 +73,7 @@ public class GravityBody : MonoBehaviour {
 		} 
 		else 
 		{
-			rigidbody.drag = Constants.GRAVITY_FORCE_OF_ATHMOSPHERE;
+			rigidbody.drag = Constants.GRAVITY_DRAG_OF_ATHMOSPHERE;
 		}
 	}
 
@@ -60,6 +83,10 @@ public class GravityBody : MonoBehaviour {
 
 	public bool getUsesSpaceGravity(){
 		return usesSpaceGravity;
+	}
+
+	public float getMinimumPlanetDistance(){
+		return minimumPlanetDistance;
 	}
 	/*public bool isGrounded(){
 		

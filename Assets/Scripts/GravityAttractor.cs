@@ -5,18 +5,38 @@ public class GravityAttractor : MonoBehaviour {
 	
 	public bool isRotating = false;
 	public float speedRotation = 30;
-	private GameObject AthmospherePrefab;
-	void Start(){
-		//We create an athmosphere for this gravity attractor
-	/*
-		AthmospherePrefab = (GameObject)Resources.Load ("Athmosphere");
-		GameObject newAthmosphere = (GameObject)Instantiate (AthmospherePrefab, transform.position, Quaternion.identity);
-		newAthmosphere.transform.parent = transform.gameObject.transform;
+	public GameObject athmosphere;
+	public GameObject athmosphereMinimapPrefab;
+	void Awake(){
 
-		//We calculate the size of the athmosphere of the gravityAttractor
-		float size = 0.5f * Mathf.Max(transform.lossyScale.x,transform.lossyScale.y,transform.lossyScale.z);
-		float factor = (size + Constants.GRAVITY_DISTANCE_FROM_PLANET_FLOOR) / size;
-		newAthmosphere.transform.localScale = new Vector3(factor,factor,factor);*/
+		GravityBodiesManager.registerNewBody (this.gameObject);
+
+		//We create an athmosphere for this gravity attractor
+	
+
+		/*AthmospherePrefab = (GameObject)Resources.Load ("Athmosphere");
+		GameObject newAthmosphere = (GameObject)Instantiate (AthmospherePrefab, transform.position, Quaternion.identity);
+		newAthmosphere.transform.parent = transform.gameObject.transform;*/
+
+		if (athmosphere != null) {
+			//We calculate the size of the athmosphere of the gravityAttractor
+			float size = transform.GetComponent<SphereCollider> ().radius * Mathf.Max (transform.lossyScale.x, transform.lossyScale.y, transform.lossyScale.z);
+			size += Constants.GRAVITY_DISTANCE_FROM_PLANET_FLOOR;
+
+			//Athmosphere size
+			float athmosphereSize = athmosphere.transform.GetComponent<SphereCollider> ().radius * Mathf.Max (athmosphere.transform.lossyScale.x, athmosphere.transform.lossyScale.y, athmosphere.transform.lossyScale.z);
+
+			float factor = size / athmosphereSize;
+			athmosphere.transform.localScale = new Vector3 (factor*athmosphere.transform.localScale.x, factor*athmosphere.transform.localScale.y, factor*athmosphere.transform.localScale.z);
+			GameObject athmosphereMinimap = (GameObject)GameObject.Instantiate(athmosphereMinimapPrefab);
+			athmosphereMinimap.transform.position = new Vector3(transform.position.x,transform.position.y,Constants.MINIMAP_DISTANCE);
+			athmosphereMinimap.transform.parent = transform;
+			//factor = athmosphereSize / 5f;
+			factor = size / (athmosphereMinimap.GetComponent<MeshRenderer>().bounds.size.x / 2f);
+			athmosphereMinimap.transform.localScale = new Vector3(factor * athmosphereMinimap.transform.localScale.x,factor * athmosphereMinimap.transform.localScale.y,factor * athmosphereMinimap.transform.localScale.z);
+			
+			//Debug.Log (athmosphereMinimap.GetComponent<MeshRenderer>().bounds.size.x);
+		}
 	}
 
 	void FixedUpdate(){
@@ -26,9 +46,9 @@ public class GravityAttractor : MonoBehaviour {
 		}
 	}
 
-	public bool Attract (Transform objectToAttract){
+	public bool Attract (Transform objectToAttract,out float distance){
 		//Only attract the body to the planet if it is close enough.
-		float distance = Vector3.Distance (transform.position, objectToAttract.position);
+		distance = Vector3.Distance (transform.position, objectToAttract.position);
 		GravityBody body = objectToAttract.GetComponent<GravityBody> ();
 
 		SphereCollider sphereCollider = (SphereCollider) transform.gameObject.GetComponent (typeof(SphereCollider));

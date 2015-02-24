@@ -16,7 +16,7 @@ public class BlendOnGettingCloser : MonoBehaviour {
 		float distance = (playerGameObject.transform.position - transform.position).magnitude;
 		float radius = sphereCollider.radius * transform.lossyScale.x;
 		float playerAthmosphereDistance = 1f-(distance/radius);//Mathf.Abs(((playerPosition - transform.position).magnitude - (radius/2))/(radius/2));
-		Debug.Log (playerAthmosphereDistance);
+		//Debug.Log (playerAthmosphereDistance);
 
 		if (playerAthmosphereDistance < -1f) {
 			playerAthmosphereDistance = Mathf.Abs(playerAthmosphereDistance+1f);
@@ -26,7 +26,7 @@ public class BlendOnGettingCloser : MonoBehaviour {
 			playerAthmosphereDistance = 1f;
 		}
 
-		Debug.Log (playerAthmosphereDistance);
+		//Debug.Log (playerAthmosphereDistance);
 
 		Color originalColour = renderer.material.color;
 		renderer.material.color  = new Color(originalColour.r,originalColour.g,originalColour.b, playerAthmosphereDistance);

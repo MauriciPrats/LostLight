@@ -6,9 +6,8 @@ public class CharacterController : MonoBehaviour {
 	public float moveSpeed = 5f;
 	public float normalJumpForce = 10f;
 	public float spaceJumpForce = 100f;
-	public float startChargeSpaceJump = 1f;
-	public float readySpaceJump = 2f;
 	public GameObject particleSystemJumpCharge;
+	public GameObject animationBigPappada;
 
 	private bool isAttacking = false;
 	private GravityBody body;
@@ -92,9 +91,12 @@ public class CharacterController : MonoBehaviour {
 
 	public void Jump() {
 		rigidbody.AddForce (transform.up * normalJumpForce, ForceMode.VelocityChange);
+		ParticleSystem particles = particleSystemJumpCharge.GetComponent<ParticleSystem> ();
+		particles.Stop ();
 	}
 
 	public void Move() {
+		animationBigPappada.GetComponent<Animator>().SetBool("isWalking",true);
 		isMoving = true;
 		if (!body.getUsesSpaceGravity()) {
 			float inputHorizontal = Input.GetAxisRaw ("Horizontal");
@@ -121,13 +123,13 @@ public class CharacterController : MonoBehaviour {
 					transform.localEulerAngles = new Vector3 (transform.localEulerAngles.x, 90f, transform.localEulerAngles.z);
 				}
 			}*/
-			if (inputHorizontal > 0f) {
+			if (inputHorizontal < 0f) {
 				if(!isLookingRight){
 					transform.Rotate(0f,180f,0f);
 					//transform.eulerAngles = new Vector3(transform.localEulerAngles.x,90f,transform.localEulerAngles.z);
 					isLookingRight = true;
 				}
-			}else if(inputHorizontal<0f){
+			}else if(inputHorizontal>0f){
 				if(isLookingRight){
 					transform.Rotate(0f,180f,0f);
 					//transform.eulerAngles = new Vector3(transform.localEulerAngles.x,-90f,transform.localEulerAngles.z);
@@ -148,12 +150,11 @@ public class CharacterController : MonoBehaviour {
 				}
 			}*/
 		}
-		if(animCont!=null){
-			animCont.Walk ();
-		}
 	}
 
 	public void StopMove() {
+		animationBigPappada.GetComponent<Animator>().SetBool("isWalking",false);
+
 		isMoving = false;
 	}
 

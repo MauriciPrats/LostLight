@@ -7,9 +7,10 @@ using System.Collections.Generic;
 
 public class InputController : MonoBehaviour {
 	public float startChargeSpaceJump;
+	public float timeIsSpaceJumpCharged;
 	public float maxDistanceToInteract;
 
-	private float timeIsSpaceJumpCharged;
+	private bool isSpaceJumpCharging = false;
 	private bool isSpaceJumpCharged;
 
 	private float timeJumpPressed;
@@ -37,14 +38,19 @@ public class InputController : MonoBehaviour {
 			character.StopAttack();
 		}
 
-		if (Input.GetKeyUp (KeyCode.Space) && isSpaceJumpCharged) { ResetJumping(); character.SpaceJump(); }
-		if (Input.GetKeyUp (KeyCode.Space) && !isSpaceJumpCharged) { ResetJumping (); character.Jump(); }
+		if (Input.GetKeyUp (KeyCode.Space) && isSpaceJumpCharged) {
+			ResetJumping(); 
+			character.SpaceJump(); 
+		}else if (Input.GetKeyUp (KeyCode.Space) && !isSpaceJumpCharged) { 
+			ResetJumping (); 
+			character.Jump(); 
+		}
 
 		//Setting jumping Inputs
 		if (Input.GetKey (KeyCode.Space)) {
 			timeJumpPressed += Time.deltaTime;
-			if (timeJumpPressed >= startChargeSpaceJump) { character.ChargeJump(); }
-			if (timeJumpPressed >= timeIsSpaceJumpCharged) {isSpaceJumpCharged = true; }
+			if (timeJumpPressed >= startChargeSpaceJump && !isSpaceJumpCharging) {isSpaceJumpCharging = true; }
+			if (timeJumpPressed >= timeIsSpaceJumpCharged) {isSpaceJumpCharged = true; character.ChargeJump(); }
 		} else {
 			ResetJumping();
 		}
@@ -55,6 +61,7 @@ public class InputController : MonoBehaviour {
 	}
 
 	void ResetJumping () {
+		isSpaceJumpCharging = false;
 		isSpaceJumpCharged = false;
 		isSpaceJumping = false;
 		timeJumpPressed = 0;

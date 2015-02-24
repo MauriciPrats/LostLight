@@ -16,7 +16,7 @@ public class CameraFollowingPlayer : MonoBehaviour {
 	void Update () {
 
 		GravityBody playerGravityBody = player.GetComponent<GravityBody> ();
-		if (playerGravityBody.getIsTouchingPlanet ()) {
+		if (!playerGravityBody.getUsesSpaceGravity()) {
 			Vector3 objectiveUp = new Vector3(player.transform.up.x,player.transform.up.y,player.transform.up.z);
 			Vector3 newUpPosition = Vector3.Lerp (transform.up, objectiveUp, Constants.CAMERA_ANGLE_FOLLOWING_SPEED * Time.deltaTime);
 
@@ -32,7 +32,7 @@ public class CameraFollowingPlayer : MonoBehaviour {
 		transform.position = objectivePosition;
 		
 		//transform.up = Quaternion.Euler(0, -45, 0) * transform.up;
-		newUp = transform.up;
+		//newUp = transform.up;
 		
 		
 	}
