@@ -84,8 +84,12 @@ public class CharacterController : MonoBehaviour {
 		
 	}
 
+	public void StartAttack() {
+		cAttackController.ChargeAttack(isLookingRight,this.transform);
+	}
+
 	public void Attack() { 
-		cAttackController.Attack(isLookingRight,this.transform);
+		cAttackController.Attack();
 	}
 
 	public void SpaceJump() {

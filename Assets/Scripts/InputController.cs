@@ -30,13 +30,15 @@ public class InputController : MonoBehaviour {
 		} else {
 			character.StopMove ();
 		}
+		//starts the charge of the attack
+		if (Input.GetKeyDown(KeyCode.Q)) {
+			character.StartAttack();
+		}
+		//releases the attack
 		if (Input.GetKeyUp (KeyCode.Q)) {
 			ResetJumping ();
 			character.Attack ();
-		} else {
-			character.StopAttack();
 		}
-
 		if (Input.GetKeyUp (KeyCode.Space) && isSpaceJumpCharged) { ResetJumping(); character.SpaceJump(); }
 		if (Input.GetKeyUp (KeyCode.Space) && !isSpaceJumpCharged) { ResetJumping (); character.Jump(); }
 

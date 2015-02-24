@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class CharacterAttackController : MonoBehaviour {
@@ -18,8 +18,7 @@ public class CharacterAttackController : MonoBehaviour {
 	
 	}
 
-	public void Attack(bool isLookingRight, Transform character) { 
-		
+	public void ChargeAttack(bool isLookingRight, Transform character) {
 		if (!isAttacking && cubeInstance == null) {
 			isAttacking = true;
 			
@@ -35,13 +34,94 @@ public class CharacterAttackController : MonoBehaviour {
 			
 			cubeInstance = Instantiate(AttackCube,posCube,rotCube) as GameObject;
 			cubeInstance.transform.parent = gameObject.transform;
-			StartCoroutine("AttackFrames");
+			cubeInstance.GetComponent<ParticleSystem>().Stop();
+			cubeInstance.GetComponent<MeshRenderer>().enabled = false;
+			cubeInstance.GetComponent<Collider>().enabled = false;
+			
+			StartCoroutine("ChargeUp");
 			
 		}
+	
+	}
+	
+	enum ChargeLevels {c0,c1,c2,cmax};
+	ChargeLevels chLevel;
+	public float stageCharge = 0.5f;
+	IEnumerator ChargeUp() {
+	
+		ParticleSystem ps = cubeInstance.particleSystem;
+		chLevel= ChargeLevels.c0;
+		ps.Play();
+		
+		yield return new WaitForSeconds(stageCharge);
+		
+		chLevel= ChargeLevels.c1;
+		
+		ps.startColor = Color.yellow;
+		ps.gravityModifier = -0.1f;		
+		ps.startSpeed = 0.15f;
+		ps.startLifetime = 0.9f;
+		ps.emissionRate = 60;
+		
+		yield return new WaitForSeconds(stageCharge);
+		
+		//chLevel= ChargeLevels.c2;
+		
+		
+	/*	ps.startColor = Color.magenta;
+		ps.gravityModifier = -0.15f;
+		ps.startSpeed = 0.2f;
+		ps.startLifetime = 0.8f;
+		ps.emissionRate = 80;*/
+		
+		yield return new WaitForSeconds(stageCharge);
+		yield return new WaitForSeconds(stageCharge);
+		
+		chLevel= ChargeLevels.cmax;
+		
+		ps.startColor = Color.red;
+		ps.gravityModifier = -0.2f;
+		ps.startSpeed = 0.25f;
+		ps.startLifetime = 0.7f;
+		ps.emissionRate = 120;
+	}
+
+	public void Attack() { 
+		if (isAttacking && cubeInstance != null) {
+			StopCoroutine("ChargeUp");
+			
+			switch (chLevel) {
+				case ChargeLevels.c0:
+				cubeInstance.renderer.material.color = Color.green;
+				break;
+				case ChargeLevels.c1:
+				cubeInstance.renderer.material.color = Color.yellow;
+				break;
+				case ChargeLevels.c2:
+				cubeInstance.renderer.material.color = Color.magenta;
+				break;
+				case ChargeLevels.cmax:
+				cubeInstance.renderer.material.color = Color.red;
+				break;
+				default:
+				break;
+			}
+		
+		}
+		
+		
+					
+		StartCoroutine("AttackFrames");
+			
+
 		
 	}
 	
 	IEnumerator AttackFrames() {
+		cubeInstance.GetComponent<MeshRenderer>().enabled = true;
+		cubeInstance.GetComponent<Collider>().enabled = true;
+		
+		
 		yield return new WaitForSeconds(atkTime);
 		Destroy(cubeInstance);
 		cubeInstance = null;

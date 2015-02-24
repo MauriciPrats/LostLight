@@ -3587,6 +3587,7 @@ MonoBehaviour:
   AttackCube: {fileID: 100000, guid: 72e5b3dbb2ed0dc46a89b9ab82ef90c1, type: 2}
   atkTime: .600000024
   isAttacking: 0
+  stageCharge: .400000006
 --- !u!1 &1325221739
 GameObject:
   m_ObjectHideFlags: 0
