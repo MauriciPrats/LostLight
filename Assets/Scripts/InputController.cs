@@ -10,16 +10,16 @@ public class InputController : MonoBehaviour {
 	public float timeIsSpaceJumpCharged;
 	public float maxDistanceToInteract;
 
+	
 	private bool isSpaceJumpCharging = false;
 	private bool isSpaceJumpCharged;
-
 	private float timeJumpPressed;
-	private bool isSpaceJumping;
 	private CharacterController character;
 
 	void Start () {
 		timeJumpPressed = 0;
 		character = GetComponent<CharacterController>();
+		WeaponManager wpm = WeaponManager.Instance;
 	}
 
 	void Update() {
@@ -31,11 +31,14 @@ public class InputController : MonoBehaviour {
 		} else {
 			character.StopMove ();
 		}
+		//starts the charge of the attack
+		if (Input.GetKeyDown(KeyCode.Q)) {
+			character.StartAttack();
+		}
+		//releases the attack
 		if (Input.GetKeyUp (KeyCode.Q)) {
 			ResetJumping ();
 			character.Attack ();
-		} else {
-			character.StopAttack();
 		}
 
 		if (Input.GetKeyUp (KeyCode.Space) && isSpaceJumpCharged) {
@@ -63,7 +66,6 @@ public class InputController : MonoBehaviour {
 	void ResetJumping () {
 		isSpaceJumpCharging = false;
 		isSpaceJumpCharged = false;
-		isSpaceJumping = false;
 		timeJumpPressed = 0;
 	}
 }

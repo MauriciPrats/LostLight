@@ -9,6 +9,8 @@ public class CharacterController : MonoBehaviour {
 	public GameObject particleSystemJumpCharge;
 	public GameObject animationBigPappada;
 
+	private CharacterAttackController cAttackController;
+	
 	private bool isAttacking = false;
 	private GravityBody body;
 	private Vector3 moveAmount;
@@ -23,6 +25,19 @@ public class CharacterController : MonoBehaviour {
 
 	bool attackEffectDone = false;
 	
+	
+	void Start () {
+		timeJumpPressed = 0;
+		body = GetComponent<GravityBody> ();
+		GameObject attack = GameObject.Find("skillAttack");
+		animCont = GetComponent<AnimationController> ();
+		transform.forward = new Vector3(1f,0f,0f);
+		
+		cAttackController = GetComponent<CharacterAttackController>();
+				
+	}
+	
+	
 	void OnTriggerEnter(Collider col)
 	{
 		if (col.gameObject.tag == "Damageable") {
@@ -34,13 +49,6 @@ public class CharacterController : MonoBehaviour {
 		if (col.gameObject.tag == "Damageable") {
 			closeEnemies.Remove(col.gameObject);
 		}
-	}
-	void Start () {
-		timeJumpPressed = 0;
-		body = GetComponent<GravityBody> ();
-		GameObject attack = GameObject.Find("skillAttack");
-		animCont = GetComponent<AnimationController> ();
-		transform.forward = new Vector3(1f,0f,0f);
 	}
 
 
@@ -75,11 +83,12 @@ public class CharacterController : MonoBehaviour {
 		
 	}
 
+	public void StartAttack() {
+		cAttackController.ChargeAttack(isLookingRight,this.transform);
+	}
+
 	public void Attack() { 
-		isAttacking = true;
-		/*animCont.Attack();
-		particleSystemAttack.particleSystem.Play();
-		attackEffectDone = false;*/
+		cAttackController.Attack();
 	}
 
 	public void SpaceJump() {
@@ -123,13 +132,13 @@ public class CharacterController : MonoBehaviour {
 					transform.localEulerAngles = new Vector3 (transform.localEulerAngles.x, 90f, transform.localEulerAngles.z);
 				}
 			}*/
-			if (inputHorizontal < 0f) {
+			if (inputHorizontal > 0f) {
 				if(!isLookingRight){
 					transform.Rotate(0f,180f,0f);
 					//transform.eulerAngles = new Vector3(transform.localEulerAngles.x,90f,transform.localEulerAngles.z);
 					isLookingRight = true;
 				}
-			}else if(inputHorizontal>0f){
+			}else if(inputHorizontal<0f){
 				if(isLookingRight){
 					transform.Rotate(0f,180f,0f);
 					//transform.eulerAngles = new Vector3(transform.localEulerAngles.x,-90f,transform.localEulerAngles.z);
