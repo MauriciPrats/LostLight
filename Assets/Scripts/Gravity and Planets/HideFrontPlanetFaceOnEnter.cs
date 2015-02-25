@@ -22,10 +22,14 @@ public class HideFrontPlanetFaceOnEnter : MonoBehaviour {
 		float sphereRadius = sphereCollider.transform.lossyScale.x * sphereCollider.radius;
 
 		if(Vector3.Distance(transform.position,GameManager.player.transform.position)<sphereRadius){
-			renderer.enabled = false;
+			if(renderer!=null){
+				renderer.enabled = false;
+			}
 			enableAll(false);
 		}else{
-			renderer.enabled = true;
+			if(renderer!=null){
+				renderer.enabled = true;
+			}
 			enableAll(true);
 		}
 	}
