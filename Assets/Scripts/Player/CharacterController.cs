@@ -89,9 +89,9 @@ public class CharacterController : MonoBehaviour {
 	public void StartAttack() {
 		cAttackController.ChargeAttack(isLookingRight,this.transform);
 	}
-
+//Legacy, ahora es solo el ataque por StartAttack
 	public void Attack() { 
-		cAttackController.Attack();
+	//	cAttackController.Attack();
 	}
 
 	public void SpaceJump() {

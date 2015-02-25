@@ -5,8 +5,26 @@ public class CharacterAttackController : MonoBehaviour {
 
 	public GameObject AttackCube;
 	GameObject cubeInstance = null;
-	public float atkTime = 0.6f;
-	public bool isAttacking = false;
+
+
+	//Fases del combo, separado en Startup, Attack, Link y Cooldown
+	//Startup es que ya se inicio el ataque pero el hitbox no esta aun activo
+	//Attack empieza cuando el hitbox esta activo
+	//Link es la ventana donde se puede iniciar un nuevo ataque en combo
+	//Cooldown es un periodo inactivo luego del ataque, donde no se puede atacar y se pierde el combo
+	//Iddle es el estado inicial, desde el cual se puede iniciar el combo
+	enum ComboSteps {Iddle, Startup, Attack, Link, Cooldown};
+	ComboSteps comboStat;
+	int comboCount;
+
+	//tiempos de cada estado
+	float sTime = 0.1f;
+	float aTime = 0.5f;
+	float lTime = 0.3f;
+	float cTime = 0.1f;
+	//colores de cada estado
+	Color[] colorList = {Color.green , Color.yellow, Color.red}; 
+	
 
 	// Use this for initialization
 	void Start () {
@@ -15,6 +33,9 @@ public class CharacterAttackController : MonoBehaviour {
 		cubeInstance.GetComponent<ParticleSystem>().Stop();
 		cubeInstance.GetComponent<MeshRenderer>().enabled = false;
 		cubeInstance.GetComponent<Collider>().enabled = false;
+		
+		comboStat = ComboSteps.Iddle;
+		comboCount = 0;
 	}
 	
 	// Update is called once per frame
@@ -22,116 +43,78 @@ public class CharacterAttackController : MonoBehaviour {
 	
 	}
 
+	private void SetUpCube(bool isLookingRight, Transform character) 
+	{
+		int dir = -1;
+		if (!isLookingRight) {
+			dir = 1;
+		}
+		
+		Vector3 posCube = transform.TransformDirection (dir * character.right*0.8f);
+		
+		posCube += character.position;
+		Quaternion rotCube = character.rotation;
+		
+		cubeInstance.transform.position = posCube;
+		cubeInstance.transform.rotation = rotCube;
+	}
+
+	
 	public void ChargeAttack(bool isLookingRight, Transform character) {
-		if (!isAttacking) {
-			isAttacking = true;
-			
-			int dir = -1;
-			if (!isLookingRight) {
-				dir = 1;
-			}
-			
-			Vector3 posCube = transform.TransformDirection (dir * character.right*0.8f);
-			
-			posCube += character.position;
-			Quaternion rotCube = character.rotation;
-
-			cubeInstance.transform.position = posCube;
-			cubeInstance.transform.rotation = rotCube;
-
-			StartCoroutine("ChargeUp");
-			
+	
+		switch (comboStat) {
+		case ComboSteps.Iddle:
+			//Iniciar el ataque
+			SetUpCube(isLookingRight,character);
+			comboStat = ComboSteps.Startup;
+			StartCoroutine("DoAttack");
+			break;
+		case ComboSteps.Startup:
+		case ComboSteps.Attack:
+		case ComboSteps.Cooldown:
+			//Ignorar el input
+			break;
+		case ComboSteps.Link:
+			//Iniciar el segundo ataque
+			++comboCount;
+			if (comboCount >= 3) break; //solo 3 ataques		
+			StopCoroutine("DoAttack");
+			SetUpCube(isLookingRight,character);
+			comboStat = ComboSteps.Startup;
+			StartCoroutine("DoAttack");
+			break;	
+		default:
+			break;
 		}
-	
 	}
 	
-	enum ChargeLevels {c0,c1,c2,cmax};
-	ChargeLevels chLevel;
-	public float stageCharge = 0.5f;
-	IEnumerator ChargeUp() {
 	
-		ParticleSystem ps = cubeInstance.particleSystem;
-		chLevel= ChargeLevels.c0;
-		ps.Play();
+	IEnumerator DoAttack() 
+	{
+		if (comboStat != ComboSteps.Startup) yield break; //termina la corutina temprano
 		
-		yield return new WaitForSeconds(stageCharge);
+		yield return new WaitForSeconds(sTime);//termina tiempo de espera, empieza de ataque
+		comboStat = ComboSteps.Attack;
 		
-		chLevel= ChargeLevels.c1;
+		cubeInstance.renderer.enabled = true;
+		cubeInstance.collider.enabled = true;
+		cubeInstance.renderer.material.color = colorList[comboCount];
 		
-		ps.startColor = Color.yellow;
-		ps.gravityModifier = -0.1f;		
-		ps.startSpeed = 0.15f;
-		ps.startLifetime = 0.9f;
-		ps.emissionRate = 60;
+		yield return new WaitForSeconds(aTime);//termina de ataque, empieza combo
+		comboStat = ComboSteps.Link;
 		
-		yield return new WaitForSeconds(stageCharge);
+		cubeInstance.renderer.material.color = colorList[comboCount]*0.5f;
+						
+		yield return new WaitForSeconds(lTime);//termina combo, empieza espera
+		comboStat = ComboSteps.Cooldown;
 		
-		//chLevel= ChargeLevels.c2;
-		
-		
-	/*	ps.startColor = Color.magenta;
-		ps.gravityModifier = -0.15f;
-		ps.startSpeed = 0.2f;
-		ps.startLifetime = 0.8f;
-		ps.emissionRate = 80;*/
-		
-		yield return new WaitForSeconds(stageCharge);
-		yield return new WaitForSeconds(stageCharge);
-		
-		chLevel= ChargeLevels.cmax;
-		
-		ps.startColor = Color.red;
-		ps.gravityModifier = -0.2f;
-		ps.startSpeed = 0.25f;
-		ps.startLifetime = 0.7f;
-		ps.emissionRate = 120;
-	}
-
-	public void Attack() { 
-		if (isAttacking && cubeInstance != null) {
-			StopCoroutine("ChargeUp");
-			
-			switch (chLevel) {
-				case ChargeLevels.c0:
-				cubeInstance.renderer.material.color = Color.green;
-				break;
-				case ChargeLevels.c1:
-				cubeInstance.renderer.material.color = Color.yellow;
-				break;
-				case ChargeLevels.c2:
-				cubeInstance.renderer.material.color = Color.magenta;
-				break;
-				case ChargeLevels.cmax:
-				cubeInstance.renderer.material.color = Color.red;
-				break;
-				default:
-				break;
-			}
-		
-		}
-		
-		
-					
-		StartCoroutine("AttackFrames");
-			
-
-		
-	}
-	
-	IEnumerator AttackFrames() {
-		cubeInstance.GetComponent<MeshRenderer>().enabled = true;
-		cubeInstance.GetComponent<Collider>().enabled = true;
-		
-		
-		yield return new WaitForSeconds(atkTime);
-		//Destroy(cubeInstance);
-		//cubeInstance = null;
 		cubeInstance.renderer.enabled = false;
-		cubeInstance.collider.enabled = false;
-		cubeInstance.particleSystem.Stop ();
-		isAttacking = false;
-		yield return null;
+		cubeInstance.collider.enabled = false;		
+		
+		
+		yield return new WaitForSeconds(cTime);
+		comboStat = ComboSteps.Iddle;
+		comboCount = 0;
 		
 	}
-	
 }
