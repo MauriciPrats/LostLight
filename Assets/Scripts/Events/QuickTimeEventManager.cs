@@ -4,7 +4,6 @@ using System.Collections;
 public class QuickTimeEventManager : MonoBehaviour {
 
 	public GameObject asteroidAttackPrefab;
-	public GameObject player;
 
 	private GravityBody playerGravityBody;
 
@@ -13,7 +12,7 @@ public class QuickTimeEventManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		playerGravityBody = player.GetComponent<GravityBody> ();
+		playerGravityBody = GameManager.player.GetComponent<GravityBody> ();
 		putRandomCooldown ();
 	}
 	
@@ -26,23 +25,23 @@ public class QuickTimeEventManager : MonoBehaviour {
 
 			putRandomCooldown();
 
-			Vector3 randomDirection =Vector3.Cross(player.rigidbody.velocity.normalized,Vector3.back).normalized;
+			Vector3 randomDirection =Vector3.Cross(GameManager.player.rigidbody.velocity.normalized,Vector3.back).normalized;
 			
 			if(Random.value>0.5f){
 				randomDirection = randomDirection * -1f;
 			}
-			randomDirection -= player.rigidbody.velocity.normalized*Random.value;
+			randomDirection -= GameManager.player.rigidbody.velocity.normalized*Random.value;
 
-			Vector3 asteroidPosition = player.transform.position - (randomDirection * Constants.ASTEROID_SPEED * 2f);
+			Vector3 asteroidPosition = GameManager.player.transform.position - (randomDirection * Constants.ASTEROID_SPEED * 2f);
 			//Asteroid position
 
 			//Spawn the asteroid
 			GameObject newAsteroid = (GameObject) GameObject.Instantiate(asteroidAttackPrefab);
 			newAsteroid.transform.position = asteroidPosition;
-			newAsteroid.rigidbody.velocity = (randomDirection * Constants.ASTEROID_SPEED) + player.rigidbody.velocity;
+			newAsteroid.rigidbody.velocity = (randomDirection * Constants.ASTEROID_SPEED) + GameManager.player.rigidbody.velocity;
 
 			QuickTimeAsteroid qta = newAsteroid.GetComponent<QuickTimeAsteroid>();
-			qta.Initialize(player);
+			qta.Initialize(GameManager.player);
 
 
 		}

@@ -25,7 +25,10 @@ public class CharacterController : MonoBehaviour {
 
 	bool attackEffectDone = false;
 	
-	
+	void Awake(){
+		GameManager.registerPlayer (gameObject);
+	}
+
 	void Start () {
 		timeJumpPressed = 0;
 		body = GetComponent<GravityBody> ();

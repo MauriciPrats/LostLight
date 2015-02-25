@@ -2,9 +2,7 @@
 using System.Collections;
 
 public class HideFrontPlanetFaceOnEnter : MonoBehaviour {
-
-	public GameObject player;
-
+	
 	// Use this for initialization
 	void Start () {
 		
@@ -23,7 +21,7 @@ public class HideFrontPlanetFaceOnEnter : MonoBehaviour {
 
 		float sphereRadius = sphereCollider.transform.lossyScale.x * sphereCollider.radius;
 
-		if(Vector3.Distance(transform.position,player.transform.position)<sphereRadius){
+		if(Vector3.Distance(transform.position,GameManager.player.transform.position)<sphereRadius){
 			renderer.enabled = false;
 			enableAll(false);
 		}else{

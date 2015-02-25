@@ -15,10 +15,12 @@ public class InputController : MonoBehaviour {
 	private bool isSpaceJumpCharged;
 	private float timeJumpPressed;
 	private CharacterController character;
+	private GravityBody characterGravityBody;
 
 	void Start () {
 		timeJumpPressed = 0;
 		character = GetComponent<CharacterController>();
+		characterGravityBody = character.GetComponent<GravityBody> ();
 		WeaponManager wpm = WeaponManager.Instance;
 	}
 
@@ -44,7 +46,7 @@ public class InputController : MonoBehaviour {
 		if (Input.GetKeyUp (KeyCode.Space) && isSpaceJumpCharged) {
 			ResetJumping(); 
 			character.SpaceJump(); 
-		}else if (Input.GetKeyUp (KeyCode.Space) && !isSpaceJumpCharged) { 
+		}else if (Input.GetKeyUp (KeyCode.Space) && !isSpaceJumpCharged && characterGravityBody.getIsTouchingPlanet()) { 
 			ResetJumping (); 
 			character.Jump(); 
 		}

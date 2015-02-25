@@ -2,8 +2,7 @@
 using System.Collections;
 
 public class BlendOnGettingCloser : MonoBehaviour {
-
-	public GameObject playerGameObject;
+	
 	// Use this for initialization
 	void Start () {
 	
@@ -11,9 +10,9 @@ public class BlendOnGettingCloser : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Vector3 playerPosition = playerGameObject.transform.position;
+		Vector3 playerPosition = GameManager.player.transform.position;
 		SphereCollider sphereCollider = (SphereCollider)transform.collider;
-		float distance = (playerGameObject.transform.position - transform.position).magnitude;
+		float distance = (GameManager.player.transform.position - transform.position).magnitude;
 		float radius = sphereCollider.radius * transform.lossyScale.x;
 		float playerAthmosphereDistance = 1f-(distance/radius);//Mathf.Abs(((playerPosition - transform.position).magnitude - (radius/2))/(radius/2));
 		//Debug.Log (playerAthmosphereDistance);
