@@ -10470,6 +10470,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 955999563}
+  - 114: {fileID: 955999564}
+  - 114: {fileID: 955999565}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -10490,6 +10492,29 @@ Transform:
   - {fileID: 255246147}
   m_Father: {fileID: 0}
   m_RootOrder: 8
+--- !u!114 &955999564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 955999562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 027d0d9397c81eb46b3fcdddaf9c0e97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &955999565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 955999562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 473c06f384cfed4459ef56f85caac136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeTexture: {fileID: 2800000, guid: e3a6b3ca62d095f4bacc604fb127aace, type: 3}
 --- !u!1 &959345542
 GameObject:
   m_ObjectHideFlags: 0

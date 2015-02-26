@@ -40,5 +40,7 @@ public static class Constants{
 	public static float WEAPONSMITH_ROOT_MENU_BUTTONS_HEIGHT= 20;
 	public static float WEAPONSMITH_ROOT_MENU_BUTTONS_V_OFFSET = 5;
 
+	public static float FADE_SPEED = 0.5f;
+
 
 }
