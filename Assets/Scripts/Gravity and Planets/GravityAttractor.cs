@@ -65,6 +65,7 @@ public class GravityAttractor : MonoBehaviour {
 			Vector3 targetDir = (objectToAttract.position - transform.position);
 			targetDir = new Vector3(targetDir.x,targetDir.y,0f).normalized;
 
+
 			Vector3 objectUp = objectToAttract.up;
 
 			objectToAttract.rotation = Quaternion.FromToRotation (objectUp, targetDir) * objectToAttract.rotation;

@@ -22,7 +22,9 @@ public class CharacterController : MonoBehaviour {
 
 	private float timeSinceAttackStarted = 0f;
 	private List<GameObject> closeEnemies = new List<GameObject>();
-
+	private bool isJumping = false;
+	private float jumpedTimer = 0f;
+	private float jumpedTimerCooldown = 0.2f;
 	bool attackEffectDone = false;
 	
 	void Awake(){
@@ -61,18 +63,15 @@ public class CharacterController : MonoBehaviour {
 				animCont.StopWalk();
 			}
 		}
+		if(isJumping){
+			jumpedTimer +=Time.deltaTime;
+		}
+		if(body.getIsTouchingPlanet() && jumpedTimer >=jumpedTimerCooldown){
+			animationBigPappada.GetComponent<Animator>().SetBool("isJumping",false);
+			animationBigPappada.GetComponent<Animator>().SetBool("isSpaceJumping",false);
+		}else{
 
-		/*if (!isAttacking) {
-			animCont.StopAttack();
-			timeSinceAttackStarted = 0f;
-		} else {
-			timeSinceAttackStarted += Time.deltaTime;
-			if(timeSinceAttackStarted > 0.25f && timeSinceAttackStarted<0.35f){
-				if(!attackEffectDone){
-					attackEffect();
-				}
-			}
-		}*/
+		}
 	}
 
 	void FixedUpdate(){
@@ -99,12 +98,19 @@ public class CharacterController : MonoBehaviour {
 		//If we jump into the space, stop the particle system.
 		ParticleSystem particles = particleSystemJumpCharge.GetComponent<ParticleSystem> ();
 		particles.Stop ();
+		animationBigPappada.GetComponent<Animator>().SetBool("isSpaceJumping",true);
+		animationBigPappada.GetComponent<Animator>().SetBool("isChargingSpaceJumping",false);
+		isJumping = true;
+		jumpedTimer = 0f;
 	}
 
 	public void Jump() {
 		rigidbody.AddForce (transform.up * normalJumpForce, ForceMode.VelocityChange);
 		ParticleSystem particles = particleSystemJumpCharge.GetComponent<ParticleSystem> ();
 		particles.Stop ();
+		animationBigPappada.GetComponent<Animator>().SetBool("isJumping",true);
+		isJumping = true;
+		jumpedTimer = 0f;
 	}
 
 	public void Move() {
@@ -175,6 +181,7 @@ public class CharacterController : MonoBehaviour {
 	}
 
 	public void ChargeJump() {
+		animationBigPappada.GetComponent<Animator>().SetBool("isChargingSpaceJumping",true);
 		ParticleSystem particles = particleSystemJumpCharge.GetComponent<ParticleSystem> ();
 		particles.Play ();
 	}
