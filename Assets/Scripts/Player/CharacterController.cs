@@ -8,6 +8,7 @@ public class CharacterController : MonoBehaviour {
 	public float spaceJumpForce = 100f;
 	public GameObject particleSystemJumpCharge;
 	public GameObject animationBigPappada;
+	private Animator bpAnimator;
 
 	private CharacterAttackController cAttackController;
 	
@@ -17,7 +18,7 @@ public class CharacterController : MonoBehaviour {
 	private Vector3 smoothMoveVelocity;
 	private float timeJumpPressed;
 	private bool isMoving;
-	private AnimationController animCont;
+	//private AnimationController animCont;
 	private bool isLookingRight = true;
 
 	private float timeSinceAttackStarted = 0f;
@@ -27,19 +28,27 @@ public class CharacterController : MonoBehaviour {
 	private float jumpedTimerCooldown = 0.2f;
 	bool attackEffectDone = false;
 	
+	public Transform leftHand; //Exponer la mano izquierda de Big Pappada para ponerle su arma
+	public GameObject weapon;
+	
 	void Awake(){
 		GameManager.registerPlayer (gameObject);
+		
+		GameObject stick = (GameObject)Instantiate(weapon);
+		stick.transform.parent = leftHand.transform;
+		stick.transform.position = leftHand.transform.position;
 	}
 
 	void Start () {
 		timeJumpPressed = 0;
 		body = GetComponent<GravityBody> ();
 		GameObject attack = GameObject.Find("skillAttack");
-		animCont = GetComponent<AnimationController> ();
 		transform.forward = new Vector3(1f,0f,0f);
 		
 		cAttackController = GetComponent<CharacterAttackController>();
-				
+		
+		bpAnimator = animationBigPappada.GetComponent<Animator>();
+		
 	}
 	
 	
@@ -58,17 +67,13 @@ public class CharacterController : MonoBehaviour {
 
 
 	void Update() {
-		if (!isMoving) {
-			if(animCont!=null){
-				animCont.StopWalk();
-			}
-		}
+
 		if(isJumping){
 			jumpedTimer +=Time.deltaTime;
 		}
 		if(body.getIsTouchingPlanet() && jumpedTimer >=jumpedTimerCooldown){
-			animationBigPappada.GetComponent<Animator>().SetBool("isJumping",false);
-			animationBigPappada.GetComponent<Animator>().SetBool("isSpaceJumping",false);
+			bpAnimator.SetBool("isJumping",false);
+			bpAnimator.SetBool("isSpaceJumping",false);
 		}else{
 
 		}
@@ -98,8 +103,8 @@ public class CharacterController : MonoBehaviour {
 		//If we jump into the space, stop the particle system.
 		ParticleSystem particles = particleSystemJumpCharge.GetComponent<ParticleSystem> ();
 		particles.Stop ();
-		animationBigPappada.GetComponent<Animator>().SetBool("isSpaceJumping",true);
-		animationBigPappada.GetComponent<Animator>().SetBool("isChargingSpaceJumping",false);
+		bpAnimator.SetBool("isSpaceJumping",true);
+		bpAnimator.SetBool("isChargingSpaceJumping",false);
 		isJumping = true;
 		jumpedTimer = 0f;
 	}
@@ -108,13 +113,13 @@ public class CharacterController : MonoBehaviour {
 		rigidbody.AddForce (transform.up * normalJumpForce, ForceMode.VelocityChange);
 		ParticleSystem particles = particleSystemJumpCharge.GetComponent<ParticleSystem> ();
 		particles.Stop ();
-		animationBigPappada.GetComponent<Animator>().SetBool("isJumping",true);
+		bpAnimator.SetBool("isJumping",true);
 		isJumping = true;
 		jumpedTimer = 0f;
 	}
 
 	public void Move() {
-		animationBigPappada.GetComponent<Animator>().SetBool("isWalking",true);
+		bpAnimator.SetBool("isWalking",true);
 		isMoving = true;
 		if (!body.getUsesSpaceGravity()) {
 			float inputHorizontal = Input.GetAxisRaw ("Horizontal");
@@ -142,7 +147,7 @@ public class CharacterController : MonoBehaviour {
 	}
 
 	public void StopMove() {
-		animationBigPappada.GetComponent<Animator>().SetBool("isWalking",false);
+		bpAnimator.SetBool("isWalking",false);
 
 		isMoving = false;
 	}
@@ -152,7 +157,7 @@ public class CharacterController : MonoBehaviour {
 	}
 
 	public void ChargeJump() {
-		animationBigPappada.GetComponent<Animator>().SetBool("isChargingSpaceJumping",true);
+		bpAnimator.SetBool("isChargingSpaceJumping",true);
 		ParticleSystem particles = particleSystemJumpCharge.GetComponent<ParticleSystem> ();
 		particles.Play ();
 	}

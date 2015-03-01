@@ -5,7 +5,9 @@ public class CharacterAttackController : MonoBehaviour {
 
 	public GameObject AttackCube;
 	GameObject cubeInstance = null;
-
+	
+	public GameObject animationBigPappada;
+	private Animator bpAnimator;
 
 	//Fases del combo, separado en Startup, Attack, Link y Cooldown
 	//Startup es que ya se inicio el ataque pero el hitbox no esta aun activo
@@ -13,14 +15,14 @@ public class CharacterAttackController : MonoBehaviour {
 	//Link es la ventana donde se puede iniciar un nuevo ataque en combo
 	//Cooldown es un periodo inactivo luego del ataque, donde no se puede atacar y se pierde el combo
 	//Iddle es el estado inicial, desde el cual se puede iniciar el combo
-	enum ComboSteps {Iddle, Startup, Attack, Link, Cooldown};
-	ComboSteps comboStat;
-	int comboCount;
+	public enum ComboSteps {Iddle, Startup, Attack, Link, Cooldown};
+	public ComboSteps comboStat;
+	public int comboCount;
 
 	//tiempos de cada estado
-	float sTime = 0.1f;
-	float aTime = 0.5f;
-	float lTime = 0.3f;
+	float[] sTime = {0.5f,0.2f,0.8f};
+	float[] aTime = {0.1f,0.1f,0.1f};
+	float[] lTime = {0.2f,0.7f,0.0f};
 	float cTime = 0.1f;
 	//colores de cada estado
 	Color[] colorList = {Color.green , Color.yellow, Color.red}; 
@@ -28,8 +30,13 @@ public class CharacterAttackController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		bpAnimator = animationBigPappada.GetComponent<Animator>();
+		
+	
 		cubeInstance = (GameObject)Instantiate(AttackCube);
 		cubeInstance.transform.parent = gameObject.transform;
+		DisableHitbox();
+		
 		cubeInstance.GetComponent<ParticleSystem>().Stop();
 		cubeInstance.GetComponent<MeshRenderer>().enabled = false;
 		cubeInstance.GetComponent<Collider>().enabled = false;
@@ -67,6 +74,7 @@ public class CharacterAttackController : MonoBehaviour {
 			//Iniciar el ataque
 			SetUpCube(isLookingRight,character);
 			comboStat = ComboSteps.Startup;
+			bpAnimator.SetTrigger("Attack");
 			StartCoroutine("DoAttack");
 			break;
 		case ComboSteps.Startup:
@@ -78,7 +86,9 @@ public class CharacterAttackController : MonoBehaviour {
 			//Iniciar el segundo ataque
 			++comboCount;
 			if (comboCount >= 3) break; //solo 3 ataques		
+			bpAnimator.SetInteger("ComboCount",comboCount);
 			StopCoroutine("DoAttack");
+			DisableHitbox();
 			SetUpCube(isLookingRight,character);
 			comboStat = ComboSteps.Startup;
 			StartCoroutine("DoAttack");
@@ -91,30 +101,43 @@ public class CharacterAttackController : MonoBehaviour {
 	
 	IEnumerator DoAttack() 
 	{
+		//TODO: Validar que solo ataca desde iddle, walking o desde el combo en si
 		if (comboStat != ComboSteps.Startup) yield break; //termina la corutina temprano
 		
-		yield return new WaitForSeconds(sTime);//termina tiempo de espera, empieza de ataque
+		
+		yield return new WaitForSeconds(sTime[comboCount]);//termina tiempo de espera, empieza de ataque
 		comboStat = ComboSteps.Attack;
 		
-		cubeInstance.renderer.enabled = true;
-		cubeInstance.collider.enabled = true;
+		EnableHitbox();
 		cubeInstance.renderer.material.color = colorList[comboCount];
 		
-		yield return new WaitForSeconds(aTime);//termina de ataque, empieza combo
+		yield return new WaitForSeconds(aTime[comboCount]);//termina de ataque, empieza combo
 		comboStat = ComboSteps.Link;
 		
 		cubeInstance.renderer.material.color = colorList[comboCount]*0.5f;
 						
-		yield return new WaitForSeconds(lTime);//termina combo, empieza espera
+		yield return new WaitForSeconds(lTime[comboCount]);//termina combo, empieza espera
 		comboStat = ComboSteps.Cooldown;
 		
-		cubeInstance.renderer.enabled = false;
-		cubeInstance.collider.enabled = false;		
-		
+		DisableHitbox();	
 		
 		yield return new WaitForSeconds(cTime);
 		comboStat = ComboSteps.Iddle;
 		comboCount = 0;
+		bpAnimator.SetInteger("ComboCount",comboCount);
 		
 	}
+	
+	private void EnableHitbox()
+	{
+		cubeInstance.renderer.enabled = true;
+		cubeInstance.collider.enabled = true;
+	}
+	
+	private void DisableHitbox()
+	{
+		cubeInstance.renderer.enabled = false;
+		cubeInstance.collider.enabled = false;	
+	}
+	
 }

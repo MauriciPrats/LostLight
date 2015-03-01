@@ -10503,6 +10503,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 027d0d9397c81eb46b3fcdddaf9c0e97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingMenu: 0
+  mainMenuPrefab: {fileID: 0}
+  controlsMenuPrefab: {fileID: 0}
 --- !u!114 &955999565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13400,6 +13403,8 @@ MonoBehaviour:
   spaceJumpForce: 38
   particleSystemJumpCharge: {fileID: 89850112}
   animationBigPappada: {fileID: 1770890665}
+  leftHand: {fileID: 1174366765}
+  weapon: {fileID: 100000, guid: 3dae2ed6c0672064b8a64a3ab5285182, type: 2}
 --- !u!114 &1294720931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13412,6 +13417,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackCube: {fileID: 100000, guid: 72e5b3dbb2ed0dc46a89b9ab82ef90c1, type: 2}
+  animationBigPappada: {fileID: 1770890665}
+  comboStat: 0
+  comboCount: 0
 --- !u!1 &1297488017
 GameObject:
   m_ObjectHideFlags: 0
@@ -18570,6 +18578,10 @@ Prefab:
     - target: {fileID: 100024, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100182, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
