@@ -17,7 +17,7 @@ public class FadeManager : MonoBehaviour {
 	private Action functionAfter;
 
 	void Awake () {
-		GameManager.registerFadeManager (gameObject);
+		GUIManager.registerFadeManager (gameObject);
 	}
 
 	public void fadeIn(){

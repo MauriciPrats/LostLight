@@ -82,7 +82,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 8874377}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Spine.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,7 +112,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 12210685}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Spine.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -430,7 +430,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 54804391}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Hand_L.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -690,7 +690,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 75252411}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RopaDelante.003_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -775,7 +775,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 88748951}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Finger4_R.001_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2773,7 +2773,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 167243102}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Finger1_R.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3295,8 +3295,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 228147043}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.1131687, y: 4.85153484, z: 1.64198542}
-  m_LocalScale: {x: .25, y: .25, z: .25}
+  m_LocalPosition: {x: 11.1129999, y: 4.06479979, z: 1.64199996}
+  m_LocalScale: {x: .25, y: .411755145, z: .25}
   m_Children: []
   m_Father: {fileID: 606479508}
   m_RootOrder: 3
@@ -3709,7 +3709,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 240708059}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RopaLateral_L.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3981,7 +3981,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 258013724}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RopaLateral_L.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4183,7 +4183,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 261614077}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RopaDelante.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4269,7 +4269,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 267804272}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Eye_R_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4466,7 +4466,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 285838687}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Finger1_R.001_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4493,7 +4493,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 294777869}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Feet_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4521,7 +4521,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 297291159}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Hip_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4781,7 +4781,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 358621118}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CENTER
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4985,7 +4985,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 384027011}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Neck.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5013,7 +5013,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 399883244}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Finger3_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5041,7 +5041,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 415329457}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RopaLateral_R.004_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5068,7 +5068,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 417972643}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Hand_L.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5096,7 +5096,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 421987476}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Finger3_R.001_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5297,7 +5297,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 435558241}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Pappada.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5383,7 +5383,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 443409753}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Finger3_L.001_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5754,8 +5754,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 466375609}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.64986897, y: 7.283535, z: 1.75314546}
-  m_LocalScale: {x: .25, y: .25, z: .25}
+  m_LocalPosition: {x: 7.64989996, y: 8.0703001, z: 1.75310004}
+  m_LocalScale: {x: .25, y: .411755145, z: .25}
   m_Children: []
   m_Father: {fileID: 606479508}
   m_RootOrder: 1
@@ -5969,7 +5969,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 473662737}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Feet_L.002_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5996,7 +5996,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 474989139}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RopaLateral_L.003_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6255,7 +6255,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 489895720}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Eye_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6341,7 +6341,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 498933409}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Neck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6371,7 +6371,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 499732023}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RopaDelante.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7037,7 +7037,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 574946237}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Finger2_R.001_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7120,7 +7120,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 580964364}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Arm_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8022,7 +8022,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 617517156}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Finger4_R.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8108,7 +8108,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 634032929}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Finger2_L.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8733,7 +8733,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 712797387}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Finger4_L.001_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9168,7 +9168,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 772400840}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tongue.002_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9195,7 +9195,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 777225133}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RopaLateral_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9224,7 +9224,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 778634571}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Pappada.002_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9483,7 +9483,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 793747330}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RopaLateral_L.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9511,7 +9511,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 802282976}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Finger3_R.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9658,7 +9658,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 827501771}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RopaDelante
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9687,7 +9687,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 831182592}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Arm_R.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9715,7 +9715,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 838366248}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Head.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9743,7 +9743,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 847714733}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Arm_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9831,7 +9831,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 859561797}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Spine.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9977,7 +9977,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 878763668}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Finger3_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10005,7 +10005,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 880746069}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RopaLateral_R.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10238,7 +10238,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 905377585}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RopaLateral_R.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10324,7 +10324,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 923974760}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Finger2_R.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10523,7 +10523,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 959345543}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Hand_R.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10667,7 +10667,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 995065151}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Finger2_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10695,7 +10695,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 997091196}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Finger1_L.001_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11297,7 +11297,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1082301108}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RopaDelante.002_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11324,7 +11324,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1086745018}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Hand_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11441,7 +11441,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1091314646}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Neck.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11470,7 +11470,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1092820924}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Finger4_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12148,7 +12148,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1172859934}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Finger1_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12176,7 +12176,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1174366765}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Hand_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12469,7 +12469,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1225028037}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Head.001_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12554,7 +12554,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1230524225}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Hip_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12698,7 +12698,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1242145765}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Pappada
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12795,7 +12795,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1244153589}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Leg_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12909,7 +12909,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1245884463}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RopaLateral_L.004_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12994,7 +12994,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1259639206}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RopaLateral_L.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13333,7 +13333,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1294720925}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.38700008, y: 8.89700031, z: -.143000007}
+  m_LocalPosition: {x: -4.38700008, y: 8.89700031, z: -.200000003}
   m_LocalScale: {x: .0689585805, y: .068958573, z: .068958573}
   m_Children:
   - {fileID: 310606637}
@@ -13420,7 +13420,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1297488018}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Eye_L_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13649,7 +13649,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1310149892}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Feet_R.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13735,7 +13735,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1320460159}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Feet_R.002_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13762,7 +13762,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1326246629}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Leg_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14082,7 +14082,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1347695064}
   - 137: {fileID: 1347695065}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cylinder.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14282,7 +14282,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1358182524}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Hand_R.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14368,7 +14368,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1383019320}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Leg_R.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14512,7 +14512,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1401637351}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RopaLateral_R.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14656,7 +14656,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1415699187}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Feet_R.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14972,8 +14972,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1429724655}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.3672695, y: 5.98383427, z: 1.31179547}
-  m_LocalScale: {x: .25, y: .25, z: .25}
+  m_LocalPosition: {x: 10.3669996, y: 5.9296999, z: 1.3118}
+  m_LocalScale: {x: .25, y: .411755145, z: .25}
   m_Children: []
   m_Father: {fileID: 606479508}
   m_RootOrder: 2
@@ -15187,7 +15187,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1458658766}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Neck.002_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15446,7 +15446,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1480554702}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Finger4_L.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15534,7 +15534,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1489660545}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Hand_R.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15739,7 +15739,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1514074113}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Finger2_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16113,7 +16113,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1563389473}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Finger3_L.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16252,8 +16252,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1573724726}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.42766857, y: 6.52173519, z: 1.75314546}
-  m_LocalScale: {x: .25, y: .25, z: .25}
+  m_LocalPosition: {x: 8.42770004, y: 6.81559992, z: 1.75310004}
+  m_LocalScale: {x: .25, y: .411755145, z: .25}
   m_Children: []
   m_Father: {fileID: 606479508}
   m_RootOrder: 0
@@ -16400,7 +16400,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1583434088}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Hand_L.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16428,7 +16428,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1614608937}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Feet_L.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16514,7 +16514,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1643101736}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Pappada.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16542,7 +16542,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1645763699}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RopaLateral_R.003_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16685,7 +16685,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1651562397}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Eye_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16713,7 +16713,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1653779477}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16829,7 +16829,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1659433225}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Armature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16973,7 +16973,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1670399215}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Hand_L.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17001,7 +17001,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1671600661}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Hand_R.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17348,7 +17348,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1690488227}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Shoulder_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17434,7 +17434,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1695974405}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Feet_L.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17548,7 +17548,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1703362692}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tongue.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17894,7 +17894,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1756754064}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Arm_L.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17922,7 +17922,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1761292275}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Spine.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17950,7 +17950,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1761469147}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tongue.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18037,8 +18037,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 1770890666}
   - 95: {fileID: 1770890667}
-  - 135: {fileID: 1770890668}
-  m_Layer: 0
+  - 136: {fileID: 1770890668}
+  m_Layer: 9
   m_Name: BigPDef
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -18075,8 +18075,8 @@ Animator:
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!135 &1770890668
-SphereCollider:
+--- !u!136 &1770890668
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -18084,9 +18084,10 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 4.27325583
-  m_Center: {x: 0, y: 4, z: 3}
+  m_Radius: 3.79040384
+  m_Height: 8.0961647
+  m_Direction: 1
+  m_Center: {x: 0, y: 4, z: 0}
 --- !u!1001 &1776168937
 Prefab:
   m_ObjectHideFlags: 0
@@ -18161,6 +18162,414 @@ Prefab:
     - target: {fileID: 400008, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
       propertyPath: m_LocalRotation.w
       value: 3.09086232e-08
+      objectReference: {fileID: 0}
+    - target: {fileID: 100192, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100190, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100096, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100152, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100086, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100048, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100158, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100164, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100150, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100022, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100050, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100032, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100116, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100012, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100130, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100070, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100180, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100090, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100074, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100136, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100068, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100030, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100162, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100020, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100126, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100146, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100062, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100084, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100054, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100080, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100202, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100154, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100140, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100156, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100072, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100142, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100110, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100188, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100064, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100170, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100172, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100060, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100106, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100052, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100044, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100148, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100098, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100128, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100076, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100046, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100088, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100112, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100114, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100134, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100122, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100166, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100160, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100018, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100036, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100038, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100118, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100014, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100102, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100124, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100174, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100034, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100132, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100078, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100104, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100058, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100066, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100094, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100028, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100138, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100176, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100016, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100108, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100008, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100092, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100100, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100184, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100026, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100198, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100194, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100200, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100182, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100056, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100120, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100168, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100082, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100186, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100178, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100196, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100040, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100144, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100042, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100024, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
@@ -18355,7 +18764,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1793532883}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Shoulder_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18469,7 +18878,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1818748690}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Finger2_L.001_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18496,7 +18905,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1824631134}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Leg_L.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19219,7 +19628,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1866741639}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RopaLateral_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19659,7 +20068,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1907736744}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Finger4_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19803,7 +20212,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1927215880}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Spine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19920,7 +20329,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1942397648}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RopaLateral_R.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20445,7 +20854,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1990789884}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tongue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20826,7 +21235,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 2031482557}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Finger1_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21274,7 +21683,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 2060567412}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RopaDelante.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21438,33 +21847,6 @@ Transform:
   - {fileID: 250751287}
   m_Father: {fileID: 1547901804}
   m_RootOrder: 0
---- !u!1 &2077394708
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 2077394709}
-  m_Layer: 0
-  m_Name: Big Pappada
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2077394709
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2077394708}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.38800001, y: 8.58899975, z: -.0329999998}
-  m_LocalScale: {x: 9.31690884, y: 9.31690884, z: 9.31690884}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
 --- !u!1 &2081707005
 GameObject:
   m_ObjectHideFlags: 0
@@ -21531,7 +21913,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 2090385904}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Finger1_L.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21714,7 +22096,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 2109577172}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Feet_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}

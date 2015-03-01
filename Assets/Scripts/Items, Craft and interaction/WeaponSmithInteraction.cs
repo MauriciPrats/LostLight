@@ -4,6 +4,6 @@ using System.Collections;
 public class WeaponSmithInteraction : Interactuable {
 
 	public override void doInteractAction() { 
-		GUIManager.Instance.OpenWeaponsmithRootMenu ();
+		//GUIManager.Instance.OpenWeaponsmithRootMenu ();
 	}
 }

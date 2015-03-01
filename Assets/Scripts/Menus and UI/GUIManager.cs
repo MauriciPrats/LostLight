@@ -1,20 +1,83 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum Menu{None,MainMenu,ControlsMenu};
+
 public class GUIManager : MonoBehaviour {
 
-	private bool weaponSmithRootMenu;
+	public static FadeManager fadeManager;
+	/*private bool weaponSmithRootMenu;
 	private bool weaponCraftRootMenu;
 	private bool itemCraftRootMenu;
 	private bool inventory;
-	private float scrwidth, scrheight;
+	private float scrwidth, scrheight;*/
+
+
+	private static GameObject mainMenuO;
+	private static GameObject controlsO;
+
+	private static Menu nextMenu;
 
 	private static GUIManager singleton;
+
+	//Private 
+	private static void deactivateMenus(){
+		if(mainMenuO!=null){
+			mainMenuO.SetActive(false);
+		}
+		if(controlsO!=null){
+			controlsO.SetActive(false);
+		}
+	}
 	
+	private static void changeMenuAndFadeIn(){
+		deactivateMenus ();
+		activateMenu (nextMenu);
+		fadeManager.fadeIn();
+	}
+
+	//Public
 	public static GUIManager Instance {
 		get{ return singleton ?? (singleton = new GameObject("GUIManager").AddComponent<GUIManager>());}
 	}	
 
+	public static void registerMainMenu(GameObject mainMenuGO){
+		if(mainMenuGO!=null && mainMenuO == null){
+			mainMenuO = GameObject.Instantiate (mainMenuGO) as GameObject;
+			mainMenuO.SetActive (false);
+		}
+	}
+
+	public static void registerControlsMenu(GameObject controlsGO){
+		if(controlsGO!=null && controlsO == null){
+			controlsO = GameObject.Instantiate (controlsGO) as GameObject;
+			controlsO.SetActive (false);
+		}
+	}
+
+	public static void registerFadeManager(GameObject fadeManagerGO){
+		fadeManager = fadeManagerGO.GetComponent<FadeManager> ();
+	}
+
+	public static void activateMenu(Menu newMenu){
+		deactivateMenus ();
+		if (newMenu.Equals (Menu.MainMenu)) {
+			mainMenuO.SetActive(true);
+		}else if(newMenu.Equals(Menu.ControlsMenu)){
+			controlsO.SetActive(true);
+		}
+	}
+	
+	public static void fadeOutChangeMenuFadeIn(Menu newMenu){
+
+		nextMenu = newMenu;
+		fadeManager.fadeOut(changeMenuAndFadeIn);
+		
+	}
+
+
+
+	/*
 	public void OpenWeaponsmithRootMenu () {
 		weaponSmithRootMenu = true;
 	}
@@ -110,5 +173,5 @@ public class GUIManager : MonoBehaviour {
 				GUI.Button (new Rect (95, 100, 45, 45),"");
 			GUI.EndGroup();
 		}
-	}
+	}*/
 }

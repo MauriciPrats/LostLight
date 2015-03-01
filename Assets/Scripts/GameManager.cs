@@ -5,13 +5,13 @@ public class GameManager{
 
 	public static GameObject player;
 
-	public static FadeManager fadeManager;
+	public static SceneManager actualSceneManager;
 
 	public static void registerPlayer(GameObject playerGO){
 		player = playerGO;
 	}
 
-	public static void registerFadeManager(GameObject fadeManagerGO){
-		fadeManager = fadeManagerGO.GetComponent<FadeManager> ();
+	public static void registerActualSceneManager(GameObject sceneManager){
+		actualSceneManager = sceneManager.GetComponent<SceneManager> ();
 	}
 }
