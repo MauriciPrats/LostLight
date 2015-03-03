@@ -5,16 +5,35 @@ public class SceneManager : MonoBehaviour {
 
 	public Menu startingMenu = Menu.None;
 	string sceneToChangeTo;
-	public GameObject mainMenuPrefab,controlsMenuPrefab;
+	public GameObject mainMenuPrefab,
+					  controlsMenuPrefab,
+					  creditsMenuPrefab,
+					  youWonMenuPrefab,
+					  youLostMenuPrefab,
+					  startingSplashScreenPrefab;
+	bool hasUpdated = false;
 
 	void Awake(){
 		GameManager.registerActualSceneManager (gameObject);
 		GUIManager.registerMainMenu (mainMenuPrefab);
 		GUIManager.registerControlsMenu(controlsMenuPrefab);
+		GUIManager.registerCreditsMenu (creditsMenuPrefab);
+		GUIManager.registerYouLostMenu (youLostMenuPrefab);
+		GUIManager.registerYouWonMenu (youWonMenuPrefab);
+		GUIManager.registerStartingSplashScreen (startingSplashScreenPrefab);
 	}
-	void Start () {
-		GUIManager.fadeManager.fadeIn ();
-		GUIManager.activateMenu (startingMenu);
+
+	void Update () {
+		if(!hasUpdated){
+			if(startingMenu == Menu.MainMenu){
+				GUIManager.fadeOutChangeMenuFadeIn(startingMenu);
+				GameManager.rebuildGameFromGameState ();
+				GameManager.pauseGame();
+			}else{
+				GUIManager.fadeIn (startingMenu);
+			}
+			hasUpdated = true;
+		}
 	}
 
 	private void QuitScene(){
@@ -25,15 +44,13 @@ public class SceneManager : MonoBehaviour {
 		Application.LoadLevel(sceneToChangeTo);
 	}
 
-
 	public void ChangeScene(string sceneToChange){
 		sceneToChangeTo = sceneToChange;
-		GUIManager.fadeManager.fadeOut (ChangeScene);
+		GUIManager.fadeOut (ChangeScene);
 	}
 
 	public void CloseApplication(){
-		//Application.Quit();
-		GUIManager.fadeManager.fadeOut (QuitScene);
+		GUIManager.fadeOut (QuitScene);
 	}
 
 }

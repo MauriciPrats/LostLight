@@ -5,10 +5,10 @@ using System.Collections;
 public class IAController : MonoBehaviour {
 
 
-	public float minimumDistanceSeePlayer = 30f;
+	public float minimumDistanceSeePlayer = 50f;
 	public LayerMask layersToFindCollision;
 	public float speed = 2f;
-	public float cooldownChangeBehaviour = 0.2f;
+	public float cooldownChangeBehaviour = 0.1f;
 	public float timePatroling = 3f;
 	public float jumpCooldown = 2f;
 	public float jumpStrength = 10f;
@@ -39,26 +39,31 @@ public class IAController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		player = (GameObject)GameObject.FindGameObjectWithTag("Player");
+		player = GameManager.player;
 		moveAmount = new Vector3 (0f, 0f, 0f);
 		transform.forward = new Vector3(1f,0f,0f);
-		minimumDistanceFront = (Random.value)*0.2f + 0.4f;
+		minimumDistanceFront = (Random.value)*0.2f + 5f;
 
 		walkOnMultiplePaths = GetComponent<WalkOnMultiplePaths> ();
 
 	}
 
 	private bool canSeePlayer(){
-		Vector3 playerDirection = player.transform.position - transform.position;
+		Vector3 playerDirection = player.transform.rigidbody.worldCenterOfMass - transform.position;
 		if(playerDirection.magnitude<minimumDistanceSeePlayer){
 			RaycastHit hit;
 
-			if (Physics.Raycast(transform.position,playerDirection, out hit, minimumDistanceSeePlayer,layersToFindCollision))
+			if (Physics.Raycast(rigidbody.worldCenterOfMass,playerDirection, out hit, minimumDistanceSeePlayer,layersToFindCollision))
 			{
+				//Debug.Log(hit.collider.transform.name +" "+playerDirection);
 				Collider target = hit.collider; // What did I hit?
 				//Debug.Log(target.name);
-				if(target.tag == "Player"){ return true;}
-				else{ return false; }
+				if(target.tag == "Player"){ 
+					return true;
+				}
+				else{
+					return false; 
+				}
 			}
 		}
 
@@ -82,7 +87,7 @@ public class IAController : MonoBehaviour {
 		if(lastTimeCheckedClosestThingInFront>cooldownRaycastingClosestThingInFront){
 			lastTimeCheckedClosestThingInFront = 0f;
 			RaycastHit hit;
-			if (Physics.Raycast(transform.position,transform.forward, out hit))
+			if (Physics.Raycast(rigidbody.worldCenterOfMass,transform.forward, out hit))
 			{
 				Collider target = hit.collider; // What did I hit?
 				closestThingInFront = hit.distance;

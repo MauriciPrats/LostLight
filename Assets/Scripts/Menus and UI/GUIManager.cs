@@ -1,7 +1,15 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
-public enum Menu{None,MainMenu,ControlsMenu};
+public enum Menu{None,
+				MainMenu,
+				ControlsMenu,
+				CreditsMenu,
+				YouWonMenu,
+				YouLostMenu,
+				StartingSplashScreen
+			    };
 
 public class GUIManager : MonoBehaviour {
 
@@ -15,10 +23,18 @@ public class GUIManager : MonoBehaviour {
 
 	private static GameObject mainMenuO;
 	private static GameObject controlsO;
+	private static GameObject creditsO;
+	private static GameObject youWonO;
+	private static GameObject youLostO;
+	private static GameObject startingSplashScreenO;
 
 	private static Menu nextMenu;
 
 	private static GUIManager singleton;
+
+	private static GameObject actualMenu;
+
+	private static Action actionToDo;
 
 	//Private 
 	private static void deactivateMenus(){
@@ -28,12 +44,47 @@ public class GUIManager : MonoBehaviour {
 		if(controlsO!=null){
 			controlsO.SetActive(false);
 		}
+		if(creditsO!=null){
+			creditsO.SetActive(false);
+		}
+		if(youLostO!=null){
+			youLostO.SetActive(false);
+		}
+		if(youWonO!=null){
+			youWonO.SetActive(false);
+		}
+		if(startingSplashScreenO!=null){
+			startingSplashScreenO.SetActive(false);
+		}
 	}
 	
 	private static void changeMenuAndFadeIn(){
 		deactivateMenus ();
 		activateMenu (nextMenu);
-		fadeManager.fadeIn();
+		fadeManager.fadeIn(getMenu(nextMenu));
+	}
+
+	private static void changeMenuAndFadeInWithAction(){
+		deactivateMenus ();
+		activateMenu (nextMenu);
+		fadeManager.fadeInWithAction(actionToDo,getMenu(nextMenu));
+	}
+
+	private static GameObject getMenu(Menu menu){
+		if (menu.Equals (Menu.MainMenu)) {
+			return mainMenuO;
+		}else if(menu.Equals(Menu.ControlsMenu)){
+			return controlsO;
+		}else if(menu.Equals(Menu.CreditsMenu)){
+			return creditsO;
+		}else if(menu.Equals(Menu.YouWonMenu)){
+			return youWonO;
+		}else if(menu.Equals(Menu.YouLostMenu)){
+			return youLostO;
+		}else if(menu.Equals(Menu.StartingSplashScreen)){
+			return startingSplashScreenO;
+		}
+		return null;
 	}
 
 	//Public
@@ -55,24 +106,76 @@ public class GUIManager : MonoBehaviour {
 		}
 	}
 
+	
+	public static void registerCreditsMenu(GameObject creditsGO){
+		if(creditsGO!=null && creditsO == null){
+			creditsO = GameObject.Instantiate (creditsGO) as GameObject;
+			creditsO.SetActive (false);
+		}
+	}
+
+	public static void registerYouLostMenu(GameObject youLostGO){
+		if(youLostGO!=null && youLostO == null){
+			youLostO = GameObject.Instantiate (youLostGO) as GameObject;
+			youLostO.SetActive (false);
+		}
+	}
+
+	public static void registerYouWonMenu(GameObject youWonGO){
+		if(youWonGO!=null && youWonO == null){
+			youWonO = GameObject.Instantiate (youWonGO) as GameObject;
+			youWonO.SetActive (false);
+		}
+	}
+
+	public static void registerStartingSplashScreen(GameObject startingSplashScreenGO){
+		if(startingSplashScreenGO!=null && startingSplashScreenO == null){
+			startingSplashScreenO = GameObject.Instantiate (startingSplashScreenGO) as GameObject;
+			startingSplashScreenO.SetActive (false);
+		}
+	}
+
 	public static void registerFadeManager(GameObject fadeManagerGO){
 		fadeManager = fadeManagerGO.GetComponent<FadeManager> ();
 	}
 
 	public static void activateMenu(Menu newMenu){
 		deactivateMenus ();
-		if (newMenu.Equals (Menu.MainMenu)) {
-			mainMenuO.SetActive(true);
-		}else if(newMenu.Equals(Menu.ControlsMenu)){
-			controlsO.SetActive(true);
+		GameObject newMenuGO = getMenu (newMenu);
+		if(newMenuGO!=null){
+			getMenu (newMenu).SetActive (true);
 		}
+		actualMenu = getMenu (newMenu);
 	}
+
 	
 	public static void fadeOutChangeMenuFadeIn(Menu newMenu){
-
 		nextMenu = newMenu;
-		fadeManager.fadeOut(changeMenuAndFadeIn);
-		
+		fadeManager.fadeOut(changeMenuAndFadeIn,actualMenu);
+	}
+
+	public static void fadeOutChangeMenuFadeInWithAction(Action action,Menu newMenu){
+		nextMenu = newMenu;
+		fadeManager.fadeOut(changeMenuAndFadeInWithAction,actualMenu);
+		actionToDo = action;
+	}
+
+	public static void fadeIn(Menu newMenu){
+		activateMenu (newMenu);
+		fadeManager.fadeIn (getMenu (newMenu));
+
+	}
+
+	public static void fadeOut(Action action,Menu newMenu){
+		fadeManager.fadeOut (action, getMenu (newMenu));
+	}
+
+	public static void fadeOut(Action action){
+		fadeManager.fadeOut (action, actualMenu);
+	}
+
+	public static void getHurtEffect(){
+		fadeManager.getHurtEffect ();
 	}
 
 

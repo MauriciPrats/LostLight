@@ -253,7 +253,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
-  m_DragThreshold: 5
 --- !u!4 &377915374
 Transform:
   m_ObjectHideFlags: 0
@@ -306,7 +305,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 473c06f384cfed4459ef56f85caac136, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeTexture: {fileID: 2800000, guid: e3a6b3ca62d095f4bacc604fb127aace, type: 3}
+  blackTexture: {fileID: 0}
+  getHurtTexture: {fileID: 0}
+  fadeProgression: .0199999996
+  getHurtFadeProgression: .0500000007
+  getHurtStartAlpha: .800000012
+  drawDepth: -1000
 --- !u!114 &637367030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,9 +322,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 027d0d9397c81eb46b3fcdddaf9c0e97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingMenu: 1
+  startingMenu: 6
   mainMenuPrefab: {fileID: 128502, guid: 8bfbfdac8ae68c54cae3214a18a9996e, type: 2}
   controlsMenuPrefab: {fileID: 188242, guid: 2321a59d0499bc147927073d993d0082, type: 2}
+  creditsMenuPrefab: {fileID: 100018, guid: 24fb714f0b8cc4f4283f050445656055, type: 2}
+  youWonMenuPrefab: {fileID: 100006, guid: 67bd716168d395a4fb3f0fdccd942d19, type: 2}
+  youLostMenuPrefab: {fileID: 100006, guid: 9bc24d2209832ad49a81352433184443, type: 2}
+  startingSplashScreenPrefab: {fileID: 100006, guid: 25fc0d82a4d92904f9898a3ce5743c9a,
+    type: 2}
 --- !u!1 &1323071721
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,7 +379,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: .192156866, g: .301960796, b: .474509805, a: .0196078438}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: .0196078438}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0

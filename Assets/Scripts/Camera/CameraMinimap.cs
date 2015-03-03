@@ -2,7 +2,10 @@
 using System.Collections;
 
 public class CameraMinimap : MonoBehaviour {
-	
+
+	void Awake(){
+		GameManager.registerMinimapCamera (gameObject);
+	}
 	// Use this for initialization
 	void Start () {
 	

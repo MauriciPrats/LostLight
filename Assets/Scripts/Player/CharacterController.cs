@@ -3,65 +3,81 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class CharacterController : MonoBehaviour {
+
 	public float moveSpeed = 5f;
 	public float normalJumpForce = 10f;
 	public float spaceJumpForce = 100f;
 	public GameObject particleSystemJumpCharge;
 	public GameObject animationBigPappada;
-	private Animator bpAnimator;
+	public GameObject breathingBubble;
+	public float timeBetweenDamageWhenNotBreathing = 0.5f;
+	public int damageWhenNotBreathing = 1;
+	public float minimumBreathingBubbleScale = 6f;
+	public float maximumBreathingBubbleScale = 1f;
+	public Transform leftHand; //Exponer la mano izquierda de Big Pappada para ponerle su arma
+	public GameObject weapon;
+	public float timeToDieInSpace = 4f;
 
+
+	private Animator bpAnimator;
 	private CharacterAttackController cAttackController;
-	
 	private bool isAttacking = false;
 	private GravityBody body;
 	private Vector3 moveAmount;
 	private Vector3 smoothMoveVelocity;
 	private float timeJumpPressed;
 	private bool isMoving;
-	//private AnimationController animCont;
 	private bool isLookingRight = true;
-
 	private float timeSinceAttackStarted = 0f;
-	private List<GameObject> closeEnemies = new List<GameObject>();
 	private bool isJumping = false;
 	private float jumpedTimer = 0f;
 	private float jumpedTimerCooldown = 0.2f;
-	bool attackEffectDone = false;
-	
-	public Transform leftHand; //Exponer la mano izquierda de Big Pappada para ponerle su arma
-	public GameObject weapon;
-	
+	private bool isGoingUp = false;
+	private bool isOutsideAthmosphere;
+	private float timeHasBeenInSpace = 0f;
+	private Killable killable;
+	private float timeHasNotBeenBreathing;
+
 	void Awake(){
 		GameManager.registerPlayer (gameObject);
 		
 		GameObject stick = (GameObject)Instantiate(weapon);
 		stick.transform.parent = leftHand.transform;
 		stick.transform.position = leftHand.transform.position;
+
 	}
 
 	void Start () {
-		timeJumpPressed = 0;
+
 		body = GetComponent<GravityBody> ();
+		killable = GetComponent<Killable> ();
 		GameObject attack = GameObject.Find("skillAttack");
 		transform.forward = new Vector3(1f,0f,0f);
-		
 		cAttackController = GetComponent<CharacterAttackController>();
-		
 		bpAnimator = animationBigPappada.GetComponent<Animator>();
+
+		initializeVariables ();
 		
 	}
-	
-	
-	void OnTriggerEnter(Collider col)
-	{
-		if (col.gameObject.tag == "Damageable") {
-			closeEnemies.Add(col.gameObject);
-		}
-	}
-	void OnTriggerExit(Collider col)
-	{
-		if (col.gameObject.tag == "Damageable") {
-			closeEnemies.Remove(col.gameObject);
+
+	private void initializeVariables(){
+		timeJumpPressed = 0;
+		timeSinceAttackStarted = 0f;
+		isJumping = false;
+		jumpedTimer = 0f;
+		jumpedTimerCooldown = 0.2f;
+		isGoingUp = false;
+		timeHasNotBeenBreathing = timeBetweenDamageWhenNotBreathing;
+		timeHasBeenInSpace = 0f;
+		rigidbody.velocity = new Vector3 (0f, 0f, 0f);
+
+		//Initialize the animator
+		if(bpAnimator!=null){
+			bpAnimator.SetBool("isJumping",false);
+			bpAnimator.SetBool("isSpaceJumping",false);
+			bpAnimator.SetBool("isGoingUp",false);
+			bpAnimator.SetBool("isChargingSpaceJumping",false);
+			bpAnimator.SetBool("isWalking",false);
 		}
 	}
 
@@ -76,6 +92,42 @@ public class CharacterController : MonoBehaviour {
 			bpAnimator.SetBool("isSpaceJumping",false);
 		}else{
 
+		}
+		if(isJumping){
+			bool isGoingUp = Vector3.Angle(transform.up,rigidbody.velocity.normalized)<90;
+			if (isGoingUp) {
+				bpAnimator.SetBool("isGoingUp",true);
+			}else{
+				bpAnimator.SetBool("isGoingUp",false);
+			}
+		}
+
+
+		if(body.getIsOutsideAthmosphere()){
+			breathingBubble.SetActive(true);
+			if(!GameManager.gameState.isGameEnded){
+				if(timeHasBeenInSpace>=timeToDieInSpace){
+					breathingBubble.transform.localScale = new Vector3(0f,0f,0f);
+					timeHasNotBeenBreathing+=Time.deltaTime;
+					if(timeHasNotBeenBreathing>=timeBetweenDamageWhenNotBreathing){
+						getHurt(damageWhenNotBreathing);
+						timeHasNotBeenBreathing = 0f;
+					}
+				}else{
+					timeHasBeenInSpace += Time.deltaTime;
+					float ratio = 1f - (timeHasBeenInSpace/timeToDieInSpace);
+					float newScale = ((maximumBreathingBubbleScale - minimumBreathingBubbleScale) * ratio)+minimumBreathingBubbleScale;
+					breathingBubble.transform.localScale = new Vector3(newScale,newScale,newScale);
+					//GUIManager.setFadedOutScreen(timeHasBeenInSpace/timeToDieInSpace);
+				}
+			}
+
+		}else{
+			if(!GameManager.gameState.isGameEnded){
+				timeHasBeenInSpace = 0f;
+				breathingBubble.SetActive(false);
+				//GUIManager.resetFadeScreen();
+			}
 		}
 	}
 
@@ -113,6 +165,7 @@ public class CharacterController : MonoBehaviour {
 		rigidbody.AddForce (transform.up * normalJumpForce, ForceMode.VelocityChange);
 		ParticleSystem particles = particleSystemJumpCharge.GetComponent<ParticleSystem> ();
 		particles.Stop ();
+		bpAnimator.SetBool("isChargingSpaceJumping",false);
 		bpAnimator.SetBool("isJumping",true);
 		isJumping = true;
 		jumpedTimer = 0f;
@@ -126,6 +179,7 @@ public class CharacterController : MonoBehaviour {
 
 			ParticleSystem particles = particleSystemJumpCharge.GetComponent<ParticleSystem> ();
 			particles.Stop ();
+			bpAnimator.SetBool("isChargingSpaceJumping",false);
 
 			moveAmount = (moveSpeed * inputHorizontal) * -this.transform.right;
 
@@ -160,6 +214,21 @@ public class CharacterController : MonoBehaviour {
 		bpAnimator.SetBool("isChargingSpaceJumping",true);
 		ParticleSystem particles = particleSystemJumpCharge.GetComponent<ParticleSystem> ();
 		particles.Play ();
+	}
+
+	public void getHurt(int hitPointsToSubstract){
+		GUIManager.getHurtEffect ();
+		killable.HP -= hitPointsToSubstract;
+		if(killable.HP<=0){
+			GameManager.loseGame();
+		}
+	}
+
+	public void reset(){
+		if(killable!=null){
+			killable.resetHP ();
+		}
+		initializeVariables ();
 	}
 
 }

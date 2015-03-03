@@ -10,13 +10,14 @@ public class GravityBody : MonoBehaviour {
 	GameObject[] planets;
 	bool isTouchingPlanet;
 	bool usesSpaceGravity;
+	bool isOutsideAthmosphere;
 	float minimumPlanetDistance = float.MaxValue;
 
 	void Start() {
 		planets = GravityBodiesManager.getGravityBodies ();
 	}
 
-	void OnTriggerEnter (Collider col)
+	/*void OnTriggerEnter (Collider col)
 	{
 		checkTouchEnter (col.gameObject);
 	}
@@ -34,10 +35,10 @@ public class GravityBody : MonoBehaviour {
 	void OnCollisionExit(Collision col)
 	{
 		checkTouchExit (col.gameObject);
-	}
+	}*/
 	
 
-	void checkTouchEnter(GameObject obj){
+	public void checkTouchEnter(GameObject obj){
 		if (obj.tag == "Planet") {
 			rigidbody.drag = Constants.DRAG_ON_TOUCH_PLANETS;
 			isTouchingPlanet = true;
@@ -45,7 +46,7 @@ public class GravityBody : MonoBehaviour {
 		}
 	}
 
-	void checkTouchExit(GameObject obj){
+	public void checkTouchExit(GameObject obj){
 		if (obj.tag == "Planet") {
 			rigidbody.drag = 0f;
 			isTouchingPlanet = false;
@@ -53,6 +54,10 @@ public class GravityBody : MonoBehaviour {
 	}
 
 	void FixedUpdate() {
+		attract ();
+	}
+
+	public void attract(){
 		transform.parent = null;
 		int closePlanets = 0;
 		minimumPlanetDistance = float.MaxValue;
@@ -70,9 +75,11 @@ public class GravityBody : MonoBehaviour {
 		{
 			usesSpaceGravity = true;
 			rigidbody.drag = 0f;
+			isOutsideAthmosphere = true;
 		} 
 		else 
 		{
+			isOutsideAthmosphere = false;
 			rigidbody.drag = Constants.GRAVITY_DRAG_OF_ATHMOSPHERE;
 		}
 	}
@@ -87,6 +94,10 @@ public class GravityBody : MonoBehaviour {
 
 	public float getMinimumPlanetDistance(){
 		return minimumPlanetDistance;
+	}
+
+	public bool getIsOutsideAthmosphere(){
+		return isOutsideAthmosphere;
 	}
 	/*public bool isGrounded(){
 		
