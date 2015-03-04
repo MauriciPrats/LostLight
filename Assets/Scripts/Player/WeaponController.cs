@@ -39,7 +39,6 @@ public class WeaponManager : MonoBehaviour {
 	}	
 
 	private void LoadWeaponPartsFromXML() {
-		print ("Hola que tal");
 		XmlDocument xmlDoc = new XmlDocument ();
 		xmlDoc.Load ("Assets/Data/WeaponParts.xml");
 		XmlNodeList weaponList = xmlDoc.GetElementsByTagName ("weapon");

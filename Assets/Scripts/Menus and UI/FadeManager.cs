@@ -118,7 +118,6 @@ public class FadeManager : MonoBehaviour {
 
 	void drawFadeOutCompleteTexture(){
 		if (!isFinishedAll) {
-			Debug.Log(1f - allAlpha);
 			allAlpha += fadeDirAll * Constants.FADE_SPEED * Time.deltaTime;
 			allAlpha = Mathf.Clamp01 (allAlpha); 
 			

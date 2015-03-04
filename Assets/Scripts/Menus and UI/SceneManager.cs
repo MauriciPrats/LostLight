@@ -29,7 +29,6 @@ public class SceneManager : MonoBehaviour {
 				GameManager.rebuildGameFromGameState ();
 				GameManager.pauseGame();
 			}
-			Debug.Log("afawf");
 			GUIManager.activateMenu(startingMenu);
 			GUIManager.fadeAllIn();
 			hasUpdated = true;

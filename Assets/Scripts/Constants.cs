@@ -40,7 +40,14 @@ public static class Constants{
 	public static float WEAPONSMITH_ROOT_MENU_BUTTONS_HEIGHT= 20;
 	public static float WEAPONSMITH_ROOT_MENU_BUTTONS_V_OFFSET = 5;
 
+
 	public static float FADE_SPEED = 0.5f;
+
+	public static float SPAWNING_MINIMUM_DISTANCE_OF_PLAYER = 5f;
+	public static float SPAWNING_MAXIMUM_DISTANCE_OF_PLAYER = 25f;
+
+	public static float TIME_BETWEEN_CHECK_PLAYER_DISTANCE_FOR_DESPAWN = 2f;
+
 
 
 }

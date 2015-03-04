@@ -160,6 +160,11 @@ public class GUIManager : MonoBehaviour {
 		actionToDo = action;
 	}
 
+	public static void fadeInWithAction(Action action,Menu newMenu){
+		activateMenu (newMenu);
+		fadeManager.fadeInWithAction(action, getMenu(newMenu));
+	}
+
 	public static void fadeIn(Menu newMenu){
 		activateMenu (newMenu);
 		fadeManager.fadeIn (getMenu (newMenu));

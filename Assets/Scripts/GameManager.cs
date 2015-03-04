@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameManager{
 
@@ -8,17 +9,12 @@ public class GameManager{
 	public static GameState gameState = new GameState ();
 	public static GameObject mainCamera;
 	public static GameObject minimapCamera;
-
+	public static List<PlanetSpawnerManager> planetSpawnersManagers = new List<PlanetSpawnerManager>(0);
 	public static CheckpointManager checkPointManager;
-
-
+	
 	//Game state functions
 	public static void putLoadedGameState(GameState gameStateLoaded){
 		gameState = gameStateLoaded;
-	}
-
-	public static void putPlayerPosition(){
-
 	}
 
 	public static void rebuildGameFromGameState(){
@@ -31,10 +27,16 @@ public class GameManager{
 		}	
 
 		player.GetComponent<CharacterController>().reset();
-		player.GetComponent<GravityBody> ().attract ();
-		mainCamera.GetComponent<CameraFollowingPlayer> ().resetPosition ();
+		player.GetComponent<GravityBody>().attract();
+		mainCamera.GetComponent<CameraFollowingPlayer>().resetPosition();
+		minimapCamera.SetActive(false);
 
-		minimapCamera.SetActive (false);
+		//Despawn all the enemies
+		EnemySpawned[] enemies = (EnemySpawned[])GameObject.FindObjectsOfType (typeof(EnemySpawned));
+		foreach(EnemySpawned enemy in enemies){
+			//It works since it doesn't destroy it immediatly?
+			enemy.OnEnemyDead();
+		}
 	}
 
 	public static void pauseGame(){
@@ -45,11 +47,10 @@ public class GameManager{
 		//Time.timeScale = 1f;
 	}
 
-
 	//Game functions
 	public static void loseGame(){
 		GameManager.gameState.isGameEnded = true;
-		GUIManager.fadeOutChangeMenuFadeInWithAction(rebuildGameFromGameState,Menu.YouLostMenu);
+		GUIManager.fadeInWithAction(rebuildGameFromGameState,Menu.YouLostMenu);
 	}
 
 	public static void startGame(){
@@ -77,5 +78,9 @@ public class GameManager{
 
 	public static void registerMinimapCamera(GameObject minimapCameraGO){
 		minimapCamera = minimapCameraGO;
+	}
+
+	public static void registerPlanetSpawner(GameObject spawnerGO){
+		planetSpawnersManagers.Add(spawnerGO.GetComponent<PlanetSpawnerManager>());
 	}
 }
