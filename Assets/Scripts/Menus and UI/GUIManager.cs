@@ -174,6 +174,14 @@ public class GUIManager : MonoBehaviour {
 		fadeManager.fadeOut (action, actualMenu);
 	}
 
+	public static void fadeAllOut(Action action){
+		fadeManager.fadeAllOut (action);
+	}
+
+	public static void fadeAllIn(){
+		fadeManager.fadeAllIn ();
+	}
+
 	public static void getHurtEffect(){
 		fadeManager.getHurtEffect ();
 	}

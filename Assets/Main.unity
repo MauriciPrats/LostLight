@@ -305,8 +305,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 473c06f384cfed4459ef56f85caac136, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blackTexture: {fileID: 0}
-  getHurtTexture: {fileID: 0}
+  blackTexture: {fileID: 2800000, guid: e3a6b3ca62d095f4bacc604fb127aace, type: 3}
+  getHurtTexture: {fileID: 2800000, guid: e1a2f695c199d454c992cb16485af445, type: 3}
   fadeProgression: .0199999996
   getHurtFadeProgression: .0500000007
   getHurtStartAlpha: .800000012

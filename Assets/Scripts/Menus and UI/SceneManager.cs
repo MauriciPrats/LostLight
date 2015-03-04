@@ -26,12 +26,12 @@ public class SceneManager : MonoBehaviour {
 	void Update () {
 		if(!hasUpdated){
 			if(startingMenu == Menu.MainMenu){
-				GUIManager.fadeOutChangeMenuFadeIn(startingMenu);
 				GameManager.rebuildGameFromGameState ();
 				GameManager.pauseGame();
-			}else{
-				GUIManager.fadeIn (startingMenu);
 			}
+			Debug.Log("afawf");
+			GUIManager.activateMenu(startingMenu);
+			GUIManager.fadeAllIn();
 			hasUpdated = true;
 		}
 	}
@@ -50,7 +50,7 @@ public class SceneManager : MonoBehaviour {
 	}
 
 	public void CloseApplication(){
-		GUIManager.fadeOut (QuitScene);
+		GUIManager.fadeAllOut(QuitScene);
 	}
 
 }

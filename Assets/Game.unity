@@ -10629,6 +10629,7 @@ GameObject:
   - 33: {fileID: 641573197}
   - 23: {fileID: 641573196}
   - 64: {fileID: 641573198}
+  - 54: {fileID: 641573199}
   m_Layer: 8
   m_Name: camino
   m_TagString: Planet
@@ -10690,9 +10691,24 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_SmoothSphereCollisions: 0
+  m_SmoothSphereCollisions: 1
   m_Convex: 0
   m_Mesh: {fileID: 4300422, guid: 73a724b9e1c25b54e9522c396b887b81, type: 3}
+--- !u!54 &641573199
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 641573194}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 118
+  m_CollisionDetection: 1
 --- !u!1 &645321114
 GameObject:
   m_ObjectHideFlags: 0
@@ -17384,7 +17400,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1294720925}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.32800007, y: 7.34619999, z: -.200000003}
+  m_LocalPosition: {x: -1.03279996, y: 7.46420002, z: -.172529995}
   m_LocalScale: {x: .0689585805, y: .068958573, z: .068958573}
   m_Children:
   - {fileID: 89850115}
@@ -20809,7 +20825,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1516800863}
   m_LocalRotation: {x: 0, y: -.707106829, z: 0, w: .707106829}
-  m_LocalPosition: {x: .0371005572, y: .998130798, z: .274127215}
+  m_LocalPosition: {x: .0298420005, y: .998260021, z: .274129987}
   m_LocalScale: {x: .0867334977, y: .08673352, z: .0867334977}
   m_Children:
   - {fileID: 1784260653}

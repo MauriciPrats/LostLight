@@ -13,6 +13,7 @@ public class GravityBody : MonoBehaviour {
 	bool isOutsideAthmosphere;
 	float minimumPlanetDistance = float.MaxValue;
 
+	int objectsTouching = 0;
 	void Start() {
 		planets = GravityBodiesManager.getGravityBodies ();
 	}
@@ -39,7 +40,8 @@ public class GravityBody : MonoBehaviour {
 	
 
 	public void checkTouchEnter(GameObject obj){
-		if (obj.tag == "Planet") {
+		if (obj.tag == "Planet" || obj.tag == "Enemy") {
+			objectsTouching++;
 			rigidbody.drag = Constants.DRAG_ON_TOUCH_PLANETS;
 			isTouchingPlanet = true;
 			usesSpaceGravity = false;
@@ -47,9 +49,12 @@ public class GravityBody : MonoBehaviour {
 	}
 
 	public void checkTouchExit(GameObject obj){
-		if (obj.tag == "Planet") {
-			rigidbody.drag = 0f;
-			isTouchingPlanet = false;
+		if (obj.tag == "Planet" || obj.tag == "Enemy") {
+			objectsTouching--;
+			if(objectsTouching==0){
+				rigidbody.drag = 0f;
+				isTouchingPlanet = false;
+			}
 		}
 	}
 
