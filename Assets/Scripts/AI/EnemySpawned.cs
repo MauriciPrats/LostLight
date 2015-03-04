@@ -4,7 +4,8 @@ using System;
 public class EnemySpawned : MonoBehaviour {
 
 	public int pointsCost;
-	public Action<GameObject> actionToCallOnDestroy;
+	public Action<GameObject> actionToCallOnDie;
+	public Action<GameObject> actionToCallOnDespawn;
 
 	private bool isDespawned = false;
 	private float timerCheckPlayerDistance = 0f;
@@ -27,14 +28,17 @@ public class EnemySpawned : MonoBehaviour {
 		if(timerCheckPlayerDistance>Constants.TIME_BETWEEN_CHECK_PLAYER_DISTANCE_FOR_DESPAWN){
 			timerCheckPlayerDistance =  0f;
 			if(Vector3.Distance(GameManager.player.transform.position,transform.position)> Constants.SPAWNING_MAXIMUM_DISTANCE_OF_PLAYER){
-				OnEnemyDead();
+				OnDespawn();
 			}
 		}
 	}
 
 	public void OnEnemyDead(){
 		collider.enabled = false;
-		actionToCallOnDestroy (gameObject);
+		actionToCallOnDie (gameObject);
 	}
 
+	public void OnDespawn(){
+		actionToCallOnDespawn (gameObject);
+	}
 }

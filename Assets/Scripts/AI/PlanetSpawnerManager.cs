@@ -48,24 +48,17 @@ public class PlanetSpawnerManager : MonoBehaviour {
 				//We get a random spawner and we make him spawn a random creature
 				if(inRangeSpawners.Count>0){
 					Spawner randomSpawner = inRangeSpawners[Random.Range(0,inRangeSpawners.Count)];
-					ammountOfActualPointsSpawned+= randomSpawner.spawnRandomEnemy(onEnemyDead);
+					ammountOfActualPointsSpawned+= randomSpawner.spawnRandomEnemy(onEnemyDead,onEnemyDespawned);
 				}
 			}
 		}
 	}
 
 	public void onEnemyDead(GameObject enemy){
-		Killable killable = enemy.GetComponent<Killable> ();
 		EnemySpawned enemySpawned = enemy.GetComponent<EnemySpawned> ();
-		if(killable.HP<=0){
-			accumulatedPoints+=enemySpawned.pointsCost;
-			ammountOfActualPointsSpawned-=enemySpawned.pointsCost;
-		}else{
-			//It has despawned because it's superfar away
-			ammountOfActualPointsSpawned-=enemySpawned.pointsCost;
-			//We despawn the enemy
-			Destroy(enemy);
-		}
+		accumulatedPoints+=enemySpawned.pointsCost;
+		ammountOfActualPointsSpawned-=enemySpawned.pointsCost;
+		
 		if(accumulatedPoints>=pointsUntilSeal3ShintoDoor){
 			shintoDoorEffect (3);
 		}else if(accumulatedPoints>=pointsUntilSeal2ShintoDoor){
@@ -73,6 +66,16 @@ public class PlanetSpawnerManager : MonoBehaviour {
 		}else if(accumulatedPoints>=pointsUntilSeal1ShintoDoor){
 			shintoDoorEffect (1);
 		}
+	}
+
+	public void onEnemyDespawned(GameObject enemy){
+
+		EnemySpawned enemySpawned = enemy.GetComponent<EnemySpawned> ();
+		//It has despawned because it's superfar away
+		ammountOfActualPointsSpawned-=enemySpawned.pointsCost;
+		//We despawn the enemy
+		Destroy(enemy);
+
 	}
 
 	public void shintoDoorEffect(int level){

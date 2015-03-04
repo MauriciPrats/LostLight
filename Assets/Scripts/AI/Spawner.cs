@@ -29,7 +29,7 @@ public class Spawner : MonoBehaviour {
 
 	}
 
-	public int spawnRandomEnemy(Action<GameObject> actionToCallOnEnemyDead){
+	public int spawnRandomEnemy(Action<GameObject> actionToCallOnEnemyDead,Action<GameObject> actionToCallOnEnemyDespawned){
 		//Spawns a random enemy and returns the weight it has
 
 		GameObject randomEnemyToSpawn = enemyPrefabsCanSpawn [UnityEngine.Random.Range (0, enemyPrefabsCanSpawn.Length)];
@@ -37,7 +37,9 @@ public class Spawner : MonoBehaviour {
 		newEnemySpawned.transform.position = transform.position;
 
 		EnemySpawned enemySpawnedC = newEnemySpawned.GetComponent<EnemySpawned> ();
-		enemySpawnedC.actionToCallOnDestroy = actionToCallOnEnemyDead;
+		enemySpawnedC.actionToCallOnDie = actionToCallOnEnemyDead;
+		enemySpawnedC.actionToCallOnDespawn = actionToCallOnEnemyDespawned;
+		
 		return enemySpawnedC.pointsCost;
 	}
 }

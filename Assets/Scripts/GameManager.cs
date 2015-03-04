@@ -35,7 +35,7 @@ public class GameManager{
 		EnemySpawned[] enemies = (EnemySpawned[])GameObject.FindObjectsOfType (typeof(EnemySpawned));
 		foreach(EnemySpawned enemy in enemies){
 			//It works since it doesn't destroy it immediatly?
-			enemy.OnEnemyDead();
+			enemy.OnDespawn();
 		}
 	}
 
