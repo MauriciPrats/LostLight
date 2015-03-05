@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
 public class WalkOnMultiplePaths : MonoBehaviour {
 
 	public LayerMask layersToFindCollisionEnemies;
 	public bool isFrontPath = true;
+	public bool takesBothPathways = false;
 	public float maximumDistanceSee = 30f;
 
 	private float lastTimeCheckedOtherPaths ;
@@ -13,10 +14,59 @@ public class WalkOnMultiplePaths : MonoBehaviour {
 	private bool isChangingPath = false;
 	private float changingTimer = 0f;
 
+	public float centerToExtremesDistance = 0f;
+
+	private List<GameObject> closeOtherEnemies = new List<GameObject>(0);
+
+	IAController ia;
+
+
+	void OnTriggerEnter (Collider col)
+	{
+		elementEntersRange (col.gameObject);
+	}
+	
+	void OnCollisionEnter (Collision col)
+	{
+		//Debug.Log (col.gameObject.tag);
+		elementEntersRange (col.gameObject);
+	}
+	
+	void OnTriggerExit(Collider col)
+	{
+		elementLeavesRange (col.gameObject);
+	}
+	
+	void OnCollisionExit(Collision col)
+	{
+		elementLeavesRange (col.gameObject);
+	}
+
+	void elementEntersRange(GameObject newElement){
+		if(newElement.tag == "Enemy"){
+			closeOtherEnemies.Add(newElement);
+			//Debug.Log(closeOtherEnemies.Count);
+		}
+	}
+
+	void elementLeavesRange(GameObject element){
+		if(element.tag == "Enemy"){
+			closeOtherEnemies.Remove(element);
+			//Debug.Log(closeOtherEnemies.Count);
+		}
+	}
 
 	// Use this for initialization
 	void Start () {
-		changePath ();
+		ia = GetComponent<IAController> ();
+		centerToExtremesDistance = collider.bounds.size.z / 2f;
+		Debug.Log (centerToExtremesDistance);
+		//Debug.Log (centerToExtremesDistance);
+		if(takesBothPathways){
+			putMiddlePath();
+		}else{
+			isChangingPath = true;
+		}
 		lastTimeCheckedOtherPaths = Random.value * cooldownRaycastingCheckOtherPaths;
 	}
 	
@@ -33,47 +83,93 @@ public class WalkOnMultiplePaths : MonoBehaviour {
 		}
 	}
 
+	public float getClosestEnemyInFront(){
+		float closestEnemyDistance = float.PositiveInfinity;
+		foreach(GameObject enemyClose in closeOtherEnemies){
+			if((ia.getIsLookingRight() && Util.isARightToB(enemyClose,gameObject)) ||
+			   (!ia.getIsLookingRight() && !Util.isARightToB(enemyClose,gameObject))){
+
+				WalkOnMultiplePaths womp = enemyClose.GetComponent<WalkOnMultiplePaths>();
+				if((womp.isFrontPath == isFrontPath) || (takesBothPathways || womp.takesBothPathways)){
+					float distance = Vector3.Distance(transform.position,enemyClose.transform.position)-centerToExtremesDistance-womp.centerToExtremesDistance;
+					if(distance<closestEnemyDistance){
+						closestEnemyDistance = distance;
+					}
+				}
+
+
+			}
+		}
+		return closestEnemyDistance;
+	}
+
 	public void changePath(){
-		changingTimer = 1f;
-		isChangingPath = false;
-		if (isFrontPath) {transform.position = new Vector3(transform.position.x,transform.position.y,Constants.FRONT_PATH_Z_OFFSET);}
-		else{transform.position = new Vector3(transform.position.x,transform.position.y,Constants.BACK_PATH_Z_OFFSET);}
-		/*changingTimer += Time.deltaTime;
-		if(changingTimer>=1f){changingTimer = 1f; isChangingPath = false;}
-		Vector3 frontPath = new Vector3(transform.localPosition.x,transform.localPosition.y,Constants.FRONT_PATH_Z_OFFSET);
-		Vector3 backPath = new Vector3(transform.localPosition.x,transform.localPosition.y,Constants.BACK_PATH_Z_OFFSET);
-		//Debug.Log("changiing")
-		if(isFrontPath){
-			transform.localPosition = Vector3.Lerp(backPath,frontPath,changingTimer);
+	
+		changingTimer += Time.deltaTime;
+		if(changingTimer >= 1f){
+			isChangingPath = false;
+			changingTimer = 0f;
+			takesBothPathways = false;
 		}else{
-			transform.localPosition = Vector3.Lerp(frontPath,backPath,changingTimer);
-		}*/
-		
+			takesBothPathways = true;
+			Vector3 frontPosition = new Vector3(transform.position.x,transform.position.y,Constants.FRONT_PATH_Z_OFFSET);
+			Vector3 backPosition = new Vector3(transform.position.x,transform.position.y,Constants.BACK_PATH_Z_OFFSET);
+
+			if (isFrontPath) {transform.position = Vector3.Lerp(backPosition,frontPosition,changingTimer);}
+			else{transform.position = Vector3.Lerp(frontPosition,backPosition,changingTimer);}		
+		}
+	}
+
+	public void putMiddlePath(){
+		transform.position = new Vector3 (transform.position.x, transform.position.y, (Constants.FRONT_PATH_Z_OFFSET + Constants.BACK_PATH_Z_OFFSET) / 2f);
 	}
 
 	public int ammountOfEnemiesInFront(bool isFrontPath,int jumps){
-		jumps += 1;
-		//TODO: find out how many enemies are in this path between him and the player
-		if(jumps<5){
-			RaycastHit hit;
-			Vector3 position;
-			if(isFrontPath){position = new Vector3(transform.position.x,transform.position.y,Constants.FRONT_PATH_Z_OFFSET);}
-			else{position = new Vector3(transform.position.x,transform.position.y,Constants.BACK_PATH_Z_OFFSET);}
-			if (Physics.Raycast(position,transform.forward, out hit, maximumDistanceSee,layersToFindCollisionEnemies))
-			{
-				Collider target = hit.collider; // What did I hit?
-				//Debug.Log(target.name);
-				if(target.tag != "Enemy"){ return 0;}
-				else if(target.tag == "Enemy"){ 
-					WalkOnMultiplePaths controller = target.gameObject.GetComponent<WalkOnMultiplePaths>();
-					return controller.ammountOfEnemiesInFront(isFrontPath,jumps)+1;
+		float playerAngle = Util.getPlanetaryAngleFromAToB (gameObject, GameManager.player);
+
+		int enemiesBetweenPlayerAndMe = 0;
+		foreach(GameObject enemyClose in closeOtherEnemies){
+			WalkOnMultiplePaths womp = enemyClose.GetComponent<WalkOnMultiplePaths>();
+
+			if(womp.isFrontPath == isFrontPath || (womp.takesBothPathways || takesBothPathways)){
+				float enemyAngle = Util.getPlanetaryAngleFromAToB(gameObject,enemyClose);
+				if(playerAngle<0f && enemyAngle<0f){
+					//if they're both negative
+					if(playerAngle<enemyAngle){
+						enemiesBetweenPlayerAndMe++;
+					}
+				}else if(playerAngle>0f && enemyAngle>0f){
+					if(playerAngle>enemyAngle){
+						enemiesBetweenPlayerAndMe++;
+					}
 				}
 			}
 		}
-		return 0;
+
+		return enemiesBetweenPlayerAndMe;
+	}
+
+	public bool canActuallyChangePath(){
+		foreach(GameObject enemyClose in closeOtherEnemies){
+			WalkOnMultiplePaths womp = enemyClose.GetComponent<WalkOnMultiplePaths>();
+			if((womp.isFrontPath != isFrontPath) && !takesBothPathways){
+				//IF they walk on different paths we check if they are gonna collide
+				Vector3 distanceBetweenObjects = transform.position - enemyClose.transform.position;
+				//We discard the z component
+				float distance = new Vector2(distanceBetweenObjects.x,distanceBetweenObjects.y).magnitude;
+
+				if(distance < (centerToExtremesDistance+womp.centerToExtremesDistance)){
+					//It's not gonna fit!!! , you Shall not change path
+					return false;
+				}
+			}
+		}
+		//Nothing went wrong, so you can actually change path
+		return true;
 	}
 
 	private bool hasToChangePath(){
+		if(takesBothPathways){return false;}
 		lastTimeCheckedOtherPaths += Time.deltaTime;
 		if(lastTimeCheckedOtherPaths>cooldownRaycastingCheckOtherPaths){
 			lastTimeCheckedOtherPaths = Random.value*0.1f;
@@ -81,11 +177,14 @@ public class WalkOnMultiplePaths : MonoBehaviour {
 			int backEnemies = ammountOfEnemiesInFront (false,0);
 			
 			//Debug.Log("F: "+frontEnemies+" B: "+backEnemies);
-			
-			if(isFrontPath && backEnemies<frontEnemies){
-				return true;
-			}else if(!isFrontPath && backEnemies>frontEnemies){
-				return true;
+			bool canChange = canActuallyChangePath();
+
+			if(canChange){
+				if(isFrontPath && backEnemies<frontEnemies){
+					return true;
+				}else if(!isFrontPath && backEnemies>frontEnemies){
+					return true;
+				}
 			}
 			return false;
 		}else{

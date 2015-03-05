@@ -18,6 +18,9 @@ public class CharacterController : MonoBehaviour {
 	public GameObject weapon;
 	public float timeToDieInSpace = 4f;
 
+	public float centerToExtremesDistance = 0f;
+	public float extraSafeDistanceFromEnemies = 0.3f;
+
 
 	private Animator bpAnimator;
 	private CharacterAttackController cAttackController;
@@ -69,6 +72,9 @@ public class CharacterController : MonoBehaviour {
 		isGoingUp = false;
 		timeHasNotBeenBreathing = timeBetweenDamageWhenNotBreathing;
 		timeHasBeenInSpace = 0f;
+		centerToExtremesDistance = (animationBigPappada.collider.bounds.size.z /2f)+extraSafeDistanceFromEnemies;
+		Debug.Log (centerToExtremesDistance);
+
 		rigidbody.velocity = new Vector3 (0f, 0f, 0f);
 
 		//Initialize the animator

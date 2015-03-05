@@ -465,7 +465,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &58118275
 Transform:
   m_ObjectHideFlags: 0
@@ -3437,7 +3437,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1536
   isFrontPath: 0
+  takesBothPathways: 0
   maximumDistanceSee: 30
+  centerToExtremesDistance: 0
 --- !u!114 &228147052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5864,7 +5866,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1536
   isFrontPath: 0
+  takesBothPathways: 0
   maximumDistanceSee: 30
+  centerToExtremesDistance: 0
 --- !u!114 &466375618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9754,8 +9758,6 @@ MonoBehaviour:
   spawners:
   - {fileID: 732346007}
   - {fileID: 422012066}
-  - {fileID: 1643628686}
-  - {fileID: 58118274}
   pointsUntilSeal1ShintoDoor: 10
   pointsUntilSeal2ShintoDoor: 20
   pointsUntilSeal3ShintoDoor: 30
@@ -13449,6 +13451,8 @@ MonoBehaviour:
   leftHand: {fileID: 1174366765}
   weapon: {fileID: 100000, guid: 3dae2ed6c0672064b8a64a3ab5285182, type: 2}
   timeToDieInSpace: 4
+  centerToExtremesDistance: 0
+  extraSafeDistanceFromEnemies: .300000012
 --- !u!114 &1294720931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15111,7 +15115,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1536
   isFrontPath: 0
+  takesBothPathways: 0
   maximumDistanceSee: 30
+  centerToExtremesDistance: 0
 --- !u!114 &1429724664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16576,7 +16582,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1536
   isFrontPath: 0
+  takesBothPathways: 0
   maximumDistanceSee: 30
+  centerToExtremesDistance: 0
 --- !u!114 &1573724735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16853,7 +16861,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1643628687
 Transform:
   m_ObjectHideFlags: 0

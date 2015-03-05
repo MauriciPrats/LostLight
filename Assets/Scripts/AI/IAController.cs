@@ -12,44 +12,39 @@ public class IAController : MonoBehaviour {
 	public float timePatroling = 3f;
 	public float jumpCooldown = 2f;
 	public float jumpStrength = 10f;
-
-
-	private float minimumDistanceFront = 0f;
-	private float timeToChangeBehaviour = 0f;
-	private float timeToJump = 0f;
-
 	public bool isIdle = true;
 
+	private Animator iaAnimator;
+	private float minimumDistanceFront = 0f;
+	private float timeToChangeBehaviour = 0.1f;
+	private float timeToJump = 0f;
 	private bool isBlockedBySomethingInFront = false;
 	private Vector3 moveAmount;
-
 	private bool isLookingRight = true;
-
 	private bool isWalkingRight = true;
-
 	private float timeWalkingDirectionIdle = 0f;
-	
 	private GameObject player;
-
 	private float lastTimeCheckedClosestThingInFront = 0f;
-	private float cooldownRaycastingClosestThingInFront = 0.2f;
+	private float cooldownRaycastingClosestThingInFront = 0.1f;
 	private float closestThingInFront = 0f;
 
 	private WalkOnMultiplePaths walkOnMultiplePaths;
 
 	// Use this for initialization
 	void Start () {
+		iaAnimator = GetComponentInChildren<Animator> ();
 		player = GameManager.player;
 		moveAmount = new Vector3 (0f, 0f, 0f);
 		transform.forward = new Vector3(1f,0f,0f);
-		minimumDistanceFront = (Random.value)*0.2f + 5f;
+		minimumDistanceFront = ((Random.value)*0.2f) + 0.2f;
+		//Debug.Log (minimumDistanceFront);
 
 		walkOnMultiplePaths = GetComponent<WalkOnMultiplePaths> ();
 
 	}
 
 	private bool canSeePlayer(){
-		Vector3 playerDirection = player.transform.rigidbody.worldCenterOfMass - transform.position;
+		Vector3 playerDirection = player.rigidbody.worldCenterOfMass - transform.position;
 		if(playerDirection.magnitude<minimumDistanceSeePlayer){
 			RaycastHit hit;
 
@@ -70,10 +65,8 @@ public class IAController : MonoBehaviour {
 		return false;
 	}
 
-	public bool isPlayerLeft(){
-		float angle = Mathf.DeltaAngle(Mathf.Atan2(player.transform.up.y, player.transform.up.x) * Mathf.Rad2Deg,Mathf.Atan2(transform.up.y, transform.up.x) * Mathf.Rad2Deg);
-
-		if(angle>0f){
+	public bool isElementLeft(GameObject element){
+		if(Util.getPlanetaryAngleFromAToB(gameObject,element)>0f){
 			return false;
 		}else{
 			return true;
@@ -86,6 +79,24 @@ public class IAController : MonoBehaviour {
 		lastTimeCheckedClosestThingInFront += Time.deltaTime;
 		if(lastTimeCheckedClosestThingInFront>cooldownRaycastingClosestThingInFront){
 			lastTimeCheckedClosestThingInFront = 0f;
+
+			float enemyDistanceFront = walkOnMultiplePaths.getClosestEnemyInFront ();
+			CharacterController chaCon = player.GetComponent<CharacterController>();
+			float playerDistance = Vector3.Distance (player.rigidbody.worldCenterOfMass, transform.position) - (walkOnMultiplePaths.centerToExtremesDistance + chaCon.centerToExtremesDistance);
+
+
+			if(playerDistance<enemyDistanceFront){
+				closestThingInFront = playerDistance;
+			}else{
+				closestThingInFront = enemyDistanceFront;
+			}
+			//Debug.Log ("E: "+enemyDistanceFront);
+			//Debug.Log ("P: "+playerDistance);
+			//Debug.Log ("C: "+closestThingInFront);
+		}
+		return closestThingInFront;
+		/*if(lastTimeCheckedClosestThingInFront>cooldownRaycastingClosestThingInFront){
+			lastTimeCheckedClosestThingInFront = 0f;
 			RaycastHit hit;
 			if (Physics.Raycast(rigidbody.worldCenterOfMass,transform.forward, out hit))
 			{
@@ -95,19 +106,37 @@ public class IAController : MonoBehaviour {
 				closestThingInFront = float.PositiveInfinity;
 			}
 		}
-		return closestThingInFront;
+		return closestThingInFront;*/
 
 	}
 
 	private void offensiveMoves(){
-		if(isPlayerLeft()){
+		//Check how far away is the player
+
+		//If it's far away, approach him
+
+		//If it's close, check with the attack budgeter
+
+			//Random if it wants to attack
+
+			//If you can attack, then:
+				
+				//Charge attack
+
+				//Do attack
+
+		//If it's not close continue with approaching
+
+
+		if(isElementLeft(player)){
+
 			turnLeft();
 		}else{
 			turnRight();
 		}
 		walk ();
 
-		jump ();
+		//jump ();
 	}
 
 	private void idleWalking(){
@@ -133,6 +162,7 @@ public class IAController : MonoBehaviour {
 	}
 
 	private void walk(){
+
 		if(closestThingInFrontDistance() > minimumDistanceFront){
 			if(isLookingRight){
 				moveAmount = (speed) * -this.transform.right;
@@ -140,8 +170,10 @@ public class IAController : MonoBehaviour {
 				moveAmount = (speed) * this.transform.right;
 			}
 			isBlockedBySomethingInFront = false;
+			iaAnimator.SetBool("isWalking",true);
 		}else{
 			isBlockedBySomethingInFront  = true;
+			iaAnimator.SetBool("isWalking",false);
 		}
 	}
 	private void turnLeft(){
@@ -172,8 +204,7 @@ public class IAController : MonoBehaviour {
 		updateTimers ();
 
 		moveAmount = new Vector3 (0f, 0f, 0f);
-
-		if(!walkOnMultiplePaths.getIsChangingPath()){
+		
 			if(timeToChangeBehaviour>cooldownChangeBehaviour){
 				timeToChangeBehaviour = 0f;
 				if(canSeePlayer ()){
@@ -188,13 +219,15 @@ public class IAController : MonoBehaviour {
 			}else{
 				offensiveMoves();
 			}
-		}
-
 	}
 
 	void FixedUpdate(){
 		Vector3 movement = transform.TransformDirection (moveAmount) * Time.fixedDeltaTime;
 		Vector3 newPosition = new Vector3(this.transform.position.x + movement.x,this.transform.position.y + movement.y,this.transform.position.z);
 		this.transform.position = new Vector3(this.transform.position.x + movement.x,this.transform.position.y + movement.y,this.transform.position.z);
+	}
+
+	public bool getIsLookingRight(){
+		return isLookingRight;
 	}
 }
