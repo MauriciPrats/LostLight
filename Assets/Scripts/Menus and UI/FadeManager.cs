@@ -6,9 +6,7 @@ public class FadeManager : MonoBehaviour {
 
 	public Texture2D blackTexture;
 	public Texture2D getHurtTexture;
-
-	public float fadeProgression = 0.05f;
-	public float getHurtFadeProgression = 0.05f;
+	
 	public float getHurtStartAlpha = 0.8f;
 	public int drawDepth = -1000;
 
@@ -136,10 +134,9 @@ public class FadeManager : MonoBehaviour {
 	}
 	void drawGetHurtTexture(){
 		if (!isFinishedGetHurt) {
-			getHurtAlpha += fadeDirGetHurt * Constants.FADE_SPEED * getHurtFadeProgression;
+			getHurtAlpha += fadeDirGetHurt * Constants.FADE_SPEED * Time.fixedDeltaTime;
 			getHurtAlpha = Mathf.Clamp01 (getHurtAlpha); 
 		  
-		
 			GUI.color = new Color (GUI.color.r, GUI.color.g, GUI.color.b, getHurtAlpha);
 		
 			GUI.depth = drawDepth;

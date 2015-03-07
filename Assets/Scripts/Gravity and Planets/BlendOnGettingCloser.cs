@@ -19,8 +19,8 @@ public class BlendOnGettingCloser : MonoBehaviour {
 
 		if (playerAthmosphereDistance < -1f) {
 			playerAthmosphereDistance = Mathf.Abs(playerAthmosphereDistance+1f);
-		}else if (playerAthmosphereDistance < 0.25f) {
-			playerAthmosphereDistance = playerAthmosphereDistance * 4f;
+		}else if (playerAthmosphereDistance < 0.33f) {
+			playerAthmosphereDistance = playerAthmosphereDistance * 3f;
 		} else {
 			playerAthmosphereDistance = 1f;
 		}

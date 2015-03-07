@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class PlanetSpawnerManager : MonoBehaviour {
 
 	public GameObject[] spawners;
-	
+	public GameObject shintoDoor;
 
 	public int pointsUntilSeal1ShintoDoor;
 	public int pointsUntilSeal2ShintoDoor;
@@ -15,7 +15,9 @@ public class PlanetSpawnerManager : MonoBehaviour {
 	public float timeBetweenSpawns;
 	private int ammountOfActualPointsSpawned = 0;
 	private int accumulatedPoints = 0;
-
+	private ShintoDoor shinto;
+	
+	private int lastLevelShintoActivated = 0;
 
 
 
@@ -27,7 +29,7 @@ public class PlanetSpawnerManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+		shinto = shintoDoor.GetComponent<ShintoDoor> ();
 	}
 	
 	// Update is called once per frame
@@ -79,6 +81,9 @@ public class PlanetSpawnerManager : MonoBehaviour {
 	}
 
 	public void shintoDoorEffect(int level){
-		//Do dramatic camera move
+		if(level>lastLevelShintoActivated){
+			lastLevelShintoActivated = level;
+			shinto.activateKanjiLevel (level);
+		}
 	}
 }

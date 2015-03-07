@@ -9,6 +9,7 @@ public class GameManager{
 	public static GameState gameState = new GameState ();
 	public static GameObject mainCamera;
 	public static GameObject minimapCamera;
+	public static EnemyAttackManager enemyAttackManager;
 	public static List<PlanetSpawnerManager> planetSpawnersManagers = new List<PlanetSpawnerManager>(0);
 	public static CheckpointManager checkPointManager;
 	
@@ -53,6 +54,12 @@ public class GameManager{
 		GUIManager.fadeInWithAction(rebuildGameFromGameState,Menu.YouLostMenu);
 	}
 
+	//Game functions
+	public static void winGame(){
+		GameManager.gameState.isGameEnded = true;
+		GUIManager.fadeInWithAction(rebuildGameFromGameState,Menu.YouWonMenu);
+	}
+
 	public static void startGame(){
 		gameState.isGameEnded = false;
 		minimapCamera.SetActive (true);
@@ -82,5 +89,9 @@ public class GameManager{
 
 	public static void registerPlanetSpawner(GameObject spawnerGO){
 		planetSpawnersManagers.Add(spawnerGO.GetComponent<PlanetSpawnerManager>());
+	}
+
+	public static void registerEnemyAttackManager(GameObject enemyAttackManagerGO){
+		enemyAttackManager = enemyAttackManagerGO.GetComponent<EnemyAttackManager> ();
 	}
 }

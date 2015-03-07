@@ -60,7 +60,6 @@ public class WalkOnMultiplePaths : MonoBehaviour {
 	void Start () {
 		ia = GetComponent<IAController> ();
 		centerToExtremesDistance = collider.bounds.size.z / 2f;
-		Debug.Log (centerToExtremesDistance);
 		//Debug.Log (centerToExtremesDistance);
 		if(takesBothPathways){
 			putMiddlePath();

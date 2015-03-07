@@ -51,5 +51,9 @@ public class Killable : MonoBehaviour {
 			yield return null;
 		}
 	}
+
+	public float proportionHP(){
+		return (float)HP / (float)maxHP;
+	}
 	
 }

@@ -21,6 +21,8 @@ public class CharacterController : MonoBehaviour {
 	public float centerToExtremesDistance = 0f;
 	public float extraSafeDistanceFromEnemies = 0.3f;
 
+	public GameObject pappada;
+
 
 	private Animator bpAnimator;
 	private CharacterAttackController cAttackController;
@@ -40,6 +42,7 @@ public class CharacterController : MonoBehaviour {
 	private float timeHasBeenInSpace = 0f;
 	private Killable killable;
 	private float timeHasNotBeenBreathing;
+	private PappadaController pappadaC;
 
 	void Awake(){
 		GameManager.registerPlayer (gameObject);
@@ -58,6 +61,7 @@ public class CharacterController : MonoBehaviour {
 		transform.forward = new Vector3(1f,0f,0f);
 		cAttackController = GetComponent<CharacterAttackController>();
 		bpAnimator = animationBigPappada.GetComponent<Animator>();
+		pappadaC = pappada.GetComponent<PappadaController> ();
 
 		initializeVariables ();
 		
@@ -73,7 +77,6 @@ public class CharacterController : MonoBehaviour {
 		timeHasNotBeenBreathing = timeBetweenDamageWhenNotBreathing;
 		timeHasBeenInSpace = 0f;
 		centerToExtremesDistance = (animationBigPappada.collider.bounds.size.z /2f)+extraSafeDistanceFromEnemies;
-		Debug.Log (centerToExtremesDistance);
 
 		rigidbody.velocity = new Vector3 (0f, 0f, 0f);
 
@@ -225,6 +228,7 @@ public class CharacterController : MonoBehaviour {
 	public void getHurt(int hitPointsToSubstract){
 		GUIManager.getHurtEffect ();
 		killable.HP -= hitPointsToSubstract;
+		pappadaC.newProportionOfLife(killable.proportionHP());
 		if(killable.HP<=0){
 			GameManager.loseGame();
 		}
@@ -233,6 +237,7 @@ public class CharacterController : MonoBehaviour {
 	public void reset(){
 		if(killable!=null){
 			killable.resetHP ();
+			pappadaC.newProportionOfLife(killable.proportionHP());
 		}
 		initializeVariables ();
 	}

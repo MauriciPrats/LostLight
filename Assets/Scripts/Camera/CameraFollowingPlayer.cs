@@ -36,8 +36,9 @@ public class CameraFollowingPlayer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void LateUpdate () {
-
-		updatePosition ();
+		if(GameManager.gameState.isCameraLockedToPlayer){
+			updatePosition ();
+		}
 		//transform.up = Quaternion.Euler(0, -45, 0) * transform.up;
 		//newUp = transform.up;
 	}

@@ -5,7 +5,15 @@ public static class Util{
 
 	//Clockwise
 	public static float getPlanetaryAngleFromAToB(GameObject a,GameObject b){
-		float angle = Mathf.DeltaAngle(Mathf.Atan2(b.transform.up.y, b.transform.up.x) * Mathf.Rad2Deg,Mathf.Atan2(a.transform.up.y, a.transform.up.x) * Mathf.Rad2Deg);
+		if(a!=null && b!=null){
+			return getAngleFromVectorAToB (a.transform.up, b.transform.up);
+		}else{
+			return float.PositiveInfinity;
+		}
+	}
+
+	public static float getAngleFromVectorAToB(Vector3 a,Vector3 b){
+		float angle = Mathf.DeltaAngle(Mathf.Atan2(b.y, b.x) * Mathf.Rad2Deg,Mathf.Atan2(a.y, a.x) * Mathf.Rad2Deg);
 		return angle;
 	}
 
