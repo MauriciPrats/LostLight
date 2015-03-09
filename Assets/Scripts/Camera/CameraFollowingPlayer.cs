@@ -32,6 +32,7 @@ public class CameraFollowingPlayer : MonoBehaviour {
 		
 		
 		transform.position = objectivePosition;
+		transform.eulerAngles = new Vector3 (0f, 0f, transform.eulerAngles.z);
 	}
 	
 	// Update is called once per frame

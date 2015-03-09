@@ -253,7 +253,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
-  m_DragThreshold: 5
 --- !u!4 &377915374
 Transform:
   m_ObjectHideFlags: 0
@@ -331,6 +330,7 @@ MonoBehaviour:
   startingSplashScreenPrefab: {fileID: 100006, guid: 25fc0d82a4d92904f9898a3ce5743c9a,
     type: 2}
   craftingMenuPrefab: {fileID: 0}
+  interactuablePopupPrefab: {fileID: 0}
 --- !u!1 &1323071721
 GameObject:
   m_ObjectHideFlags: 0

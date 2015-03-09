@@ -146,11 +146,17 @@ public class CharacterController : MonoBehaviour {
 	void FixedUpdate(){
 		//Changed because the other way gave me some errors (Maurici)
 		//rigidbody.MovePosition(rigidbody.position + transform.TransformDirection(moveAmount) * Time.fixedDeltaTime);
+
 		Vector3 movement = transform.TransformDirection (moveAmount) * Time.fixedDeltaTime;
+
 		Vector3 newPosition = new Vector3(this.transform.position.x + movement.x,this.transform.position.y + movement.y,this.transform.position.z);
 		//this.rigidbody.MovePosition (newPosition);
 		//rigidbody.velocity = rigidbody.velocity + movement;
+		if(GetComponent<CharacterAttackController>().isAttacking){
+			movement = movement * 0.2f;
+		}
 		this.transform.position = new Vector3(this.transform.position.x + movement.x,this.transform.position.y + movement.y,this.transform.position.z);
+		
 		//rigidbody.MovePosition (newPosition);
 	}
 

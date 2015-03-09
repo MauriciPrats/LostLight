@@ -9,6 +9,7 @@ public class CharacterAttackController : MonoBehaviour {
 	
 	public GameObject animationBigPappada;
 	private Animator bpAnimator;
+	public bool isAttacking = false;
 
 	//Fases del combo, separado en Startup, Attack, Link y Cooldown
 	//Startup es que ya se inicio el ataque pero el hitbox no esta aun activo
@@ -138,7 +139,7 @@ public class CharacterAttackController : MonoBehaviour {
 	
 	
 	IEnumerator DoAttack() 
-	{
+	{	isAttacking = true;
 		//TODO: Validar que solo ataca desde iddle, walking o desde el combo en si
 		if (comboStat != ComboSteps.Startup) yield break; //termina la corutina temprano
 		
@@ -161,7 +162,7 @@ public class CharacterAttackController : MonoBehaviour {
 		comboStat = ComboSteps.Iddle;
 		comboCount = 0;
 		bpAnimator.SetInteger("ComboCount",comboCount);
-		
+		isAttacking = false;
 	}
 	
 	private void EnableHitbox(Color particleColor)
