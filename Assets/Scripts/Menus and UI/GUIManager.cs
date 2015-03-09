@@ -8,7 +8,9 @@ public enum Menu{None,
 				CreditsMenu,
 				YouWonMenu,
 				YouLostMenu,
-				StartingSplashScreen
+				StartingSplashScreen,
+				CraftingMenu,
+				InteractuablePopup
 			    };
 
 public class GUIManager : MonoBehaviour {
@@ -27,12 +29,15 @@ public class GUIManager : MonoBehaviour {
 	private static GameObject youWonO;
 	private static GameObject youLostO;
 	private static GameObject startingSplashScreenO;
+	private static GameObject craftingMenuO;
+	private static GameObject interactuablePopupO;
 
 	private static Menu nextMenu;
 
 	private static GUIManager singleton;
 
 	private static GameObject actualMenu;
+	private static Menu actualMenuActivated = Menu.None;
 
 	private static Action actionToDo;
 
@@ -55,6 +60,12 @@ public class GUIManager : MonoBehaviour {
 		}
 		if(startingSplashScreenO!=null){
 			startingSplashScreenO.SetActive(false);
+		}
+		if(craftingMenuO!=null){
+			craftingMenuO.SetActive(false);
+		}
+		if(interactuablePopupO!=null){
+			interactuablePopupO.SetActive(false);
 		}
 	}
 	
@@ -83,6 +94,10 @@ public class GUIManager : MonoBehaviour {
 			return youLostO;
 		}else if(menu.Equals(Menu.StartingSplashScreen)){
 			return startingSplashScreenO;
+		}else if(menu.Equals(Menu.CraftingMenu)){
+			return craftingMenuO;
+		}else if(menu.Equals(Menu.InteractuablePopup)){
+			return interactuablePopupO;
 		}
 		return null;
 	}
@@ -135,6 +150,20 @@ public class GUIManager : MonoBehaviour {
 		}
 	}
 
+	public static void registerCraftingMenu(GameObject craftingMenuGO){
+		if(craftingMenuGO!=null && craftingMenuO == null){
+			craftingMenuO = GameObject.Instantiate (craftingMenuGO) as GameObject;
+			craftingMenuO.SetActive (false);
+		}
+	}
+
+	public static void registerInteractuablePopup(GameObject interactuablePopupGO){
+		if(interactuablePopupGO!=null && interactuablePopupO == null){
+			interactuablePopupO = GameObject.Instantiate (interactuablePopupGO) as GameObject;
+			interactuablePopupO.SetActive (false);
+		}
+	}
+
 	public static void registerFadeManager(GameObject fadeManagerGO){
 		fadeManager = fadeManagerGO.GetComponent<FadeManager> ();
 	}
@@ -142,11 +171,40 @@ public class GUIManager : MonoBehaviour {
 	public static void activateMenu(Menu newMenu){
 		deactivateMenus ();
 		GameObject newMenuGO = getMenu (newMenu);
+
 		if(newMenuGO!=null){
 			getMenu (newMenu).SetActive (true);
 		}
 		actualMenu = getMenu (newMenu);
+		actualMenuActivated = newMenu;
 	}
+
+
+
+	public static void openCraftingMenu (){
+		if(actualMenuActivated.Equals(Menu.None)){
+			activateMenu(Menu.CraftingMenu);
+			GameManager.pauseGame();
+			//fadeInWithAction (GameManager.pauseGame,Menu.CraftingMenu);
+		}
+	}
+
+	public static void closeCraftingMenu(){
+		activateMenu (Menu.None);
+		GameManager.unPauseGame ();
+		//fadeOut (GameManager.unPauseGame);
+	}
+
+	public static void activateInteractuablePopup(){
+		if(actualMenuActivated.Equals(Menu.None)){
+			interactuablePopupO.SetActive (true);
+		}
+	}
+
+	public static void deactivateInteractuablePopup(){
+		interactuablePopupO.SetActive (false);
+	}
+
 
 	
 	public static void fadeOutChangeMenuFadeIn(Menu newMenu){
@@ -173,14 +231,17 @@ public class GUIManager : MonoBehaviour {
 
 	public static void fadeOut(Action action,Menu newMenu){
 		fadeManager.fadeOut (action, getMenu (newMenu));
+		actualMenuActivated = Menu.None;
 	}
 
 	public static void fadeOut(Action action){
 		fadeManager.fadeOut (action, actualMenu);
+		actualMenuActivated = Menu.None;
 	}
 
 	public static void fadeAllOut(Action action){
 		fadeManager.fadeAllOut (action);
+		actualMenuActivated = Menu.None;
 	}
 
 	public static void fadeAllIn(){

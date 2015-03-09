@@ -43,6 +43,7 @@ public static class Constants{
 
 	public static float FADE_SPEED = 0.5f;
 
+	//ENEMY SPAWNING
 	public static float SPAWNING_MINIMUM_DISTANCE_OF_PLAYER = 5f;
 	public static float SPAWNING_MAXIMUM_DISTANCE_OF_PLAYER = 25f;
 

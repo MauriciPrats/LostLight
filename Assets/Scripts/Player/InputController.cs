@@ -17,6 +17,8 @@ public class InputController : MonoBehaviour {
 	private CharacterController character;
 	private GravityBody characterGravityBody;
 
+	private bool isCraftingMenuOpen = false;
+
 	void Start () {
 		timeJumpPressed = 0;
 		character = GetComponent<CharacterController>();
@@ -61,8 +63,12 @@ public class InputController : MonoBehaviour {
 				ResetJumping();
 			}
 			if (Input.GetKeyDown (KeyCode.R)) {
-				Interactuable entity = EntityManager.Instance.GetClosestInteractuableEntity(this.gameObject, maxDistanceToInteract);
+				Interactuable entity = EntityManager.getClosestInteractuable();
 				if (entity != null) entity.doInteractAction();
+			}
+
+			if(Input.GetKeyUp(KeyCode.Escape)){
+				GUIManager.closeCraftingMenu();
 			}
 		}
 	}

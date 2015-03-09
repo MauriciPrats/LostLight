@@ -20,6 +20,7 @@ public class CharacterController : MonoBehaviour {
 
 	public float centerToExtremesDistance = 0f;
 	public float extraSafeDistanceFromEnemies = 0.3f;
+	public bool isInvulnerable = false;
 
 	public GameObject pappada;
 
@@ -43,6 +44,7 @@ public class CharacterController : MonoBehaviour {
 	private Killable killable;
 	private float timeHasNotBeenBreathing;
 	private PappadaController pappadaC;
+
 
 	void Awake(){
 		GameManager.registerPlayer (gameObject);
@@ -77,7 +79,7 @@ public class CharacterController : MonoBehaviour {
 		timeHasNotBeenBreathing = timeBetweenDamageWhenNotBreathing;
 		timeHasBeenInSpace = 0f;
 		centerToExtremesDistance = (animationBigPappada.collider.bounds.size.z /2f)+extraSafeDistanceFromEnemies;
-
+		isInvulnerable = false;
 		rigidbody.velocity = new Vector3 (0f, 0f, 0f);
 
 		//Initialize the animator
@@ -92,7 +94,6 @@ public class CharacterController : MonoBehaviour {
 
 
 	void Update() {
-
 		if(isJumping){
 			jumpedTimer +=Time.deltaTime;
 		}
@@ -147,8 +148,8 @@ public class CharacterController : MonoBehaviour {
 		Vector3 newPosition = new Vector3(this.transform.position.x + movement.x,this.transform.position.y + movement.y,this.transform.position.z);
 		//this.rigidbody.MovePosition (newPosition);
 		//rigidbody.velocity = rigidbody.velocity + movement;
-		//this.transform.position = new Vector3(this.transform.position.x + movement.x,this.transform.position.y + movement.y,this.transform.position.z);
-		rigidbody.MovePosition (newPosition);
+		this.transform.position = new Vector3(this.transform.position.x + movement.x,this.transform.position.y + movement.y,this.transform.position.z);
+		//rigidbody.MovePosition (newPosition);
 	}
 
 	public void StartAttack() {
@@ -226,11 +227,13 @@ public class CharacterController : MonoBehaviour {
 	}
 
 	public void getHurt(int hitPointsToSubstract){
-		GUIManager.getHurtEffect ();
-		killable.HP -= hitPointsToSubstract;
-		pappadaC.newProportionOfLife(killable.proportionHP());
-		if(killable.HP<=0){
-			GameManager.loseGame();
+		if(!isInvulnerable){
+			GUIManager.getHurtEffect ();
+			killable.HP -= hitPointsToSubstract;
+			pappadaC.newProportionOfLife(killable.proportionHP());
+			if(killable.HP<=0){
+				GameManager.loseGame();
+			}
 		}
 	}
 

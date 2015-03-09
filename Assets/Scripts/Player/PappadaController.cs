@@ -3,8 +3,18 @@ using System.Collections;
 
 public class PappadaController : MonoBehaviour {
 
-	public float maxPappadaScale;
-	public float minPappadaScale;
+	public float maxPappadaXScale;
+	public float minPappadaXScale;
+
+	public float maxPappadaYScale;
+	public float minPappadaYScale;
+
+	public float maxPappadaZScale;
+	public float minPappadaZScale;
+
+	public float criticalPercentageBlood;
+
+	public GameObject pappadaBlood;
 
 
 	// Use this for initialization
@@ -18,11 +28,28 @@ public class PappadaController : MonoBehaviour {
 	}
 
 	public void newProportionOfLife(float proportion){
-		float scale = (maxPappadaScale - minPappadaScale) * proportion;
-		scale += minPappadaScale;
-		if(scale<minPappadaScale){scale = minPappadaScale;}
-		transform.localScale = new Vector3 (scale, scale, scale);
+		float scaleX = (maxPappadaXScale - minPappadaXScale) * proportion;
+		scaleX += minPappadaXScale;
+		if(scaleX<minPappadaXScale){scaleX = minPappadaXScale;}
 
+		float scaleY = (maxPappadaYScale - minPappadaYScale) * proportion;
+		scaleY += minPappadaYScale;
+		if(scaleY<minPappadaYScale){scaleY = minPappadaYScale;}
+
+		float scaleZ = (maxPappadaZScale - minPappadaZScale) * proportion;
+		scaleZ += minPappadaZScale;
+		if(scaleZ<minPappadaZScale){scaleZ = minPappadaZScale;}
+
+		transform.localScale = new Vector3 (scaleX, scaleY, scaleZ);
+
+
+		if(pappadaBlood!=null){
+			if(proportion<criticalPercentageBlood){
+				pappadaBlood.SetActive(true);
+			}else{
+				pappadaBlood.SetActive(false);
+			}
+		}
 
 		//transform.renderer.material.color = new Color (1f - proportion, 0f, 0f);
 	}

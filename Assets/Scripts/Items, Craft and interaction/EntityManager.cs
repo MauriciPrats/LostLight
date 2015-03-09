@@ -5,6 +5,15 @@ public class EntityManager : MonoBehaviour {
 
 	private static EntityManager singleton;
 
+	private static bool isInteractuablePopupActivated = false;
+
+	private static float timerCheckInteractuable = 0f;
+
+	public static float timeBetweenInteractuableChecks = 0.1f;
+	public static float distanceToInteract = 3f;
+
+	private static Interactuable closestInteractuable;
+
 	public static EntityManager Instance {
 		get{ return singleton ?? (singleton = new GameObject("EntityManager").AddComponent<EntityManager>());}
 	}	
@@ -15,7 +24,7 @@ public class EntityManager : MonoBehaviour {
 	 * 
 	 * Returns an Interactuable object. 
 	 **************************************************/
-	public Interactuable GetClosestInteractuableEntity(GameObject player, float maxDistance)
+	public static Interactuable GetClosestInteractuableEntity(GameObject player)
 	{
 		Interactuable[] closeInteractEntities;
 		closeInteractEntities = GameObject.FindObjectsOfType <Interactuable> ();
@@ -31,14 +40,32 @@ public class EntityManager : MonoBehaviour {
 					previousDistance = currentDistance;
 				}
 			}
-			if(previousDistance < maxDistance){
+			if(previousDistance < distanceToInteract){
+
+					GUIManager.activateInteractuablePopup();
+
 				return closest.GetComponent<Interactuable>();
 			} else { 
+
+					GUIManager.deactivateInteractuablePopup(); 
+
 				return null;
 			}
 		} else {
 			return null;
 		}
+	}
+
+	void Update(){
+		timerCheckInteractuable += Time.deltaTime;
+		if(timerCheckInteractuable> timeBetweenInteractuableChecks){
+			timerCheckInteractuable = 0f;
+			closestInteractuable = GetClosestInteractuableEntity(GameManager.player);
+		}
+	}
+
+	public  static Interactuable getClosestInteractuable(){
+		return closestInteractuable;
 	}
 
 }

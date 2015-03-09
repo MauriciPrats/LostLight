@@ -41,11 +41,11 @@ public class GameManager{
 	}
 
 	public static void pauseGame(){
-		//Time.timeScale = 0f;
+		Time.timeScale = 0f;
 	}
 
 	public static void unPauseGame(){
-		//Time.timeScale = 1f;
+		Time.timeScale = 1f;
 	}
 
 	//Game functions
@@ -57,13 +57,13 @@ public class GameManager{
 	//Game functions
 	public static void winGame(){
 		GameManager.gameState.isGameEnded = true;
+		GameManager.player.GetComponent<CharacterController> ().isInvulnerable = true;
 		GUIManager.fadeInWithAction(rebuildGameFromGameState,Menu.YouWonMenu);
 	}
 
 	public static void startGame(){
 		gameState.isGameEnded = false;
 		minimapCamera.SetActive (true);
-		//unPauseGame ();
 	}
 
 	//Registering functions

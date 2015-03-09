@@ -18,6 +18,7 @@ public class CheckpointManager : MonoBehaviour {
 	public CheckpointStub getLastCheckpoint(){
 		for(int i = 0;i<checkPointsList.Count;++i){
 			if(checkPointsList[i].checkPointIndex == GameManager.gameState.playerLastCheckpoint){
+				Debug.Log(checkPointsList[i].checkPointIndex+" "+GameManager.gameState.playerLastCheckpoint);
 				return checkPointsList[i];
 			}
 		}

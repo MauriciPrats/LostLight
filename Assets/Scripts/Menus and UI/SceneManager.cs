@@ -10,7 +10,9 @@ public class SceneManager : MonoBehaviour {
 					  creditsMenuPrefab,
 					  youWonMenuPrefab,
 					  youLostMenuPrefab,
-					  startingSplashScreenPrefab;
+					  startingSplashScreenPrefab,
+					  craftingMenuPrefab,
+					  interactuablePopupPrefab;
 	bool hasUpdated = false;
 
 	void Awake(){
@@ -21,13 +23,14 @@ public class SceneManager : MonoBehaviour {
 		GUIManager.registerYouLostMenu (youLostMenuPrefab);
 		GUIManager.registerYouWonMenu (youWonMenuPrefab);
 		GUIManager.registerStartingSplashScreen (startingSplashScreenPrefab);
+		GUIManager.registerCraftingMenu (craftingMenuPrefab);
+		GUIManager.registerInteractuablePopup (interactuablePopupPrefab);
 	}
 
 	void Update () {
 		if(!hasUpdated){
 			if(startingMenu == Menu.MainMenu){
 				GameManager.rebuildGameFromGameState ();
-				GameManager.pauseGame();
 			}
 			GUIManager.activateMenu(startingMenu);
 			GUIManager.fadeAllIn();

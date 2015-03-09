@@ -87,12 +87,13 @@ public class WalkOnMultiplePaths : MonoBehaviour {
 		foreach(GameObject enemyClose in closeOtherEnemies){
 			if((ia.getIsLookingRight() && Util.isARightToB(enemyClose,gameObject)) ||
 			   (!ia.getIsLookingRight() && !Util.isARightToB(enemyClose,gameObject))){
-
-				WalkOnMultiplePaths womp = enemyClose.GetComponent<WalkOnMultiplePaths>();
-				if((womp.isFrontPath == isFrontPath) || (takesBothPathways || womp.takesBothPathways)){
-					float distance = Vector3.Distance(transform.position,enemyClose.transform.position)-centerToExtremesDistance-womp.centerToExtremesDistance;
-					if(distance<closestEnemyDistance){
-						closestEnemyDistance = distance;
+				if(enemyClose!=null){
+					WalkOnMultiplePaths womp = enemyClose.GetComponent<WalkOnMultiplePaths>();
+					if((womp.isFrontPath == isFrontPath) || (takesBothPathways || womp.takesBothPathways)){
+						float distance = Vector3.Distance(transform.position,enemyClose.transform.position)-centerToExtremesDistance-womp.centerToExtremesDistance;
+						if(distance<closestEnemyDistance){
+							closestEnemyDistance = distance;
+						}
 					}
 				}
 

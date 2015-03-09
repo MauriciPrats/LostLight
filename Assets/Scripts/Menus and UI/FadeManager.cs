@@ -6,6 +6,7 @@ public class FadeManager : MonoBehaviour {
 
 	public Texture2D blackTexture;
 	public Texture2D getHurtTexture;
+	public Texture2D backgroundTexture;
 	
 	public float getHurtStartAlpha = 0.8f;
 	public int drawDepth = -1000;
@@ -92,7 +93,6 @@ public class FadeManager : MonoBehaviour {
 
 	void drawFadeTexture(){
 		if (!isFinished) {
-
 			alpha += fadeDir * Constants.FADE_SPEED * Time.deltaTime;
 			alpha = Mathf.Clamp01 (alpha); 
 			if(fadingMenu!=null){
@@ -115,6 +115,7 @@ public class FadeManager : MonoBehaviour {
 	}
 
 	void drawFadeOutCompleteTexture(){
+
 		if (!isFinishedAll) {
 			allAlpha += fadeDirAll * Constants.FADE_SPEED * Time.deltaTime;
 			allAlpha = Mathf.Clamp01 (allAlpha); 
