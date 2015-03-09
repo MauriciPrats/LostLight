@@ -14,8 +14,10 @@ public class CharacterController : MonoBehaviour {
 	public int damageWhenNotBreathing = 1;
 	public float minimumBreathingBubbleScale = 6f;
 	public float maximumBreathingBubbleScale = 1f;
+	//Weapon stuff
 	public Transform leftHand; //Exponer la mano izquierda de Big Pappada para ponerle su arma
 	public GameObject weapon;
+	//End weapon stuff
 	public float timeToDieInSpace = 4f;
 
 	public float centerToExtremesDistance = 0f;
