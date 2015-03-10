@@ -70,6 +70,18 @@ public class InputController : MonoBehaviour {
 			if(Input.GetKeyUp(KeyCode.Escape)){
 				GUIManager.closeCraftingMenu();
 			}
+
+			if(Input.GetKeyUp(KeyCode.P)){
+				if(!GameManager.gameState.isGameEnded){
+					if(!GameManager.gameState.isGamePaused){
+						GameManager.pauseGame();
+						GUIManager.activatePauseMenu();
+					}else{
+						GameManager.unPauseGame();
+						GUIManager.deactivatePauseMenu();
+					}
+				}
+			}
 		}
 	}
 

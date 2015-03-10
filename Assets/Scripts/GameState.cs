@@ -9,10 +9,13 @@ public class GameState{
 
 	public bool isCameraLockedToPlayer;
 
+	public bool isGamePaused;
+
 	private void initializeGameState(){
 		playerLastCheckpoint = 0;
 		isGameEnded = true;
 		isCameraLockedToPlayer = true;
+		isGamePaused = false;
 	}
 
 	public GameState(){

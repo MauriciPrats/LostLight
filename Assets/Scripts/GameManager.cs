@@ -42,10 +42,12 @@ public class GameManager{
 
 	public static void pauseGame(){
 		Time.timeScale = 0f;
+		gameState.isGamePaused = true;
 	}
 
 	public static void unPauseGame(){
 		Time.timeScale = 1f;
+		gameState.isGamePaused = false;
 	}
 
 	//Game functions

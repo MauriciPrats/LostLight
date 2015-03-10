@@ -3,6 +3,7 @@ using System.Collections;
 
 public class FadeInOut : MonoBehaviour {
 
+	public bool fixedTime = false;
 	float alpha = 0f;
 	int dir = 1;
 
@@ -15,7 +16,11 @@ public class FadeInOut : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		alpha += dir * Constants.FADE_SPEED * Time.deltaTime * 2f;
+		float time = Time.deltaTime;
+		if (fixedTime) {
+			time = Time.fixedDeltaTime;
+		}
+		alpha += dir * Constants.FADE_SPEED * time * 2f;
 		alpha = Mathf.Clamp01 (alpha); 
 		if(alpha >= 1f || alpha <= 0f){
 			dir*=-1;

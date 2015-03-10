@@ -12,7 +12,8 @@ public class SceneManager : MonoBehaviour {
 					  youLostMenuPrefab,
 					  startingSplashScreenPrefab,
 					  craftingMenuPrefab,
-					  interactuablePopupPrefab;
+					  interactuablePopupPrefab,
+					  onPauseMenuPrefab;
 	bool hasUpdated = false;
 
 	void Awake(){
@@ -25,6 +26,7 @@ public class SceneManager : MonoBehaviour {
 		GUIManager.registerStartingSplashScreen (startingSplashScreenPrefab);
 		GUIManager.registerCraftingMenu (craftingMenuPrefab);
 		GUIManager.registerInteractuablePopup (interactuablePopupPrefab);
+		GUIManager.registerOnPauseMenu (onPauseMenuPrefab);
 	}
 
 	void Update () {
