@@ -26,11 +26,13 @@ public class HideFrontPlanetFaceOnEnter : MonoBehaviour {
 				renderer.enabled = false;
 			}
 			enableAll(false);
+			GameManager.gameState.setIsInsidePlanet(true);
 		}else{
 			if(renderer!=null){
 				renderer.enabled = true;
 			}
 			enableAll(true);
+			GameManager.gameState.setIsInsidePlanet(false);
 		}
 	}
 }

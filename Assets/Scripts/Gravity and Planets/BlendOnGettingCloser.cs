@@ -28,6 +28,6 @@ public class BlendOnGettingCloser : MonoBehaviour {
 		//Debug.Log (playerAthmosphereDistance);
 
 		Color originalColour = renderer.material.color;
-		renderer.material.color  = new Color(originalColour.r,originalColour.g,originalColour.b, playerAthmosphereDistance);
+		//renderer.material.color  = new Color(originalColour.r,originalColour.g,originalColour.b, playerAthmosphereDistance);
 	}
 }

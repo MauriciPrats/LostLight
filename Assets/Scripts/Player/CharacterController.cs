@@ -14,6 +14,7 @@ public class CharacterController : MonoBehaviour {
 	public int damageWhenNotBreathing = 1;
 	public float minimumBreathingBubbleScale = 6f;
 	public float maximumBreathingBubbleScale = 1f;
+
 	//Weapon stuff
 	public Transform leftHand; //Exponer la mano izquierda de Big Pappada para ponerle su arma
 	public GameObject weapon;
@@ -25,6 +26,19 @@ public class CharacterController : MonoBehaviour {
 	public bool isInvulnerable = false;
 
 	public GameObject pappada;
+
+	//SpaceJump line
+	public float lineJumpDistance;
+	private LineRenderer lineRenderer;
+	private bool isShowingLineJump;
+	private Vector3 lineJumpDirection;
+	public GameObject flyingParticles;
+	private ParticleSystem flyParticles;
+	public float distanceCameraOnSpaceJump;
+	private float proportionDistanceJump;
+	private bool isFinishedSpaceJump;
+	public GameObject explosionOnDieInSpacePrefab;
+
 
 
 	private Animator bpAnimator;
@@ -38,6 +52,7 @@ public class CharacterController : MonoBehaviour {
 	private bool isLookingRight = true;
 	private float timeSinceAttackStarted = 0f;
 	private bool isJumping = false;
+	private bool isSpaceJumping = false;
 	private float jumpedTimer = 0f;
 	private float jumpedTimerCooldown = 0.2f;
 	private bool isGoingUp = false;
@@ -46,6 +61,8 @@ public class CharacterController : MonoBehaviour {
 	private Killable killable;
 	private float timeHasNotBeenBreathing;
 	private PappadaController pappadaC;
+	private bool isSpaceJumpCharged = false;
+
 
 
 	void Awake(){
@@ -66,6 +83,7 @@ public class CharacterController : MonoBehaviour {
 		cAttackController = GetComponent<CharacterAttackController>();
 		bpAnimator = animationBigPappada.GetComponent<Animator>();
 		pappadaC = pappada.GetComponent<PappadaController> ();
+		flyParticles = flyingParticles.GetComponent<ParticleSystem> ();
 
 		initializeVariables ();
 		
@@ -75,6 +93,7 @@ public class CharacterController : MonoBehaviour {
 		timeJumpPressed = 0;
 		timeSinceAttackStarted = 0f;
 		isJumping = false;
+		isSpaceJumping = false;
 		jumpedTimer = 0f;
 		jumpedTimerCooldown = 0.2f;
 		isGoingUp = false;
@@ -83,6 +102,9 @@ public class CharacterController : MonoBehaviour {
 		centerToExtremesDistance = (animationBigPappada.collider.bounds.size.z /2f)+extraSafeDistanceFromEnemies;
 		isInvulnerable = false;
 		rigidbody.velocity = new Vector3 (0f, 0f, 0f);
+		isFinishedSpaceJump = false;
+
+		lineRenderer = GetComponent<LineRenderer> ();
 
 		//Initialize the animator
 		if(bpAnimator!=null){
@@ -92,20 +114,34 @@ public class CharacterController : MonoBehaviour {
 			bpAnimator.SetBool("isChargingSpaceJumping",false);
 			bpAnimator.SetBool("isWalking",false);
 		}
+
+		FinishSpaceJump ();
 	}
 
 
 	void Update() {
-		if(isJumping){
-			jumpedTimer +=Time.deltaTime;
-		}
-		if(body.getIsTouchingPlanet() && jumpedTimer >=jumpedTimerCooldown){
-			bpAnimator.SetBool("isJumping",false);
-			bpAnimator.SetBool("isSpaceJumping",false);
-		}else{
 
+		/*if(isSpaceJumping || isSpaceJumpCharged){
+			GameManager.gameState.arePlanetsMoving = false;
+		}else{
+			GameManager.gameState.arePlanetsMoving = true;
+		}*/
+
+		if(isJumping || isSpaceJumping){
+			jumpedTimer +=Time.deltaTime;
+		}else{
+			jumpedTimer = 0f;
 		}
-		if(isJumping){
+
+		if(body.getIsTouchingPlanet() && jumpedTimer >=jumpedTimerCooldown){
+			FinishJump();
+			if(!isFinishedSpaceJump){
+				FinishSpaceJump();
+				//ChargeJump ();
+			}
+		}
+
+		if(isJumping || isSpaceJumping){
 			bool isGoingUp = Vector3.Angle(transform.up,rigidbody.velocity.normalized)<90;
 			if (isGoingUp) {
 				bpAnimator.SetBool("isGoingUp",true);
@@ -117,12 +153,19 @@ public class CharacterController : MonoBehaviour {
 
 		if(body.getIsOutsideAthmosphere()){
 			breathingBubble.SetActive(true);
+			//rigidbody.velocity = rigidbody.velocity.normalized * (Constants.GRAVITY_FORCE_OF_PLANETS/1.5f);
+
 			if(!GameManager.gameState.isGameEnded){
 				if(timeHasBeenInSpace>=timeToDieInSpace){
 					breathingBubble.transform.localScale = new Vector3(0f,0f,0f);
 					timeHasNotBeenBreathing+=Time.deltaTime;
 					if(timeHasNotBeenBreathing>=timeBetweenDamageWhenNotBreathing){
-						getHurt(damageWhenNotBreathing);
+						getHurt(killable.HP);
+						flyParticles.Stop();
+						rigidbody.velocity = new Vector3(0f,0f,0f);
+						GameObject newEffect = GameObject.Instantiate(explosionOnDieInSpacePrefab) as GameObject;
+						newEffect.transform.position = transform.position;
+
 						timeHasNotBeenBreathing = 0f;
 					}
 				}else{
@@ -135,12 +178,34 @@ public class CharacterController : MonoBehaviour {
 			}
 
 		}else{
+
+
 			if(!GameManager.gameState.isGameEnded){
 				timeHasBeenInSpace = 0f;
 				breathingBubble.SetActive(false);
 				//GUIManager.resetFadeScreen();
 			}
 		}
+
+		if(!isShowingLineJump){
+			HideArrow();
+		}else{
+			ActArrow();
+		}
+	}
+
+	void FinishSpaceJump(){
+		bpAnimator.SetBool("isSpaceJumping",false);
+		isSpaceJumping = false;
+		flyParticles.Stop();
+		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().returnOriginalZ();
+		HideArrow();
+		isFinishedSpaceJump = true;
+	}
+
+	void FinishJump(){
+		bpAnimator.SetBool("isJumping",false);
+		isJumping = false;
 	}
 
 	void FixedUpdate(){
@@ -163,20 +228,22 @@ public class CharacterController : MonoBehaviour {
 	public void StartAttack() {
 		cAttackController.ChargeAttack(isLookingRight,this.transform);
 	}
-//Legacy, ahora es solo el ataque por StartAttack
-	public void Attack() { 
-	//	cAttackController.Attack();
-	}
 
 	public void SpaceJump() {
-		rigidbody.AddForce (transform.up * spaceJumpForce, ForceMode.Impulse);
+		rigidbody.AddForce (lineJumpDirection * spaceJumpForce, ForceMode.Impulse);
 		//If we jump into the space, stop the particle system.
 		ParticleSystem particles = particleSystemJumpCharge.GetComponent<ParticleSystem> ();
 		particles.Stop ();
 		bpAnimator.SetBool("isSpaceJumping",true);
 		bpAnimator.SetBool("isChargingSpaceJumping",false);
-		isJumping = true;
+		isSpaceJumpCharged = false;
+		isSpaceJumping = true;
 		jumpedTimer = 0f;
+		HideArrow ();
+		flyParticles.Clear();
+		flyParticles.Play();
+
+		isFinishedSpaceJump = false;
 	}
 
 	public void Jump() {
@@ -191,13 +258,12 @@ public class CharacterController : MonoBehaviour {
 
 	public void Move() {
 		bpAnimator.SetBool("isWalking",true);
+
 		isMoving = true;
 		if (!body.getUsesSpaceGravity()) {
 			float inputHorizontal = Input.GetAxisRaw ("Horizontal");
 
-			ParticleSystem particles = particleSystemJumpCharge.GetComponent<ParticleSystem> ();
-			particles.Stop ();
-			bpAnimator.SetBool("isChargingSpaceJumping",false);
+
 
 			moveAmount = (moveSpeed * inputHorizontal) * -this.transform.right;
 
@@ -218,10 +284,21 @@ public class CharacterController : MonoBehaviour {
 		}
 	}
 
+
+	public void CancelChargingSpaceJump(){
+		isSpaceJumpCharged = false;
+		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().returnOriginalZ();
+		ParticleSystem particles = particleSystemJumpCharge.GetComponent<ParticleSystem> ();
+		particles.Stop ();
+		bpAnimator.SetBool("isChargingSpaceJumping",false);
+		jumpedTimer = 0f;
+		HideArrow ();
+	}
+
 	public void StopMove() {
 		bpAnimator.SetBool("isWalking",false);
-
 		isMoving = false;
+		moveAmount = new Vector3 (0f, 0f, 0f);
 	}
 
 	public void StopAttack() {
@@ -229,9 +306,12 @@ public class CharacterController : MonoBehaviour {
 	}
 
 	public void ChargeJump() {
+		isSpaceJumpCharged = true;
 		bpAnimator.SetBool("isChargingSpaceJumping",true);
+		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().setObjectiveZ (-distanceCameraOnSpaceJump);
 		ParticleSystem particles = particleSystemJumpCharge.GetComponent<ParticleSystem> ();
 		particles.Play ();
+		ShowArrow ();
 	}
 
 	public void getHurt(int hitPointsToSubstract){
@@ -245,6 +325,41 @@ public class CharacterController : MonoBehaviour {
 		}
 	}
 
+	public void MoveArrow(float horizontalMove,float verticalMove){
+		Vector3 horizontalDirection = transform.forward * horizontalMove;
+		if(!isLookingRight){
+			horizontalDirection *= -1f;
+		}
+		/*proportionDistanceJump = proportionDistanceJump + (verticalMove * 0.02f);
+		if(proportionDistanceJump<0.2f){proportionDistanceJump = 0f; CancelChargingSpaceJump();}
+		if(proportionDistanceJump>1f){proportionDistanceJump = 1f;}*/
+		Vector3 newPositionLine = (lineJumpDirection +(0.05f * horizontalDirection )).normalized;
+
+		if(Vector3.Angle(transform.up,newPositionLine)<70){
+			lineJumpDirection = newPositionLine;
+			ActArrow();
+		}
+	}
+
+	public void ActArrow(){
+		lineRenderer.SetPosition (0, transform.position);
+		lineRenderer.SetPosition(1,transform.position + (lineJumpDirection * lineJumpDistance));
+		lineRenderer.SetWidth (2f,2f);
+	}
+
+	public void ShowArrow(){
+		proportionDistanceJump = 0.5f;
+		lineJumpDirection = transform.up;
+		isShowingLineJump = true;
+	}
+
+	public void HideArrow(){
+		lineRenderer.SetPosition (0, transform.position);
+		lineRenderer.SetPosition (1, transform.position);
+		isShowingLineJump = false;
+
+	}
+
 	public void reset(){
 		if(killable!=null){
 			killable.resetHP ();
@@ -253,4 +368,7 @@ public class CharacterController : MonoBehaviour {
 		initializeVariables ();
 	}
 
+	public bool getIsSpaceJumping(){
+		return isSpaceJumping;
+	}
 }

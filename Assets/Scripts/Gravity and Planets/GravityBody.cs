@@ -6,7 +6,7 @@ using System.Collections;
 public class GravityBody : MonoBehaviour {
 
 	public LayerMask objectsToCollide;
-	
+
 	GameObject[] planets;
 	bool isTouchingPlanet;
 	bool usesSpaceGravity;
@@ -41,8 +41,12 @@ public class GravityBody : MonoBehaviour {
 
 	public void checkTouchEnter(GameObject obj){
 		if (obj.tag == "Planet" || obj.tag == "Enemy") {
+			if(usesSpaceGravity){
+				//Just landed from spaceJump
+				rigidbody.velocity = new Vector3(0f,0f,0f);
+			}
 			objectsTouching++;
-			rigidbody.drag = Constants.DRAG_ON_TOUCH_PLANETS;
+			rigidbody.drag = Constants.Instance.DRAG_ON_TOUCH_PLANETS;
 			isTouchingPlanet = true;
 			usesSpaceGravity = false;
 		}
@@ -63,6 +67,7 @@ public class GravityBody : MonoBehaviour {
 	}
 
 	public void attract(){
+
 		transform.parent = null;
 		int closePlanets = 0;
 		minimumPlanetDistance = float.MaxValue;
@@ -76,6 +81,7 @@ public class GravityBody : MonoBehaviour {
 				minimumPlanetDistance = distance;
 			}
 		}
+
 		if (closePlanets == 0) 
 		{
 			usesSpaceGravity = true;
@@ -85,8 +91,14 @@ public class GravityBody : MonoBehaviour {
 		else 
 		{
 			isOutsideAthmosphere = false;
-			rigidbody.drag = Constants.GRAVITY_DRAG_OF_ATHMOSPHERE;
+			float dragProportion = minimumPlanetDistance / Constants.Instance.GRAVITY_DISTANCE_FROM_PLANET_FLOOR;
+			dragProportion = 1f - dragProportion;
+			if(dragProportion>1f){dragProportion = 1f;}
+			else if(dragProportion<0.5f){dragProportion = 0.0f;}
+			
+			rigidbody.drag = dragProportion * Constants.Instance.GRAVITY_DRAG_OF_ATHMOSPHERE;
 		}
+
 	}
 
 	public bool getIsTouchingPlanet(){

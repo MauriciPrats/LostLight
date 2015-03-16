@@ -20,7 +20,7 @@ public class FadeInOut : MonoBehaviour {
 		if (fixedTime) {
 			time = Time.fixedDeltaTime;
 		}
-		alpha += dir * Constants.FADE_SPEED * time * 2f;
+		alpha += dir * Constants.Instance.FADE_SPEED * time * 2f;
 		alpha = Mathf.Clamp01 (alpha); 
 		if(alpha >= 1f || alpha <= 0f){
 			dir*=-1;

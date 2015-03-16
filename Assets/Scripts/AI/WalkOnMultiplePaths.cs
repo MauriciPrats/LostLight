@@ -112,8 +112,8 @@ public class WalkOnMultiplePaths : MonoBehaviour {
 			takesBothPathways = false;
 		}else{
 			takesBothPathways = true;
-			Vector3 frontPosition = new Vector3(transform.position.x,transform.position.y,Constants.FRONT_PATH_Z_OFFSET);
-			Vector3 backPosition = new Vector3(transform.position.x,transform.position.y,Constants.BACK_PATH_Z_OFFSET);
+			Vector3 frontPosition = new Vector3(transform.position.x,transform.position.y,Constants.Instance.FRONT_PATH_Z_OFFSET);
+			Vector3 backPosition = new Vector3(transform.position.x,transform.position.y,Constants.Instance.BACK_PATH_Z_OFFSET);
 
 			if (isFrontPath) {transform.position = Vector3.Lerp(backPosition,frontPosition,changingTimer);}
 			else{transform.position = Vector3.Lerp(frontPosition,backPosition,changingTimer);}		
@@ -121,7 +121,7 @@ public class WalkOnMultiplePaths : MonoBehaviour {
 	}
 
 	public void putMiddlePath(){
-		transform.position = new Vector3 (transform.position.x, transform.position.y, (Constants.FRONT_PATH_Z_OFFSET + Constants.BACK_PATH_Z_OFFSET) / 2f);
+		transform.position = new Vector3 (transform.position.x, transform.position.y, (Constants.Instance.FRONT_PATH_Z_OFFSET + Constants.Instance.BACK_PATH_Z_OFFSET) / 2f);
 	}
 
 	public int ammountOfEnemiesInFront(bool isFrontPath,int jumps){
@@ -129,18 +129,20 @@ public class WalkOnMultiplePaths : MonoBehaviour {
 
 		int enemiesBetweenPlayerAndMe = 0;
 		foreach(GameObject enemyClose in closeOtherEnemies){
-			WalkOnMultiplePaths womp = enemyClose.GetComponent<WalkOnMultiplePaths>();
+			if(enemyClose!=null){
+				WalkOnMultiplePaths womp = enemyClose.GetComponent<WalkOnMultiplePaths>();
 
-			if(womp.isFrontPath == isFrontPath || (womp.takesBothPathways || takesBothPathways)){
-				float enemyAngle = Util.getPlanetaryAngleFromAToB(gameObject,enemyClose);
-				if(playerAngle<0f && enemyAngle<0f){
-					//if they're both negative
-					if(playerAngle<enemyAngle){
-						enemiesBetweenPlayerAndMe++;
-					}
-				}else if(playerAngle>0f && enemyAngle>0f){
-					if(playerAngle>enemyAngle){
-						enemiesBetweenPlayerAndMe++;
+				if(womp.isFrontPath == isFrontPath || (womp.takesBothPathways || takesBothPathways)){
+					float enemyAngle = Util.getPlanetaryAngleFromAToB(gameObject,enemyClose);
+					if(playerAngle<0f && enemyAngle<0f){
+						//if they're both negative
+						if(playerAngle<enemyAngle){
+							enemiesBetweenPlayerAndMe++;
+						}
+					}else if(playerAngle>0f && enemyAngle>0f){
+						if(playerAngle>enemyAngle){
+							enemiesBetweenPlayerAndMe++;
+						}
 					}
 				}
 			}
@@ -151,16 +153,18 @@ public class WalkOnMultiplePaths : MonoBehaviour {
 
 	public bool canActuallyChangePath(){
 		foreach(GameObject enemyClose in closeOtherEnemies){
-			WalkOnMultiplePaths womp = enemyClose.GetComponent<WalkOnMultiplePaths>();
-			if((womp.isFrontPath != isFrontPath) && !takesBothPathways){
-				//IF they walk on different paths we check if they are gonna collide
-				Vector3 distanceBetweenObjects = transform.position - enemyClose.transform.position;
-				//We discard the z component
-				float distance = new Vector2(distanceBetweenObjects.x,distanceBetweenObjects.y).magnitude;
+			if(enemyClose!=null){
+				WalkOnMultiplePaths womp = enemyClose.GetComponent<WalkOnMultiplePaths>();
+				if((womp.isFrontPath != isFrontPath) && !takesBothPathways){
+					//IF they walk on different paths we check if they are gonna collide
+					Vector3 distanceBetweenObjects = transform.position - enemyClose.transform.position;
+					//We discard the z component
+					float distance = new Vector2(distanceBetweenObjects.x,distanceBetweenObjects.y).magnitude;
 
-				if(distance < (centerToExtremesDistance+womp.centerToExtremesDistance)){
-					//It's not gonna fit!!! , you Shall not change path
-					return false;
+					if(distance < (centerToExtremesDistance+womp.centerToExtremesDistance)){
+						//It's not gonna fit!!! , you Shall not change path
+						return false;
+					}
 				}
 			}
 		}

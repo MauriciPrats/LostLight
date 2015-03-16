@@ -9,16 +9,39 @@ public class GameManager{
 	public static GameState gameState = new GameState ();
 	public static GameObject mainCamera;
 	public static GameObject minimapCamera;
+	public static List<Light> directionalLights;
 	public static EnemyAttackManager enemyAttackManager;
 	public static List<PlanetSpawnerManager> planetSpawnersManagers = new List<PlanetSpawnerManager>(0);
 	public static CheckpointManager checkPointManager;
-	
+
+	private static Color originalAmbientLight;
+
+	public static void changeDirectionalLights(bool enabled){
+		/*foreach(Light light in directionalLights){
+			light.enabled = enabled;
+		}
+		if(enabled==false){
+			RenderSettings.ambientLight = new Color(0f,0f,0f);
+		}else{
+			RenderSettings.ambientLight = originalAmbientLight;
+		}*/
+	}
 	//Game state functions
 	public static void putLoadedGameState(GameState gameStateLoaded){
 		gameState = gameStateLoaded;
 	}
 
 	public static void rebuildGameFromGameState(){
+		originalAmbientLight = RenderSettings.ambientLight;
+		Light[] lights = GameObject.FindObjectsOfType<Light>() as Light[];
+		directionalLights = new List<Light> (0);
+		foreach(Light light in lights){
+			if(light.type == LightType.Directional){
+				directionalLights.Add(light);
+			}
+		}
+
+
 		//We put the player in the last checkpoint
 		CheckpointStub lastCheckpoint = checkPointManager.getLastCheckpoint();
 		if(lastCheckpoint!=null){

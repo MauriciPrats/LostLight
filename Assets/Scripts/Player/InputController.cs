@@ -31,19 +31,20 @@ public class InputController : MonoBehaviour {
 			if (Input.GetKey(KeyCode.Escape)) { Application.Quit(); }
 			//Movement Input.
 			if (Input.GetAxis ("Horizontal")!=0f) {
-				ResetJumping ();
-				character.Move ();
+				if(isSpaceJumpCharged){
+					//character.CancelChargingSpaceJump();
+					character.MoveArrow(Input.GetAxisRaw ("Horizontal"),Input.GetAxis ("Vertical"));
+					//character.StopMove();
+				}else{
+					ResetJumping ();
+					character.Move ();
+				}
 			} else {
 				character.StopMove ();
 			}
 			//starts the charge of the attack
 			if (Input.GetKeyDown(KeyCode.Q)) {
 				character.StartAttack();
-			}
-			//releases the attack
-			if (Input.GetKeyUp (KeyCode.Q)) {
-				ResetJumping ();
-				character.Attack ();
 			}
 
 			if (Input.GetKeyUp (KeyCode.Space) && isSpaceJumpCharged) {
@@ -54,11 +55,17 @@ public class InputController : MonoBehaviour {
 				character.Jump(); 
 			}
 
+			if(Input.GetKeyUp(KeyCode.E) && isSpaceJumpCharged){
+				CancelChargingSpaceJump();
+			}
+
 			//Setting jumping Inputs
 			if (Input.GetKey (KeyCode.Space)) {
-				timeJumpPressed += Time.deltaTime;
-				if (timeJumpPressed >= startChargeSpaceJump && !isSpaceJumpCharging) {isSpaceJumpCharging = true; }
-				if (timeJumpPressed >= timeIsSpaceJumpCharged) {isSpaceJumpCharged = true; character.ChargeJump(); }
+				if(!character.getIsSpaceJumping()){
+					timeJumpPressed += Time.deltaTime;
+					if (timeJumpPressed >= startChargeSpaceJump && !isSpaceJumpCharging) {isSpaceJumpCharging = true; }
+					if (timeJumpPressed >= timeIsSpaceJumpCharged && !isSpaceJumpCharged) {isSpaceJumpCharged = true; character.ChargeJump(); }
+				}
 			} else {
 				ResetJumping();
 			}
@@ -85,10 +92,17 @@ public class InputController : MonoBehaviour {
 		}
 	}
 
+	void CancelChargingSpaceJump(){
+		timeJumpPressed = 0f;
+		isSpaceJumpCharged = false;
+		isSpaceJumpCharging = false;
+		character.CancelChargingSpaceJump ();
+	}
+
 	void ResetJumping () {
 		isSpaceJumpCharging = false;
 		isSpaceJumpCharged = false;
 		timeJumpPressed = 0;
 	}
-}
 
+}

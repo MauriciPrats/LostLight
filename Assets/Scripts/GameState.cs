@@ -11,14 +11,28 @@ public class GameState{
 
 	public bool isGamePaused;
 
+	public bool arePlanetsMoving;
+
+	public bool isInsidePlanet;
+
 	private void initializeGameState(){
-		playerLastCheckpoint = 0;
+		playerLastCheckpoint = 1;
 		isGameEnded = true;
 		isCameraLockedToPlayer = true;
 		isGamePaused = false;
+		arePlanetsMoving = true;
+		isInsidePlanet = false;
 	}
 
 	public GameState(){
 		initializeGameState ();
+	}
+
+	public void setIsInsidePlanet(bool insidePlanet){
+		if(isInsidePlanet!=insidePlanet){
+			isInsidePlanet = insidePlanet;
+			GameManager.changeDirectionalLights(!insidePlanet);
+
+		}
 	}
 }

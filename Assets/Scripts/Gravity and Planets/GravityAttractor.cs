@@ -27,7 +27,7 @@ public class GravityAttractor : MonoBehaviour {
 
 			//We calculate the size of the athmosphere of the gravityAttractor
 			float size = transform.GetComponent<SphereCollider> ().radius * Mathf.Max (transform.lossyScale.x, transform.lossyScale.y, transform.lossyScale.z);
-			size += Constants.GRAVITY_DISTANCE_FROM_PLANET_FLOOR;
+			size += Constants.Instance.GRAVITY_DISTANCE_FROM_PLANET_FLOOR;
 
 			//Athmosphere size
 			float athmosphereSize = athmosphere.transform.GetComponent<SphereCollider> ().radius * Mathf.Max (athmosphere.transform.lossyScale.x, athmosphere.transform.lossyScale.y, athmosphere.transform.lossyScale.z);
@@ -35,7 +35,7 @@ public class GravityAttractor : MonoBehaviour {
 			float factor = size / athmosphereSize;
 			athmosphere.transform.localScale = new Vector3 (factor*athmosphere.transform.localScale.x, factor*athmosphere.transform.localScale.y, factor*athmosphere.transform.localScale.z);
 			GameObject athmosphereMinimap = (GameObject)GameObject.Instantiate(athmosphereMinimapPrefab);
-			athmosphereMinimap.transform.position = new Vector3(transform.position.x,transform.position.y,Constants.MINIMAP_DISTANCE);
+			athmosphereMinimap.transform.position = new Vector3(transform.position.x,transform.position.y,Constants.Instance.MINIMAP_DISTANCE);
 			athmosphereMinimap.transform.parent = transform;
 			//factor = athmosphereSize / 5f;
 			factor = size / (athmosphereMinimap.GetComponent<MeshRenderer>().bounds.size.x / 2f);
@@ -46,7 +46,7 @@ public class GravityAttractor : MonoBehaviour {
 	}
 
 	void FixedUpdate(){
-		if (isRotating) {
+		if (isRotating && GameManager.gameState.arePlanetsMoving) {
 			//print (Vector3.Distance (transform.parent.position, transform.position));
 			transform.position = OrbiteAroundPoint (transform.position, transform.parent.position, Quaternion.Euler (0, 0, speedRotation * Time.deltaTime));
 		}
@@ -61,7 +61,7 @@ public class GravityAttractor : MonoBehaviour {
 		float sphereRadius = sphereCollider.transform.lossyScale.x * sphereCollider.radius;
 		distance = distance - sphereRadius;
 
-		if (distance <= Constants.GRAVITY_DISTANCE_FROM_PLANET_FLOOR) {
+		if (distance <= Constants.Instance.GRAVITY_DISTANCE_FROM_PLANET_FLOOR) {
 			Vector3 targetDir = (objectToAttract.position - transform.position);
 			targetDir = new Vector3(targetDir.x,targetDir.y,0f).normalized;
 
@@ -69,7 +69,13 @@ public class GravityAttractor : MonoBehaviour {
 			Vector3 objectUp = objectToAttract.up;
 
 			objectToAttract.rotation = Quaternion.FromToRotation (objectUp, targetDir) * objectToAttract.rotation;
-			objectToAttract.rigidbody.AddForce (targetDir * -Constants.GRAVITY_FORCE_OF_PLANETS,ForceMode.Acceleration);
+			float forceToAdd = -Constants.Instance.GRAVITY_FORCE_OF_PLANETS;
+
+			if(body.getUsesSpaceGravity()){
+				forceToAdd *=Constants.Instance.GRAVITY_MULTIPLYIER_ON_SPACE_JUMPS;
+			}
+
+			objectToAttract.rigidbody.AddForce (targetDir * forceToAdd ,ForceMode.Acceleration);
 			//We only put the body in the hierarchy if it has touched a planet after doing "Space travel".
 			if(!body.getUsesSpaceGravity()){
 				objectToAttract.parent = transform;

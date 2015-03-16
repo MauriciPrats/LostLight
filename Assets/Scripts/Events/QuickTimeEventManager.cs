@@ -20,7 +20,7 @@ public class QuickTimeEventManager : MonoBehaviour {
 	void FixedUpdate () {
 		quickTimeEventTimer += Time.deltaTime;
 
-		if(playerGravityBody.getMinimumPlanetDistance()>Constants.MINIMUM_PLANET_DISTANCE_FOR_QUICK_TIME_EVENT
+		if(playerGravityBody.getMinimumPlanetDistance()>Constants.Instance.MINIMUM_PLANET_DISTANCE_FOR_QUICK_TIME_EVENT
 		   && quickTimeEventTimer>quickTimeEventActualCooldown){
 
 			putRandomCooldown();
@@ -32,13 +32,13 @@ public class QuickTimeEventManager : MonoBehaviour {
 			}
 			randomDirection -= GameManager.player.rigidbody.velocity.normalized*Random.value;
 
-			Vector3 asteroidPosition = GameManager.player.transform.position - (randomDirection * Constants.ASTEROID_SPEED * 2f);
+			Vector3 asteroidPosition = GameManager.player.transform.position - (randomDirection * Constants.Instance.ASTEROID_SPEED * 2f);
 			//Asteroid position
 
 			//Spawn the asteroid
 			GameObject newAsteroid = (GameObject) GameObject.Instantiate(asteroidAttackPrefab);
 			newAsteroid.transform.position = asteroidPosition;
-			newAsteroid.rigidbody.velocity = (randomDirection * Constants.ASTEROID_SPEED) + GameManager.player.rigidbody.velocity;
+			newAsteroid.rigidbody.velocity = (randomDirection * Constants.Instance.ASTEROID_SPEED) + GameManager.player.rigidbody.velocity;
 
 			QuickTimeAsteroid qta = newAsteroid.GetComponent<QuickTimeAsteroid>();
 			qta.Initialize(GameManager.player);
@@ -50,6 +50,6 @@ public class QuickTimeEventManager : MonoBehaviour {
 	void putRandomCooldown(){
 		quickTimeEventTimer = 0f;
 		float randomness = (Random.value * 2f) - 1f; // -1 to 1
-		quickTimeEventActualCooldown = Constants.TIME_BETWEEN_QUICK_TIME_EVENTS + (randomness * Constants.RANDOMNESS_TIME_BETWEEN_QUICK_TIME_EVENTS);
+		quickTimeEventActualCooldown = Constants.Instance.TIME_BETWEEN_QUICK_TIME_EVENTS + (randomness * Constants.Instance.RANDOMNESS_TIME_BETWEEN_QUICK_TIME_EVENTS);
 	}
 }

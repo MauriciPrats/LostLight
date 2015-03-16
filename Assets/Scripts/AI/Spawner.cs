@@ -21,7 +21,7 @@ public class Spawner : MonoBehaviour {
 	public bool isInRange(){
 		float distanceBetweenPlayerAndSpawnPoint = Vector3.Distance (transform.position, GameManager.player.transform.position);
 
-		if(distanceBetweenPlayerAndSpawnPoint<Constants.SPAWNING_MAXIMUM_DISTANCE_OF_PLAYER && distanceBetweenPlayerAndSpawnPoint > Constants.SPAWNING_MINIMUM_DISTANCE_OF_PLAYER){
+		if(distanceBetweenPlayerAndSpawnPoint<Constants.Instance.SPAWNING_MAXIMUM_DISTANCE_OF_PLAYER && distanceBetweenPlayerAndSpawnPoint > Constants.Instance.SPAWNING_MINIMUM_DISTANCE_OF_PLAYER){
 			return true;
 		}else{
 			return false;
