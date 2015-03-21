@@ -112,8 +112,8 @@ public class WalkOnMultiplePaths : MonoBehaviour {
 			takesBothPathways = false;
 		}else{
 			takesBothPathways = true;
-			Vector3 frontPosition = new Vector3(transform.position.x,transform.position.y,Constants.Instance.FRONT_PATH_Z_OFFSET);
-			Vector3 backPosition = new Vector3(transform.position.x,transform.position.y,Constants.Instance.BACK_PATH_Z_OFFSET);
+			Vector3 frontPosition = new Vector3(transform.position.x,transform.position.y,Constants.FRONT_PATH_Z_OFFSET);
+			Vector3 backPosition = new Vector3(transform.position.x,transform.position.y,Constants.BACK_PATH_Z_OFFSET);
 
 			if (isFrontPath) {transform.position = Vector3.Lerp(backPosition,frontPosition,changingTimer);}
 			else{transform.position = Vector3.Lerp(frontPosition,backPosition,changingTimer);}		
@@ -121,7 +121,7 @@ public class WalkOnMultiplePaths : MonoBehaviour {
 	}
 
 	public void putMiddlePath(){
-		transform.position = new Vector3 (transform.position.x, transform.position.y, (Constants.Instance.FRONT_PATH_Z_OFFSET + Constants.Instance.BACK_PATH_Z_OFFSET) / 2f);
+		transform.position = new Vector3 (transform.position.x, transform.position.y, (Constants.FRONT_PATH_Z_OFFSET + Constants.BACK_PATH_Z_OFFSET) / 2f);
 	}
 
 	public int ammountOfEnemiesInFront(bool isFrontPath,int jumps){

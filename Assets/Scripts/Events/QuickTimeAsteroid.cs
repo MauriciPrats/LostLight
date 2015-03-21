@@ -21,7 +21,7 @@ public class QuickTimeAsteroid : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 		quickTimePopup.renderer.enabled = false;
-		if(Vector3.Distance(player.transform.position,transform.position)<Constants.Instance.DISTANCE_SHOW_POPUP){
+		if(Vector3.Distance(player.transform.position,transform.position)<Constants.DISTANCE_SHOW_POPUP){
 			quickTimePopup.renderer.enabled = true;
 
 			if(Input.GetKey(KeyCode.X)){

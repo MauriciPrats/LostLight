@@ -69,6 +69,14 @@ public class InputController : MonoBehaviour {
 			} else {
 				ResetJumping();
 			}
+			if (Input.GetKeyDown(KeyCode.Space)){
+				if(character.getIsSpaceJumping()){
+					GravityBody body = GetComponent<GravityBody>();
+					if(body.getIsOrbitingAroundPlanet()){
+						body.setIsGettingOutOfOrbit(true);
+					}
+				}
+			}
 			if (Input.GetKeyDown (KeyCode.R)) {
 				Interactuable entity = EntityManager.getClosestInteractuable();
 				if (entity != null) entity.doInteractAction();

@@ -1,23 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.UI;
 
 public class OnAnyKeyPressed : MonoBehaviour {
 
-	public Action<string> action;
-
 	public string scene;
 
+	void Start() {
 
-	// Use this for initialization
-	void Start () {
-	
 	}
+
+
 	
 	// Update is called once per frame
 	void Update () {
 		if(Input.anyKey){
 			GameManager.actualSceneManager.ChangeScene(scene);
+
 		}
 	}
 }

@@ -160,7 +160,7 @@ public class CharacterController : MonoBehaviour {
 					breathingBubble.transform.localScale = new Vector3(0f,0f,0f);
 					timeHasNotBeenBreathing+=Time.deltaTime;
 					if(timeHasNotBeenBreathing>=timeBetweenDamageWhenNotBreathing){
-						getHurt(killable.HP);
+						kill ();
 						flyParticles.Stop();
 						rigidbody.velocity = new Vector3(0f,0f,0f);
 						GameObject newEffect = GameObject.Instantiate(explosionOnDieInSpacePrefab) as GameObject;
@@ -325,6 +325,10 @@ public class CharacterController : MonoBehaviour {
 		}
 	}
 
+	public void kill(){
+		getHurt(killable.HP);
+	}
+
 	public void MoveArrow(float horizontalMove,float verticalMove){
 		Vector3 horizontalDirection = transform.forward * horizontalMove;
 		if(!isLookingRight){
@@ -370,5 +374,9 @@ public class CharacterController : MonoBehaviour {
 
 	public bool getIsSpaceJumping(){
 		return isSpaceJumping;
+	}
+
+	public bool getIsLookingRight(){
+		return isLookingRight;
 	}
 }

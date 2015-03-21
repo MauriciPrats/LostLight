@@ -95,7 +95,7 @@ public class FadeManager : MonoBehaviour {
 
 	void drawFadeTexture(){
 		if (!isFinished) {
-			alpha += fadeDir * Constants.Instance.FADE_SPEED * Time.deltaTime;
+			alpha += fadeDir * Constants.FADE_SPEED * Time.deltaTime;
 			alpha = Mathf.Clamp01 (alpha); 
 			if(fadingMenu!=null){
 				fadingMenu.GetComponent<CanvasGroup>().alpha = alpha;
@@ -122,7 +122,7 @@ public class FadeManager : MonoBehaviour {
 	void drawFadeOutCompleteTexture(){
 
 		if (!isFinishedAll) {
-			allAlpha += fadeDirAll * Constants.Instance.FADE_SPEED * Time.deltaTime;
+			allAlpha += fadeDirAll * Constants.FADE_SPEED * Time.deltaTime;
 			allAlpha = Mathf.Clamp01 (allAlpha); 
 			
 			
@@ -140,7 +140,7 @@ public class FadeManager : MonoBehaviour {
 	}
 	void drawGetHurtTexture(){
 		if (!isFinishedGetHurt) {
-			getHurtAlpha += fadeDirGetHurt * Constants.Instance.FADE_SPEED * Time.fixedDeltaTime;
+			getHurtAlpha += fadeDirGetHurt * Constants.FADE_SPEED * Time.fixedDeltaTime;
 			getHurtAlpha = Mathf.Clamp01 (getHurtAlpha); 
 		  
 			GUI.color = new Color (GUI.color.r, GUI.color.g, GUI.color.b, getHurtAlpha);

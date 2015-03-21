@@ -12,6 +12,8 @@ public class GravityBody : MonoBehaviour {
 	bool usesSpaceGravity;
 	bool isOutsideAthmosphere;
 	float minimumPlanetDistance = float.MaxValue;
+	bool isOrbitingAroundPlanet = false;
+	bool isGettingOutOfOrbit = false;
 
 	int objectsTouching = 0;
 	void Start() {
@@ -46,7 +48,7 @@ public class GravityBody : MonoBehaviour {
 				rigidbody.velocity = new Vector3(0f,0f,0f);
 			}
 			objectsTouching++;
-			rigidbody.drag = Constants.Instance.DRAG_ON_TOUCH_PLANETS;
+			rigidbody.drag = Constants.DRAG_ON_TOUCH_PLANETS;
 			isTouchingPlanet = true;
 			usesSpaceGravity = false;
 		}
@@ -87,16 +89,20 @@ public class GravityBody : MonoBehaviour {
 			usesSpaceGravity = true;
 			rigidbody.drag = 0f;
 			isOutsideAthmosphere = true;
+			isGettingOutOfOrbit = false;
+			setIsOrbitingAroundPlanet(false);
 		} 
 		else 
 		{
 			isOutsideAthmosphere = false;
-			float dragProportion = minimumPlanetDistance / Constants.Instance.GRAVITY_DISTANCE_FROM_PLANET_FLOOR;
+			float dragProportion = minimumPlanetDistance / Constants.GRAVITY_DISTANCE_FROM_PLANET_FLOOR;
 			dragProportion = 1f - dragProportion;
 			if(dragProportion>1f){dragProportion = 1f;}
-			else if(dragProportion<0.5f){dragProportion = 0.0f;}
-			
-			rigidbody.drag = dragProportion * Constants.Instance.GRAVITY_DRAG_OF_ATHMOSPHERE;
+			else if(dragProportion<Constants.PERCENTAGE_DRAG_ATHMOSPHERE){dragProportion = 0.0f;}
+			if(usesSpaceGravity){
+				dragProportion*=5f;
+			}
+			rigidbody.drag = dragProportion * Constants.GRAVITY_DRAG_OF_ATHMOSPHERE;
 		}
 
 	}
@@ -115,6 +121,23 @@ public class GravityBody : MonoBehaviour {
 
 	public bool getIsOutsideAthmosphere(){
 		return isOutsideAthmosphere;
+	}
+
+	public bool getIsOrbitingAroundPlanet(){
+		return isOrbitingAroundPlanet;
+	}
+
+	public void setIsOrbitingAroundPlanet(bool orbiting){
+		isOrbitingAroundPlanet = orbiting;
+		GameManager.gameState.isCameraLockedToPlayer = !orbiting;
+	}
+
+	public bool getIsGettingOutOfOrbit(){
+		return isGettingOutOfOrbit;
+	}
+
+	public void setIsGettingOutOfOrbit(bool orbit){
+		isGettingOutOfOrbit = orbit;
 	}
 	/*public bool isGrounded(){
 		

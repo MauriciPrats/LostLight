@@ -25,9 +25,9 @@ public class EnemySpawned : MonoBehaviour {
 		}
 		timerCheckPlayerDistance += Time.deltaTime;
 
-		if(timerCheckPlayerDistance>Constants.Instance.TIME_BETWEEN_CHECK_PLAYER_DISTANCE_FOR_DESPAWN){
+		if(timerCheckPlayerDistance>Constants.TIME_BETWEEN_CHECK_PLAYER_DISTANCE_FOR_DESPAWN){
 			timerCheckPlayerDistance =  0f;
-			if(Vector3.Distance(GameManager.player.transform.position,transform.position)> Constants.Instance.SPAWNING_MAXIMUM_DISTANCE_OF_PLAYER){
+			if(Vector3.Distance(GameManager.player.transform.position,transform.position)> Constants.SPAWNING_MAXIMUM_DISTANCE_OF_PLAYER){
 				OnDespawn();
 			}
 		}
