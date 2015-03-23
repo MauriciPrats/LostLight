@@ -55,10 +55,12 @@ public class TrackingMissilesSpecialAttack : SpecialAttack {
 	protected override void update(){
 		if(!isFinished){
 			timer+=Time.deltaTime;
+			attackCharge.transform.position = GameManager.lightGemObject.transform.position ;
 			if(timer>=timeToChargeAttack){
 				spawnMissiles();
 				attackCharge.SetActive (false);
 				isFinished = true;
+				GameManager.playerAnimator.SetBool("isDoingMissiles",false);
 			}
 		}
 	}
@@ -66,7 +68,8 @@ public class TrackingMissilesSpecialAttack : SpecialAttack {
 	public override void startAttack(){
 		timer = 0f;
 		attackCharge.SetActive (true);
-		attackCharge.transform.position = GameManager.lightGemObject.transform.position + (GameManager.player.transform.up* 0.5f);
+		attackCharge.transform.position = GameManager.lightGemObject.transform.position ;
 		isFinished = false;
+		GameManager.playerAnimator.SetBool("isDoingMissiles",true);
 	}
 }

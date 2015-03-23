@@ -95,14 +95,19 @@ public class GravityBody : MonoBehaviour {
 		else 
 		{
 			isOutsideAthmosphere = false;
-			float dragProportion = minimumPlanetDistance / Constants.GRAVITY_DISTANCE_FROM_PLANET_FLOOR;
-			dragProportion = 1f - dragProportion;
-			if(dragProportion>1f){dragProportion = 1f;}
-			else if(dragProportion<Constants.PERCENTAGE_DRAG_ATHMOSPHERE){dragProportion = 0.0f;}
-			if(usesSpaceGravity){
-				dragProportion*=5f;
+			if(gameObject.tag == "Player"){
+				//Ponemos el drag solo para el player
+				float dragProportion = minimumPlanetDistance / Constants.GRAVITY_DISTANCE_FROM_PLANET_FLOOR;
+				dragProportion = 1f - dragProportion;
+				if(dragProportion>1f){dragProportion = 1f;}
+				else if(dragProportion<Constants.PERCENTAGE_DRAG_ATHMOSPHERE){dragProportion = 0.0f;}
+				if(usesSpaceGravity){
+					dragProportion*=5f;
+				}
+				GetComponent<Rigidbody>().drag = dragProportion * Constants.GRAVITY_DRAG_OF_ATHMOSPHERE;
+			}else{
+				GetComponent<Rigidbody>().drag = 0f;
 			}
-			GetComponent<Rigidbody>().drag = dragProportion * Constants.GRAVITY_DRAG_OF_ATHMOSPHERE;
 		}
 
 	}

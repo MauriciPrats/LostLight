@@ -14,9 +14,22 @@ public class SpecialAttack : MonoBehaviour {
 		update ();
 	}
 
-	public virtual void enemyCollision(GameObject enemy){
+	public virtual void enemyCollisionEnter(GameObject enemy){
 		Debug.Log ("Empty Enemy collision of parent special attack");
 	}
+	
+	public virtual void enemyCollisionExit(GameObject enemy){
+		Debug.Log ("Empty Enemy collision of parent special attack");
+	}
+
+	public virtual void otherCollisionExit(GameObject enemy){
+		Debug.Log ("Empty Enemy collision of parent special attack");
+	}
+
+	public virtual void otherCollisionEnter(GameObject enemy){
+		Debug.Log ("Empty Enemy collision of parent special attack");
+	}
+
 
 	public virtual void initialize(){
 		Debug.Log ("Empty initialize of parent special attack");

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class GameManager{
 
 	public static GameObject player;
+	public static Animator playerAnimator;
 	public static GameObject lightGemObject;
 	public static SceneManager actualSceneManager;
 	public static GameState gameState = new GameState ();
@@ -96,6 +97,7 @@ public class GameManager{
 	//Registering functions
 	public static void registerPlayer(GameObject playerGO){
 		player = playerGO;
+		playerAnimator = player.GetComponent<CharacterController> ().getAnimator ();
 	}
 
 	public static void registerCheckpointManager(GameObject checkPointManagerGO){

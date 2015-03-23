@@ -23,25 +23,32 @@ public class KameSpecialAttack : SpecialAttack {
 	float timer = 0f;
 	private Vector3 startPosition;
 	private Vector3 closestPlanetCenter;
+
+	private int objectsCollided = 0;
 	public override void initialize(){
 		
 	}
 
-	public override void enemyCollision(GameObject enemy){
+	public override void enemyCollisionEnter(GameObject enemy){
 		//If it's an enemy we damage him
 		enemy.GetComponent<Killable>().Damage(damageAmmount);
 		//We find the radius of areaEffect
 		enemy.GetComponent<Rigidbody>().AddExplosionForce(forceExplosion,transform.position,1f);
 		GameObject newEffect = GameObject.Instantiate (enemyHitEffectPrefab) as GameObject;
 		newEffect.transform.position = enemy.GetComponent<Rigidbody> ().worldCenterOfMass - (kameEffect.transform.forward * 0.15f);
+		Vector3 direction = (enemy.transform.position - kameCore.transform.position).normalized + (enemy.transform.up * 2f);
+		enemy.GetComponent<Rigidbody> ().AddForce (direction.normalized * 15f,ForceMode.Impulse);
+		enemy.GetComponent<IAController> ().stun (1f);
 	}
-	
+
 	protected override void update(){
 		timer += Time.deltaTime;
 		if(!isFinished || isCleaningEffect){
 			if(timer>=chargeTime){
+				GameManager.playerAnimator.SetBool("isDoingKame",true);
 				float extraTime1 = timer - chargeTime;
 				if(extraTime1>= totalTimeLasts){
+					GameManager.playerAnimator.SetBool("isDoingKame",false);
 					float extraTime2 = (extraTime1 - totalTimeLasts);
 					if(extraTime2<timeToDisappear){
 						isCleaningEffect = true;
@@ -61,6 +68,7 @@ public class KameSpecialAttack : SpecialAttack {
 
 					Vector3 newPostion =kameEffect.transform.position + (kameEffect.transform.forward * distance * Time.deltaTime) ;
 					kameEffect.transform.position = newPostion;
+					
 					//We rotate the object
 					Vector3 objectiveUp = (kameEffect.transform.position - closestPlanetCenter);
 					objectiveUp = new Vector3(objectiveUp.x,objectiveUp.y,0f).normalized;
@@ -85,7 +93,7 @@ public class KameSpecialAttack : SpecialAttack {
 
 
 	public override void startAttack(){
-		Debug.Log (GameManager.player.transform.eulerAngles);
+		//Debug.Log (GameManager.player.transform.eulerAngles);
 		if(GameManager.player.transform.eulerAngles.z>90){
 			//kameEffect.transform.forward = GameManager.player.transform.forward * -1f;
 		}else{
@@ -118,5 +126,8 @@ public class KameSpecialAttack : SpecialAttack {
 		kameCore.transform.forward = kameEffect.transform.forward;
 		timer = 0f;
 		isCleaningEffect = false;
+		objectsCollided = 0;
+
+		GameManager.playerAnimator.SetTrigger("isChargingKame");
 	}
 }

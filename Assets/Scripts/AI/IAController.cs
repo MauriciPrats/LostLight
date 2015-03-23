@@ -19,6 +19,9 @@ public class IAController : MonoBehaviour {
 	public GameObject[] shortRangeAttacks;
 	public GameObject[] middleRangeAttacks;
 	public GameObject[] longRangeAttacks;
+	private bool isStunned;
+	private float stunnedTime;
+	private float stunnedTimer;
 
 
 	private Animator iaAnimator;
@@ -152,7 +155,12 @@ public class IAController : MonoBehaviour {
 		}else{
 			turnRight();
 		}
-		walk ();
+		if(!isStunned){
+			walk ();
+		}else{
+			//Stunned animation
+			//idleWalking();
+		}
 	}
 
 	private void idleWalking(){
@@ -191,6 +199,8 @@ public class IAController : MonoBehaviour {
 				isBlockedBySomethingInFront  = true;
 				iaAnimator.SetBool("isWalking",false);
 			}
+		}else{
+			iaAnimator.SetBool("isWalking",false);
 		}
 	}
 
@@ -216,6 +226,13 @@ public class IAController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		updateTimers ();
+
+		if(isStunned){
+			stunnedTimer+=Time.deltaTime;
+			if(stunnedTimer>=stunnedTime){
+				isStunned = false;
+			}
+		}
 
 		moveAmount = new Vector3 (0f, 0f, 0f);
 		
@@ -247,5 +264,11 @@ public class IAController : MonoBehaviour {
 
 	public bool getIsLookingRight(){
 		return isLookingRight;
+	}
+
+	public void stun(float timeStunned){
+		stunnedTimer = 0f;
+		stunnedTime = timeStunned;
+		isStunned = true;
 	}
 }

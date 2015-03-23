@@ -185,7 +185,7 @@ MonoBehaviour:
   timeItDoesAttack: .5
   endScaleOfAttack: 5
   startChargeScale: 1
-  damageAmmount: 2
+  damageAmmount: 1
   forceExplosion: 1000
   timeToCharge: .800000012
 --- !u!135 &13531314

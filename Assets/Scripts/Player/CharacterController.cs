@@ -383,4 +383,11 @@ public class CharacterController : MonoBehaviour {
 	public bool getIsJumping(){
 		return isJumping;
 	}
+
+	public Animator getAnimator(){
+		if(bpAnimator==null){
+			bpAnimator = animationBigPappada.GetComponent<Animator>();
+		}
+		return bpAnimator;
+	}
 }
