@@ -99,9 +99,9 @@ public class CharacterController : MonoBehaviour {
 		isGoingUp = false;
 		timeHasNotBeenBreathing = timeBetweenDamageWhenNotBreathing;
 		timeHasBeenInSpace = 0f;
-		centerToExtremesDistance = (animationBigPappada.collider.bounds.size.z /2f)+extraSafeDistanceFromEnemies;
+		centerToExtremesDistance = (animationBigPappada.GetComponent<Collider>().bounds.size.z /2f)+extraSafeDistanceFromEnemies;
 		isInvulnerable = false;
-		rigidbody.velocity = new Vector3 (0f, 0f, 0f);
+		GetComponent<Rigidbody>().velocity = new Vector3 (0f, 0f, 0f);
 		isFinishedSpaceJump = false;
 
 		lineRenderer = GetComponent<LineRenderer> ();
@@ -142,7 +142,7 @@ public class CharacterController : MonoBehaviour {
 		}
 
 		if(isJumping || isSpaceJumping){
-			bool isGoingUp = Vector3.Angle(transform.up,rigidbody.velocity.normalized)<90;
+			bool isGoingUp = Vector3.Angle(transform.up,GetComponent<Rigidbody>().velocity.normalized)<90;
 			if (isGoingUp) {
 				bpAnimator.SetBool("isGoingUp",true);
 			}else{
@@ -162,7 +162,7 @@ public class CharacterController : MonoBehaviour {
 					if(timeHasNotBeenBreathing>=timeBetweenDamageWhenNotBreathing){
 						kill ();
 						flyParticles.Stop();
-						rigidbody.velocity = new Vector3(0f,0f,0f);
+						GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);
 						GameObject newEffect = GameObject.Instantiate(explosionOnDieInSpacePrefab) as GameObject;
 						newEffect.transform.position = transform.position;
 
@@ -230,7 +230,7 @@ public class CharacterController : MonoBehaviour {
 	}
 
 	public void SpaceJump() {
-		rigidbody.AddForce (lineJumpDirection * spaceJumpForce, ForceMode.Impulse);
+		GetComponent<Rigidbody>().AddForce (lineJumpDirection * spaceJumpForce, ForceMode.Impulse);
 		//If we jump into the space, stop the particle system.
 		ParticleSystem particles = particleSystemJumpCharge.GetComponent<ParticleSystem> ();
 		particles.Stop ();
@@ -247,7 +247,7 @@ public class CharacterController : MonoBehaviour {
 	}
 
 	public void Jump() {
-		rigidbody.AddForce (transform.up * normalJumpForce, ForceMode.VelocityChange);
+		GetComponent<Rigidbody>().AddForce (transform.up * normalJumpForce, ForceMode.VelocityChange);
 		ParticleSystem particles = particleSystemJumpCharge.GetComponent<ParticleSystem> ();
 		particles.Stop ();
 		bpAnimator.SetBool("isChargingSpaceJumping",false);
@@ -378,5 +378,9 @@ public class CharacterController : MonoBehaviour {
 
 	public bool getIsLookingRight(){
 		return isLookingRight;
+	}
+
+	public bool getIsJumping(){
+		return isJumping;
 	}
 }

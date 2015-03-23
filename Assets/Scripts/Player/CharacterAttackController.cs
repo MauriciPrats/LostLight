@@ -63,11 +63,12 @@ public class CharacterAttackController : MonoBehaviour {
 	*/
 	private void setAnimTimes() {
 		
-		UnityEditorInternal.AnimatorController ac = bpAnimator.runtimeAnimatorController as UnityEditorInternal.AnimatorController;
-		UnityEditorInternal.StateMachine sm = ac.GetLayer(0).stateMachine.GetStateMachine(0);
-		
-		for(int i = 0; i < sm.stateCount; i++) {
-			UnityEditorInternal.State state = sm.GetState(i);
+		UnityEditor.Animations.AnimatorController ac = bpAnimator.runtimeAnimatorController as UnityEditor.Animations.AnimatorController;
+		//UnityEditor.Animations.AnimatorStateMachine sm = ac.GetLayer(0).stateMachine.GetStateMachine(0); //Doesn't work on UNITY 5
+
+		//Doesn't work on UNITY 5
+		/*for(int i = 0; i < sm.stateCount; i++) {
+			UnityEditor.Animations.AnimatorState state = sm.GetState(i);
 			AnimationClip clip = state.GetMotion() as AnimationClip;
 			float l = clip.length;
 			float s = state.speed;
@@ -85,7 +86,7 @@ public class CharacterAttackController : MonoBehaviour {
 				sTime[2] = animationTime * 0.5f;
 				lTime[2] = animationTime * 0.5f;
 			}
-		}
+		}*/
 	}
 	
 
@@ -170,7 +171,7 @@ public class CharacterAttackController : MonoBehaviour {
 		//cubeInstance.renderer.enabled = true;
 		stick.GetComponent<ParticleSystem>().startColor = particleColor;
 		stick.GetComponent<ParticleSystem>().enableEmission = true;
-		cubeInstance.collider.enabled = true;
+		cubeInstance.GetComponent<Collider>().enabled = true;
 	}
 	
 	private void DisableHitbox()
@@ -178,7 +179,7 @@ public class CharacterAttackController : MonoBehaviour {
 		//cubeInstance.renderer.enabled = false;
 		stick.GetComponent<ParticleSystem>().enableEmission = false;
 		
-		cubeInstance.collider.enabled = false;	
+		cubeInstance.GetComponent<Collider>().enabled = false;	
 	}
 	
 }

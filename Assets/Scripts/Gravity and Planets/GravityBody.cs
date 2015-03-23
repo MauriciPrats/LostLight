@@ -45,10 +45,10 @@ public class GravityBody : MonoBehaviour {
 		if (obj.tag == "Planet" || obj.tag == "Enemy") {
 			if(usesSpaceGravity){
 				//Just landed from spaceJump
-				rigidbody.velocity = new Vector3(0f,0f,0f);
+				GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);
 			}
 			objectsTouching++;
-			rigidbody.drag = Constants.DRAG_ON_TOUCH_PLANETS;
+			GetComponent<Rigidbody>().drag = Constants.DRAG_ON_TOUCH_PLANETS;
 			isTouchingPlanet = true;
 			usesSpaceGravity = false;
 		}
@@ -58,7 +58,7 @@ public class GravityBody : MonoBehaviour {
 		if (obj.tag == "Planet" || obj.tag == "Enemy") {
 			objectsTouching--;
 			if(objectsTouching==0){
-				rigidbody.drag = 0f;
+				GetComponent<Rigidbody>().drag = 0f;
 				isTouchingPlanet = false;
 			}
 		}
@@ -87,7 +87,7 @@ public class GravityBody : MonoBehaviour {
 		if (closePlanets == 0) 
 		{
 			usesSpaceGravity = true;
-			rigidbody.drag = 0f;
+			GetComponent<Rigidbody>().drag = 0f;
 			isOutsideAthmosphere = true;
 			isGettingOutOfOrbit = false;
 			setIsOrbitingAroundPlanet(false);
@@ -102,7 +102,7 @@ public class GravityBody : MonoBehaviour {
 			if(usesSpaceGravity){
 				dragProportion*=5f;
 			}
-			rigidbody.drag = dragProportion * Constants.GRAVITY_DRAG_OF_ATHMOSPHERE;
+			GetComponent<Rigidbody>().drag = dragProportion * Constants.GRAVITY_DRAG_OF_ATHMOSPHERE;
 		}
 
 	}

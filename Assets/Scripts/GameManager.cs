@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class GameManager{
 
 	public static GameObject player;
+	public static GameObject lightGemObject;
 	public static SceneManager actualSceneManager;
 	public static GameState gameState = new GameState ();
 	public static GameObject mainCamera;
@@ -26,6 +27,7 @@ public class GameManager{
 			RenderSettings.ambientLight = originalAmbientLight;
 		}*/
 	}
+
 	//Game state functions
 	public static void putLoadedGameState(GameState gameStateLoaded){
 		gameState = gameStateLoaded;
@@ -118,5 +120,9 @@ public class GameManager{
 
 	public static void registerEnemyAttackManager(GameObject enemyAttackManagerGO){
 		enemyAttackManager = enemyAttackManagerGO.GetComponent<EnemyAttackManager> ();
+	}
+
+	public static void registerLightGemObject(GameObject lightGemGO){
+		lightGemObject = lightGemGO;
 	}
 }

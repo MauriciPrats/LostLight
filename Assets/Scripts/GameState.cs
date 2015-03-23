@@ -16,7 +16,7 @@ public class GameState{
 	public bool isInsidePlanet;
 
 	private void initializeGameState(){
-		playerLastCheckpoint = 0;
+		playerLastCheckpoint = 1;
 		isGameEnded = true;
 		isCameraLockedToPlayer = true;
 		isGamePaused = false;

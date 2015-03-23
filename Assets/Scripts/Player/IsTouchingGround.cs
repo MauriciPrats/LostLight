@@ -2,31 +2,31 @@
 using System.Collections;
 
 public class IsTouchingGround : MonoBehaviour {
-	GravityBody playerGB;
+	public GameObject mainBody;
+	GravityBody gravityBody;
 	// Use this for initialization
 	void Start () {
-		playerGB = GameManager.player.GetComponent<GravityBody> ();
+		gravityBody = mainBody.GetComponent<GravityBody> ();
 	}
 	void OnTriggerEnter (Collider col)
 	{
-
-		playerGB.checkTouchEnter (col.gameObject);
+		gravityBody.checkTouchEnter (col.gameObject);
 	}
 	
 	void OnCollisionEnter (Collision col)
 	{
 		//Debug.Log (col.gameObject.tag);
-		playerGB.checkTouchEnter (col.gameObject);
+		gravityBody.checkTouchEnter (col.gameObject);
 	}
 	
 	void OnTriggerExit(Collider col)
 	{
-		playerGB.checkTouchExit (col.gameObject);
+		gravityBody.checkTouchExit (col.gameObject);
 	}
 	
 	void OnCollisionExit(Collision col)
 	{
-		playerGB.checkTouchExit (col.gameObject);
+		gravityBody.checkTouchExit (col.gameObject);
 	}
 	// Update is called once per frame
 	void Update () {

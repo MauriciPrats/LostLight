@@ -16,20 +16,20 @@ public class HideFrontPlanetFaceOnEnter : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
-		SphereCollider sphereCollider = (SphereCollider)collider;
+		SphereCollider sphereCollider = (SphereCollider)GetComponent<Collider>();
 		//Debug.Log (sphereCollider.radius);
 
 		float sphereRadius = sphereCollider.transform.lossyScale.x * sphereCollider.radius;
 
 		if(Vector3.Distance(transform.position,GameManager.player.transform.position)<sphereRadius){
-			if(renderer!=null){
-				renderer.enabled = false;
+			if(GetComponent<Renderer>()!=null){
+				GetComponent<Renderer>().enabled = false;
 			}
 			enableAll(false);
 			GameManager.gameState.setIsInsidePlanet(true);
 		}else{
-			if(renderer!=null){
-				renderer.enabled = true;
+			if(GetComponent<Renderer>()!=null){
+				GetComponent<Renderer>().enabled = true;
 			}
 			enableAll(true);
 			GameManager.gameState.setIsInsidePlanet(false);

@@ -15,14 +15,14 @@ public class QuickTimeAsteroid : MonoBehaviour {
 		quickTimePopup = (GameObject)GameObject.Instantiate (quickTimePopupPrefab);
 		quickTimePopup.transform.position = transform.position + Vector3.up * 1f;
 		quickTimePopup.transform.parent = transform;
-		quickTimePopup.renderer.enabled = false;
+		quickTimePopup.GetComponent<Renderer>().enabled = false;
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		quickTimePopup.renderer.enabled = false;
+		quickTimePopup.GetComponent<Renderer>().enabled = false;
 		if(Vector3.Distance(player.transform.position,transform.position)<Constants.DISTANCE_SHOW_POPUP){
-			quickTimePopup.renderer.enabled = true;
+			quickTimePopup.GetComponent<Renderer>().enabled = true;
 
 			if(Input.GetKey(KeyCode.X)){
 				Destroy(quickTimePopup);

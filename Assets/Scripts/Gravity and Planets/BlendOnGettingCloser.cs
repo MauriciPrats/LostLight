@@ -11,7 +11,7 @@ public class BlendOnGettingCloser : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		Vector3 playerPosition = GameManager.player.transform.position;
-		SphereCollider sphereCollider = (SphereCollider)transform.collider;
+		SphereCollider sphereCollider = (SphereCollider)transform.GetComponent<Collider>();
 		float distance = (GameManager.player.transform.position - transform.position).magnitude;
 		float radius = sphereCollider.radius * transform.lossyScale.x;
 		float playerAthmosphereDistance = 1f-(distance/radius);//Mathf.Abs(((playerPosition - transform.position).magnitude - (radius/2))/(radius/2));
@@ -27,7 +27,7 @@ public class BlendOnGettingCloser : MonoBehaviour {
 
 		//Debug.Log (playerAthmosphereDistance);
 
-		Color originalColour = renderer.material.color;
+		Color originalColour = GetComponent<Renderer>().material.color;
 		//renderer.material.color  = new Color(originalColour.r,originalColour.g,originalColour.b, playerAthmosphereDistance);
 	}
 }

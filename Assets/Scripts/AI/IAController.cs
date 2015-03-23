@@ -55,10 +55,10 @@ public class IAController : MonoBehaviour {
 	}
 
 	private bool canSeePlayer(){
-		Vector3 playerDirection = player.rigidbody.worldCenterOfMass - transform.position;
+		Vector3 playerDirection = player.GetComponent<Rigidbody>().worldCenterOfMass - transform.position;
 		if(playerDirection.magnitude<minimumDistanceSeePlayer){
 			RaycastHit hit;
-			if (Physics.Raycast(rigidbody.worldCenterOfMass,playerDirection, out hit, minimumDistanceSeePlayer,layersToFindCollision))
+			if (Physics.Raycast(GetComponent<Rigidbody>().worldCenterOfMass,playerDirection, out hit, minimumDistanceSeePlayer,layersToFindCollision))
 			{
 				//Debug.Log(hit.collider.transform.name +" "+playerDirection);
 				Collider target = hit.collider; // What did I hit?
@@ -91,7 +91,7 @@ public class IAController : MonoBehaviour {
 
 			float enemyDistanceFront = walkOnMultiplePaths.getClosestEnemyInFront ();
 			CharacterController chaCon = player.GetComponent<CharacterController>();
-			float playerDistance = Vector3.Distance (player.rigidbody.worldCenterOfMass, transform.position) - (walkOnMultiplePaths.centerToExtremesDistance + chaCon.centerToExtremesDistance);
+			float playerDistance = Vector3.Distance (player.GetComponent<Rigidbody>().worldCenterOfMass, transform.position) - (walkOnMultiplePaths.centerToExtremesDistance + chaCon.centerToExtremesDistance);
 
 
 			if(playerDistance<enemyDistanceFront){
@@ -116,7 +116,7 @@ public class IAController : MonoBehaviour {
 			//Check how far away is the player
 			attackTimer += Time.deltaTime;
 
-			float distanceToPlayer = Vector3.Distance (transform.rigidbody.worldCenterOfMass, player.rigidbody.worldCenterOfMass);
+			float distanceToPlayer = Vector3.Distance (transform.GetComponent<Rigidbody>().worldCenterOfMass, player.GetComponent<Rigidbody>().worldCenterOfMass);
 			distanceToPlayer -= (player.GetComponent<CharacterController> ().centerToExtremesDistance + walkOnMultiplePaths.centerToExtremesDistance);
 
 			if(distanceToPlayer<= minimumDistanceAttackPlayer){
@@ -178,18 +178,19 @@ public class IAController : MonoBehaviour {
 	}
 
 	private void walk(){
-
-		if(closestThingInFrontDistance() > minimumDistanceFront){
-			if(isLookingRight){
-				moveAmount = (speed) * -this.transform.right;
-			}else if(!isLookingRight){
-				moveAmount = (speed) * this.transform.right;
+		if(GetComponent<GravityBody>().getIsTouchingPlanet()){
+			if(closestThingInFrontDistance() > minimumDistanceFront){
+				if(isLookingRight){
+					moveAmount = (speed) * -this.transform.right;
+				}else if(!isLookingRight){
+					moveAmount = (speed) * this.transform.right;
+				}
+				isBlockedBySomethingInFront = false;
+				iaAnimator.SetBool("isWalking",true);
+			}else{
+				isBlockedBySomethingInFront  = true;
+				iaAnimator.SetBool("isWalking",false);
 			}
-			isBlockedBySomethingInFront = false;
-			iaAnimator.SetBool("isWalking",true);
-		}else{
-			isBlockedBySomethingInFront  = true;
-			iaAnimator.SetBool("isWalking",false);
 		}
 	}
 
@@ -202,7 +203,7 @@ public class IAController : MonoBehaviour {
 
 	private void jump(){
 		if(timeToJump>jumpCooldown){
-			rigidbody.AddForce(transform.up * jumpStrength,ForceMode.Impulse);
+			GetComponent<Rigidbody>().AddForce(transform.up * jumpStrength,ForceMode.Impulse);
 			timeToJump = 0f+Random.value;
 		}
 	}

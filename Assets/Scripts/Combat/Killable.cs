@@ -27,7 +27,7 @@ public class Killable : MonoBehaviour {
 		if (HP == 1) {
 			//renderer.material.color = new Color (1.0f, 0.0f, 0.0f);
 		}
-		if (HP == 0) {
+		if (HP <= 0) {
 			//renderer.material.color = new Color (0.0f, 0.0f, 0.0f);
 			
 			//TODO: Deactivate the enemy
@@ -54,6 +54,11 @@ public class Killable : MonoBehaviour {
 
 	public float proportionHP(){
 		return (float)HP / (float)maxHP;
+	}
+
+	public bool isDead(){
+		if(HP<=0){return true;}
+		else{return false;}
 	}
 	
 }

@@ -29,38 +29,51 @@ public class InputController : MonoBehaviour {
 	void Update() {
 		if(!GameManager.gameState.isGameEnded){
 			if (Input.GetKey(KeyCode.Escape)) { Application.Quit(); }
-			//Movement Input.
+
+
+			//MOVEMENT BUTTON
 			if (Input.GetAxis ("Horizontal")!=0f) {
 				if(isSpaceJumpCharged){
 					//character.CancelChargingSpaceJump();
 					character.MoveArrow(Input.GetAxisRaw ("Horizontal"),Input.GetAxis ("Vertical"));
 					//character.StopMove();
-				}else{
+				}else if(isCharacterAllowedToMove()){
 					ResetJumping ();
 					character.Move ();
+				}else{
+					character.StopMove ();
 				}
 			} else {
 				character.StopMove ();
 			}
-			//starts the charge of the attack
-			if (Input.GetKeyDown(KeyCode.Q)) {
+
+
+			//NORMAL ATTACK BUTTON
+			if (Input.GetButtonUp("Normal Attack") && isCharacterAllowedToDoNormalAttack()) {
 				character.StartAttack();
 			}
 
-			if (Input.GetKeyUp (KeyCode.Space) && isSpaceJumpCharged) {
+			//SPECIAL ATTACK BUTTON
+			if (Input.GetButton("Special Attack") && isCharacterAllowedToDoSpecialAttack()) {
+				if(Input.GetAxisRaw("Vertical")>0f){
+					GetComponent<CharacterSpecialAttackController>().doUpSpecialAttack();
+				}else if(Input.GetAxisRaw("Vertical")<0f){
+					GetComponent<CharacterSpecialAttackController>().doDownSpecialAttack();
+				}else{
+					GetComponent<CharacterSpecialAttackController>().doSidesSpecialAttack();
+				}
+			}
+
+			//JUMP BUTTON
+			if (Input.GetButtonUp("Jump") && isSpaceJumpCharged) {
 				ResetJumping(); 
 				character.SpaceJump(); 
-			}else if (Input.GetKeyUp (KeyCode.Space) && !isSpaceJumpCharged && characterGravityBody.getIsTouchingPlanet()) { 
+			}else if (Input.GetButtonUp("Jump") && !isSpaceJumpCharged && characterGravityBody.getIsTouchingPlanet()) { 
 				ResetJumping (); 
 				character.Jump(); 
 			}
 
-			if(Input.GetKeyUp(KeyCode.E) && isSpaceJumpCharged){
-				CancelChargingSpaceJump();
-			}
-
-			//Setting jumping Inputs
-			if (Input.GetKey (KeyCode.Space)) {
+			if (Input.GetButton("Jump")) {
 				if(!character.getIsSpaceJumping()){
 					timeJumpPressed += Time.deltaTime;
 					if (timeJumpPressed >= startChargeSpaceJump && !isSpaceJumpCharging) {isSpaceJumpCharging = true; }
@@ -69,7 +82,7 @@ public class InputController : MonoBehaviour {
 			} else {
 				ResetJumping();
 			}
-			if (Input.GetKeyDown(KeyCode.Space)){
+			if (Input.GetButtonDown("Jump")){
 				if(character.getIsSpaceJumping()){
 					GravityBody body = GetComponent<GravityBody>();
 					if(body.getIsOrbitingAroundPlanet()){
@@ -77,11 +90,21 @@ public class InputController : MonoBehaviour {
 					}
 				}
 			}
-			if (Input.GetKeyDown (KeyCode.R)) {
+
+			//BLOCK BUTTON
+			if(Input.GetButton("Block") && isSpaceJumpCharged){
+				CancelChargingSpaceJump();
+			}
+
+			if (Input.GetButton("Block")) {
 				Interactuable entity = EntityManager.getClosestInteractuable();
 				if (entity != null) entity.doInteractAction();
 			}
 
+
+
+
+			//OTHER BUTTONS
 			if(Input.GetKeyUp(KeyCode.Escape)){
 				GUIManager.closeCraftingMenu();
 			}
@@ -98,6 +121,33 @@ public class InputController : MonoBehaviour {
 				}
 			}
 		}
+	}
+
+	bool isCharacterAllowedToMove(){
+		if(GetComponent<CharacterSpecialAttackController>().isDoingAnySpecialAttack()){
+			return false;
+		}
+		return true;
+	}
+
+	bool isCharacterAllowedToDoSpecialAttack(){
+		if(character.getIsJumping()){
+			return false;
+		}else if(GetComponent<CharacterAttackController>().isAttacking){
+			return false;
+		}else if(GetComponent<CharacterSpecialAttackController>().isDoingAnySpecialAttack()){
+			return false;
+		}
+		return true;
+	}
+
+	bool isCharacterAllowedToDoNormalAttack(){
+		if(GetComponent<CharacterAttackController>().isAttacking){
+			return false;
+		}else if(GetComponent<CharacterSpecialAttackController>().isDoingAnySpecialAttack()){
+			return false;
+		}
+		return true;
 	}
 
 	void CancelChargingSpaceJump(){
