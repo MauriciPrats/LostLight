@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 
 [RequireComponent (typeof (Rigidbody))]
@@ -14,6 +15,9 @@ public class GravityBody : MonoBehaviour {
 	float minimumPlanetDistance = float.MaxValue;
 	bool isOrbitingAroundPlanet = false;
 	bool isGettingOutOfOrbit = false;
+
+	List<GameObject> collidingObjects = new List<GameObject>(0);
+
 
 	int objectsTouching = 0;
 	void Start() {
@@ -43,6 +47,7 @@ public class GravityBody : MonoBehaviour {
 
 	public void checkTouchEnter(GameObject obj){
 		if (obj.tag == "Planet" || obj.tag == "Enemy") {
+			collidingObjects.Add (obj);
 			if(usesSpaceGravity){
 				//Just landed from spaceJump
 				GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);
@@ -56,11 +61,29 @@ public class GravityBody : MonoBehaviour {
 
 	public void checkTouchExit(GameObject obj){
 		if (obj.tag == "Planet" || obj.tag == "Enemy") {
+			collidingObjects.Remove(obj);
+
 			objectsTouching--;
 			if(objectsTouching==0){
 				GetComponent<Rigidbody>().drag = 0f;
 				isTouchingPlanet = false;
 			}
+		}
+	}
+
+	public void checkForDestroyedObjects(){
+		List<GameObject> newList = new List<GameObject> (0);
+		foreach(GameObject go in collidingObjects){
+			if(go!=null){
+				newList.Add(go);
+			}else{
+				objectsTouching--;
+			}
+		}
+		collidingObjects = newList;
+		if(objectsTouching==0){
+			GetComponent<Rigidbody>().drag = 0f;
+			isTouchingPlanet = false;
 		}
 	}
 
@@ -113,6 +136,7 @@ public class GravityBody : MonoBehaviour {
 	}
 
 	public bool getIsTouchingPlanet(){
+		checkForDestroyedObjects ();
 		return isTouchingPlanet;
 	}
 

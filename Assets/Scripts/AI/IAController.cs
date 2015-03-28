@@ -22,6 +22,8 @@ public class IAController : MonoBehaviour {
 	public GameObject onHitEffect;
 	public GameObject secondOnHitEffect;
 	public GameObject thirdOnHitEffect;
+	public GameObject onDeathEffect;
+
 	public GameObject onDeathLight;
 	public int numberOfLightsAvg = 2;
 
@@ -317,6 +319,9 @@ public class IAController : MonoBehaviour {
 			if(!isDead){
 				timeHasBeenDead = 0f;
 				iaAnimator.SetTrigger("Die");
+				GameObject particlesOnDeath = GameObject.Instantiate (onDeathEffect) as GameObject;
+				particlesOnDeath.transform.position = GetComponent<Rigidbody>().worldCenterOfMass;
+				particlesOnDeath.transform.parent = transform;
 			}
 			iaAnimator.SetBool("isWalking",false);
 			iaAnimator.SetBool("isChargingAttack",false);
