@@ -32,16 +32,24 @@ public class CharacterSpecialAttackController : MonoBehaviour {
 	}
 
 	public void doUpSpecialAttack(){
-	
-		specialAttackUp.startAttack ();
+		if(specialAttackUp.canPaySpecialAttackCost()){
+			GameManager.lightGemEnergyManager.substractPoints(specialAttackUp.lightPointsCost);
+			specialAttackUp.startAttack ();
+		}
 	}
 
 	public void doSidesSpecialAttack(){
-		specialAttackSides.startAttack ();
+		if(specialAttackSides.canPaySpecialAttackCost()){
+			GameManager.lightGemEnergyManager.substractPoints(specialAttackUp.lightPointsCost);
+			specialAttackSides.startAttack ();
+		}
 	}
 
 	public void doDownSpecialAttack(){
-		specialAttackDown.startAttack ();
+		if(specialAttackDown.canPaySpecialAttackCost()){
+			GameManager.lightGemEnergyManager.substractPoints(specialAttackDown.lightPointsCost);
+			specialAttackDown.startAttack ();
+		}
 	}
 	
 	// Update is called once per frame

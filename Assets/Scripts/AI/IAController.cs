@@ -19,9 +19,16 @@ public class IAController : MonoBehaviour {
 	public GameObject[] shortRangeAttacks;
 	public GameObject[] middleRangeAttacks;
 	public GameObject[] longRangeAttacks;
+	public GameObject onHitEffect;
+	public GameObject secondOnHitEffect;
+	public GameObject thirdOnHitEffect;
+	public GameObject onDeathLight;
+	public int numberOfLightsAvg = 2;
+
 	private bool isStunned;
 	private float stunnedTime;
 	private float stunnedTimer;
+	private float timeToDie = 0.5f;
 
 
 	private Animator iaAnimator;
@@ -40,8 +47,10 @@ public class IAController : MonoBehaviour {
 	private float attackTimer = 0f;
 	private bool isDoingAttack = false;
 	private BaseAttack actualAttack;
-
+	private bool isDead;
+	private float timeHasBeenDead;
 	private WalkOnMultiplePaths walkOnMultiplePaths;
+
 
 	// Use this for initialization
 	void Start () {
@@ -51,7 +60,8 @@ public class IAController : MonoBehaviour {
 		transform.forward = new Vector3(1f,0f,0f);
 		minimumDistanceFront = ((Random.value)*0.2f) + 0.2f;
 		//Debug.Log (minimumDistanceFront);
-
+		isDead = false;
+		timeHasBeenDead = 0f;
 		walkOnMultiplePaths = GetComponent<WalkOnMultiplePaths> ();
 
 		//baseAttack = GetComponent<BaseAttack> ();
@@ -226,33 +236,47 @@ public class IAController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		updateTimers ();
-
-		if(isStunned){
-			stunnedTimer+=Time.deltaTime;
-			if(stunnedTimer>=stunnedTime){
-				isStunned = false;
+		if (isDead) {
+			timeHasBeenDead+=Time.deltaTime;
+			//float ratio = timeHasBeenDead/timeToDie;
+			//transform.localScale = new Vector3(0f,transform.localScale.y * (1f-ratio),0f);
+			//transform.GetComponent<Rigidbody>().centerOfMass = originalCenterOfMass;
+			//if(timeHasBeenDead>=(timeToDie/2f)){
+				//GetComponent<Collider>().enabled = false;
+				//transform.localScale = transform.localScale +new Vector3(0.1f,0.1f,0.1f);
+			//}
+			if(timeHasBeenDead>=timeToDie ){
+				onDeath();
+				Destroy(gameObject);
 			}
-		}
-
-		moveAmount = new Vector3 (0f, 0f, 0f);
-		
-			if(timeToChangeBehaviour>cooldownChangeBehaviour){
-				timeToChangeBehaviour = 0f;
-				if(canSeePlayer ()){
-					isIdle = false;
-				}else{
-					isIdle = true;
+		}else{
+			if(isStunned){
+				stunnedTimer+=Time.deltaTime;
+				if(stunnedTimer>=stunnedTime){
+					isStunned = false;
 				}
 			}
 
-			if(isIdle){
-				idleWalking();
-			}else{
-				offensiveMoves();
-			}
+			moveAmount = new Vector3 (0f, 0f, 0f);
+			
+				if(timeToChangeBehaviour>cooldownChangeBehaviour){
+					timeToChangeBehaviour = 0f;
+					if(canSeePlayer ()){
+						isIdle = false;
+					}else{
+						isIdle = true;
+					}
+				}
 
-		if(walkOnMultiplePaths.getIsChangingPath()){
-			iaAnimator.SetBool("isWalking",true);
+				if(isIdle){
+					idleWalking();
+				}else{
+					offensiveMoves();
+				}
+
+			if(walkOnMultiplePaths.getIsChangingPath()){
+				iaAnimator.SetBool("isWalking",true);
+			}
 		}
 	}
 
@@ -270,5 +294,57 @@ public class IAController : MonoBehaviour {
 		stunnedTimer = 0f;
 		stunnedTime = timeStunned;
 		isStunned = true;
+	}
+
+	public void getHurt(int hurtAmmount,Vector3 hitPosition){
+		//Play hurt effects
+		//Particles
+		GameObject particlesOnHit = GameObject.Instantiate (onHitEffect) as GameObject;
+		particlesOnHit.transform.position = hitPosition + (transform.up * 0.2f);
+
+
+		GameObject particlesOnHit2 = GameObject.Instantiate (secondOnHitEffect) as GameObject;
+		particlesOnHit2.transform.position = hitPosition + (transform.up * 0.2f);
+
+		GameObject particlesOnHit3 = GameObject.Instantiate (thirdOnHitEffect) as GameObject;
+		particlesOnHit3.transform.position = hitPosition + (transform.up * 0.2f);
+		
+		GetComponent<Killable> ().Damage (hurtAmmount);
+
+		if(GetComponent<Killable>().isDead()){
+			//Play on death effects and despawn
+			//Animation and lots of particles
+			if(!isDead){
+				timeHasBeenDead = 0f;
+				iaAnimator.SetTrigger("Die");
+			}
+			iaAnimator.SetBool("isWalking",false);
+			iaAnimator.SetBool("isChargingAttack",false);
+			iaAnimator.SetBool("isDoingAttack",false);
+			isDead = true;
+		}
+	}
+
+	private void onDeath(){
+		Vector3 centerBoar = GetComponent<Rigidbody> ().worldCenterOfMass;
+		int numberLights = numberOfLightsAvg + Random.Range (-1, 1);
+		for(int i = 0;i<numberLights;i++){
+			GameObject newLight = GameObject.Instantiate(onDeathLight) as GameObject;
+			newLight.transform.position = (centerBoar);
+			newLight.GetComponent<LightOnDeath>().setVectorUp(transform.up);
+			int randRGB = UnityEngine.Random.Range(0,3);
+			Color color = new Color(1f,1f,1f);
+			float complementary = 1f;
+			float mainColor = 0.85f;
+			if(randRGB==0){
+				color = new Color(mainColor,complementary,complementary);
+			}else if(randRGB==1){
+				color = new Color(complementary,mainColor,complementary);
+			}else{
+				color = new Color(complementary,complementary,mainColor);
+			}
+			newLight.GetComponent<TrailRenderer>().material.color = color;
+		}
+
 	}
 }

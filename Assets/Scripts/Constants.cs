@@ -21,7 +21,7 @@ public static class Constants{
 
 
 	//CAMERA CONSTANTS
-	public static float CAMERA_ANGLE_FOLLOWING_SPEED = 5f;
+	public static float CAMERA_ANGLE_FOLLOWING_SPEED = 8f;
 	public static float GRAVITY_FORCE_OF_ATHMOSPHERE = 2f;
 	public static float FRONT_PATH_Z_OFFSET = -0.35f;
 	public static float BACK_PATH_Z_OFFSET = -0.05f;

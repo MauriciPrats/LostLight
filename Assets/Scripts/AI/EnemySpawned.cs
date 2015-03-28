@@ -4,8 +4,6 @@ using System;
 public class EnemySpawned : MonoBehaviour {
 
 	public int pointsCost;
-	public GameObject lightsOnDeathPrefab;
-	public int numLights;
 	public Action<GameObject> actionToCallOnDie;
 	public Action<GameObject> actionToCallOnDespawn;
 
@@ -37,28 +35,10 @@ public class EnemySpawned : MonoBehaviour {
 
 	public void OnEnemyDead(){
 		//GetComponent<Collider>().enabled = false;
-		Vector3 centerBoar = GetComponent<Rigidbody> ().worldCenterOfMass;
-		int numberLights = numLights +UnityEngine.Random.Range (-1, 1);
-		for(int i = 0;i<numberLights;i++){
-			GameObject newLight = GameObject.Instantiate(lightsOnDeathPrefab) as GameObject;
-			newLight.transform.position = (centerBoar);
-			newLight.GetComponent<LightOnDeath>().setVectorUp(transform.up);
-			int randRGB = UnityEngine.Random.Range(0,3);
-			Color color = new Color(1f,1f,1f);
-			float complementary = 1f;
-			float mainColor = 0.85f;
-			if(randRGB==0){
-				color = new Color(mainColor,complementary,complementary);
-			}else if(randRGB==1){
-				color = new Color(complementary,mainColor,complementary);
-			}else{
-				color = new Color(complementary,complementary,mainColor);
-			}
-			newLight.GetComponent<TrailRenderer>().material.color = color;
-		}
+
 		//Create light spheres
 
-		Destroy (gameObject);
+		//Destroy (gameObject);
 		actionToCallOnDie (gameObject);
 	}
 

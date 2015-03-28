@@ -18,7 +18,7 @@ public class ShockwaveSpecialAttack : SpecialAttack {
 
 	public override void enemyCollisionEnter(GameObject enemy){
 		//If it's an enemy we damage him
-		enemy.GetComponent<Killable>().Damage(damageAmmount);
+		enemy.GetComponent<IAController>().getHurt(damageAmmount,enemy.transform.position);
 		//We find the radius of areaEffect
 		float radius = areaEffect.GetComponent<SphereCollider> ().radius * endScaleOfAttack;
 		Vector3 position = areaEffect.transform.position;

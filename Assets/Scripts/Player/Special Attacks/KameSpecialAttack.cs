@@ -31,7 +31,7 @@ public class KameSpecialAttack : SpecialAttack {
 
 	public override void enemyCollisionEnter(GameObject enemy){
 		//If it's an enemy we damage him
-		enemy.GetComponent<Killable>().Damage(damageAmmount);
+		enemy.GetComponent<IAController>().getHurt(damageAmmount,(kameEffect.transform.position+enemy.transform.position)/2f);
 		//We find the radius of areaEffect
 		enemy.GetComponent<Rigidbody>().AddExplosionForce(forceExplosion,transform.position,1f);
 		GameObject newEffect = GameObject.Instantiate (enemyHitEffectPrefab) as GameObject;

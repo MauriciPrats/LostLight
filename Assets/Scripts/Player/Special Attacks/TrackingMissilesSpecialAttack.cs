@@ -19,7 +19,9 @@ public class TrackingMissilesSpecialAttack : SpecialAttack {
 	}
 
 	public void enemyHit(GameObject enemy){
-		enemy.GetComponent<Killable>().Damage(damagePerMissile);
+		//enemy.GetComponent<Killable>().Damage(damagePerMissile);
+		enemy.GetComponent<IAController>().getHurt(damagePerMissile,(enemy.transform.position));
+
 	}
 
 	private void spawnMissiles(){

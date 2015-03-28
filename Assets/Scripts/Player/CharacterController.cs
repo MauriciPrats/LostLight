@@ -330,7 +330,7 @@ public class CharacterController : MonoBehaviour {
 	}
 
 	public void MoveArrow(float horizontalMove,float verticalMove){
-		Vector3 horizontalDirection = transform.forward * horizontalMove;
+		Vector3 horizontalDirection = transform.forward * horizontalMove * Time.deltaTime * 20f;
 		if(!isLookingRight){
 			horizontalDirection *= -1f;
 		}

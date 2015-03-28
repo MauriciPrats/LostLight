@@ -33,6 +33,7 @@ public class GUIManager : MonoBehaviour {
 	private static GameObject craftingMenuO;
 	private static GameObject interactuablePopupO;
 	private static GameObject onPauseMenuO;
+	private static GameObject playingGUIO;
 
 	private static Menu nextMenu;
 
@@ -182,6 +183,24 @@ public class GUIManager : MonoBehaviour {
 		fadeManager = fadeManagerGO.GetComponent<FadeManager> ();
 	}
 
+	public static void registerPlayingGUI(GameObject playingGUIGO){
+		if(playingGUIGO!=null && playingGUIO == null){
+			playingGUIO = GameObject.Instantiate (playingGUIGO) as GameObject;
+			playingGUIO.SetActive (false);
+		}
+	}
+
+	public static void activatePlayingGUI(){
+		playingGUIO.SetActive (true);
+	}
+
+	/*private static void deactivatePlayingGUIAfterFade(){
+		playingGUIO.SetActive (false);
+	}*/
+	public static void deactivatePlayingGUI(){
+		playingGUIO.SetActive (false);
+		//fadeManager.fadeOut(deactivatePlayingGUIAfterFade,playingGUIO);
+	}
 
 
 
@@ -202,7 +221,6 @@ public class GUIManager : MonoBehaviour {
 		if(actualMenuActivated.Equals(Menu.None)){
 			activateMenu(Menu.CraftingMenu);
 			GameManager.pauseGame();
-			//fadeInWithAction (GameManager.pauseGame,Menu.CraftingMenu);
 		}
 	}
 

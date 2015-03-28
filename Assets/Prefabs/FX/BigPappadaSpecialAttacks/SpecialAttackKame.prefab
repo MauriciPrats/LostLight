@@ -547,6 +547,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62fca22bdf467d441a9156d5aa57de13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lightPointsCost: 0
   kameEffect: {fileID: 177992}
   kameCore: {fileID: 156070}
   enemyHitEffectPrefab: {fileID: 108868, guid: 49f31d12d8eb80743a0ec0a4c051c2ac, type: 2}

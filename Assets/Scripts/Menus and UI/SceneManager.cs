@@ -13,7 +13,8 @@ public class SceneManager : MonoBehaviour {
 					  startingSplashScreenPrefab,
 					  craftingMenuPrefab,
 					  interactuablePopupPrefab,
-					  onPauseMenuPrefab;
+					  onPauseMenuPrefab,
+					  playingGUIPrefab;
 	bool hasUpdated = false;
 
 	void Awake(){
@@ -27,6 +28,7 @@ public class SceneManager : MonoBehaviour {
 		GUIManager.registerCraftingMenu (craftingMenuPrefab);
 		GUIManager.registerInteractuablePopup (interactuablePopupPrefab);
 		GUIManager.registerOnPauseMenu (onPauseMenuPrefab);
+		GUIManager.registerPlayingGUI (playingGUIPrefab);
 	}
 
 	void Update () {

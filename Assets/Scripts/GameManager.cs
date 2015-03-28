@@ -15,6 +15,8 @@ public class GameManager{
 	public static EnemyAttackManager enemyAttackManager;
 	public static List<PlanetSpawnerManager> planetSpawnersManagers = new List<PlanetSpawnerManager>(0);
 	public static CheckpointManager checkPointManager;
+	public static LightGemEnergyManager lightGemEnergyManager;
+	public static GameObject gemCounter;
 
 	private static Color originalAmbientLight;
 
@@ -56,7 +58,9 @@ public class GameManager{
 		player.GetComponent<CharacterController>().reset();
 		player.GetComponent<GravityBody>().attract();
 		mainCamera.GetComponent<CameraFollowingPlayer>().resetPosition();
-		minimapCamera.SetActive(false);
+		//minimapCamera.SetActive(false);
+		GUIManager.deactivatePlayingGUI ();
+
 
 		//Despawn all the enemies
 		EnemySpawned[] enemies = (EnemySpawned[])GameObject.FindObjectsOfType (typeof(EnemySpawned));
@@ -91,7 +95,8 @@ public class GameManager{
 
 	public static void startGame(){
 		gameState.isGameEnded = false;
-		minimapCamera.SetActive (true);
+		//minimapCamera.SetActive (true);
+		GUIManager.activatePlayingGUI ();
 	}
 
 	//Registering functions
@@ -126,5 +131,9 @@ public class GameManager{
 
 	public static void registerLightGemObject(GameObject lightGemGO){
 		lightGemObject = lightGemGO;
+	}
+
+	public static void registerLightGemEnergyManager(GameObject lightGemEnergyManagerGO){
+		lightGemEnergyManager = lightGemEnergyManagerGO.GetComponent<LightGemEnergyManager> ();
 	}
 }
