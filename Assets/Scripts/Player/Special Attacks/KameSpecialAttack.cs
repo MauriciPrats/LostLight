@@ -93,15 +93,11 @@ public class KameSpecialAttack : SpecialAttack {
 
 
 	public override void startAttack(){
-		//Debug.Log (GameManager.player.transform.eulerAngles);
-		if(GameManager.player.transform.eulerAngles.z>90){
-			//kameEffect.transform.forward = GameManager.player.transform.forward * -1f;
-		}else{
-			//kameEffect.transform.forward = GameManager.player.transform.forward;
-		}
-		kameEffect.transform.forward = GameManager.player.transform.forward;
+
+
 		kameEffect.transform.up = GameManager.player.transform.up;
-		if(GameManager.player.transform.eulerAngles.z<90){
+		Debug.Log (kameEffect.transform.up);
+		if(GameManager.player.transform.eulerAngles.z<=90){
 			kameEffect.transform.Rotate (0f, GameManager.player.transform.eulerAngles.y, 0f);
 		}else{
 			kameEffect.transform.Rotate (0f,-1f * GameManager.player.transform.eulerAngles.y, 0f);
