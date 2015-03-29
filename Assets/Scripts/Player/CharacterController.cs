@@ -206,6 +206,7 @@ public class CharacterController : MonoBehaviour {
 	void FinishJump(){
 		bpAnimator.SetBool("isJumping",false);
 		isJumping = false;
+
 	}
 
 	void FixedUpdate(){

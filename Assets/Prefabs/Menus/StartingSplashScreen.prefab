@@ -226,6 +226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onAnyButtonChangeToMainMenu: 0
+  firstButtonFocus: {fileID: 100002}
 --- !u!114 &11400010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -237,8 +238,8 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ignoreReversedGraphics: 1
-  blockingObjects: 0
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -279,6 +280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30523eafb3e801d408d100829e37832f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fixedTime: 0
 --- !u!114 &11401728
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -475,4 +477,3 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100006}
   m_IsPrefabParent: 1
-  m_IsExploded: 1

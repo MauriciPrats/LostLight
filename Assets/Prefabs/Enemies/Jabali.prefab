@@ -1483,6 +1483,7 @@ MonoBehaviour:
   onHitEffect: {fileID: 100000, guid: 12bcd11168a419d45b48549497198ad5, type: 2}
   secondOnHitEffect: {fileID: 138160, guid: 3c32aaf1e6513274b96031f57271f274, type: 2}
   thirdOnHitEffect: {fileID: 161062, guid: a1c5a491ff9fea147a1325163b3b21fb, type: 2}
+  onDeathEffect: {fileID: 171198, guid: 000150e52e26a1344950b32e9ce179c7, type: 2}
   onDeathLight: {fileID: 190320, guid: 1b14ff513f64b5c47a24d2bcf4e709e7, type: 2}
   numberOfLightsAvg: 3
 --- !u!114 &11400004

@@ -23474,7 +23474,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 832f6a1ba7ecce04085a65be1815f21c, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 832f6a1ba7ecce04085a65be1815f21c, type: 3}
       propertyPath: m_LocalScale.x
@@ -27317,7 +27317,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a9816c52f24cf10499446c104221832a, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a9816c52f24cf10499446c104221832a, type: 3}
       propertyPath: m_LocalScale.x
@@ -27722,11 +27722,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upMultiplyierWithAngle: 2.5
   upMultiplyierWithoutAngle: 1.20000005
-  lerpMultiplyierZPosition: 4
+  lerpMultiplyierZPosition: .349999994
   minimumUpDistanceOnStartLerpingXAngle: 1
   xAngle: 21
-  lerpMultiplyierXAngle: .25
+  lerpMultiplyierXAngle: .5
   lerpMultiplyierUp: 4.5
+  lerpMultiplyierPos: 5
 --- !u!114 &2094894435
 MonoBehaviour:
   m_ObjectHideFlags: 0
