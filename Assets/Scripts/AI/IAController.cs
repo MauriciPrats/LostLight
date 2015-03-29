@@ -70,14 +70,13 @@ public class IAController : MonoBehaviour {
 	}
 
 	private bool canSeePlayer(){
-		Vector3 playerDirection = player.GetComponent<Rigidbody>().worldCenterOfMass - transform.position;
+		Vector3 playerDirection = player.GetComponent<Rigidbody>().worldCenterOfMass - GetComponent<Rigidbody>().worldCenterOfMass;
 		if(playerDirection.magnitude<minimumDistanceSeePlayer){
 			RaycastHit hit;
 			if (Physics.Raycast(GetComponent<Rigidbody>().worldCenterOfMass,playerDirection, out hit, minimumDistanceSeePlayer,layersToFindCollision))
 			{
-				//Debug.Log(hit.collider.transform.name +" "+playerDirection);
+
 				Collider target = hit.collider; // What did I hit?
-				//Debug.Log(target.name);
 				if(target.tag == "Player"){ 
 					return true;
 				}

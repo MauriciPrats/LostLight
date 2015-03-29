@@ -1466,7 +1466,7 @@ MonoBehaviour:
   minimumDistanceSeePlayer: 50
   layersToFindCollision:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 4864
   speed: 2
   cooldownChangeBehaviour: .100000001
   timePatroling: 3

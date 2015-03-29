@@ -81,13 +81,25 @@ public class KameSpecialAttack : SpecialAttack {
 	}
 
 	private IEnumerator resetTrail(){
+
 		TrailRenderer tr = kameEffect.GetComponent<TrailRenderer>();
+		TrailRenderer[] renderers = GetComponentsInChildren<TrailRenderer> ();
+		float[] tempoTimes = new float[renderers.Length];
 		float tmp = tr.time;
 		tr.time = -1;
+		for(int i = 0;i<renderers.Length;++i){
+			tempoTimes[i] = renderers[i].time;
+			renderers[i].time = -1;
+		}
 		yield return true;
+
+		for(int i = 0;i<renderers.Length;++i){
+			renderers[i].time = tempoTimes[i];
+		}
 		tr.time = tmp;
 		tr.startWidth = maxWidthKame;
 		tr.endWidth = maxWidthKame;
+
 	}
 
 
@@ -96,12 +108,15 @@ public class KameSpecialAttack : SpecialAttack {
 
 
 		kameEffect.transform.up = GameManager.player.transform.up;
-		Debug.Log (kameEffect.transform.up);
-		if(GameManager.player.transform.eulerAngles.z<=90){
+
+		kameEffect.transform.rotation = Quaternion.LookRotation (GameManager.player.transform.forward, GameManager.player.transform.up);
+		//Debug.Log (GameManager.player.transform.eulerAngles);
+		/*if(GameManager.player.transform.eulerAngles.z<=90){
 			kameEffect.transform.Rotate (0f, GameManager.player.transform.eulerAngles.y, 0f);
 		}else{
 			kameEffect.transform.Rotate (0f,-1f * GameManager.player.transform.eulerAngles.y, 0f);
-		}
+		}*/
+		//kameEffect.transform.eulerAngles = new Vector3 (GameManager.player.transform.eulerAngles.x, GameManager.player.transform.eulerAngles.y, 0f);
 		GameObject[] planets = GravityBodiesManager.getGravityBodies ();
 		float smallestDistance = float.PositiveInfinity;
 		foreach(GameObject planet in planets){

@@ -9452,7 +9452,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 118
-  m_CollisionDetection: 1
+  m_CollisionDetection: 2
 --- !u!1 &645321114
 GameObject:
   m_ObjectHideFlags: 0
@@ -16250,6 +16250,14 @@ MonoBehaviour:
   extraSafeDistanceFromEnemies: .300000012
   isInvulnerable: 0
   pappada: {fileID: 2000357251}
+  dashSpeed: 5
+  dashTime: .100000001
+  dashStartParticles: {fileID: 161462, guid: e3cdb6c59c8ffa6478a6d0ad43ce1a10, type: 2}
+  layerToDash:
+    serializedVersion: 2
+    m_Bits: 256
+  dashCooldown: 1
+  dashCooldownTimer: 0
   lineJumpDistance: 25
   flyingParticles: {fileID: 1732856653}
   distanceCameraOnSpaceJump: 100
