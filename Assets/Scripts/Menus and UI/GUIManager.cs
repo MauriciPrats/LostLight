@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using System.Collections.Generic;
 
 public enum Menu{None,
 				MainMenu,
@@ -212,6 +215,13 @@ public class GUIManager : MonoBehaviour {
 			getMenu (newMenu).SetActive (true);
 		}
 		actualMenu = getMenu (newMenu);
+		if(actualMenu!=null){
+			MenuManager man = actualMenu.GetComponent<MenuManager>();
+			if(man!=null){
+				EventSystem.current.SetSelectedGameObject (man.firstButtonFocus);
+			}
+		}
+
 		actualMenuActivated = newMenu;
 	}
 

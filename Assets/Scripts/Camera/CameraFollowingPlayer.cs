@@ -11,10 +11,12 @@ public class CameraFollowingPlayer : MonoBehaviour {
 	public float xAngle = 21f;
 	public float lerpMultiplyierXAngle = 0.25f;
 	public float lerpMultiplyierUp = 4.5f;
+	public float lerpMultiplyierPos = 5f;
 	private float objectiveZ;
 	private float originalZ;
 
 	float timer = 0f;
+	float timerZPosition = 0f;
 
 
 	void Awake(){
@@ -28,10 +30,11 @@ public class CameraFollowingPlayer : MonoBehaviour {
 	}
 
 	void updatePosition(){
+		timerZPosition += Time.deltaTime;
 		Vector3 objectiveUp = new Vector3(GameManager.player.transform.up.x,GameManager.player.transform.up.y,0f).normalized;
 		Vector3 objectivePosition = new Vector3 (GameManager.player.transform.position.x, GameManager.player.transform.position.y,transform.position.z);
 		Vector3 objectiveVectorZ = new Vector3 (objectivePosition.x, objectivePosition.y, objectiveZ);
-		objectivePosition = Vector3.Lerp (objectivePosition, objectiveVectorZ, Time.deltaTime * lerpMultiplyierZPosition);
+		objectivePosition = Vector3.Lerp (objectivePosition, objectiveVectorZ, timerZPosition * lerpMultiplyierZPosition );
 
 		Vector3 rightWithoutZ = new Vector3 (transform.right.x, transform.right.y, 0f).normalized;
 
@@ -58,7 +61,7 @@ public class CameraFollowingPlayer : MonoBehaviour {
 		}
 		Vector3 newForward = Quaternion.AngleAxis(90,rightWithoutZ) * newUp;
 		transform.rotation = Quaternion.LookRotation(newForward,newUp);
-		transform.position = Vector3.Lerp (transform.position, objectivePosition, Time.deltaTime *  Constants.CAMERA_ANGLE_FOLLOWING_SPEED);
+		transform.position = Vector3.Lerp (transform.position, objectivePosition, Time.deltaTime * lerpMultiplyierPos);
 
 	}
 
@@ -105,6 +108,7 @@ public class CameraFollowingPlayer : MonoBehaviour {
 	}
 
 	public void setObjectiveZ(float newZ){
+		timerZPosition = 0f;
 		objectiveZ = newZ;
 	}
 	

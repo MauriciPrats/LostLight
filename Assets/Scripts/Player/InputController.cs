@@ -94,7 +94,9 @@ public class InputController : MonoBehaviour {
 			//BLOCK BUTTON
 			if(Input.GetButton("Block") && isSpaceJumpCharged){
 				CancelChargingSpaceJump();
-			}
+			}/*else if(Input.GetButton("Block") && isCharacterAllowedToDash()){
+				character.doDash();
+			}*/
 
 			if (Input.GetButton("Block")) {
 				Interactuable entity = EntityManager.getClosestInteractuable();
@@ -142,6 +144,15 @@ public class InputController : MonoBehaviour {
 	}
 
 	bool isCharacterAllowedToDoNormalAttack(){
+		if(GetComponent<CharacterAttackController>().isAttacking){
+			return false;
+		}else if(GetComponent<CharacterSpecialAttackController>().isDoingAnySpecialAttack()){
+			return false;
+		}
+		return true;
+	}
+
+	bool isCharacterAllowedToDash(){
 		if(GetComponent<CharacterAttackController>().isAttacking){
 			return false;
 		}else if(GetComponent<CharacterSpecialAttackController>().isDoingAnySpecialAttack()){

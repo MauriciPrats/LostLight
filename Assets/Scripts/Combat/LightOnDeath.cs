@@ -21,7 +21,7 @@ public class LightOnDeath : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		timeHasBeenAlive = 0f;
-		objective = GameManager.player;
+		objective = GameManager.lightGemObject;
 	}
 	
 	// Update is called once per frame

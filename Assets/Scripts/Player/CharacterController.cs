@@ -27,6 +27,15 @@ public class CharacterController : MonoBehaviour {
 
 	public GameObject pappada;
 
+	public float dashSpeed = 30f;
+	public float dashTime = 0.3f;
+	public GameObject dashStartParticles;
+	private float dashTimer = 0f;
+	public LayerMask layerToDash;
+	public float dashCooldown = 1f;
+	public float dashCooldownTimer = 0f;
+	private bool isDoingDash;
+
 	//SpaceJump line
 	public float lineJumpDistance;
 	private LineRenderer lineRenderer;
@@ -75,7 +84,8 @@ public class CharacterController : MonoBehaviour {
 	}
 
 	void Start () {
-
+		isDoingDash = false;
+		dashTimer = 0f;
 		body = GetComponent<GravityBody> ();
 		killable = GetComponent<Killable> ();
 		GameObject attack = GameObject.Find("skillAttack");
@@ -120,12 +130,22 @@ public class CharacterController : MonoBehaviour {
 
 
 	void Update() {
+		dashCooldownTimer += Time.deltaTime;
+		if(isDoingDash){
+			dashTimer+=Time.deltaTime;
+			//Check if dash gets blocks using a raycast
 
-		/*if(isSpaceJumping || isSpaceJumpCharged){
-			GameManager.gameState.arePlanetsMoving = false;
-		}else{
-			GameManager.gameState.arePlanetsMoving = true;
-		}*/
+			if(dashTimer>=dashTime){
+				endDash();
+			}else{
+				if(isLookingRight){
+					moveAmount = (moveSpeed * dashSpeed) * -this.transform.right;
+				}else{
+					moveAmount = (moveSpeed * dashSpeed) * this.transform.right;
+				}
+				RaycastHit info;
+			}
+		}
 
 		if(isJumping || isSpaceJumping){
 			jumpedTimer +=Time.deltaTime;
@@ -206,22 +226,17 @@ public class CharacterController : MonoBehaviour {
 	void FinishJump(){
 		bpAnimator.SetBool("isJumping",false);
 		isJumping = false;
+
 	}
 
 	void FixedUpdate(){
-		//Changed because the other way gave me some errors (Maurici)
-		//rigidbody.MovePosition(rigidbody.position + transform.TransformDirection(moveAmount) * Time.fixedDeltaTime);
-
 		Vector3 movement = transform.TransformDirection (moveAmount) * Time.fixedDeltaTime;
 
 		Vector3 newPosition = new Vector3(this.transform.position.x + movement.x,this.transform.position.y + movement.y,this.transform.position.z);
-		//this.rigidbody.MovePosition (newPosition);
-		//rigidbody.velocity = rigidbody.velocity + movement;
 		if(GetComponent<CharacterAttackController>().isAttacking){
 			movement = movement * 0.2f;
 		}
 		this.transform.position = new Vector3(this.transform.position.x + movement.x,this.transform.position.y + movement.y,this.transform.position.z);
-		
 		//rigidbody.MovePosition (newPosition);
 	}
 
@@ -257,28 +272,26 @@ public class CharacterController : MonoBehaviour {
 	}
 
 	public void Move() {
-		bpAnimator.SetBool("isWalking",true);
+		if(!isDoingDash){
+			bpAnimator.SetBool("isWalking",true);
+			isMoving = true;
+			if (!body.getUsesSpaceGravity()) {
+				float inputHorizontal = Input.GetAxisRaw ("Horizontal");
+				moveAmount = (moveSpeed * inputHorizontal) * -this.transform.right;
 
-		isMoving = true;
-		if (!body.getUsesSpaceGravity()) {
-			float inputHorizontal = Input.GetAxisRaw ("Horizontal");
-
-
-
-			moveAmount = (moveSpeed * inputHorizontal) * -this.transform.right;
-
-			//If we change the character looking direction we change the characters orientation and we invert the z angle
-			if (inputHorizontal > 0f) {
-				if(!isLookingRight){
-					transform.Rotate(0f,180f,0f);
-					//transform.eulerAngles = new Vector3(transform.localEulerAngles.x,90f,transform.localEulerAngles.z);
-					isLookingRight = true;
-				}
-			}else if(inputHorizontal<0f){
-				if(isLookingRight){
-					transform.Rotate(0f,180f,0f);
-					//transform.eulerAngles = new Vector3(transform.localEulerAngles.x,-90f,transform.localEulerAngles.z);
-					isLookingRight = false;
+				//If we change the character looking direction we change the characters orientation and we invert the z angle
+				if (inputHorizontal > 0f) {
+					if(!isLookingRight){
+						transform.Rotate(0f,180f,0f);
+						//transform.eulerAngles = new Vector3(transform.localEulerAngles.x,90f,transform.localEulerAngles.z);
+						isLookingRight = true;
+					}
+				}else if(inputHorizontal<0f){
+					if(isLookingRight){
+						transform.Rotate(0f,180f,0f);
+						//transform.eulerAngles = new Vector3(transform.localEulerAngles.x,-90f,transform.localEulerAngles.z);
+						isLookingRight = false;
+					}
 				}
 			}
 		}
@@ -334,9 +347,6 @@ public class CharacterController : MonoBehaviour {
 		if(!isLookingRight){
 			horizontalDirection *= -1f;
 		}
-		/*proportionDistanceJump = proportionDistanceJump + (verticalMove * 0.02f);
-		if(proportionDistanceJump<0.2f){proportionDistanceJump = 0f; CancelChargingSpaceJump();}
-		if(proportionDistanceJump>1f){proportionDistanceJump = 1f;}*/
 		Vector3 newPositionLine = (lineJumpDirection +(0.05f * horizontalDirection )).normalized;
 
 		if(Vector3.Angle(transform.up,newPositionLine)<70){
@@ -389,5 +399,24 @@ public class CharacterController : MonoBehaviour {
 			bpAnimator = animationBigPappada.GetComponent<Animator>();
 		}
 		return bpAnimator;
+	}
+
+	public void doDash(){
+		if(dashCooldownTimer>=dashCooldown && !isDoingDash){
+			Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"),LayerMask.NameToLayer("Enemy"),true);
+			isDoingDash = true;
+			dashTimer = 0f;
+
+			GameObject dashParticles = Instantiate(dashStartParticles) as GameObject;
+			dashParticles.transform.position = GetComponent<Rigidbody>().worldCenterOfMass;
+		}
+	}
+
+	private void endDash(){
+		dashCooldownTimer = 0f;
+		isDoingDash = false;
+		dashTimer = 0f;
+		Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"),LayerMask.NameToLayer("Enemy"),false);
+		StopMove();
 	}
 }

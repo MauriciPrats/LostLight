@@ -5,6 +5,8 @@ public class MenuManager : MonoBehaviour {
 
 	public bool onAnyButtonChangeToMainMenu = false;
 
+	public GameObject firstButtonFocus;
+
 	public void ChangeMenu(Menu newMenu){
 		GUIManager.activateMenu (newMenu);
 		//GameManager.actualSceneManager.ChangeScene (newMenu);

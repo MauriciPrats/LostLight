@@ -22,6 +22,8 @@ public class IAController : MonoBehaviour {
 	public GameObject onHitEffect;
 	public GameObject secondOnHitEffect;
 	public GameObject thirdOnHitEffect;
+	public GameObject onDeathEffect;
+
 	public GameObject onDeathLight;
 	public int numberOfLightsAvg = 2;
 
@@ -80,14 +82,13 @@ public class IAController : MonoBehaviour {
 	}
 
 	private bool canSeePlayer(){
-		Vector3 playerDirection = player.GetComponent<Rigidbody>().worldCenterOfMass - transform.position;
+		Vector3 playerDirection = player.GetComponent<Rigidbody>().worldCenterOfMass - GetComponent<Rigidbody>().worldCenterOfMass;
 		if(playerDirection.magnitude<minimumDistanceSeePlayer){
 			RaycastHit hit;
 			if (Physics.Raycast(GetComponent<Rigidbody>().worldCenterOfMass,playerDirection, out hit, minimumDistanceSeePlayer,layersToFindCollision))
 			{
-				//Debug.Log(hit.collider.transform.name +" "+playerDirection);
+
 				Collider target = hit.collider; // What did I hit?
-				//Debug.Log(target.name);
 				if(target.tag == "Player"){ 
 					return true;
 				}
@@ -325,6 +326,9 @@ public class IAController : MonoBehaviour {
 			if(!isDead){
 				timeHasBeenDead = 0f;
 				iaAnimator.SetTrigger("Die");
+				GameObject particlesOnDeath = GameObject.Instantiate (onDeathEffect) as GameObject;
+				particlesOnDeath.transform.position = GetComponent<Rigidbody>().worldCenterOfMass;
+				particlesOnDeath.transform.parent = transform;
 			}
 			iaAnimator.SetBool("isWalking",false);
 			iaAnimator.SetBool("isChargingAttack",false);
