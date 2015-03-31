@@ -73,8 +73,8 @@ MonoBehaviour:
   attackCharge: {fileID: 156766}
   missilePrefab: {fileID: 187768, guid: c9fcddc3315c9e34980284b459f62ea7, type: 2}
   timeToChargeAttack: .699999988
-  maxAmmountOfMissilesSpawned: 3
-  damagePerMissile: 2
+  maxAmmountOfMissilesSpawned: 5
+  damagePerMissile: 1
   range: 5
 --- !u!198 &19832324
 ParticleSystem:

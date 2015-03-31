@@ -553,9 +553,9 @@ MonoBehaviour:
   enemyHitEffectPrefab: {fileID: 108868, guid: 49f31d12d8eb80743a0ec0a4c051c2ac, type: 2}
   totalTimeLasts: .800000012
   timeToDisappear: .400000006
-  chargeTime: .300000012
+  chargeTime: .699999988
   distance: 9
-  forceExplosion: 5000
+  forceExplosion: 12
   damageAmmount: 1
   maxWidthKame: .200000003
 --- !u!114 &11493046

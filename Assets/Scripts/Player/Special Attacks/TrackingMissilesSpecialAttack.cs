@@ -12,23 +12,15 @@ public class TrackingMissilesSpecialAttack : SpecialAttack {
 
 	public float range = 8f;
 
-
-	float timer;
-	public override void initialize(){
-		
-	}
+	float timer = 0f;
 
 	public void enemyHit(GameObject enemy){
-		//enemy.GetComponent<Killable>().Damage(damagePerMissile);
 		enemy.GetComponent<IAController>().getHurt(damagePerMissile,(enemy.transform.position));
-
 	}
 
 	private void spawnMissiles(){
-		//Find all close enemies
 
 		GameObject[] enemies = GameObject.FindGameObjectsWithTag ("Enemy");
-
 		List<GameObject> enemiesInRange = new List<GameObject> (0);
 		foreach(GameObject enemy in enemies){
 			if(Vector3.Distance(enemy.transform.position,attackCharge.transform.position)<=range){
@@ -46,16 +38,10 @@ public class TrackingMissilesSpecialAttack : SpecialAttack {
 			newMissile.transform.position = attackCharge.transform.position;
 			newMissile.GetComponent<TrackingMissile>().initialize(GameManager.player.transform.up,enemiesInRange[i],this);
 		}
-
-		Debug.Log (ammountOfMissiles);
-
-		//Spawn missiles
-
-
 	}
 	
 	protected override void update(){
-		if(!isFinished){
+		/*if(!isFinished){
 			timer+=Time.deltaTime;
 			attackCharge.transform.position = GameManager.lightGemObject.transform.position ;
 			if(timer>=timeToChargeAttack){
@@ -64,14 +50,33 @@ public class TrackingMissilesSpecialAttack : SpecialAttack {
 				isFinished = true;
 				GameManager.playerAnimator.SetBool("isDoingMissiles",false);
 			}
+		}*/
+	}
+
+	IEnumerator putTrackingMisssilesInPosition(){
+		while(timer<=timeToChargeAttack){
+			timer+=Time.deltaTime;
+			attackCharge.transform.position = GameManager.lightGemObject.transform.position ;
+			yield return null;
 		}
 	}
 
-	public override void startAttack(){
-		timer = 0f;
+	IEnumerator doTrackingMissilesAttack(){
 		attackCharge.SetActive (true);
 		attackCharge.transform.position = GameManager.lightGemObject.transform.position ;
 		isFinished = false;
 		GameManager.playerAnimator.SetBool("isDoingMissiles",true);
+		timer = 0f;
+		StartCoroutine ("putTrackingMisssilesInPosition");
+		yield return new WaitForSeconds (timeToChargeAttack);
+
+		spawnMissiles();
+		attackCharge.SetActive (false);
+		isFinished = true;
+		GameManager.playerAnimator.SetBool("isDoingMissiles",false);
+	}
+
+	public override void startAttack(){
+		StartCoroutine ("doTrackingMissilesAttack");
 	}
 }

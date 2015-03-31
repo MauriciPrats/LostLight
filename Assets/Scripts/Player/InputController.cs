@@ -49,16 +49,33 @@ public class InputController : MonoBehaviour {
 
 
 			//NORMAL ATTACK BUTTON
-			if (Input.GetButtonUp("Normal Attack") && isCharacterAllowedToDoNormalAttack()) {
-				character.StartAttack();
+			if(character.getIsJumping() && !character.getIsSpaceJumping() && !character.isDoingAttack()){
+				if (Input.GetButtonUp("Normal Attack")) {
+					//Uppercut
+					character.doOnAir();
+				}
+			}else if(Mathf.Abs(Input.GetAxisRaw("Vertical"))>Mathf.Abs(Input.GetAxisRaw("Horizontal"))){
+				if (Input.GetButtonUp("Normal Attack") && Input.GetAxisRaw("Vertical")>0f) {
+					//Uppercut
+					character.doUppercut();
+				}else if(Input.GetButtonUp("Normal Attack") && Input.GetAxisRaw("Vertical")<0f){
+					//Undercut (De momento, normal attack)
+					character.StartAttack();
+				}
+			}else{
+				if (Input.GetButtonUp("Normal Attack") && isCharacterAllowedToDoNormalAttack()) {
+					character.StartAttack();
+				}
 			}
 
 			//SPECIAL ATTACK BUTTON
 			if (Input.GetButton("Special Attack") && isCharacterAllowedToDoSpecialAttack()) {
-				if(Input.GetAxisRaw("Vertical")>0f){
-					GetComponent<CharacterSpecialAttackController>().doUpSpecialAttack();
-				}else if(Input.GetAxisRaw("Vertical")<0f){
-					GetComponent<CharacterSpecialAttackController>().doDownSpecialAttack();
+				if(Mathf.Abs(Input.GetAxisRaw("Vertical"))>Mathf.Abs(Input.GetAxisRaw("Horizontal"))){
+					if(Input.GetAxisRaw("Vertical")>0f){
+						GetComponent<CharacterSpecialAttackController>().doUpSpecialAttack();
+					}else if(Input.GetAxisRaw("Vertical")<0f){
+						GetComponent<CharacterSpecialAttackController>().doDownSpecialAttack();
+					}
 				}else{
 					GetComponent<CharacterSpecialAttackController>().doSidesSpecialAttack();
 				}
@@ -82,6 +99,7 @@ public class InputController : MonoBehaviour {
 			} else {
 				ResetJumping();
 			}
+
 			if (Input.GetButtonDown("Jump")){
 				if(character.getIsSpaceJumping()){
 					GravityBody body = GetComponent<GravityBody>();
@@ -94,9 +112,9 @@ public class InputController : MonoBehaviour {
 			//BLOCK BUTTON
 			if(Input.GetButton("Block") && isSpaceJumpCharged){
 				CancelChargingSpaceJump();
-			}/*else if(Input.GetButton("Block") && isCharacterAllowedToDash()){
+			}else if(Input.GetButton("Block") && isCharacterAllowedToDash()){
 				character.doDash();
-			}*/
+			}
 
 			if (Input.GetButton("Block")) {
 				Interactuable entity = EntityManager.getClosestInteractuable();

@@ -311,7 +311,7 @@ public class IAController : MonoBehaviour {
 		particlesOnHit3.transform.position = hitPosition + (transform.up * 0.2f);
 		
 		GetComponent<Killable> ().Damage (hurtAmmount);
-
+		iaAnimator.SetTrigger("isHurt");
 		if(GetComponent<Killable>().isDead()){
 			//Play on death effects and despawn
 			//Animation and lots of particles

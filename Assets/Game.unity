@@ -16263,6 +16263,8 @@ MonoBehaviour:
   distanceCameraOnSpaceJump: 100
   explosionOnDieInSpacePrefab: {fileID: 100000, guid: b68930a8995e3644f903c1261cb92423,
     type: 2}
+  uppercutPrefab: {fileID: 130282, guid: a097d3410e7e93e41a0ee6e6d7612e32, type: 2}
+  onAirPrefab: {fileID: 108746, guid: e76d15d659543584ea1be9379b301ba7, type: 2}
 --- !u!114 &1294720931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24109,7 +24111,7 @@ MonoBehaviour:
   redBillboard: {fileID: 132462, guid: 598b0352adeed1442a3d6476683df8a2, type: 2}
   greenBillboard: {fileID: 133798, guid: e9dfe9caea0eac74da5cb35004f59ad9, type: 2}
   blueBillboard: {fileID: 150566, guid: e46acb63ad9243f4ebed3a5868d74054, type: 2}
-  density: 20
+  density: 30
 --- !u!4 &1819885156
 Transform:
   m_ObjectHideFlags: 0
@@ -27732,7 +27734,7 @@ MonoBehaviour:
   upMultiplyierWithoutAngle: 1.20000005
   lerpMultiplyierZPosition: .349999994
   minimumUpDistanceOnStartLerpingXAngle: 1
-  xAngle: 21
+  xAngle: 17
   lerpMultiplyierXAngle: .5
   lerpMultiplyierUp: 4.5
   lerpMultiplyierPos: 5

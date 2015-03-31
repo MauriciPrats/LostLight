@@ -31,58 +31,59 @@ public class ShockwaveSpecialAttack : SpecialAttack {
 	}
 	
 	protected override void update(){
-		timer += Time.deltaTime;
-		if(!isFinished){
-			if(timer>timeToCharge){
-				if(!charged){
-					showShockwave();
-					charged = true;
-					hideCharge();
-					GameManager.playerAnimator.SetBool("isDoingShockwave",true);
-				}
-				if(timer>=(timeItDoesAttack + timeToCharge)){
-					isFinished = true;
-					GameManager.playerAnimator.SetBool("isDoingShockwave",false);
-					hideShockwave();
-				}else{
-					float ratio = ((timer - timeToCharge)/(timeItDoesAttack)) * endScaleOfAttack;
-					areaEffect.transform.localScale = new Vector3(ratio,ratio,ratio);
-				}
-			}else{
-				float ratio = (1f - ((timer)/(timeToCharge))) * startChargeScale;
 
-				chargeEffect.transform.localScale = new Vector3(ratio,ratio,ratio);
-			}
+	}
+
+	private IEnumerator growArea(){
+		while(timer<timeItDoesAttack){
+			timer += Time.deltaTime;
+			float ratio = (timer/(timeItDoesAttack)) * endScaleOfAttack;
+			areaEffect.transform.localScale = new Vector3(ratio,ratio,ratio);
+			yield return null;
 		}
+		yield return true;
 	}
 
-	private void hideShockwave(){
-		areaEffect.SetActive (false);
+
+	private IEnumerator makeSmallArea(){
+		while (timer<timeToCharge) {
+			timer += Time.deltaTime;
+			float ratio = (1f - ((timer) / (timeToCharge))) * startChargeScale;
+			chargeEffect.transform.localScale = new Vector3 (ratio, ratio, ratio);
+			yield return null;
+		}
+		yield return true;
 	}
 
-	private void showShockwave(){
-		areaEffect.SetActive (true);
-	}
-
-	private void hideCharge(){
-		chargeEffect.SetActive (false);
-	}
-	
-	private void showCharge(){
-		chargeEffect.SetActive (true);
-	}
-
-	public override void startAttack(){
+	private IEnumerator doShockwave(){
 		isFinished = false;
-		timer = 0f;
 		areaEffect.transform.localScale = new Vector3(0f,0f,0f);
 		chargeEffect.transform.localScale = new Vector3(startChargeScale,startChargeScale,startChargeScale);
 		areaEffect.transform.position = GameManager.player.transform.position;
 		chargeEffect.transform.position = GameManager.player.transform.position;
-		charged = false;
-		showCharge();
-		//Debug.Log ("Shockwaveee!!");
+		chargeEffect.SetActive (true);
 		GameManager.playerAnimator.SetTrigger("isChargingShockwave");
+
+		timer = 0f;
+		StartCoroutine ("makeSmallArea");
+		yield return new WaitForSeconds (timeToCharge);
+
+		areaEffect.SetActive (true);
+		chargeEffect.SetActive (false);
+		GameManager.playerAnimator.SetBool("isDoingShockwave",true);
+
+		timer = 0f;
+		StartCoroutine ("growArea");
+		yield return new WaitForSeconds (timeItDoesAttack);
+
+		isFinished = true;
+		GameManager.playerAnimator.SetBool("isDoingShockwave",false);
+		areaEffect.SetActive (false);
+	}
+
+
+	public override void startAttack(){
+		StartCoroutine ("doShockwave");
 
 	}
 }

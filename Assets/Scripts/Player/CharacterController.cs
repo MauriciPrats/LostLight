@@ -35,6 +35,7 @@ public class CharacterController : MonoBehaviour {
 	public float dashCooldown = 1f;
 	public float dashCooldownTimer = 0f;
 	private bool isDoingDash;
+	Vector3 originalMovement;
 
 	//SpaceJump line
 	public float lineJumpDistance;
@@ -74,7 +75,22 @@ public class CharacterController : MonoBehaviour {
 
 
 
+	//TEMPORAAAAAAAAAAAAAAAAAAAL++
+	public GameObject uppercutPrefab;
+	private SpecialAttack uppercut;
+
+	public GameObject onAirPrefab;
+	private SpecialAttack onAir;
+	//TEMPORAAAAAAAAAAAAAAAAAAAL--
+
+
+
 	void Awake(){
+		//TEMPORAAAAL++
+		uppercut = (Instantiate (uppercutPrefab) as GameObject).GetComponent<SpecialAttack> ();
+		onAir = (Instantiate (onAirPrefab) as GameObject).GetComponent<SpecialAttack> ();
+		//TEMPORAAAAL--
+
 		GameManager.registerPlayer (gameObject);
 		
 		GameObject stick = (GameObject)Instantiate(weapon);
@@ -409,6 +425,8 @@ public class CharacterController : MonoBehaviour {
 
 			GameObject dashParticles = Instantiate(dashStartParticles) as GameObject;
 			dashParticles.transform.position = GetComponent<Rigidbody>().worldCenterOfMass;
+			originalMovement = moveAmount;
+			bpAnimator.SetBool("isWalking",true);
 		}
 	}
 
@@ -417,6 +435,27 @@ public class CharacterController : MonoBehaviour {
 		isDoingDash = false;
 		dashTimer = 0f;
 		Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"),LayerMask.NameToLayer("Enemy"),false);
-		StopMove();
+		moveAmount = originalMovement;
+		bpAnimator.SetBool("isWalking",false);
+		//StopMove();
 	}
+	//TEMPORAAAAAAAAAAAAAAAAAAAL++
+	public void doUppercut(){
+		uppercut.startAttack ();
+	}
+
+	public void doOnAir(){
+		onAir.startAttack ();
+	}
+
+	public bool isDoingAttack(){
+		if(!uppercut.isSpecialAttackFinished()){
+			return true;
+		}else if(!onAir.isSpecialAttackFinished()){
+			return true;
+		}
+		return false;
+	}
+	//TEMPORAAAAAAAAAAAAAAAAAAAL--
+
 }
