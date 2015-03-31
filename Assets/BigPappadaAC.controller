@@ -1060,7 +1060,7 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_Motion: {fileID: 7400020, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+  m_Motion: {fileID: 7400000, guid: f586a03ef09f8e54282b9b8f70b403eb, type: 2}
   m_Tag: cancombo
 --- !u!1102 &110217830
 AnimatorState:
@@ -1195,7 +1195,7 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_Motion: {fileID: 7400018, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+  m_Motion: {fileID: 7400000, guid: fbabdbdfc61dcf145acd4798622bbffa, type: 2}
   m_Tag: cancombo
 --- !u!1102 &110268676
 AnimatorState:
@@ -1301,7 +1301,7 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_Motion: {fileID: 7400022, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+  m_Motion: {fileID: 7400000, guid: 21a72d15f18d29542a41578784884d1d, type: 2}
   m_Tag: cancombo
 --- !u!1102 &110283882
 AnimatorState:
@@ -1319,7 +1319,7 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_Motion: {fileID: 7400026, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+  m_Motion: {fileID: 7400000, guid: fee57e13e55199c4793510797e04cca9, type: 2}
   m_Tag: 
 --- !u!1102 &110285076
 AnimatorState:
@@ -1547,7 +1547,7 @@ AnimatorStateMachine:
       second: []
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 180, y: 48, z: 0}
-  m_EntryPosition: {x: 168, y: -312, z: 0}
+  m_EntryPosition: {x: 168, y: -372, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 384, y: -324, z: 0}
   m_DefaultState: {fileID: 110268300}

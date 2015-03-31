@@ -53,6 +53,7 @@ public class IAController : MonoBehaviour {
 	private float timeHasBeenDead;
 	private WalkOnMultiplePaths walkOnMultiplePaths;
 
+	private GameObject[] hitParticles;
 
 	// Use this for initialization
 	void Start () {
@@ -66,6 +67,17 @@ public class IAController : MonoBehaviour {
 		timeHasBeenDead = 0f;
 		walkOnMultiplePaths = GetComponent<WalkOnMultiplePaths> ();
 
+		//Particle Inicialization
+		hitParticles = new GameObject[3];
+		
+		hitParticles[0] = GameObject.Instantiate (onHitEffect) as GameObject;
+		hitParticles[1] = GameObject.Instantiate (secondOnHitEffect) as GameObject;
+		hitParticles[2] = GameObject.Instantiate (thirdOnHitEffect) as GameObject;
+		
+		foreach (GameObject particles in hitParticles) {
+			particles.transform.parent = gameObject.transform;
+		}
+		
 		//baseAttack = GetComponent<BaseAttack> ();
 	}
 
@@ -300,15 +312,11 @@ public class IAController : MonoBehaviour {
 	public void getHurt(int hurtAmmount,Vector3 hitPosition){
 		//Play hurt effects
 		//Particles
-		GameObject particlesOnHit = GameObject.Instantiate (onHitEffect) as GameObject;
-		particlesOnHit.transform.position = hitPosition + (transform.up * 0.2f);
-
-
-		GameObject particlesOnHit2 = GameObject.Instantiate (secondOnHitEffect) as GameObject;
-		particlesOnHit2.transform.position = hitPosition + (transform.up * 0.2f);
-
-		GameObject particlesOnHit3 = GameObject.Instantiate (thirdOnHitEffect) as GameObject;
-		particlesOnHit3.transform.position = hitPosition + (transform.up * 0.2f);
+		
+		foreach (GameObject particles in hitParticles) {
+			particles.GetComponent<ParticleSystem>().Play();
+			particles.transform.position = hitPosition + (transform.up * 0.2f);
+		}
 		
 		GetComponent<Killable> ().Damage (hurtAmmount);
 		iaAnimator.SetTrigger("isHurt");
