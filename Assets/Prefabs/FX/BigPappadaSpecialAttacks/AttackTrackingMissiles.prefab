@@ -72,7 +72,7 @@ MonoBehaviour:
   lightPointsCost: 0
   attackCharge: {fileID: 156766}
   missilePrefab: {fileID: 187768, guid: c9fcddc3315c9e34980284b459f62ea7, type: 2}
-  timeToChargeAttack: .300000012
+  timeToChargeAttack: .600000024
   maxAmmountOfMissilesSpawned: 5
   damagePerMissile: 1
   range: 5

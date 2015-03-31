@@ -27,16 +27,6 @@ public class CharacterController : MonoBehaviour {
 
 	public GameObject pappada;
 
-	public float dashSpeed = 30f;
-	public float dashTime = 0.3f;
-	public GameObject dashStartParticles;
-	private float dashTimer = 0f;
-	public LayerMask layerToDash;
-	public float dashCooldown = 1f;
-	public float dashCooldownTimer = 0f;
-	private bool isDoingDash;
-	Vector3 originalMovement;
-
 	//SpaceJump line
 	public float lineJumpDistance;
 	private LineRenderer lineRenderer;
@@ -84,8 +74,7 @@ public class CharacterController : MonoBehaviour {
 	}
 
 	void Start () {
-		isDoingDash = false;
-		dashTimer = 0f;
+
 		body = GetComponent<GravityBody> ();
 		killable = GetComponent<Killable> ();
 		GameObject attack = GameObject.Find("skillAttack");
@@ -131,23 +120,6 @@ public class CharacterController : MonoBehaviour {
 
 
 	void Update() {
-		dashCooldownTimer += Time.deltaTime;
-		if(isDoingDash){
-			dashTimer+=Time.deltaTime;
-			//Check if dash gets blocks using a raycast
-
-			if(dashTimer>=dashTime){
-				endDash();
-			}else{
-				if(isLookingRight){
-					moveAmount = (moveSpeed * dashSpeed) * -this.transform.right;
-				}else{
-					moveAmount = (moveSpeed * dashSpeed) * this.transform.right;
-				}
-				RaycastHit info;
-			}
-		}
-
 		if(isJumping || isSpaceJumping){
 			jumpedTimer +=Time.deltaTime;
 		}else{
@@ -276,7 +248,6 @@ public class CharacterController : MonoBehaviour {
 	}
 
 	public void Move() {
-		if(!isDoingDash){
 			bpAnimator.SetBool("isWalking",true);
 			isMoving = true;
 			if (!body.getUsesSpaceGravity()) {
@@ -298,7 +269,6 @@ public class CharacterController : MonoBehaviour {
 					}
 				}
 			}
-		}
 	}
 
 
@@ -405,27 +375,12 @@ public class CharacterController : MonoBehaviour {
 		return bpAnimator;
 	}
 
-	public void doDash(){
-		if(dashCooldownTimer>=dashCooldown && !isDoingDash){
-			Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"),LayerMask.NameToLayer("Enemy"),true);
-			isDoingDash = true;
-			dashTimer = 0f;
-
-			GameObject dashParticles = Instantiate(dashStartParticles) as GameObject;
-			dashParticles.transform.position = GetComponent<Rigidbody>().worldCenterOfMass;
-			originalMovement = moveAmount;
-			bpAnimator.SetBool("isWalking",true);
-		}
+	public Vector3 getMoveAmount(){
+		return moveAmount;
 	}
 
-	private void endDash(){
-		dashCooldownTimer = 0f;
-		isDoingDash = false;
-		dashTimer = 0f;
-		Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"),LayerMask.NameToLayer("Enemy"),false);
-		moveAmount = originalMovement;
-		bpAnimator.SetBool("isWalking",false);
-		//StopMove();
+	public void setMoveAmount(Vector3 move){
+		moveAmount = move;
 	}
 
 }

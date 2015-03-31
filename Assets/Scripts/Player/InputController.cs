@@ -43,19 +43,22 @@ public class InputController : MonoBehaviour {
 
 
 			//MOVEMENT BUTTON
-			if (Input.GetAxis ("Horizontal")!=0f) {
-				if(isSpaceJumpCharged){
-					//character.CancelChargingSpaceJump();
-					character.MoveArrow(Input.GetAxisRaw ("Horizontal"),Input.GetAxis ("Vertical"));
-					//character.StopMove();
-				}else if(isCharacterAllowedToMove()){
-					ResetJumping ();
-					character.Move ();
-				}else{
+			if(!attackController.isDoingDash()){
+				if (Input.GetAxis ("Horizontal")!=0f) {
+					if(isSpaceJumpCharged){
+						//character.CancelChargingSpaceJump();
+						character.MoveArrow(Input.GetAxisRaw ("Horizontal"),Input.GetAxis ("Vertical"));
+						//character.StopMove();
+					}else if(isCharacterAllowedToMove()){
+						ResetJumping ();
+						character.Move ();
+
+					}else{
+						character.StopMove ();
+					}
+				} else {
 					character.StopMove ();
 				}
-			} else {
-				character.StopMove ();
 			}
 
 
@@ -127,7 +130,7 @@ public class InputController : MonoBehaviour {
 			if(Input.GetButton("Block") && isSpaceJumpCharged){
 				CancelChargingSpaceJump();
 			}else if(Input.GetButton("Block") && isCharacterAllowedToDash()){
-				character.doDash();
+				attackController.doDash();
 			}
 
 			if (Input.GetButton("Block")) {
@@ -181,7 +184,9 @@ public class InputController : MonoBehaviour {
 	}
 
 	bool isCharacterAllowedToDash(){
-		if(GetComponent<CharacterAttackController>().isDoingAnyAttack()){
+		if(attackController.isDoingAnyAttack()){
+			return false;
+		}if(attackController.isDoingDash() || attackController.isDashOnCooldown()){
 			return false;
 		}
 		return true;
