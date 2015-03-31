@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ShockwaveSpecialAttack : SpecialAttack {
+public class ShockwaveAttack : Attack {
 
 	public GameObject areaEffect;
 	public GameObject chargeEffect;

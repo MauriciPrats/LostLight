@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 412500}
   - 114: {fileID: 11490374}
   m_Layer: 0
-  m_Name: SpecialAttackKame
+  m_Name: AttackKame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -552,8 +552,8 @@ MonoBehaviour:
   kameCore: {fileID: 156070}
   enemyHitEffectPrefab: {fileID: 108868, guid: 49f31d12d8eb80743a0ec0a4c051c2ac, type: 2}
   totalTimeLasts: .800000012
-  timeToDisappear: .400000006
-  chargeTime: .699999988
+  timeToDisappear: .200000003
+  chargeTime: .25
   distance: 9
   forceExplosion: 12
   damageAmmount: 1

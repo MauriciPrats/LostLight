@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class TrackingMissilesSpecialAttack : SpecialAttack {
+public class TrackingMissilesAttack : Attack {
 
 	public GameObject attackCharge;
 	public GameObject missilePrefab;

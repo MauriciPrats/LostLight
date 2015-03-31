@@ -52,7 +52,8 @@ public class CharacterController : MonoBehaviour {
 
 
 	private Animator bpAnimator;
-	private CharacterAttackController cAttackController;
+	//OLD ATTACK
+	//private CharacterAttackController cAttackController;
 	private bool isAttacking = false;
 	private GravityBody body;
 	private Vector3 moveAmount;
@@ -75,28 +76,11 @@ public class CharacterController : MonoBehaviour {
 
 
 
-	//TEMPORAAAAAAAAAAAAAAAAAAAL++
-	public GameObject uppercutPrefab;
-	private SpecialAttack uppercut;
-
-	public GameObject onAirPrefab;
-	private SpecialAttack onAir;
-	//TEMPORAAAAAAAAAAAAAAAAAAAL--
-
-
-
 	void Awake(){
-		//TEMPORAAAAL++
-		uppercut = (Instantiate (uppercutPrefab) as GameObject).GetComponent<SpecialAttack> ();
-		onAir = (Instantiate (onAirPrefab) as GameObject).GetComponent<SpecialAttack> ();
-		//TEMPORAAAAL--
-
-		GameManager.registerPlayer (gameObject);
-		
+		GameManager.registerPlayer (gameObject);		
 		GameObject stick = (GameObject)Instantiate(weapon);
 		stick.transform.parent = leftHand.transform;
 		stick.transform.position = leftHand.transform.position;
-
 	}
 
 	void Start () {
@@ -106,7 +90,8 @@ public class CharacterController : MonoBehaviour {
 		killable = GetComponent<Killable> ();
 		GameObject attack = GameObject.Find("skillAttack");
 		transform.forward = new Vector3(1f,0f,0f);
-		cAttackController = GetComponent<CharacterAttackController>();
+		//OLD ATTACK
+		//cAttackController = GetComponent<CharacterAttackController>();
 		bpAnimator = animationBigPappada.GetComponent<Animator>();
 		pappadaC = pappada.GetComponent<PappadaController> ();
 		flyParticles = flyingParticles.GetComponent<ParticleSystem> ();
@@ -249,16 +234,19 @@ public class CharacterController : MonoBehaviour {
 		Vector3 movement = transform.TransformDirection (moveAmount) * Time.fixedDeltaTime;
 
 		Vector3 newPosition = new Vector3(this.transform.position.x + movement.x,this.transform.position.y + movement.y,this.transform.position.z);
+		//OLD ATTACK
+		/*
 		if(GetComponent<CharacterAttackController>().isAttacking){
 			movement = movement * 0.2f;
-		}
+		}*/
 		this.transform.position = new Vector3(this.transform.position.x + movement.x,this.transform.position.y + movement.y,this.transform.position.z);
 		//rigidbody.MovePosition (newPosition);
 	}
-
+	//OLD ATTACK
+	/*
 	public void StartAttack() {
 		cAttackController.ChargeAttack(isLookingRight,this.transform);
-	}
+	}*/
 
 	public void SpaceJump() {
 		GetComponent<Rigidbody>().AddForce (lineJumpDirection * spaceJumpForce, ForceMode.Impulse);
@@ -439,23 +427,5 @@ public class CharacterController : MonoBehaviour {
 		bpAnimator.SetBool("isWalking",false);
 		//StopMove();
 	}
-	//TEMPORAAAAAAAAAAAAAAAAAAAL++
-	public void doUppercut(){
-		uppercut.startAttack ();
-	}
-
-	public void doOnAir(){
-		onAir.startAttack ();
-	}
-
-	public bool isDoingAttack(){
-		if(!uppercut.isSpecialAttackFinished()){
-			return true;
-		}else if(!onAir.isSpecialAttackFinished()){
-			return true;
-		}
-		return false;
-	}
-	//TEMPORAAAAAAAAAAAAAAAAAAAL--
 
 }

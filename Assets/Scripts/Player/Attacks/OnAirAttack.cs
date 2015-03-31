@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class OnAirSpecialAttack : SpecialAttack {
+public class OnAirAttack : Attack {
 
 	public float ammountOfDownForce = 2f;
 	public GameObject triggerBox;

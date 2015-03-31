@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SpecialAttack : MonoBehaviour {
+public class Attack : MonoBehaviour {
 
 	protected bool isFinished = true;
 	public int lightPointsCost = 0;
@@ -37,11 +37,11 @@ public class SpecialAttack : MonoBehaviour {
 	public virtual void startAttack(){
 	}
 
-	public bool isSpecialAttackFinished(){
+	public bool isAttackFinished(){
 		return isFinished;
 	}
 
-	public bool canPaySpecialAttackCost(){
+	public bool canPayAttackCost(){
 		return GameManager.lightGemEnergyManager.canDoSpecialAttack (lightPointsCost);
 	}
 }

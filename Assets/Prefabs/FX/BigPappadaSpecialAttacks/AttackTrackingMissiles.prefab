@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 461612}
   - 114: {fileID: 11402810}
   m_Layer: 0
-  m_Name: SpecialAttackTrackingMissiles
+  m_Name: AttackTrackingMissiles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72,7 +72,7 @@ MonoBehaviour:
   lightPointsCost: 0
   attackCharge: {fileID: 156766}
   missilePrefab: {fileID: 187768, guid: c9fcddc3315c9e34980284b459f62ea7, type: 2}
-  timeToChargeAttack: .699999988
+  timeToChargeAttack: .300000012
   maxAmmountOfMissilesSpawned: 5
   damagePerMissile: 1
   range: 5

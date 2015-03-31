@@ -17,7 +17,7 @@ public class TrackingMissile : MonoBehaviour {
 	bool hasArrived = false;
 	float timerWhenArrived;
 
-	TrackingMissilesSpecialAttack originalAttack;
+	TrackingMissilesAttack originalAttack;
 	GameObject objective;
 	bool isDying = false;
 
@@ -34,7 +34,7 @@ public class TrackingMissile : MonoBehaviour {
 
 	}
 
-	public void initialize(Vector3 vectorUp,GameObject objective,TrackingMissilesSpecialAttack originalAttack){
+	public void initialize(Vector3 vectorUp,GameObject objective,TrackingMissilesAttack originalAttack){
 		this.objective = objective;
 		this.originalAttack = originalAttack;
 		speed = new Vector3 (Random.value, Random.value,0f).normalized;

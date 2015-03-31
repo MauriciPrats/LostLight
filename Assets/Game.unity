@@ -16222,6 +16222,12 @@ MonoBehaviour:
   startChargeSpaceJump: 0
   timeIsSpaceJumpCharged: 1
   maxDistanceToInteract: 1.5
+  upSpecialAttack: 0
+  sidesSpecialAttack: 1
+  downSpecialAttack: 2
+  upNormalAttack: 3
+  sidesNormalAttack: 5
+  onAirAttack: 4
 --- !u!114 &1294720930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16263,8 +16269,6 @@ MonoBehaviour:
   distanceCameraOnSpaceJump: 100
   explosionOnDieInSpacePrefab: {fileID: 100000, guid: b68930a8995e3644f903c1261cb92423,
     type: 2}
-  uppercutPrefab: {fileID: 130282, guid: a097d3410e7e93e41a0ee6e6d7612e32, type: 2}
-  onAirPrefab: {fileID: 108746, guid: e76d15d659543584ea1be9379b301ba7, type: 2}
 --- !u!114 &1294720931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16341,9 +16345,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec06a48d6e79c1545b627c9608862dbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  specialAttackUpGO: {fileID: 132678, guid: 6abace219e3a76d4c8c33167cba5ec6b, type: 2}
-  specialAttackSidesGO: {fileID: 103610, guid: e1610933011bf384babb0feea97e3b60, type: 2}
-  specialAttackDownGO: {fileID: 107160, guid: 68d4de2056c78114a927b185fd06c13a, type: 2}
+  attackMissilesGO: {fileID: 132678, guid: 6abace219e3a76d4c8c33167cba5ec6b, type: 2}
+  attackKameGO: {fileID: 103610, guid: e1610933011bf384babb0feea97e3b60, type: 2}
+  attackShockwaveGO: {fileID: 107160, guid: 68d4de2056c78114a927b185fd06c13a, type: 2}
+  attackUppercutGO: {fileID: 130282, guid: a097d3410e7e93e41a0ee6e6d7612e32, type: 2}
+  attackOnAirGO: {fileID: 108746, guid: e76d15d659543584ea1be9379b301ba7, type: 2}
+  attackComboGO: {fileID: 163002, guid: 49c48520b7cecbb4a8dbb77907a41b02, type: 2}
 --- !u!1 &1297488017
 GameObject:
   m_ObjectHideFlags: 0
@@ -18171,6 +18178,48 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1455650954}
   m_Mesh: {fileID: 4300060, guid: 73a724b9e1c25b54e9522c396b887b81, type: 3}
+--- !u!1001 &1458145762
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 415440, guid: 49c48520b7cecbb4a8dbb77907a41b02, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -31.7942142
+      objectReference: {fileID: 0}
+    - target: {fileID: 415440, guid: 49c48520b7cecbb4a8dbb77907a41b02, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 5.41172504
+      objectReference: {fileID: 0}
+    - target: {fileID: 415440, guid: 49c48520b7cecbb4a8dbb77907a41b02, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -.195033252
+      objectReference: {fileID: 0}
+    - target: {fileID: 415440, guid: 49c48520b7cecbb4a8dbb77907a41b02, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 415440, guid: 49c48520b7cecbb4a8dbb77907a41b02, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 415440, guid: 49c48520b7cecbb4a8dbb77907a41b02, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 415440, guid: 49c48520b7cecbb4a8dbb77907a41b02, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 415440, guid: 49c48520b7cecbb4a8dbb77907a41b02, type: 2}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 49c48520b7cecbb4a8dbb77907a41b02, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1458658765
 GameObject:
   m_ObjectHideFlags: 0

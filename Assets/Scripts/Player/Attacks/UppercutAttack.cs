@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class UppercutSpecialAttack : SpecialAttack {
+public class UppercutAttack : Attack {
 
 	public GameObject triggerBox;
 	public float positionInFrontPlayer = 0.5f;

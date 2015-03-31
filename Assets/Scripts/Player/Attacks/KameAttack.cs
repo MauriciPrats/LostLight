@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class KameSpecialAttack : SpecialAttack {
+public class KameAttack : Attack {
 
 	public GameObject kameEffect;
 	public GameObject kameCore;

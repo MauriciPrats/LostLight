@@ -124,7 +124,7 @@ MonoBehaviour:
   basStartSpeed: 5.5
   speedTimeMultiplier: 1.20000005
   angleTimeIncrement: .0500000007
-  explosionMaxScale: .800000012
+  explosionMaxScale: .300000012
   timeExplode: .300000012
 --- !u!135 &13551626
 SphereCollider:

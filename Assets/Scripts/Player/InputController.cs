@@ -15,14 +15,25 @@ public class InputController : MonoBehaviour {
 	private bool isSpaceJumpCharged;
 	private float timeJumpPressed;
 	private CharacterController character;
+	private CharacterAttackController attackController;
 	private GravityBody characterGravityBody;
 
 	private bool isCraftingMenuOpen = false;
+
+	public AttackType upSpecialAttack;
+	public AttackType sidesSpecialAttack;
+	public AttackType downSpecialAttack;
+
+	public AttackType upNormalAttack;
+	public AttackType sidesNormalAttack;
+
+	public AttackType onAirAttack;
 
 	void Start () {
 		timeJumpPressed = 0;
 		character = GetComponent<CharacterController>();
 		characterGravityBody = character.GetComponent<GravityBody> ();
+		attackController = GetComponent<CharacterAttackController> ();
 		WeaponManager wpm = WeaponManager.Instance;
 	}
 
@@ -49,22 +60,22 @@ public class InputController : MonoBehaviour {
 
 
 			//NORMAL ATTACK BUTTON
-			if(character.getIsJumping() && !character.getIsSpaceJumping() && !character.isDoingAttack()){
+			if(character.getIsJumping() && !character.getIsSpaceJumping()){
 				if (Input.GetButtonUp("Normal Attack")) {
-					//Uppercut
-					character.doOnAir();
+					attackController.doAttack(onAirAttack);
 				}
 			}else if(Mathf.Abs(Input.GetAxisRaw("Vertical"))>Mathf.Abs(Input.GetAxisRaw("Horizontal"))){
 				if (Input.GetButtonUp("Normal Attack") && Input.GetAxisRaw("Vertical")>0f) {
-					//Uppercut
-					character.doUppercut();
+					attackController.doAttack(upNormalAttack);
 				}else if(Input.GetButtonUp("Normal Attack") && Input.GetAxisRaw("Vertical")<0f){
 					//Undercut (De momento, normal attack)
-					character.StartAttack();
+					//character.StartAttack();
+
 				}
 			}else{
 				if (Input.GetButtonUp("Normal Attack") && isCharacterAllowedToDoNormalAttack()) {
-					character.StartAttack();
+					//character.StartAttack();
+					attackController.doAttack(sidesNormalAttack);
 				}
 			}
 
@@ -72,12 +83,15 @@ public class InputController : MonoBehaviour {
 			if (Input.GetButton("Special Attack") && isCharacterAllowedToDoSpecialAttack()) {
 				if(Mathf.Abs(Input.GetAxisRaw("Vertical"))>Mathf.Abs(Input.GetAxisRaw("Horizontal"))){
 					if(Input.GetAxisRaw("Vertical")>0f){
-						GetComponent<CharacterSpecialAttackController>().doUpSpecialAttack();
+						attackController.doAttack(upSpecialAttack);
+						//GetComponent<CharacterSpecialAttackController>().doUpSpecialAttack();
 					}else if(Input.GetAxisRaw("Vertical")<0f){
-						GetComponent<CharacterSpecialAttackController>().doDownSpecialAttack();
+						attackController.doAttack(downSpecialAttack);
+						//GetComponent<CharacterSpecialAttackController>().doDownSpecialAttack();
 					}
 				}else{
-					GetComponent<CharacterSpecialAttackController>().doSidesSpecialAttack();
+					attackController.doAttack(sidesSpecialAttack);
+					//GetComponent<CharacterSpecialAttackController>().doSidesSpecialAttack();
 				}
 			}
 
@@ -144,7 +158,7 @@ public class InputController : MonoBehaviour {
 	}
 
 	bool isCharacterAllowedToMove(){
-		if(GetComponent<CharacterSpecialAttackController>().isDoingAnySpecialAttack()){
+		if(GetComponent<CharacterAttackController>().isDoingAnyAttack()){
 			return false;
 		}
 		return true;
@@ -153,27 +167,21 @@ public class InputController : MonoBehaviour {
 	bool isCharacterAllowedToDoSpecialAttack(){
 		if(character.getIsJumping()){
 			return false;
-		}else if(GetComponent<CharacterAttackController>().isAttacking){
-			return false;
-		}else if(GetComponent<CharacterSpecialAttackController>().isDoingAnySpecialAttack()){
+		}else if(GetComponent<CharacterAttackController>().isDoingAnyAttack()){
 			return false;
 		}
 		return true;
 	}
 
 	bool isCharacterAllowedToDoNormalAttack(){
-		if(GetComponent<CharacterAttackController>().isAttacking){
-			return false;
-		}else if(GetComponent<CharacterSpecialAttackController>().isDoingAnySpecialAttack()){
+		if(GetComponent<CharacterAttackController>().isDoingAnyAttack()){
 			return false;
 		}
 		return true;
 	}
 
 	bool isCharacterAllowedToDash(){
-		if(GetComponent<CharacterAttackController>().isAttacking){
-			return false;
-		}else if(GetComponent<CharacterSpecialAttackController>().isDoingAnySpecialAttack()){
+		if(GetComponent<CharacterAttackController>().isDoingAnyAttack()){
 			return false;
 		}
 		return true;
