@@ -71,13 +71,13 @@ public class JabaliFrontAttack : BaseAttack {
 	}
 	
 	private void attack(){
-		attackDuration+=Time.deltaTime;
-		if(attackDuration>=attackDuration){
+		attackTimer+=Time.deltaTime;
+		if(attackTimer>=attackDuration){
 			particlesAttack.GetComponent<ParticleSystem>().Stop();
 			isAttacking = false;
 			isDoingAttack = false;
 			chargeAttackTimer = 0f;
-			attackDuration = 0f;
+			attackTimer = 0f;
 			attackEffect();
 			iaAnimator.SetBool("isDoingAttack",false);
 			iaAnimator.SetBool("isChargingAttack",false);
@@ -87,7 +87,7 @@ public class JabaliFrontAttack : BaseAttack {
 	private void attackEffect(){
 		isAttacking = false;
 		if(isPlayerInsideAttack){
-			GameManager.player.GetComponent<CharacterController>().getHurt(damage);
+			GameManager.player.GetComponent<PlayerController>().getHurt(damage);
 		}
 	}
 

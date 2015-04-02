@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class GameManager{
+public static class GameManager{
 
 	public static GameObject player;
 	public static Animator playerAnimator;
@@ -17,18 +17,19 @@ public class GameManager{
 	public static CheckpointManager checkPointManager;
 	public static LightGemEnergyManager lightGemEnergyManager;
 	public static GameObject gemCounter;
+	public static List<ProcedurallyGeneratedObject> proceduralGrass = new List<ProcedurallyGeneratedObject>(0);
 
 	private static Color originalAmbientLight;
 
 	public static void changeDirectionalLights(bool enabled){
-		/*foreach(Light light in directionalLights){
-			light.enabled = enabled;
+
+	}
+
+
+	public static void setGrassPorcentualLevel(float percentage){
+		foreach(ProcedurallyGeneratedObject pgo in proceduralGrass){
+			pgo.setDetailPercentage(percentage);
 		}
-		if(enabled==false){
-			RenderSettings.ambientLight = new Color(0f,0f,0f);
-		}else{
-			RenderSettings.ambientLight = originalAmbientLight;
-		}*/
 	}
 
 	//Game state functions
@@ -55,7 +56,7 @@ public class GameManager{
 			Debug.Log("No checkpoint to put Big P. in");
 		}	
 
-		player.GetComponent<CharacterController>().reset();
+		player.GetComponent<PlayerController>().reset();
 		player.GetComponent<GravityBody>().attract();
 		mainCamera.GetComponent<CameraFollowingPlayer>().resetPosition();
 		//minimapCamera.SetActive(false);
@@ -89,7 +90,7 @@ public class GameManager{
 	//Game functions
 	public static void winGame(){
 		GameManager.gameState.isGameEnded = true;
-		GameManager.player.GetComponent<CharacterController> ().isInvulnerable = true;
+		GameManager.player.GetComponent<PlayerController> ().isInvulnerable = true;
 		GUIManager.fadeInWithAction(rebuildGameFromGameState,Menu.YouWonMenu);
 	}
 
@@ -102,7 +103,7 @@ public class GameManager{
 	//Registering functions
 	public static void registerPlayer(GameObject playerGO){
 		player = playerGO;
-		playerAnimator = player.GetComponent<CharacterController> ().getAnimator ();
+		playerAnimator = player.GetComponent<PlayerController> ().getAnimator ();
 	}
 
 	public static void registerCheckpointManager(GameObject checkPointManagerGO){
@@ -135,5 +136,9 @@ public class GameManager{
 
 	public static void registerLightGemEnergyManager(GameObject lightGemEnergyManagerGO){
 		lightGemEnergyManager = lightGemEnergyManagerGO.GetComponent<LightGemEnergyManager> ();
+	}
+
+	public static void registerProceduralGrass(ProcedurallyGeneratedObject pGrass){
+		proceduralGrass.Add (pGrass);
 	}
 }

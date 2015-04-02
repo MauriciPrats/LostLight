@@ -5,10 +5,9 @@ public class DieOnTouch : MonoBehaviour {
 
 
 	void OnCollisionEnter (Collision collider) {
-		Debug.Log ("aaa");
 		if(collider.gameObject.tag == "Player"){
 			Debug.Log(collider.gameObject.tag);
-			collider.gameObject.transform.GetComponent<CharacterController>().kill();
+			collider.gameObject.transform.GetComponent<PlayerController>().kill();
 		}
 	}
 

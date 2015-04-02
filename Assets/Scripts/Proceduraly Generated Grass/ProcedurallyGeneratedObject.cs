@@ -6,6 +6,8 @@ public class ProcedurallyGeneratedObject : MonoBehaviour {
 	public enum Billboard{Red,Blue,Green,Black};
 
 	public int randomSeed = 0;
+	public int detailLevel = 5;
+	public float detailMaximumPercentage = 0.5f;
 
 	public GameObject objectiveMesh;
 	public Texture mapTexture;
@@ -15,15 +17,46 @@ public class ProcedurallyGeneratedObject : MonoBehaviour {
 	public GameObject greenBillboard;
 	public GameObject blueBillboard;
 
+	private GameObject[] levels;
+	private int lastLevelPut = 0;
+
+	private int lastLevelActivated = -1;
 	public float density = 1f;
 
 	void Awake(){
 
 	}
 
+	public void setDetailPercentage(float percentage){
+		percentage = percentage / detailMaximumPercentage;
+		percentage = Mathf.Clamp01 (percentage);
+		int lastIndexToActivate = (int) (percentage * detailLevel);
+		if(lastLevelActivated!=lastIndexToActivate){
+			lastLevelActivated = lastIndexToActivate;
+			for(int i = 0;i<levels.Length;i++){
+				if(i>lastIndexToActivate){
+					levels[i].SetActive(true);
+				}else{
+					levels[i].SetActive(false);
+				}
+			}
+		}
+	}
+
 	// Use this for initialization
 	void Start () {
-		//Debug.Log (paintedObject.GetComponent<MeshFilter> ().mesh.uv.Length);
+		GameManager.registerProceduralGrass (this);
+		if (detailLevel < 1) {
+			detailLevel = 1;
+		}
+		levels = new GameObject[detailLevel];
+		for(int i = 0;i<detailLevel;i++){
+			levels[i] = new GameObject();
+			levels[i].name = "Level "+i;
+			levels[i].transform.parent = transform;
+		}
+
+	
 		Vector2[] uvs = objectiveMesh.GetComponent<MeshFilter> ().mesh.uv;
 		Vector3[] vertices = objectiveMesh.GetComponent<MeshFilter> ().mesh.vertices;
 		Vector3[] normals = objectiveMesh.GetComponent<MeshFilter> ().mesh.normals;
@@ -52,7 +85,6 @@ public class ProcedurallyGeneratedObject : MonoBehaviour {
 				}
 
 				Vector3 normal = (normals[triangles[i]] + normals[triangles[i+1]] + normals[triangles[i+2]]) / 3f;
-				//Debug.Log(normals.Length);
 
 				int redBillboardPlants = 0;
 				int greenBillboardPlants = 0;
@@ -70,7 +102,7 @@ public class ProcedurallyGeneratedObject : MonoBehaviour {
 					differentVertexColors = true;
 				}
 
-				//If( different vertex colors, then put plants close to vertices, otherwise, random in the triangle
+				//If different vertex colors, then put plants close to vertices, otherwise, random in the triangle
 
 					createRandomPlants(redBillboardPlants,redBillboard,vertex1Pos,vertex2Pos,vertex3Pos,normal);
 					createRandomPlants(greenBillboardPlants,greenBillboard,vertex1Pos,vertex2Pos,vertex3Pos,normal);
@@ -79,32 +111,6 @@ public class ProcedurallyGeneratedObject : MonoBehaviour {
 			}
 		}
 		transform.localEulerAngles = new Vector3(0f,0f,0f);
-		//transform.parent = null;
-
-		/*if(texture!=null){
-			transform.position = objectiveMesh.transform.position;
-			transform.parent = objectiveMesh.transform;
-			for(int i = 0;i<vertices.Length;i++){
-
-				Color vertexColor = texture.GetPixelBilinear(uvs[i].x,uvs[i].y);//texture.GetPixel((int)uvs[i].x,(int)uvs[i].y);
-
-				if(vertexColor.r == vertexColor.b && vertexColor.r == vertexColor.g){
-					//We put nothing
-				}else if(vertexColor.r > vertexColor.b &&vertexColor.r>vertexColor.g){
-					//It's red
-					createNewBillboard(redBillboard,vertices[i]);
-				}else if(vertexColor.g > vertexColor.b &&vertexColor.g>vertexColor.r){
-					//It's green
-					createNewBillboard(greenBillboard,vertices[i]);
-				}else if(vertexColor.b > vertexColor.r &&vertexColor.b>vertexColor.g){
-					//It's blue
-					createNewBillboard(blueBillboard,vertices[i]);
-				}
-
-			}
-			transform.localEulerAngles = new Vector3(0f,0f,0f);
-			transform.parent = null;
-		}*/
 	}
 
 	void createRandomPlants(int ammountOfPlants,GameObject billboard,Vector3 vertix1,Vector3 vertix2,Vector3 vertix3,Vector3 normal){
@@ -146,41 +152,31 @@ public class ProcedurallyGeneratedObject : MonoBehaviour {
 	}
 
 	float getAreaSize(Vector3 p1,Vector3 p2,Vector3 p3){
-		//Debug.Log(objectiveMesh.transform.lossyScale.x);
-		//float area = (Vector3.Cross(p2-p1,p3-p1).magnitude/2f);
 		Vector3 A = p1 * objectiveMesh.transform.lossyScale.x;
 		Vector3 B = p2 * objectiveMesh.transform.lossyScale.x;
 		Vector3 C = p3 * objectiveMesh.transform.lossyScale.x;
 
 		Vector3 V = Vector3.Cross(A-B, A-C);
 		float area = V.magnitude * 0.5f;
-		//Debug.Log (area);
 		area = area;
-		//Debug.Log (area);
 		return area;
 	}
 
 	void createNewBillboard(GameObject billboard,Vector3 position,Vector3 normal){
 		GameObject newObject = Instantiate(billboard) as GameObject;
 		newObject.transform.position = (objectiveMesh.transform.position+(position * objectiveMesh.transform.lossyScale.y ));
-		newObject.transform.parent = transform;
+
+		newObject.transform.parent = levels[lastLevelPut].transform;
+		lastLevelPut = (lastLevelPut + 1) % detailLevel;
+
 		newObject.transform.up = (normal).normalized;
 		newObject.transform.position += newObject.transform.up * (billboard.GetComponent<MeshRenderer> ().bounds.size.y * 0.5f);
-
-		//Debug.Log (billboard.GetComponent<MeshRenderer> ().bounds.size.y);
-		//newObject.transform.RotateAround (newObject.transform.position, newObject.transform.up, Random.value * 180f);
+		
 		float zrotation = newObject.transform.eulerAngles.z;
 		newObject.transform.forward = Vector3.forward;
 		newObject.transform.eulerAngles = new Vector3 (newObject.transform.eulerAngles.x, newObject.transform.eulerAngles.y, zrotation);
-		//newObject.transform.RotateAround (newObject.transform.position, newObject.transform.forward, (Random.value * 30f)-15f);
 		newObject.transform.Rotate (billboard.transform.eulerAngles);
 
-		//Oposite
-		/*GameObject newObjectO = Instantiate(billboard) as GameObject;
-		newObjectO.transform.position = newObject.transform.position;
-		newObjectO.transform.parent = transform;
-		newObjectO.transform.forward = newObject.transform.forward * -1f;
-		*/
 	}
 
 }

@@ -30,10 +30,10 @@ public class Dash : MonoBehaviour {
 		dashStartParticles.SetActive (true);
 		dashStartParticles.GetComponent<ParticleSystem> ().Play ();
 		dashStartParticles.transform.position = GameManager.player.GetComponent<Rigidbody>().worldCenterOfMass;
-		originalMovement = GameManager.player.GetComponent<CharacterController>().getMoveAmount ();
+		originalMovement = GameManager.player.GetComponent<CharacterController>().getMoveAmout ();
 		GameManager.playerAnimator.SetBool("isWalking",true);
 		Vector3 newMove;
-		if(GameManager.player.GetComponent<CharacterController>().getIsLookingRight()){
+		if(GameManager.player.GetComponent<PlayerController>().getIsLookingRight()){
 			newMove = (dashSpeed) * -GameManager.player.transform.right;
 		}else{
 			newMove = (dashSpeed) * GameManager.player.transform.right;

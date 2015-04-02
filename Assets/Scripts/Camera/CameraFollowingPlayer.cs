@@ -4,6 +4,7 @@ using System.Collections;
 public class CameraFollowingPlayer : MonoBehaviour {
 
 
+	public float distanceCameraOnSpaceJump = 100;
 	public float upMultiplyierWithAngle = 2.5f;
 	public float upMultiplyierWithoutAngle = 1.2f;
 	public float lerpMultiplyierZPosition = 4f;
@@ -39,7 +40,7 @@ public class CameraFollowingPlayer : MonoBehaviour {
 		Vector3 rightWithoutZ = new Vector3 (transform.right.x, transform.right.y, 0f).normalized;
 
 		//Modifying objective up
-		if (!GameManager.player.GetComponent<CharacterController> ().getIsSpaceJumping () && !GameManager.playerAnimator.GetBool ("isChargingSpaceJumping") && !GameManager.gameState.isInsidePlanet) {
+		if (!GameManager.player.GetComponent<PlayerController> ().getIsSpaceJumping () && !GameManager.playerAnimator.GetBool ("isChargingSpaceJumping") && !GameManager.gameState.isInsidePlanet) {
 			if(Vector3.Distance(objectiveUp,transform.up)<=minimumUpDistanceOnStartLerpingXAngle){
 
 			Vector3 objectiveUpRotated = (Quaternion.AngleAxis (xAngle, rightWithoutZ) * objectiveUp);
@@ -53,7 +54,7 @@ public class CameraFollowingPlayer : MonoBehaviour {
 		}
 
 		Vector3 newUp;
-		GravityBody playerGravityBody = GameManager.player.GetComponent<GravityBody> ();
+		SpaceGravityBody playerGravityBody = GameManager.player.GetComponent<SpaceGravityBody> ();
 		if (!playerGravityBody.getUsesSpaceGravity()) {
 			newUp = Vector3.Lerp (transform.up, objectiveUp,Time.deltaTime * lerpMultiplyierUp);
 		}else{
@@ -63,53 +64,18 @@ public class CameraFollowingPlayer : MonoBehaviour {
 		transform.rotation = Quaternion.LookRotation(newForward,newUp);
 		transform.position = Vector3.Lerp (transform.position, objectivePosition, Time.deltaTime * lerpMultiplyierPos);
 
+		float zProportion = Mathf.Abs (transform.position.z - originalZ) / Mathf.Abs (distanceCameraOnSpaceJump - originalZ);
+		GameManager.setGrassPorcentualLevel (zProportion);
 	}
-
-	/*void updatePosition(){
-
-		GravityBody playerGravityBody = GameManager.player.GetComponent<GravityBody> ();
-		Vector3 objectivePosition = new Vector3 (GameManager.player.transform.position.x, GameManager.player.transform.position.y, transform.position.z);
-		if (!playerGravityBody.getUsesSpaceGravity()) {
-			Vector3 objectiveUp = new Vector3(GameManager.player.transform.up.x,GameManager.player.transform.up.y,0f).normalized;
-			if(!GameManager.player.GetComponent<CharacterController>().getIsSpaceJumping() && !GameManager.playerAnimator.GetBool("isChargingSpaceJumping")){
-				//Vector3 objectiveUpRight = Vector3.Cross(objectiveUp,Vector3.right);
-				objectivePosition += playerGravityBody.transform.up*1.2f;
-				//objectiveUp = (Quaternion.AngleAxis(30,transform.right) * objectiveUp);
-			}
-			Vector3 newUpPosition = Vector3.Lerp (transform.up, objectiveUp, Constants.CAMERA_ANGLE_FOLLOWING_SPEED * Time.deltaTime);
-
-			//Debug.Log(objectiveUp);
-			transform.up = newUpPosition;
-			//transform.localRotation = new Quaternion(0f,0f,GameManager.player.transform.rotation.z,GameManager.player.transform.rotation.w) * Quaternion.AngleAxis(30,transform.right);
-		}
-		//transform.eulerAngles = new Vector3 (transform.eulerAngles.x, 0f, transform.eulerAngles.z);
-		//Vector3 objectivePosition = new Vector3 (GameManager.player.transform.position.x, GameManager.player.transform.position.y, transform.position.z);
-		//objectivePosition = Vector3.Lerp (transform.position, objectivePosition, Time.deltaTime);
-		//objectivePosition += transform.up*2f;
-
-		//We make a lerp to the new Z
-		Vector3 objectivePositionZ = new Vector3 (objectivePosition.x, objectivePosition.y, objectiveZ);
-		objectivePosition = Vector3.Lerp(objectivePosition,objectivePositionZ,Time.fixedDeltaTime);
-
-		transform.position = objectivePosition;
-		//transform.eulerAngles = new Vector3 (transform.eulerAngles.x, 0f, transform.eulerAngles.z);
-
-		//Incline the camera
-		if(!GameManager.player.GetComponent<CharacterController>().getIsSpaceJumping() && !GameManager.playerAnimator.GetBool("isChargingSpaceJumping")){
-			//transform.RotateAround (transform.position, transform.right, 20f);
-		}
-		//Quaternion.angle
-		//transform.LookAt (GameManager.player.transform.position);
-
-	}*/
 
 	public void returnOriginalZ(){
-		setObjectiveZ (originalZ);
+		timerZPosition = 0f;
+		objectiveZ = originalZ;
 	}
 
-	public void setObjectiveZ(float newZ){
+	public void setObjectiveZCameraOnSpaceJump(){
 		timerZPosition = 0f;
-		objectiveZ = newZ;
+		objectiveZ = -distanceCameraOnSpaceJump;
 	}
 	
 	// Update is called once per frame

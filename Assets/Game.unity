@@ -848,6 +848,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   randomSeed: 123456
+  detailLevel: 20
+  detailMaximumPercentage: .300000012
   objectiveMesh: {fileID: 1089452767}
   mapTexture: {fileID: 2800000, guid: 6efde4e2d772ebf41a02309df3afd421, type: 3}
   redBillboard: {fileID: 132462, guid: 598b0352adeed1442a3d6476683df8a2, type: 2}
@@ -14493,6 +14495,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   randomSeed: 123456
+  detailLevel: 20
+  detailMaximumPercentage: .300000012
   objectiveMesh: {fileID: 1673070419}
   mapTexture: {fileID: 2800000, guid: 098ab6bb425350047b8d3ac20b7a8f60, type: 3}
   redBillboard: {fileID: 132462, guid: 598b0352adeed1442a3d6476683df8a2, type: 2}
@@ -16151,11 +16155,12 @@ GameObject:
   - 114: {fileID: 1294720930}
   - 114: {fileID: 1294720929}
   - 54: {fileID: 1294720928}
-  - 114: {fileID: 1294720927}
   - 114: {fileID: 1294720931}
   - 114: {fileID: 1294720932}
   - 120: {fileID: 1294720933}
   - 114: {fileID: 1294720934}
+  - 114: {fileID: 1294720935}
+  - 114: {fileID: 1294720927}
   m_Layer: 9
   m_Name: BigPappada
   m_TagString: Player
@@ -16187,12 +16192,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1294720925}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe581320da7185b4ea3edde68918af45, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ceaa8f5028dd6b4f879d8e124b40fb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   objectsToCollide:
     serializedVersion: 2
     m_Bits: 4294967295
+  drag: 5
+  dragMultiplyierOnCloseOrbit: 5
 --- !u!54 &1294720928
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -16240,8 +16247,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3.5
-  normalJumpForce: 15
-  spaceJumpForce: 55
+  normalJumpForce: 10
+  spaceJumpForce: 45
   particleSystemJumpCharge: {fileID: 89850112}
   animationBigPappada: {fileID: 1770890665}
   breathingBubble: {fileID: 1442927830}
@@ -16258,7 +16265,6 @@ MonoBehaviour:
   pappada: {fileID: 2000357251}
   lineJumpDistance: 25
   flyingParticles: {fileID: 1732856653}
-  distanceCameraOnSpaceJump: 100
   explosionOnDieInSpacePrefab: {fileID: 100000, guid: b68930a8995e3644f903c1261cb92423,
     type: 2}
 --- !u!114 &1294720931
@@ -16344,6 +16350,18 @@ MonoBehaviour:
   attackOnAirGO: {fileID: 108746, guid: e76d15d659543584ea1be9379b301ba7, type: 2}
   attackComboGO: {fileID: 163002, guid: 49c48520b7cecbb4a8dbb77907a41b02, type: 2}
   dashGO: {fileID: 195346, guid: 799bc3aad3ac1c44f82cb2951d09e130, type: 2}
+--- !u!114 &1294720935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1294720925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1698e9ac60bf14c4eaf030f9aa71a7a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 3.5
 --- !u!1 &1297488017
 GameObject:
   m_ObjectHideFlags: 0
@@ -24106,6 +24124,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   randomSeed: 123456
+  detailLevel: 20
+  detailMaximumPercentage: .300000012
   objectiveMesh: {fileID: 1898382629}
   mapTexture: {fileID: 2800000, guid: 098ab6bb425350047b8d3ac20b7a8f60, type: 3}
   redBillboard: {fileID: 132462, guid: 598b0352adeed1442a3d6476683df8a2, type: 2}
@@ -27730,6 +27750,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5096d90ac54869b4aa2cade3dbae4baf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distanceCameraOnSpaceJump: 100
   upMultiplyierWithAngle: 2.5
   upMultiplyierWithoutAngle: 1.20000005
   lerpMultiplyierZPosition: .349999994

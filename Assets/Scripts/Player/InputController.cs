@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-[RequireComponent (typeof (CharacterController))]
+[RequireComponent (typeof (PlayerController))]
 
 public class InputController : MonoBehaviour {
 	public float startChargeSpaceJump;
@@ -14,9 +14,9 @@ public class InputController : MonoBehaviour {
 	private bool isSpaceJumpCharging = false;
 	private bool isSpaceJumpCharged;
 	private float timeJumpPressed;
-	private CharacterController character;
+	private PlayerController character;
 	private CharacterAttackController attackController;
-	private GravityBody characterGravityBody;
+	private SpaceGravityBody characterGravityBody;
 
 	private bool isCraftingMenuOpen = false;
 
@@ -31,8 +31,8 @@ public class InputController : MonoBehaviour {
 
 	void Start () {
 		timeJumpPressed = 0;
-		character = GetComponent<CharacterController>();
-		characterGravityBody = character.GetComponent<GravityBody> ();
+		character = GetComponent<PlayerController>();
+		characterGravityBody = character.GetComponent<SpaceGravityBody> ();
 		attackController = GetComponent<CharacterAttackController> ();
 		WeaponManager wpm = WeaponManager.Instance;
 	}
@@ -119,7 +119,7 @@ public class InputController : MonoBehaviour {
 
 			if (Input.GetButtonDown("Jump")){
 				if(character.getIsSpaceJumping()){
-					GravityBody body = GetComponent<GravityBody>();
+					SpaceGravityBody body = GetComponent<SpaceGravityBody>();
 					if(body.getIsOrbitingAroundPlanet()){
 						body.setIsGettingOutOfOrbit(true);
 					}

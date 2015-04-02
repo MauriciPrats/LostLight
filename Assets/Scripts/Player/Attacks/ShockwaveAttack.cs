@@ -12,7 +12,6 @@ public class ShockwaveAttack : Attack {
 	public int damageAmmount = 2;
 	public float forceExplosion = 5f;
 	public float timeToCharge = 0.8f;
-	bool charged = false;
 
 	private float timer;
 

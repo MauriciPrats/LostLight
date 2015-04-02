@@ -7,7 +7,6 @@ public class IAController : MonoBehaviour {
 
 	public float minimumDistanceSeePlayer = 50f;
 	public LayerMask layersToFindCollision;
-	public float speed = 2f;
 	public float cooldownChangeBehaviour = 0.1f;
 	public float timePatroling = 3f;
 	public float jumpCooldown = 2f;
@@ -32,14 +31,12 @@ public class IAController : MonoBehaviour {
 	private float stunnedTimer;
 	private float timeToDie = 0.5f;
 
-
+	private CharacterController characterController;
 	private Animator iaAnimator;
 	private float minimumDistanceFront = 0f;
 	private float timeToChangeBehaviour = 0.1f;
 	private float timeToJump = 0f;
 	private bool isBlockedBySomethingInFront = false;
-	private Vector3 moveAmount;
-	private bool isLookingRight = true;
 	private bool isWalkingRight = true;
 	private float timeWalkingDirectionIdle = 0f;
 	private GameObject player;
@@ -59,7 +56,7 @@ public class IAController : MonoBehaviour {
 	void Start () {
 		iaAnimator = GetComponentInChildren<Animator> ();
 		player = GameManager.player;
-		moveAmount = new Vector3 (0f, 0f, 0f);
+		characterController = GetComponent<CharacterController> ();
 		transform.forward = new Vector3(1f,0f,0f);
 		minimumDistanceFront = ((Random.value)*0.2f) + 0.2f;
 		//Debug.Log (minimumDistanceFront);
@@ -116,7 +113,7 @@ public class IAController : MonoBehaviour {
 			lastTimeCheckedClosestThingInFront = 0f;
 
 			float enemyDistanceFront = walkOnMultiplePaths.getClosestEnemyInFront ();
-			CharacterController chaCon = player.GetComponent<CharacterController>();
+			PlayerController chaCon = player.GetComponent<PlayerController>();
 			float playerDistance = Vector3.Distance (player.GetComponent<Rigidbody>().worldCenterOfMass, transform.position) - (walkOnMultiplePaths.centerToExtremesDistance + chaCon.centerToExtremesDistance);
 
 
@@ -143,7 +140,7 @@ public class IAController : MonoBehaviour {
 			attackTimer += Time.deltaTime;
 
 			float distanceToPlayer = Vector3.Distance (transform.GetComponent<Rigidbody>().worldCenterOfMass, player.GetComponent<Rigidbody>().worldCenterOfMass);
-			distanceToPlayer -= (player.GetComponent<CharacterController> ().centerToExtremesDistance + walkOnMultiplePaths.centerToExtremesDistance);
+			distanceToPlayer -= (player.GetComponent<PlayerController> ().centerToExtremesDistance + walkOnMultiplePaths.centerToExtremesDistance);
 
 			if(distanceToPlayer<= minimumDistanceAttackPlayer){
 				if(attackTimer>= attackChoosingCooldown){
@@ -173,13 +170,16 @@ public class IAController : MonoBehaviour {
 	}
 
 	private void offensiveMovement(){
+		float moveDirection = 0f;
 		if(isElementLeft(player)){
-			turnLeft();
+			moveDirection = -1f;
 		}else{
-			turnRight();
+			moveDirection = 1f;
 		}
+		characterController.LookLeftOrRight (moveDirection);
+
 		if(!isStunned){
-			walk ();
+			walk (moveDirection);
 		}else{
 			//Stunned animation
 			//idleWalking();
@@ -193,29 +193,22 @@ public class IAController : MonoBehaviour {
 			timeWalkingDirectionIdle = 0f;
 		}
 
+		float moveDirection = 0f;
 		if(isWalkingRight){
-			turnRight();
+			moveDirection = 1f;
 		}else{
-			turnLeft();
+			moveDirection = -1f;
 		}
-		walk ();
+		characterController.LookLeftOrRight (moveDirection);
+		walk (moveDirection);
 	}
 
-	private void turnRight(){
-		if(!isLookingRight){
-			transform.Rotate(0f,180f,0f);
-			isLookingRight = true;
-		}
-	}
 
-	private void walk(){
+
+	private void walk(float moveDirection){
 		if(GetComponent<GravityBody>().getIsTouchingPlanet()){
 			if(closestThingInFrontDistance() > minimumDistanceFront){
-				if(isLookingRight){
-					moveAmount = (speed) * -this.transform.right;
-				}else if(!isLookingRight){
-					moveAmount = (speed) * this.transform.right;
-				}
+				characterController.Move(moveDirection);
 				isBlockedBySomethingInFront = false;
 				iaAnimator.SetBool("isWalking",true);
 			}else{
@@ -224,13 +217,6 @@ public class IAController : MonoBehaviour {
 			}
 		}else{
 			iaAnimator.SetBool("isWalking",false);
-		}
-	}
-
-	private void turnLeft(){
-		if(isLookingRight){
-			transform.Rotate(0f,180f,0f);
-			isLookingRight = false;
 		}
 	}
 
@@ -270,7 +256,7 @@ public class IAController : MonoBehaviour {
 				}
 			}
 
-			moveAmount = new Vector3 (0f, 0f, 0f);
+			characterController.StopMoving();
 			
 				if(timeToChangeBehaviour>cooldownChangeBehaviour){
 					timeToChangeBehaviour = 0f;
@@ -293,14 +279,8 @@ public class IAController : MonoBehaviour {
 		}
 	}
 
-	void FixedUpdate(){
-		Vector3 movement = transform.TransformDirection (moveAmount) * Time.fixedDeltaTime;
-		Vector3 newPosition = new Vector3(this.transform.position.x + movement.x,this.transform.position.y + movement.y,this.transform.position.z);
-		this.transform.position = new Vector3(this.transform.position.x + movement.x,this.transform.position.y + movement.y,this.transform.position.z);
-	}
-
 	public bool getIsLookingRight(){
-		return isLookingRight;
+		return characterController.getIsLookingRight();
 	}
 
 	public void stun(float timeStunned){

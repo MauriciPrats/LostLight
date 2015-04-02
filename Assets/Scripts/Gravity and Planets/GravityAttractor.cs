@@ -12,7 +12,6 @@ public class GravityAttractor : MonoBehaviour {
 
 	private float sphereRadius;
 	void Awake(){
-
 		GravityBodiesManager.registerNewBody (this.gameObject);
 
 		athmosphere = GameObject.Instantiate(athmospherePrefab) as GameObject;
@@ -46,7 +45,7 @@ public class GravityAttractor : MonoBehaviour {
 		}
 	}
 
-	private bool normalAttract(Transform objectToAttract,out float distance){
+	private bool attract(Transform objectToAttract,out float distance){
 		//Only attract the body to the planet if it is close enough.
 		distance = Vector3.Distance (transform.position, objectToAttract.position);
 		GravityBody body = objectToAttract.GetComponent<GravityBody> ();
@@ -67,10 +66,10 @@ public class GravityAttractor : MonoBehaviour {
 		return false;
 	}
 
-	private bool playerAttract(Transform objectToAttract,out float distance){
+	private bool spaceAttract(Transform objectToAttract,out float distance){
 		//Only attract the body to the planet if it is close enough.
 		distance = Vector3.Distance (transform.position, objectToAttract.position);
-		GravityBody body = objectToAttract.GetComponent<GravityBody> ();
+		SpaceGravityBody body = objectToAttract.GetComponent<SpaceGravityBody> ();
 
 		distance = distance - sphereRadius;
 		
@@ -110,7 +109,7 @@ public class GravityAttractor : MonoBehaviour {
 					hasToAddForce = false;
 					//Meeec, no funciona be, sempre va a la dreta
 					//bool goesRight = Vector3.Angle(targetDir,-body.rigidbody.velocity) < Vector3.Angle(targetDir,body.rigidbody.velocity);
-					bool goesRight = GameManager.player.GetComponent<CharacterController>().getIsLookingRight();
+					bool goesRight = GameManager.player.GetComponent<PlayerController>().getIsLookingRight();
 					float angle2 = Util.getAngleFromVectorAToB(body.GetComponent<Rigidbody>().velocity,transform.position - body.transform.position);
 					goesRight = angle2<0f;
 					float forceMagnitude = body.GetComponent<Rigidbody>().velocity.magnitude;
@@ -123,11 +122,9 @@ public class GravityAttractor : MonoBehaviour {
 					float forceRatio = Mathf.Cos(Mathf.Deg2Rad * Vector3.Angle(body.GetComponent<Rigidbody>().velocity,targetDir));
 					
 					Vector3 forwardDirection = body.GetComponent<Rigidbody>().transform.forward.normalized;
-					if(!GameManager.player.GetComponent<CharacterController>().getIsLookingRight()){
+					if(!GameManager.player.GetComponent<PlayerController>().getIsLookingRight()){
 						forwardDirection *= -1f;
 					}
-					
-					
 					body.GetComponent<Rigidbody>().velocity = ((forwardDirection) + (((targetDir.normalized) * Mathf.Abs(forceRatio)))).normalized * forceMagnitude;
 					objectToAttract.parent = transform;
 				}
@@ -153,11 +150,13 @@ public class GravityAttractor : MonoBehaviour {
 	}
 
 	public bool Attract (Transform objectToAttract,out float distance){
-		if(objectToAttract.tag == "Player"){
-			return playerAttract(objectToAttract,out distance);
+
+		if(objectToAttract.GetComponent<GravityBody>().isSpaceGravityBody()){
+			return spaceAttract(objectToAttract,out distance);
 		}else{
-			return normalAttract(objectToAttract,out distance);
+			return attract(objectToAttract,out distance);
 		}
+
 	}
 
 	private Vector3 OrbiteAroundPoint(Vector3 point, Vector3 pivot, Quaternion angle) {
