@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour {
 	private CharacterController characterController;
 	private Animator bpAnimator;
 	private SpaceGravityBody body;
+
 	private Vector3 smoothMoveVelocity;
 
 	private bool isSpaceJumping = false;
@@ -220,6 +221,7 @@ public class PlayerController : MonoBehaviour {
 		bpAnimator.SetBool("isWalking",false);
 		characterController.StopMoving ();
 	}
+
 
 	public void ChargeJump() {
 		bpAnimator.SetBool("isChargingSpaceJumping",true);
