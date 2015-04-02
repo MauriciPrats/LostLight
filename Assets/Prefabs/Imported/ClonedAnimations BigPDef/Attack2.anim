@@ -54262,15 +54262,15 @@ AnimationClip:
   m_GenerateMotionCurves: 0
   m_Events:
   - time: .25
-    functionName: enableHitbox
-    data: 
+    functionName: informAttack
+    data: start
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 1.04166663
-    functionName: disalbeHitbox
-    data: 
+    functionName: informAttack
+    data: end
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0

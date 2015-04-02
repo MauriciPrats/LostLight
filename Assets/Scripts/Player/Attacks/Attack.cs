@@ -37,7 +37,7 @@ public class Attack : MonoBehaviour {
 	public virtual void startAttack(){
 	}
 
-	public bool isAttackFinished(){
+	public virtual bool isAttackFinished(){
 		return isFinished;
 	}
 

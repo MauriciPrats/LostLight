@@ -44,7 +44,7 @@ public class CharacterController : MonoBehaviour {
 	private Animator bpAnimator;
 	//OLD ATTACK
 	//private CharacterAttackController cAttackController;
-	private bool isAttacking = false;
+	
 	private GravityBody body;
 	private Vector3 moveAmount;
 	private Vector3 smoothMoveVelocity;
@@ -288,9 +288,7 @@ public class CharacterController : MonoBehaviour {
 		moveAmount = new Vector3 (0f, 0f, 0f);
 	}
 
-	public void StopAttack() {
-		isAttacking = false;
-	}
+
 
 	public void ChargeJump() {
 		isSpaceJumpCharged = true;
