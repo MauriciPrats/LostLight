@@ -61,6 +61,10 @@ public class InputController : MonoBehaviour {
 				}
 			}
 
+			//BLOCK BUTTON
+			if (Input.GetButton("Block")){
+				attackController.doBlock();
+			}
 
 			//NORMAL ATTACK BUTTON
 			if(character.getIsJumping() && !character.getIsSpaceJumping()){

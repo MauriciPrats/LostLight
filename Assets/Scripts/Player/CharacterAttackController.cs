@@ -13,6 +13,7 @@ public class CharacterAttackController : MonoBehaviour {
 	public GameObject attackOnAirGO;
 	public GameObject attackComboGO;
 
+	public GameObject blockGO;
 	public GameObject dashGO;
 
 	private Attack attackMissiles;
@@ -22,6 +23,7 @@ public class CharacterAttackController : MonoBehaviour {
 	private Attack attackOnAir;
 	private Attack attackCombo;
 
+	private Block block;
 	private Dash dash;
 	
 	// Initialization
@@ -32,6 +34,8 @@ public class CharacterAttackController : MonoBehaviour {
 		attackUppercut = (GameObject.Instantiate(attackUppercutGO) as GameObject).GetComponent<Attack> ();
 		attackOnAir = (GameObject.Instantiate(attackOnAirGO) as GameObject).GetComponent<Attack> ();
 		attackCombo = (GameObject.Instantiate(attackComboGO) as GameObject).GetComponent<Attack> ();
+
+		block = (GameObject.Instantiate (blockGO) as GameObject).GetComponent<Block> ();
 		dash = (GameObject.Instantiate(dashGO) as GameObject).GetComponent<Dash> ();
 	}
 
@@ -50,6 +54,10 @@ public class CharacterAttackController : MonoBehaviour {
 			return attackCombo;
 		}
 		return null;
+	}
+
+	public void Update() {
+
 	}
 
 	public bool isDoingDash(){
@@ -78,6 +86,11 @@ public class CharacterAttackController : MonoBehaviour {
 			Debug.Log("No attack exists for the type given");
 		}
 	}
+
+	public void doBlock() {
+		block.StartBlock();
+	}
+
 	public bool isDoingAnyAttack(){
 		if(!attackMissiles.isAttackFinished()){
 			return true;
