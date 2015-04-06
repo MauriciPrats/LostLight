@@ -6,8 +6,6 @@ public enum AttackType{Missiles,Kame,Shockwave,Uppercut,OnAir,Combo};
 
 public class CharacterAttackController : MonoBehaviour {
 
-	public Transform leftHand; //Ubicacion de la mano izquierda
-
 
 	public GameObject attackMissilesGO;
 	public GameObject attackKameGO;
@@ -16,6 +14,7 @@ public class CharacterAttackController : MonoBehaviour {
 	public GameObject attackOnAirGO;
 	public GameObject attackComboGO;
 
+	public GameObject blockGO;
 	public GameObject dashGO;
 
 	private Attack attackMissiles;
@@ -25,6 +24,7 @@ public class CharacterAttackController : MonoBehaviour {
 	private Attack attackOnAir;
 	private Attack attackCombo;
 
+	private Block block;
 	private Dash dash;
 	
 	
@@ -35,15 +35,11 @@ public class CharacterAttackController : MonoBehaviour {
 		attackShockwave = (GameObject.Instantiate(attackShockwaveGO) as GameObject).GetComponent<Attack> ();
 		attackUppercut = (GameObject.Instantiate(attackUppercutGO) as GameObject).GetComponent<Attack> ();
 		attackOnAir = (GameObject.Instantiate(attackOnAirGO) as GameObject).GetComponent<Attack> ();
-		
+
+		block = (GameObject.Instantiate (blockGO) as GameObject).GetComponent<Block> ();
 		dash = (GameObject.Instantiate(dashGO) as GameObject).GetComponent<Dash> ();
 		
-		attackCombo = attackComboGO.GetComponent<Attack>();
-//		weapon.transform.parent = leftHand.transform;
-//		weapon.transform.position = leftHand.transform.position;
-//		weapon.transform.rotation = leftHand.transform.rotation;
-//		attackCombo = weapon.GetComponent<Attack>();
-		
+		attackCombo = attackComboGO.GetComponent<Attack>();		
 	}
 
 	public Attack getAttack(AttackType aType){
@@ -61,6 +57,10 @@ public class CharacterAttackController : MonoBehaviour {
 			return attackCombo;
 		}
 		return null;
+	}
+
+	public void Update() {
+
 	}
 
 	public bool isDoingDash(){
@@ -89,6 +89,11 @@ public class CharacterAttackController : MonoBehaviour {
 			Debug.Log("No attack exists for the type given");
 		}
 	}
+
+	public void doBlock() {
+		block.StartBlock();
+	}
+
 	public bool isDoingAnyAttack(){
 		if(!attackMissiles.isAttackFinished()){
 			return true;
