@@ -5,11 +5,13 @@ public class ComboAttack : Attack {
 
 	public AnimationEventBroadcast eventHandler;
 	public Collider stick;
-
+	private Xft.XWeaponTrail weaponEffects;
 	
 	public override void initialize() {
 		eventHandler = GameManager.playerAnimator.gameObject.GetComponent<AnimationEventBroadcast>();
 		stick = gameObject.GetComponent<Collider>();
+		weaponEffects = gameObject.GetComponentInChildren<Xft.XWeaponTrail>();
+		weaponEffects.StopSmoothly(0.1f);
 	}
 	
 	public override void enemyCollisionEnter(GameObject enemy) {
@@ -30,6 +32,7 @@ public class ComboAttack : Attack {
 	public override void startAttack(){
 	
 	if (isFinished) {
+			weaponEffects.Activate();
 			eventHandler.subscribe(this);
 			isFinished = false;
 			GameManager.playerAnimator.SetTrigger("doComboAttack");	
@@ -59,6 +62,7 @@ public class ComboAttack : Attack {
 	
 	public void endCombo() {
 		//gameObject.GetComponent<ParticleSystem>().enableEmission = true;
+		weaponEffects.StopSmoothly(0.5f);
 		eventHandler.unsubscribe(this);
 		isComboable = false;
 		isFinished = true;
