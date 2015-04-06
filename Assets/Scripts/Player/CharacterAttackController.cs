@@ -6,6 +6,9 @@ public enum AttackType{Missiles,Kame,Shockwave,Uppercut,OnAir,Combo};
 
 public class CharacterAttackController : MonoBehaviour {
 
+	public Transform leftHand; //Ubicacion de la mano izquierda
+
+
 	public GameObject attackMissilesGO;
 	public GameObject attackKameGO;
 	public GameObject attackShockwaveGO;
@@ -24,6 +27,7 @@ public class CharacterAttackController : MonoBehaviour {
 
 	private Dash dash;
 	
+	
 	// Initialization
 	void Start () {
 		attackMissiles = (GameObject.Instantiate(attackMissilesGO) as GameObject).GetComponent<Attack> ();
@@ -31,8 +35,15 @@ public class CharacterAttackController : MonoBehaviour {
 		attackShockwave = (GameObject.Instantiate(attackShockwaveGO) as GameObject).GetComponent<Attack> ();
 		attackUppercut = (GameObject.Instantiate(attackUppercutGO) as GameObject).GetComponent<Attack> ();
 		attackOnAir = (GameObject.Instantiate(attackOnAirGO) as GameObject).GetComponent<Attack> ();
-		attackCombo = (GameObject.Instantiate(attackComboGO) as GameObject).GetComponent<Attack> ();
+		
 		dash = (GameObject.Instantiate(dashGO) as GameObject).GetComponent<Dash> ();
+		
+		attackCombo = attackComboGO.GetComponent<Attack>();
+//		weapon.transform.parent = leftHand.transform;
+//		weapon.transform.position = leftHand.transform.position;
+//		weapon.transform.rotation = leftHand.transform.rotation;
+//		attackCombo = weapon.GetComponent<Attack>();
+		
 	}
 
 	public Attack getAttack(AttackType aType){

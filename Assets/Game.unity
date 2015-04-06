@@ -14955,6 +14955,7 @@ Transform:
   - {fileID: 1670399215}
   - {fileID: 1583434088}
   - {fileID: 54804391}
+  - {fileID: 1406768676}
   m_Father: {fileID: 1756754064}
   m_RootOrder: 0
 --- !u!1 &1182995433
@@ -16155,7 +16156,6 @@ GameObject:
   - 114: {fileID: 1294720930}
   - 114: {fileID: 1294720929}
   - 54: {fileID: 1294720928}
-  - 114: {fileID: 1294720931}
   - 114: {fileID: 1294720932}
   - 120: {fileID: 1294720933}
   - 114: {fileID: 1294720934}
@@ -16256,8 +16256,6 @@ MonoBehaviour:
   damageWhenNotBreathing: 1
   minimumBreathingBubbleScale: 3
   maximumBreathingBubbleScale: 8
-  leftHand: {fileID: 1174366765}
-  weapon: {fileID: 100000, guid: 3dae2ed6c0672064b8a64a3ab5285182, type: 2}
   timeToDieInSpace: 2
   centerToExtremesDistance: 0
   extraSafeDistanceFromEnemies: .300000012
@@ -16267,22 +16265,6 @@ MonoBehaviour:
   flyingParticles: {fileID: 1732856653}
   explosionOnDieInSpacePrefab: {fileID: 100000, guid: b68930a8995e3644f903c1261cb92423,
     type: 2}
---- !u!114 &1294720931
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1294720925}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cdca905c2a49504b839b9de5c53930b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AttackCube: {fileID: 100000, guid: 72e5b3dbb2ed0dc46a89b9ab82ef90c1, type: 2}
-  animationBigPappada: {fileID: 1770890665}
-  isAttacking: 0
-  comboStat: 0
-  comboCount: 0
 --- !u!114 &1294720932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16343,12 +16325,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec06a48d6e79c1545b627c9608862dbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftHand: {fileID: 0}
   attackMissilesGO: {fileID: 132678, guid: 6abace219e3a76d4c8c33167cba5ec6b, type: 2}
   attackKameGO: {fileID: 103610, guid: e1610933011bf384babb0feea97e3b60, type: 2}
   attackShockwaveGO: {fileID: 107160, guid: 68d4de2056c78114a927b185fd06c13a, type: 2}
   attackUppercutGO: {fileID: 130282, guid: a097d3410e7e93e41a0ee6e6d7612e32, type: 2}
   attackOnAirGO: {fileID: 108746, guid: e76d15d659543584ea1be9379b301ba7, type: 2}
-  attackComboGO: {fileID: 163002, guid: 49c48520b7cecbb4a8dbb77907a41b02, type: 2}
+  attackComboGO: {fileID: 174686, guid: c7e6c1ca6c7e85240af743a4dbe9d4b6, type: 2}
   dashGO: {fileID: 195346, guid: 799bc3aad3ac1c44f82cb2951d09e130, type: 2}
 --- !u!114 &1294720935
 MonoBehaviour:
@@ -17656,6 +17639,80 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1406627830}
   m_Mesh: {fileID: 4300402, guid: 73a724b9e1c25b54e9522c396b887b81, type: 3}
+--- !u!1 &1406768675
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1406768676}
+  - 33: {fileID: 1406768679}
+  - 136: {fileID: 1406768678}
+  - 23: {fileID: 1406768677}
+  m_Layer: 9
+  m_Name: Cylinder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1406768676
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1406768675}
+  m_LocalRotation: {x: -.707489252, y: .185594246, z: .21355167, w: .647618294}
+  m_LocalPosition: {x: -1.72000003, y: .319999993, z: -2.8599999}
+  m_LocalScale: {x: 1, y: 8, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1174366765}
+  m_RootOrder: 4
+--- !u!23 &1406768677
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1406768675}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!136 &1406768678
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1406768675}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  m_Radius: 3.28999996
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &1406768679
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1406768675}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1409208950
 GameObject:
   m_ObjectHideFlags: 0

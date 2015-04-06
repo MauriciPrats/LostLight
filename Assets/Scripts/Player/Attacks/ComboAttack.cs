@@ -4,15 +4,16 @@ using System.Collections;
 public class ComboAttack : Attack {
 
 	public AnimationEventBroadcast eventHandler;
-	GameObject stick;
+	public Collider stick;
+
+	
 	public override void initialize() {
 		eventHandler = GameManager.playerAnimator.gameObject.GetComponent<AnimationEventBroadcast>();
-		stick = GameObject.FindGameObjectWithTag("Weapon");
+		stick = gameObject.GetComponent<Collider>();
 	}
 	
-	public override void enemyCollisionEnter(GameObject enemy){
-		//Called when an AttackCollider with this object associated enters collision with an enemy
-
+	public override void enemyCollisionEnter(GameObject enemy) {
+		print ("I hit a pig");
 	}
 
 
@@ -24,20 +25,28 @@ public class ComboAttack : Attack {
 
 	public bool isComboable = false;
 	public int combosteep = 0;
+	
+	
 	public override void startAttack(){
-		StartCoroutine ("comboAttack");
-	}
-
-	IEnumerator comboAttack(){
-		isFinished = false;
-		GameManager.playerAnimator.SetTrigger("doComboAttack");
-		//eventHandler.subscribe(this);
-		yield return new WaitForSeconds (0.5f);
-		endCombo ();
+	
+	if (isFinished) {
+			eventHandler.subscribe(this);
+			isFinished = false;
+			GameManager.playerAnimator.SetTrigger("doComboAttack");	
+			combosteep = 1;
+	} else {
+		if (isComboable && combosteep < 3) {
+				isComboable = false;
+				GameManager.playerAnimator.SetTrigger("doComboAttack");	
+				combosteep++;
+		}
 	}
 	
+		
+	}
+
 	public void enableHitbox() {
-		stick.GetComponent<CapsuleCollider>().enabled = true;
+		stick.enabled = true;
 	}
 	
 	public void allowChaining() {
@@ -45,14 +54,16 @@ public class ComboAttack : Attack {
 	}
 	
 	public void dissableHitbox() {
-		stick.GetComponent<CapsuleCollider>().enabled = false;
+		stick.enabled = false;
 	}
 	
 	public void endCombo() {
-		print ("returning to base");
+		//gameObject.GetComponent<ParticleSystem>().enableEmission = true;
+		eventHandler.unsubscribe(this);
 		isComboable = false;
 		isFinished = true;
 		GameManager.playerAnimator.ResetTrigger("doComboAttack");
+		print ("combo ended");
 	}
 	
 	public override bool isAttackFinished(){
