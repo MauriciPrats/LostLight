@@ -2,8 +2,7 @@
 using System.Collections;
 
 public class OnAirAttack : Attack {
-
-	public float ammountOfDownForce = 2f;
+	
 	public GameObject triggerBox;
 	public int ammountOfDamage = 1;
 	public float positionInFrontPlayer = 0.5f;
@@ -15,7 +14,7 @@ public class OnAirAttack : Attack {
 	public override void enemyCollisionEnter(GameObject enemy){
 		//If it's an enemy we damage him
 		enemy.GetComponent<IAController>().getHurt(ammountOfDamage,enemy.transform.position);
-		enemy.GetComponent<IAController> ().stun (1f);
+		GameManager.comboManager.addCombo ();
 	}
 	
 	// Update is called once per frame
@@ -27,7 +26,6 @@ public class OnAirAttack : Attack {
 	}
 
 	private IEnumerator airAttack(){
-		GameManager.player.GetComponent<Rigidbody> ().velocity += GameManager.player.transform.up * -ammountOfDownForce;
 		triggerBox.transform.position = GameManager.player.GetComponent<Rigidbody> ().worldCenterOfMass + GameManager.player.transform.forward.normalized * positionInFrontPlayer;
 		triggerBox.SetActive (true);
 		triggerBox.transform.parent = GameManager.player.transform;

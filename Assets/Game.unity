@@ -3840,6 +3840,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 820525008}
     m_Modifications:
+    - target: {fileID: 11400000, guid: f92a6b1e907e705489a5b21134895bc7, type: 2}
+      propertyPath: enemyPrefabsCanSpawn.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: f92a6b1e907e705489a5b21134895bc7, type: 2}
       propertyPath: m_LocalPosition.x
       value: .0332099982
@@ -3892,6 +3896,14 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: .0100240931
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: f92a6b1e907e705489a5b21134895bc7, type: 2}
+      propertyPath: enemyPrefabsCanSpawn.Array.data[1]
+      value: 
+      objectReference: {fileID: 123630, guid: 327d6df13e7616943996b501319f93d1, type: 2}
+    - target: {fileID: 11400000, guid: f92a6b1e907e705489a5b21134895bc7, type: 2}
+      propertyPath: enemyPrefabsCanSpawn.Array.data[2]
+      value: 
+      objectReference: {fileID: 104528, guid: 890738c0b9c5f374b9077f1d2f9f9834, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f92a6b1e907e705489a5b21134895bc7, type: 2}
   m_IsPrefabParent: 0
@@ -5072,6 +5084,48 @@ Transform:
   - {fileID: 802282976}
   m_Father: {fileID: 1358182524}
   m_RootOrder: 0
+--- !u!1 &405070159
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 405070160}
+  - 114: {fileID: 405070161}
+  m_Layer: 0
+  m_Name: LightGemSoulsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &405070160
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 405070159}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 955999563}
+  m_RootOrder: 5
+--- !u!114 &405070161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 405070159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e9dcfc45c52fea4cbd2983a66929702, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLightPoints: 100000
+  actualLightPoints: 0
+  pointsRegeneratedPerSecond: 0
 --- !u!1 &415329456
 GameObject:
   m_ObjectHideFlags: 0
@@ -5196,6 +5250,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabsCanSpawn:
   - {fileID: 100050, guid: a8815a4bb4d8d9d44a7a87c0be01ed17, type: 2}
+  - {fileID: 123630, guid: 327d6df13e7616943996b501319f93d1, type: 2}
+  - {fileID: 104528, guid: 890738c0b9c5f374b9077f1d2f9f9834, type: 2}
   isOutsidePlanet: 1
 --- !u!1 &423992234
 GameObject:
@@ -5761,6 +5817,52 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 456735072}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &457292178
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400050, guid: a8815a4bb4d8d9d44a7a87c0be01ed17, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -5.71013403
+      objectReference: {fileID: 0}
+    - target: {fileID: 400050, guid: a8815a4bb4d8d9d44a7a87c0be01ed17, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 7.94160748
+      objectReference: {fileID: 0}
+    - target: {fileID: 400050, guid: a8815a4bb4d8d9d44a7a87c0be01ed17, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -.0840224549
+      objectReference: {fileID: 0}
+    - target: {fileID: 400050, guid: a8815a4bb4d8d9d44a7a87c0be01ed17, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400050, guid: a8815a4bb4d8d9d44a7a87c0be01ed17, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400050, guid: a8815a4bb4d8d9d44a7a87c0be01ed17, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400050, guid: a8815a4bb4d8d9d44a7a87c0be01ed17, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400050, guid: a8815a4bb4d8d9d44a7a87c0be01ed17, type: 2}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 100050, guid: a8815a4bb4d8d9d44a7a87c0be01ed17, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: a8815a4bb4d8d9d44a7a87c0be01ed17, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &461182451
 GameObject:
   m_ObjectHideFlags: 0
@@ -9209,6 +9311,46 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 628465625}
   m_Mesh: {fileID: 4300380, guid: 73a724b9e1c25b54e9522c396b887b81, type: 3}
+--- !u!1 &633603993
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 633603994}
+  - 114: {fileID: 633603995}
+  m_Layer: 0
+  m_Name: ComboManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &633603994
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 633603993}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 955999563}
+  m_RootOrder: 6
+--- !u!114 &633603995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 633603993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02a5d14093139c541b3aee09f9505441, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToLooseCombo: 2.5
 --- !u!1 &634032928
 GameObject:
   m_ObjectHideFlags: 0
@@ -10842,6 +10984,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabsCanSpawn:
   - {fileID: 100050, guid: a8815a4bb4d8d9d44a7a87c0be01ed17, type: 2}
+  - {fileID: 123630, guid: 327d6df13e7616943996b501319f93d1, type: 2}
+  - {fileID: 104528, guid: 890738c0b9c5f374b9077f1d2f9f9834, type: 2}
   isOutsidePlanet: 1
 --- !u!4 &812195802
 Transform:
@@ -11959,6 +12103,8 @@ Transform:
   - {fileID: 493387226}
   - {fileID: 2026427410}
   - {fileID: 1275246021}
+  - {fileID: 405070160}
+  - {fileID: 633603994}
   m_Father: {fileID: 0}
   m_RootOrder: 6
 --- !u!114 &955999564
@@ -15891,7 +16037,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d215c8aa030ef94b922dd58bdb1d350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxLightPoints: 10000000
+  maxLightPoints: 6
   actualLightPoints: 0
   pointsRegeneratedPerSecond: 0
 --- !u!1 &1275542605
@@ -16198,7 +16344,7 @@ MonoBehaviour:
   objectsToCollide:
     serializedVersion: 2
     m_Bits: 4294967295
-  drag: 5
+  drag: 10
   dragMultiplyierOnCloseOrbit: 5
 --- !u!54 &1294720928
 Rigidbody:
@@ -16233,8 +16379,9 @@ MonoBehaviour:
   sidesSpecialAttack: 1
   downSpecialAttack: 2
   upNormalAttack: 3
-  sidesNormalAttack: 5
-  onAirAttack: 4
+  sidesNormalAttack: 6
+  downNormalAttack: 4
+  onAirAttack: 5
 --- !u!114 &1294720930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16346,9 +16493,10 @@ MonoBehaviour:
   attackMissilesGO: {fileID: 132678, guid: 6abace219e3a76d4c8c33167cba5ec6b, type: 2}
   attackKameGO: {fileID: 103610, guid: e1610933011bf384babb0feea97e3b60, type: 2}
   attackShockwaveGO: {fileID: 107160, guid: 68d4de2056c78114a927b185fd06c13a, type: 2}
-  attackUppercutGO: {fileID: 130282, guid: a097d3410e7e93e41a0ee6e6d7612e32, type: 2}
+  attackGuardBreakerGO: {fileID: 130282, guid: a097d3410e7e93e41a0ee6e6d7612e32, type: 2}
   attackOnAirGO: {fileID: 108746, guid: e76d15d659543584ea1be9379b301ba7, type: 2}
   attackComboGO: {fileID: 163002, guid: 49c48520b7cecbb4a8dbb77907a41b02, type: 2}
+  attackCounterGO: {fileID: 158534, guid: 23d72b2cf72e2b1439f1621a19d01541, type: 2}
   dashGO: {fileID: 195346, guid: 799bc3aad3ac1c44f82cb2951d09e130, type: 2}
 --- !u!114 &1294720935
 MonoBehaviour:

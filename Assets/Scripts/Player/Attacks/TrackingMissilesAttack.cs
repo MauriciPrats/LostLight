@@ -16,6 +16,7 @@ public class TrackingMissilesAttack : Attack {
 
 	public void enemyHit(GameObject enemy){
 		enemy.GetComponent<IAController>().getHurt(damagePerMissile,(enemy.transform.position));
+		GameManager.comboManager.addCombo ();
 	}
 
 	private void spawnMissiles(){

@@ -23,6 +23,7 @@ public class ShockwaveAttack : Attack {
 		Vector3 position = areaEffect.transform.position;
 		enemy.GetComponent<Rigidbody>().AddExplosionForce(forceExplosion,position,radius);
 		enemy.GetComponent<IAController> ().stun (1f);
+		GameManager.comboManager.addCombo ();
 	}
 
 	public override void initialize(){

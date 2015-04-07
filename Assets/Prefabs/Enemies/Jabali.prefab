@@ -1461,7 +1461,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 100050}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6183f17895e9f04ba4f313dacaaa343, type: 3}
+  m_Script: {fileID: 11500000, guid: 08a55b89b5e1ed245baa31759debe4dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   minimumDistanceSeePlayer: 50
@@ -1486,6 +1486,7 @@ MonoBehaviour:
   onDeathEffect: {fileID: 171198, guid: 000150e52e26a1344950b32e9ce179c7, type: 2}
   onDeathLight: {fileID: 190320, guid: 1b14ff513f64b5c47a24d2bcf4e709e7, type: 2}
   numberOfLightsAvg: 3
+  timeToChangeBehaviour: .100000001
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1518,6 +1519,7 @@ MonoBehaviour:
   objectsToCollide:
     serializedVersion: 2
     m_Bits: 0
+  drag: 0
 --- !u!114 &11400008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1530,6 +1532,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointsCost: 2
+  maximumEnemiesInPlanet: 0
+  enemyType: 0
 --- !u!114 &11400010
 MonoBehaviour:
   m_ObjectHideFlags: 1

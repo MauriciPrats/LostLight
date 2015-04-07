@@ -35,6 +35,7 @@ public class KameAttack : Attack {
 		Vector3 direction = (enemy.transform.position - kameCore.transform.position).normalized + (enemy.transform.up * 2f);
 		enemy.GetComponent<Rigidbody> ().AddForce (direction.normalized * forceExplosion,ForceMode.Impulse);
 		enemy.GetComponent<IAController> ().stun (1f);
+		GameManager.comboManager.addCombo ();
 	}
 
 	protected override void update(){

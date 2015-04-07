@@ -33,7 +33,7 @@ public class LightOnDeath : MonoBehaviour {
 				hasArrived = true;
 				timerWhenArrived = 0f;
 				transform.parent = objective.transform;
-				GameManager.lightGemEnergyManager.addPoints(pointsToAddPerLight);
+				GameManager.lightGemSoulsManager.addPoints(pointsToAddPerLight);
 			}
 			timerWhenArrived+=Time.deltaTime;
 			float ratio = 1f + (timerWhenArrived*1f);

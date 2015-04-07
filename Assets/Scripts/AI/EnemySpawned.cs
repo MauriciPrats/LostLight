@@ -6,6 +6,8 @@ public class EnemySpawned : MonoBehaviour {
 	public int pointsCost;
 	public Action<GameObject> actionToCallOnDie;
 	public Action<GameObject> actionToCallOnDespawn;
+	public int maximumEnemiesInPlanet;
+	public EnemyType enemyType;
 
 	private bool isDespawned = false;
 	private float timerCheckPlayerDistance = 0f;

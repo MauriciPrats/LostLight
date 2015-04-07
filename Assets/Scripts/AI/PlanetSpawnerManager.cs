@@ -16,6 +16,9 @@ public class PlanetSpawnerManager : MonoBehaviour {
 	private int ammountOfActualPointsSpawned = 0;
 	private int accumulatedPoints = 0;
 	private ShintoDoor shinto;
+
+	public List<EnemyTypeAmmount> enemiesAmmount = new List<EnemyTypeAmmount> (0);
+	
 	
 	private int lastLevelShintoActivated = 0;
 
@@ -50,16 +53,54 @@ public class PlanetSpawnerManager : MonoBehaviour {
 				//We get a random spawner and we make him spawn a random creature
 				if(inRangeSpawners.Count>0){
 					Spawner randomSpawner = inRangeSpawners[Random.Range(0,inRangeSpawners.Count)];
-					ammountOfActualPointsSpawned+= randomSpawner.spawnRandomEnemy(onEnemyDead,onEnemyDespawned);
+					EnemyType type;
+					ammountOfActualPointsSpawned+= randomSpawner.spawnRandomEnemy(onEnemyDead,onEnemyDespawned,out type,enemiesAmmount);
+					if(!type.Equals(EnemyType.None)){
+						addEnemyType(type);
+					}
 				}
 			}
 		}
+	}
+
+	private void addEnemyType(EnemyType type){
+		bool found = false;
+		foreach(EnemyTypeAmmount ea in enemiesAmmount){
+			if(ea.type.Equals(type)){
+				ea.ammount++;
+				found = true;
+				break;
+			}
+		}
+		if(!found){
+			EnemyTypeAmmount ea = new EnemyTypeAmmount();
+			ea.type = type;
+			ea.ammount = 1;
+			enemiesAmmount.Add(ea);
+		}
+	}
+
+	private void substractEnemyType(EnemyType type){
+
+		bool found = false;
+		foreach(EnemyTypeAmmount ea in enemiesAmmount){
+			if(ea.type.Equals(type)){
+				ea.ammount--;
+				found = true;
+				break;
+			}
+		}
+		if(!found){
+			Debug.Log("Error: No tiene sentido llegar a este punto de codigo");
+		}
+
 	}
 
 	public void onEnemyDead(GameObject enemy){
 		EnemySpawned enemySpawned = enemy.GetComponent<EnemySpawned> ();
 		accumulatedPoints+=enemySpawned.pointsCost;
 		ammountOfActualPointsSpawned-=enemySpawned.pointsCost;
+		substractEnemyType (enemySpawned.enemyType);
 		
 		if(accumulatedPoints>=pointsUntilSeal3ShintoDoor){
 			shintoDoorEffect (3);
@@ -71,10 +112,10 @@ public class PlanetSpawnerManager : MonoBehaviour {
 	}
 
 	public void onEnemyDespawned(GameObject enemy){
-
 		EnemySpawned enemySpawned = enemy.GetComponent<EnemySpawned> ();
 		//It has despawned because it's superfar away
 		ammountOfActualPointsSpawned-=enemySpawned.pointsCost;
+		substractEnemyType (enemySpawned.enemyType);
 		//We despawn the enemy
 		Destroy(enemy);
 

@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum EnemyType{Jabali,BigJabali,DarkPappada,None}
+
 [RequireComponent (typeof (WalkOnMultiplePaths))]
 public class IAController : MonoBehaviour {
 
@@ -22,44 +24,47 @@ public class IAController : MonoBehaviour {
 	public GameObject secondOnHitEffect;
 	public GameObject thirdOnHitEffect;
 	public GameObject onDeathEffect;
-
 	public GameObject onDeathLight;
 	public int numberOfLightsAvg = 2;
+	public float timeToChangeBehaviour = 0.1f;
 
-	private bool isStunned;
+	//Private variables for being stunned, dying,juimping and checking things in front
 	private float stunnedTime;
 	private float stunnedTimer;
 	private float timeToDie = 0.5f;
-
-	private CharacterController characterController;
-	private Animator iaAnimator;
 	private float minimumDistanceFront = 0f;
-	private float timeToChangeBehaviour = 0.1f;
 	private float timeToJump = 0f;
-	private bool isBlockedBySomethingInFront = false;
-	private bool isWalkingRight = true;
-	private float timeWalkingDirectionIdle = 0f;
-	private GameObject player;
 	private float lastTimeCheckedClosestThingInFront = 0f;
 	private float cooldownRaycastingClosestThingInFront = 0.1f;
-	private float closestThingInFront = 0f;
-	private float attackTimer = 0f;
-	private bool isDoingAttack = false;
-	private BaseAttack actualAttack;
-	private bool isDead;
 	private float timeHasBeenDead;
-	private WalkOnMultiplePaths walkOnMultiplePaths;
+
+	//Elements connected to the AI
+	protected CharacterController characterController;
+	protected Animator iaAnimator;
+	protected WalkOnMultiplePaths walkOnMultiplePaths;
+	protected BaseAttack actualAttack;
+	protected GameObject player;
+
+	//State of the AI
+	protected bool isBlockedBySomethingInFront = false;
+	protected bool isWalkingRight = true;
+	protected float closestThingInFront = 0f;
+	protected bool isDoingAttack = false;
+	protected bool isDead;
+	protected bool isOnGuard;
+	protected bool isStunned;
 
 	private GameObject[] hitParticles;
 
 	// Use this for initialization
 	void Start () {
+		isOnGuard = false;
 		iaAnimator = GetComponentInChildren<Animator> ();
 		player = GameManager.player;
 		characterController = GetComponent<CharacterController> ();
 		transform.forward = new Vector3(1f,0f,0f);
 		minimumDistanceFront = ((Random.value)*0.2f) + 0.2f;
-		//Debug.Log (minimumDistanceFront);
+
 		isDead = false;
 		timeHasBeenDead = 0f;
 		walkOnMultiplePaths = GetComponent<WalkOnMultiplePaths> ();
@@ -74,8 +79,6 @@ public class IAController : MonoBehaviour {
 		foreach (GameObject particles in hitParticles) {
 			particles.transform.parent = gameObject.transform;
 		}
-		
-		//baseAttack = GetComponent<BaseAttack> ();
 	}
 
 	private bool canSeePlayer(){
@@ -127,85 +130,21 @@ public class IAController : MonoBehaviour {
 
 	}
 
-	private void offensiveMoves(){
+	protected virtual void offensiveMoves(){
 
-		if(isDoingAttack){
-			if(actualAttack.isAttackFinished()){
-				isDoingAttack = false;
-			}else{
-				actualAttack.doAttack();
-			}
-		}else{
-			//Check how far away is the player
-			attackTimer += Time.deltaTime;
-
-			float distanceToPlayer = Vector3.Distance (transform.GetComponent<Rigidbody>().worldCenterOfMass, player.GetComponent<Rigidbody>().worldCenterOfMass);
-			distanceToPlayer -= (player.GetComponent<PlayerController> ().centerToExtremesDistance + walkOnMultiplePaths.centerToExtremesDistance);
-
-			if(distanceToPlayer<= minimumDistanceAttackPlayer){
-				if(attackTimer>= attackChoosingCooldown){
-					attackTimer = 0f;
-					if(Random.value<attackChance){
-						//If we actually want to attack
-
-						//Choose the actual attack
-						GameObject attack = shortRangeAttacks[Random.Range(0,shortRangeAttacks.Length)];
-						BaseAttack bAttack = attack.GetComponent<BaseAttack>();
-
-						if(GameManager.enemyAttackManager.askForNewAttack(bAttack.getAttackValue())){
-							isDoingAttack = true;
-							actualAttack = bAttack;
-							actualAttack.startAttack();
-						}
-					}else{
-						offensiveMovement();
-					}
-				}else{
-					offensiveMovement();
-				}
-			}else{
-				offensiveMovement();
-			}
-		}
 	}
 
-	private void offensiveMovement(){
-		float moveDirection = 0f;
-		if(isElementLeft(player)){
-			moveDirection = -1f;
-		}else{
-			moveDirection = 1f;
-		}
-		characterController.LookLeftOrRight (moveDirection);
-
-		if(!isStunned){
-			walk (moveDirection);
-		}else{
-			//Stunned animation
-			//idleWalking();
-		}
-	}
-
-	private void idleWalking(){
-		timeWalkingDirectionIdle += Time.deltaTime;
-		if(timeWalkingDirectionIdle>timePatroling || isBlockedBySomethingInFront){
-			isWalkingRight = !isWalkingRight;
-			timeWalkingDirectionIdle = 0f;
-		}
-
-		float moveDirection = 0f;
-		if(isWalkingRight){
-			moveDirection = 1f;
-		}else{
-			moveDirection = -1f;
-		}
-		characterController.LookLeftOrRight (moveDirection);
-		walk (moveDirection);
+	protected virtual void idleWalking(){
+		
 	}
 
 
 
-	private void walk(float moveDirection){
+
+
+
+
+	protected void walk(float moveDirection){
 		if(GetComponent<GravityBody>().getIsTouchingPlanet()){
 			if(closestThingInFrontDistance() > minimumDistanceFront){
 				characterController.Move(moveDirection);
@@ -220,7 +159,7 @@ public class IAController : MonoBehaviour {
 		}
 	}
 
-	private void jump(){
+	protected void jump(){
 		if(timeToJump>jumpCooldown){
 			GetComponent<Rigidbody>().AddForce(transform.up * jumpStrength,ForceMode.Impulse);
 			timeToJump = 0f+Random.value;
@@ -237,13 +176,6 @@ public class IAController : MonoBehaviour {
 		updateTimers ();
 		if (isDead) {
 			timeHasBeenDead+=Time.deltaTime;
-			//float ratio = timeHasBeenDead/timeToDie;
-			//transform.localScale = new Vector3(0f,transform.localScale.y * (1f-ratio),0f);
-			//transform.GetComponent<Rigidbody>().centerOfMass = originalCenterOfMass;
-			//if(timeHasBeenDead>=(timeToDie/2f)){
-				//GetComponent<Collider>().enabled = false;
-				//transform.localScale = transform.localScale +new Vector3(0.1f,0.1f,0.1f);
-			//}
 			if(timeHasBeenDead>=timeToDie ){
 				onDeath();
 				Destroy(gameObject);
@@ -337,6 +269,15 @@ public class IAController : MonoBehaviour {
 			}
 			newLight.GetComponent<TrailRenderer>().material.color = color;
 		}
+	}
+
+	public void interruptAttack(){
 
 	}
+
+
+	public void breakGuard(){
+
+	}
+
 }

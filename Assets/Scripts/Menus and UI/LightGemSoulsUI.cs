@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class LightGemUI : MonoBehaviour {
+public class LightGemSoulsUI : MonoBehaviour {
 
 	int energyNumber = 0;
 	bool beating = false;
@@ -24,7 +24,7 @@ public class LightGemUI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		int newEnergyNumber = GameManager.lightGemEnergyManager.actualLightPoints;
+		int newEnergyNumber = GameManager.lightGemSoulsManager.actualLightPoints;
 		if(newEnergyNumber!=energyNumber){
 			energyNumber = newEnergyNumber;
 			GetComponent<Text> ().text = "x " + energyNumber;

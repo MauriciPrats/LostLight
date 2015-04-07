@@ -16,6 +16,8 @@ public static class GameManager{
 	public static List<PlanetSpawnerManager> planetSpawnersManagers = new List<PlanetSpawnerManager>(0);
 	public static CheckpointManager checkPointManager;
 	public static LightGemEnergyManager lightGemEnergyManager;
+	public static LightGemSoulsManager lightGemSoulsManager;
+	public static ComboManager comboManager;
 	public static GameObject gemCounter;
 	public static List<ProcedurallyGeneratedObject> proceduralGrass = new List<ProcedurallyGeneratedObject>(0);
 
@@ -138,7 +140,15 @@ public static class GameManager{
 		lightGemEnergyManager = lightGemEnergyManagerGO.GetComponent<LightGemEnergyManager> ();
 	}
 
+	public static void registerLightGemSoulsManager(GameObject lightGemSoulsManagerGO){
+		lightGemSoulsManager = lightGemSoulsManagerGO.GetComponent<LightGemSoulsManager> ();
+	}
+
 	public static void registerProceduralGrass(ProcedurallyGeneratedObject pGrass){
 		proceduralGrass.Add (pGrass);
+	}
+
+	public static void registerComboManager(GameObject comboManagerGO){
+		comboManager = comboManagerGO.GetComponent<ComboManager> ();
 	}
 }

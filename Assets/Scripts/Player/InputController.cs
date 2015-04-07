@@ -26,6 +26,7 @@ public class InputController : MonoBehaviour {
 
 	public AttackType upNormalAttack;
 	public AttackType sidesNormalAttack;
+	public AttackType downNormalAttack;
 
 	public AttackType onAirAttack;
 
@@ -63,17 +64,21 @@ public class InputController : MonoBehaviour {
 
 
 			//NORMAL ATTACK BUTTON
+
 			if(character.getIsJumping() && !character.getIsSpaceJumping()){
 				if (Input.GetButtonUp("Normal Attack")) {
 					attackController.doAttack(onAirAttack);
 				}
 			}else if(Mathf.Abs(Input.GetAxisRaw("Vertical"))>Mathf.Abs(Input.GetAxisRaw("Horizontal"))){
 				if (Input.GetButtonUp("Normal Attack") && Input.GetAxisRaw("Vertical")>0f) {
-					attackController.doAttack(upNormalAttack);
+					if(isCharacterAllowedToDoNormalAttack()){
+						attackController.doAttack(upNormalAttack);
+					}
 				}else if(Input.GetButtonUp("Normal Attack") && Input.GetAxisRaw("Vertical")<0f){
-					//Undercut (De momento, normal attack)
 					//character.StartAttack();
-
+					if(isCharacterAllowedToDoNormalAttack()){
+						attackController.doAttack(downNormalAttack);
+					}
 				}
 			}else{
 				if (Input.GetButtonUp("Normal Attack") && isCharacterAllowedToDoNormalAttack()) {
