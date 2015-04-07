@@ -6,6 +6,7 @@ public enum AttackType{Missiles,Kame,Shockwave,GuardBreaker,CounterAttack,OnAir,
 
 public class CharacterAttackController : MonoBehaviour {
 
+
 	public GameObject attackMissilesGO;
 	public GameObject attackKameGO;
 	public GameObject attackShockwaveGO;
@@ -14,6 +15,7 @@ public class CharacterAttackController : MonoBehaviour {
 	public GameObject attackComboGO;
 	public GameObject attackCounterGO;
 
+	public GameObject blockGO;
 	public GameObject dashGO;
 
 	private Attack attackMissiles;
@@ -24,7 +26,9 @@ public class CharacterAttackController : MonoBehaviour {
 	private Attack attackCombo;
 	private Attack attackCounter;
 
+	private Block block;
 	private Dash dash;
+	
 	
 	// Initialization
 	void Start () {
@@ -33,9 +37,11 @@ public class CharacterAttackController : MonoBehaviour {
 		attackShockwave = (GameObject.Instantiate(attackShockwaveGO) as GameObject).GetComponent<Attack> ();
 		attackGuardBreaker = (GameObject.Instantiate(attackGuardBreakerGO) as GameObject).GetComponent<Attack> ();
 		attackOnAir = (GameObject.Instantiate(attackOnAirGO) as GameObject).GetComponent<Attack> ();
-		attackCombo = (GameObject.Instantiate(attackComboGO) as GameObject).GetComponent<Attack> ();
 		attackCounter = (GameObject.Instantiate(attackCounterGO) as GameObject).GetComponent<Attack> ();
+		block = (GameObject.Instantiate (blockGO) as GameObject).GetComponent<Block> ();
 		dash = (GameObject.Instantiate(dashGO) as GameObject).GetComponent<Dash> ();
+		
+		attackCombo = attackComboGO.GetComponent<Attack>();		
 	}
 
 	public Attack getAttack(AttackType aType){
@@ -55,6 +61,10 @@ public class CharacterAttackController : MonoBehaviour {
 			return attackCombo;
 		}
 		return null;
+	}
+
+	public void Update() {
+
 	}
 
 	public bool isDoingDash(){
@@ -83,6 +93,11 @@ public class CharacterAttackController : MonoBehaviour {
 			Debug.Log("No attack exists for the type given");
 		}
 	}
+
+	public void doBlock() {
+		block.StartBlock();
+	}
+
 	public bool isDoingAnyAttack(){
 		if(!attackMissiles.isAttackFinished()){
 			return true;

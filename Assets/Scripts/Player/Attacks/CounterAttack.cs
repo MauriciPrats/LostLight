@@ -8,9 +8,15 @@ public class CounterAttack : Attack {
 	public float timeToActivate = 0.1f;
 	public float timeToDeactivate = 0.4f;
 
+	private Xft.XWeaponTrail weaponEffects;
 	private float timeOfAnimation;
 
 	private bool hasHitEnemy;
+
+	public override void initialize() {
+		weaponEffects = GameManager.player.GetComponent<PlayerController>().weapon.GetComponentInChildren<Xft.XWeaponTrail>();
+		weaponEffects.StopSmoothly(0.1f);
+	}
 
 	public override void enemyCollisionEnter(GameObject enemy){
 		enemy.GetComponent<IAController>().getHurt(damage,(enemy.transform.position));
@@ -23,6 +29,7 @@ public class CounterAttack : Attack {
 	}
 	
 	private IEnumerator doCounterAttack(){
+		weaponEffects.Activate();
 		GameManager.playerAnimator.SetTrigger("isDoingCounterAttack");
 		hasHitEnemy = false;
 		triggerBox.transform.position = GameManager.player.GetComponent<Rigidbody> ().worldCenterOfMass + GameManager.player.transform.forward.normalized * positionInFrontPlayer;
@@ -32,6 +39,7 @@ public class CounterAttack : Attack {
 		yield return new WaitForSeconds (timeToDeactivate);
 		isFinished = true;
 		triggerBox.SetActive(false);
+		weaponEffects.StopSmoothly(0.1f);
 	}
 	
 	public override void startAttack(){

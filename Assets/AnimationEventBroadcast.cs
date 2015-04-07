@@ -8,7 +8,11 @@ public class AnimationEventBroadcast : MonoBehaviour {
 	
 	ComboAttack subscriber;
 	public void subscribe (ComboAttack attack) {
+	if (subscriber) 
+	{}
+	else {
 		subscriber = attack;
+		}
 	}
 	
 	public void unsubscribe (ComboAttack attack) {
@@ -27,6 +31,9 @@ public class AnimationEventBroadcast : MonoBehaviour {
 				break;
 				case "done":
 				subscriber.endCombo();
+				break;
+				case "combo":
+				subscriber.allowChaining();
 				break;
 				default: 
 			

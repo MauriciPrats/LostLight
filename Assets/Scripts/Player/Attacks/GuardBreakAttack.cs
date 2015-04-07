@@ -10,6 +10,13 @@ public class GuardBreakAttack : Attack {
 	public int damage = 1;
 	private bool hasHitEnemy;
 
+	private Xft.XWeaponTrail weaponEffects;
+
+	public override void initialize() {
+		weaponEffects = GameManager.player.GetComponent<PlayerController>().weapon.GetComponentInChildren<Xft.XWeaponTrail>();
+		weaponEffects.StopSmoothly(0.1f);
+	}
+
 	protected override void update(){
 
 	}
@@ -25,6 +32,7 @@ public class GuardBreakAttack : Attack {
 	}
 
 	private IEnumerator doGuardBreak(){
+		weaponEffects.Activate();
 		hasHitEnemy = false;
 		GameManager.playerAnimator.SetTrigger("isDoingGuardBreaker");
 		triggerBox.transform.position = GameManager.player.GetComponent<Rigidbody> ().worldCenterOfMass + GameManager.player.transform.forward.normalized * positionInFrontPlayer;
@@ -34,6 +42,7 @@ public class GuardBreakAttack : Attack {
 		yield return new WaitForSeconds (timeToDeactivate);
 		isFinished = true;
 		triggerBox.SetActive(false);
+		weaponEffects.StopSmoothly(0.1f);
 	}
 	
 	public override void startAttack(){
