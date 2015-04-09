@@ -5,6 +5,8 @@ public class BaseAttack : MonoBehaviour {
 
 	public int attackValue;
 
+	protected bool isInterruptableNow = false;
+
 
 	public virtual void startAttack(){
 	}
@@ -15,6 +17,10 @@ public class BaseAttack : MonoBehaviour {
 
 	public int getAttackValue(){
 		return attackValue;
+	}
+
+	public virtual void interruptAttack(){
+
 	}
 
 }

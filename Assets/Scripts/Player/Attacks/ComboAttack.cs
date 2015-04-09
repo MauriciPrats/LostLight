@@ -1,21 +1,36 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ComboAttack : Attack {
 
-	public AnimationEventBroadcast eventHandler;
-	public Collider stick;
+	private AnimationEventBroadcast eventHandler;
+	private Collider stick;
+	private AttackCollider attackCollider;
 	private Xft.XWeaponTrail weaponEffects;
+	private float timeOfAnimation;
 	
+	private List<GameObject> enemiesHit;
+	private bool hasHitEnemy;
 	public override void initialize() {
 		eventHandler = GameManager.playerAnimator.gameObject.GetComponent<AnimationEventBroadcast>();
-		stick = gameObject.GetComponent<Collider>();
-		weaponEffects = gameObject.GetComponentInChildren<Xft.XWeaponTrail>();
+		stick = GameManager.player.GetComponent<PlayerController>().weapon.GetComponentInChildren<Collider>();
+		attackCollider = GameManager.player.GetComponent<PlayerController>().weapon.GetComponentInChildren<AttackCollider>();
+		weaponEffects = GameManager.player.GetComponent<PlayerController>().weapon.GetComponentInChildren<Xft.XWeaponTrail>();
 		weaponEffects.StopSmoothly(0.1f);
 	}
 	
 	public override void enemyCollisionEnter(GameObject enemy) {
-		print ("I hit a pig");
+		if(!enemiesHit.Contains(enemy)){
+			enemiesHit.Add(enemy);
+			enemy.GetComponent<IAController>().getHurt(1,(enemy.transform.position));
+			enemy.GetComponent<IAController> ().interruptAttack ();
+			GameManager.comboManager.addCombo ();
+			if(!hasHitEnemy){
+				hasHitEnemy = true;
+				GameManager.lightGemEnergyManager.addPoints(1);
+			}
+		}
 	}
 
 
@@ -32,6 +47,10 @@ public class ComboAttack : Attack {
 	public override void startAttack(){
 	
 	if (isFinished) {
+			enemiesHit = new List<GameObject>(0);
+			hasHitEnemy = false;
+			attackCollider.attack = gameObject;
+			stick.enabled = true;
 			weaponEffects.Activate();
 			eventHandler.subscribe(this);
 			isFinished = false;
@@ -39,6 +58,8 @@ public class ComboAttack : Attack {
 			combosteep = 1;
 	} else {
 		if (isComboable && combosteep < 3) {
+				enemiesHit = new List<GameObject>(0);
+				hasHitEnemy = false;
 				isComboable = false;
 				GameManager.playerAnimator.SetTrigger("doComboAttack");	
 				combosteep++;
@@ -67,6 +88,8 @@ public class ComboAttack : Attack {
 		isComboable = false;
 		isFinished = true;
 		GameManager.playerAnimator.ResetTrigger("doComboAttack");
+		attackCollider.attack = null;
+		stick.enabled = false;
 		print ("combo ended");
 	}
 	

@@ -249,6 +249,8 @@ public class IAController : MonoBehaviour {
 		}
 	}
 
+
+
 	private void onDeath(){
 		Vector3 centerBoar = GetComponent<Rigidbody> ().worldCenterOfMass;
 		int numberLights = numberOfLightsAvg + Random.Range (-1, 1);
@@ -272,7 +274,9 @@ public class IAController : MonoBehaviour {
 	}
 
 	public void interruptAttack(){
-
+		if(actualAttack!=null && isDoingAttack){
+			actualAttack.interruptAttack();
+		}
 	}
 
 

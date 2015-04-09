@@ -105,6 +105,10 @@ ModelImporter:
     100198: Tongue.001
     100200: Tongue.002
     100202: Tongue.002_end
+    100204: Cylinder.000
+    100206: Cylinder.001
+    100208: Cylinder.002
+    100210: lanza 1 lvl 1
     400000: Arm_L
     400002: Arm_L.001
     400004: Arm_R
@@ -207,7 +211,17 @@ ModelImporter:
     400198: Tongue.001
     400200: Tongue.002
     400202: Tongue.002_end
+    400204: Cylinder.000
+    400206: Cylinder.001
+    400208: Cylinder.002
+    400210: lanza 1 lvl 1
+    2300000: lanza 1 lvl 1
+    3300000: lanza 1 lvl 1
     4300000: Cylinder.003
+    4300002: lanza 1 lvl 1
+    4300004: Cylinder.000
+    4300006: Cylinder.002
+    4300008: Cylinder.001
     7400000: Walk
     7400002: StartJumping
     7400004: Cylinder.003|lanza 1 lvl 1|Take 001|BaseLayer
@@ -233,6 +247,9 @@ ModelImporter:
     7400044: Uppercut
     9500000: //RootNode
     13700000: Cylinder.003
+    13700002: Cylinder.000
+    13700004: Cylinder.001
+    13700006: Cylinder.002
   materials:
     importMaterials: 1
     materialName: 0

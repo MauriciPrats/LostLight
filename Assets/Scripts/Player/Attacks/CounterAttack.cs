@@ -1,44 +1,53 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class CounterAttack : Attack {
-	public GameObject triggerBox;
 	public int damage = 1;
 	public float positionInFrontPlayer = 0.5f;
 	public float timeToActivate = 0.1f;
 	public float timeToDeactivate = 0.4f;
+	private GameObject weapon;
 
 	private Xft.XWeaponTrail weaponEffects;
 	private float timeOfAnimation;
 
+	private List<GameObject> enemiesHit;
+
 	private bool hasHitEnemy;
 
 	public override void initialize() {
-		weaponEffects = GameManager.player.GetComponent<PlayerController>().weapon.GetComponentInChildren<Xft.XWeaponTrail>();
+		weapon = GameManager.player.GetComponent<PlayerController> ().weapon;
+		weaponEffects = weapon.GetComponentInChildren<Xft.XWeaponTrail>();
 		weaponEffects.StopSmoothly(0.1f);
 	}
 
 	public override void enemyCollisionEnter(GameObject enemy){
-		enemy.GetComponent<IAController>().getHurt(damage,(enemy.transform.position));
-		enemy.GetComponent<IAController> ().interruptAttack ();
-		GameManager.comboManager.addCombo ();
-		if(!hasHitEnemy){
-			hasHitEnemy = true;
-			GameManager.lightGemEnergyManager.addPoints(1);
+		if(!enemiesHit.Contains(enemy)){
+			enemiesHit.Add(enemy);
+			enemy.GetComponent<IAController>().getHurt(damage,(enemy.transform.position));
+			enemy.GetComponent<IAController> ().interruptAttack ();
+			GameManager.comboManager.addCombo ();
+			if(!hasHitEnemy){
+				hasHitEnemy = true;
+				GameManager.lightGemEnergyManager.addPoints(1);
+			}
 		}
 	}
 	
 	private IEnumerator doCounterAttack(){
+		enemiesHit = new List<GameObject>(0);
 		weaponEffects.Activate();
 		GameManager.playerAnimator.SetTrigger("isDoingCounterAttack");
 		hasHitEnemy = false;
-		triggerBox.transform.position = GameManager.player.GetComponent<Rigidbody> ().worldCenterOfMass + GameManager.player.transform.forward.normalized * positionInFrontPlayer;
 		isFinished = false;
 		yield return new WaitForSeconds(timeToActivate);
-		triggerBox.SetActive(true);
+		weapon.GetComponentInChildren<AttackCollider> ().attack = gameObject;
+		weapon.GetComponentInChildren<Collider> ().enabled = true;
 		yield return new WaitForSeconds (timeToDeactivate);
 		isFinished = true;
-		triggerBox.SetActive(false);
+		weapon.GetComponentInChildren<AttackCollider> ().attack = gameObject;
+		weapon.GetComponentInChildren<Collider> ().enabled = false;
 		weaponEffects.StopSmoothly(0.1f);
 	}
 	

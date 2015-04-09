@@ -54,9 +54,9 @@ public class JabaliFrontAttack : BaseAttack {
 		return !isAttacking;
 	}
 
-	
 
 	private void chargeAttack(){
+		isInterruptableNow = true;
 		chargeAttackTimer+=Time.deltaTime;
 		iaAnimator.SetBool("isChargingAttack",true);
 		particlesChargeAttack.GetComponent<ParticleSystem>().Play();
@@ -81,6 +81,7 @@ public class JabaliFrontAttack : BaseAttack {
 			attackEffect();
 			iaAnimator.SetBool("isDoingAttack",false);
 			iaAnimator.SetBool("isChargingAttack",false);
+			isInterruptableNow = false;
 		}
 	}
 
@@ -90,5 +91,22 @@ public class JabaliFrontAttack : BaseAttack {
 			GameManager.player.GetComponent<PlayerController>().getHurt(damage);
 		}
 	}
+
+	public override void interruptAttack(){
+		Debug.Log ("interrupted");
+		if(isInterruptableNow){
+			isChargingAttack = false;
+			isAttacking = false;
+			iaAnimator.SetBool("isDoingAttack",false);
+			iaAnimator.SetBool("isChargingAttack",false);
+			particlesChargeAttack.GetComponent<ParticleSystem>().Stop();
+			isAttacking = false;
+			isDoingAttack = false;
+			chargeAttackTimer = 0f;
+			attackTimer = 0f;
+			isInterruptableNow = false;
+		}
+	}
+
 
 }

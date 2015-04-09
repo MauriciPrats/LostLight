@@ -40,8 +40,7 @@ public class CharacterAttackController : MonoBehaviour {
 		attackCounter = (GameObject.Instantiate(attackCounterGO) as GameObject).GetComponent<Attack> ();
 		block = (GameObject.Instantiate (blockGO) as GameObject).GetComponent<Block> ();
 		dash = (GameObject.Instantiate(dashGO) as GameObject).GetComponent<Dash> ();
-		
-		attackCombo = attackComboGO.GetComponent<Attack>();		
+		attackCombo = (GameObject.Instantiate(attackComboGO) as GameObject).GetComponent<Attack> ();	
 	}
 
 	public Attack getAttack(AttackType aType){
