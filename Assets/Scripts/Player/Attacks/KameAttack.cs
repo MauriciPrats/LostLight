@@ -107,7 +107,7 @@ public class KameAttack : Attack {
 		kameEffect.SetActive (true);
 		kameCore.SetActive (true);
 		kameCore.GetComponent<ParticleSystem>().Play();
-		startPosition = ((GameManager.player.GetComponent<Rigidbody> ().worldCenterOfMass + GameManager.player.transform.position)/2) + (kameEffect.transform.forward * 0.4f);
+		startPosition = ((GameManager.player.GetComponent<Rigidbody> ().worldCenterOfMass + (GameManager.player.transform.up * 0.15f))) + (kameEffect.transform.forward * 0.4f);
 		kameEffect.transform.position = startPosition;
 		kameCore.transform.position = startPosition;
 		kameCore.transform.forward = kameEffect.transform.forward;
