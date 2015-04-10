@@ -42,7 +42,7 @@ public class IAController : MonoBehaviour {
 	protected CharacterController characterController;
 	protected Animator iaAnimator;
 	protected WalkOnMultiplePaths walkOnMultiplePaths;
-	protected BaseAttack actualAttack;
+	protected AIAttack actualAttack;
 	protected GameObject player;
 
 	//State of the AI

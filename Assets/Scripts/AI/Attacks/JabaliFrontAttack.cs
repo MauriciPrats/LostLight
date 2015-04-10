@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class JabaliFrontAttack : BaseAttack {
+public class JabaliFrontAttack : AIAttack {
 	
 	public float timeToChargeAttack = 0.5f;
 	public float attackDuration = 0.1f;

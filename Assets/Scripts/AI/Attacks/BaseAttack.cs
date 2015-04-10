@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BaseAttack : MonoBehaviour {
+public class AIAttack : MonoBehaviour {
 
 	public int attackValue;
 

@@ -29,7 +29,7 @@ public class IAControllerJabali : IAController {
 						//Choose the actual attack
 						if(shortRangeAttacks.Length>0){
 							GameObject attack = shortRangeAttacks[Random.Range(0,shortRangeAttacks.Length)];
-							BaseAttack bAttack = attack.GetComponent<BaseAttack>();
+							AIAttack bAttack = attack.GetComponent<AIAttack>();
 							
 							if(GameManager.enemyAttackManager.askForNewAttack(bAttack.getAttackValue())){
 								isDoingAttack = true;

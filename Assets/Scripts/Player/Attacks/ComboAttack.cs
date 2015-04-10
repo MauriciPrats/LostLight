@@ -50,7 +50,7 @@ public class ComboAttack : Attack {
 			enemiesHit = new List<GameObject>(0);
 			hasHitEnemy = false;
 			attackCollider.attack = gameObject;
-			stick.enabled = true;
+			//stick.enabled = true;
 			weaponEffects.Activate();
 			eventHandler.subscribe(this);
 			isFinished = false;

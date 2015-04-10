@@ -24267,7 +24267,7 @@ GameObject:
   - 4: {fileID: 1797406713}
   - 136: {fileID: 1797406714}
   - 114: {fileID: 1797406715}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: MyWeaponCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25456,15 +25456,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: 70c99346c06c202419e2c12fac666c2f, type: 2}
       propertyPath: m_Layer
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 70c99346c06c202419e2c12fac666c2f, type: 2}
       propertyPath: m_Layer
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: 70c99346c06c202419e2c12fac666c2f, type: 2}
       propertyPath: m_Layer
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 70c99346c06c202419e2c12fac666c2f, type: 2}
       propertyPath: PointStart
@@ -26622,7 +26622,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100210, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 100208, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
       propertyPath: m_Layer
