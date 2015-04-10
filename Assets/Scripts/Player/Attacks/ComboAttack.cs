@@ -70,6 +70,7 @@ public class ComboAttack : Attack {
 	}
 
 	public void enableHitbox() {
+		print ("itboxo enabled");
 		stick.enabled = true;
 	}
 	

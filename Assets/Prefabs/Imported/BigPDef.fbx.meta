@@ -3949,8 +3949,8 @@ ModelImporter:
     - serializedVersion: 16
       name: ChargeKame
       takeName: Armature|ArmatureAction
-      firstFrame: 255
-      lastFrame: 268
+      firstFrame: 418
+      lastFrame: 433
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -4179,8 +4179,8 @@ ModelImporter:
     - serializedVersion: 16
       name: DoKame
       takeName: Armature|ArmatureAction
-      firstFrame: 267
-      lastFrame: 268
+      firstFrame: 429
+      lastFrame: 433
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -4409,8 +4409,8 @@ ModelImporter:
     - serializedVersion: 16
       name: Charge Shockwave
       takeName: Armature|ArmatureAction
-      firstFrame: 320
-      lastFrame: 340
+      firstFrame: 440
+      lastFrame: 459
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -4639,8 +4639,8 @@ ModelImporter:
     - serializedVersion: 16
       name: Do Shockwave
       takeName: Armature|ArmatureAction
-      firstFrame: 339
-      lastFrame: 340
+      firstFrame: 456
+      lastFrame: 458
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -4869,8 +4869,8 @@ ModelImporter:
     - serializedVersion: 16
       name: Do Tracking Missiles
       takeName: Armature|ArmatureAction
-      firstFrame: 158
-      lastFrame: 164
+      firstFrame: 391
+      lastFrame: 408
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
