@@ -19,10 +19,11 @@ public class KameAttack : Attack {
 	float timerCleanTrail = 0f;
 	private Vector3 startPosition;
 	private Vector3 closestPlanetCenter;
+	private bool isCharged = false;
 
 	private int objectsCollided = 0;
 	public override void initialize(){
-		
+
 	}
 
 	public override void enemyCollisionEnter(GameObject enemy){
@@ -42,9 +43,9 @@ public class KameAttack : Attack {
 
 	}
 
-	private IEnumerator resetTrail(){
+	private IEnumerator resetTrails(){
 		TrailRenderer tr = kameEffect.GetComponent<TrailRenderer>();
-		TrailRenderer[] renderers = GetComponentsInChildren<TrailRenderer> ();
+		TrailRenderer[] renderers = kameEffect.GetComponentsInChildren<TrailRenderer> ();
 		float[] tempoTimes = new float[renderers.Length];
 		float tmp = tr.time;
 		tr.time = -1;
@@ -52,7 +53,7 @@ public class KameAttack : Attack {
 			tempoTimes[i] = renderers[i].time;
 			renderers[i].time = -1;
 		}
-		yield return null;
+		yield return new WaitForEndOfFrame();
 		
 		for(int i = 0;i<renderers.Length;++i){
 			renderers[i].time = tempoTimes[i];
@@ -64,25 +65,39 @@ public class KameAttack : Attack {
 	}
 
 	private IEnumerator makeKameTrail(){
+		timer = 0f;
+		StartCoroutine ("resetTrails");
 		while(timer<totalTimeLasts){
 			timer+=Time.deltaTime;
 			float ratio = (timer)/totalTimeLasts;
 			float magnitude = ratio * distance;
 			
-			Vector3 newPostion =kameEffect.transform.position + (kameEffect.transform.forward * distance * Time.deltaTime) ;
+			Vector3 newPostion = kameEffect.transform.position + (kameEffect.transform.forward * distance * Time.deltaTime) ;
 			kameEffect.transform.position = newPostion;
 			
 			//We rotate the object
 			Vector3 objectiveUp = (kameEffect.transform.position - closestPlanetCenter);
 			objectiveUp = new Vector3(objectiveUp.x,objectiveUp.y,0f).normalized;
 			Vector3 objectUp = new Vector3(kameEffect.transform.up.x,kameEffect.transform.up.y,0f).normalized;
-			
 			kameEffect.transform.rotation = Quaternion.FromToRotation (objectUp, objectiveUp) *kameEffect.transform.rotation;
+
+
+			yield return null;
+		}
+	}
+
+	private IEnumerator chargeKame(){
+		timer = 0f;
+		while(timer<chargeTime && !isCharged){
+			timer+=Time.deltaTime;
+			kameCore.transform.position = GameManager.lightGemObject.transform.position;
+			kameEffect.transform.position = GameManager.lightGemObject.transform.position;
 			yield return null;
 		}
 	}
 
 	private IEnumerator cleanKameTrail(){
+		timerCleanTrail = 0f;
 		while(timerCleanTrail<timeToDisappear){
 			timerCleanTrail+=Time.deltaTime;
 			float ratio = timerCleanTrail/timeToDisappear;
@@ -104,7 +119,8 @@ public class KameAttack : Attack {
 			}
 		}
 		isFinished = false; 
-		kameEffect.SetActive (true);
+		//kameEffect.SetActive (true);
+		kameEffect.SetActive (false);
 		kameCore.SetActive (true);
 		kameCore.GetComponent<ParticleSystem>().Play();
 		startPosition = ((GameManager.player.GetComponent<Rigidbody> ().worldCenterOfMass + (GameManager.player.transform.up * 0.15f))) + (kameEffect.transform.forward * 0.4f);
@@ -114,18 +130,22 @@ public class KameAttack : Attack {
 		timer = 0f;
 		objectsCollided = 0;
 		GameManager.playerAnimator.SetTrigger("isChargingKame");
+		isCharged = false;
+
 	}
 
 
 
 	IEnumerator doKame(){
 		initializeVariables ();
+		StartCoroutine ("chargeKame");
 
 		yield return new WaitForSeconds (chargeTime);
-
+		isCharged = true;
 		GameManager.playerAnimator.SetBool("isDoingKame",true);
-		timer = 0f;
-		StartCoroutine ("resetTrail");
+		kameEffect.SetActive (true);
+		//We set the trail farther away because a few fotograms will be cut when we clean the trail
+		kameEffect.transform.position = GameManager.lightGemObject.transform.position - (kameEffect.transform.forward * distance * Time.deltaTime * 2f);
 		StartCoroutine ("makeKameTrail");
 
 		yield return new WaitForSeconds (totalTimeLasts);
@@ -134,7 +154,6 @@ public class KameAttack : Attack {
 		kameCore.GetComponent<ParticleSystem>().Stop();
 
 		isFinished = true;
-		timerCleanTrail = 0f;
 		StartCoroutine ("cleanKameTrail");
 		yield return new WaitForSeconds (timeToDisappear);
 		if(isFinished){

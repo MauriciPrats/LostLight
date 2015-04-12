@@ -41,8 +41,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightPointsCost: 0
   positionInFrontPlayer: .5
-  timeToActivate: 0
-  timeToDeactivate: .600000024
+  timeToActivate: .400000006
+  timeToDeactivate: .75
   damage: 1
 --- !u!1001 &100100000
 Prefab:

@@ -29,7 +29,6 @@ public class CharacterAttackController : MonoBehaviour {
 	private Block block;
 	private Dash dash;
 	
-	
 	// Initialization
 	void Start () {
 		attackMissiles = (GameObject.Instantiate(attackMissilesGO) as GameObject).GetComponent<Attack> ();

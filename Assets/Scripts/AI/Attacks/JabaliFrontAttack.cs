@@ -17,7 +17,6 @@ public class JabaliFrontAttack : AIAttack {
 	private bool isDoingAttack = false;
 	private float chargeAttackTimer = 0f;
 	private Animator iaAnimator;
-
 	private bool isPlayerInsideAttack = false;
 
 	void Start(){
@@ -47,13 +46,11 @@ public class JabaliFrontAttack : AIAttack {
 		}else if(isDoingAttack){
 			attack();
 		}
-
 	}
 	
 	public override bool isAttackFinished(){
 		return !isAttacking;
 	}
-
 
 	private void chargeAttack(){
 		isInterruptableNow = true;
@@ -93,7 +90,6 @@ public class JabaliFrontAttack : AIAttack {
 	}
 
 	public override void interruptAttack(){
-		Debug.Log ("interrupted");
 		if(isInterruptableNow){
 			isChargingAttack = false;
 			isAttacking = false;
@@ -107,6 +103,5 @@ public class JabaliFrontAttack : AIAttack {
 			isInterruptableNow = false;
 		}
 	}
-
 
 }

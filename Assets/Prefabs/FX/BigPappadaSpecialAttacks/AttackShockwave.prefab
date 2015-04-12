@@ -188,7 +188,7 @@ MonoBehaviour:
   startChargeScale: 1
   damageAmmount: 1
   forceExplosion: 750
-  timeToCharge: .800000012
+  timeToCharge: .600000024
 --- !u!135 &13531314
 SphereCollider:
   m_ObjectHideFlags: 1

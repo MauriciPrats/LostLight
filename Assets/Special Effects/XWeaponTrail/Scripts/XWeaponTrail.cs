@@ -105,6 +105,7 @@ namespace Xft
             InitSpline();
 
             mInited = true;
+			Activate ();
         }
 
         public void Activate()
@@ -404,8 +405,7 @@ namespace Xft
             mSnapshotList.Add(new Element(PointStart.position, PointEnd.position));
             mSnapshotList.Add(new Element(PointStart.position, PointEnd.position));
         }
-
-
+	
 
         void InitMeshObj()
         {

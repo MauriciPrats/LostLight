@@ -73,8 +73,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24b41deab4141f444a2d15ddb3d26b85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToGrow: .200000003
-  maxScaleToGrow: .800000012
+  timeToGrow: .400000006
+  maxScaleToGrow: 1
 --- !u!135 &13575726
 SphereCollider:
   m_ObjectHideFlags: 1

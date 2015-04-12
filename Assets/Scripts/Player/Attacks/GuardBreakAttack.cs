@@ -17,7 +17,7 @@ public class GuardBreakAttack : Attack {
 	public override void initialize() {
 		weapon = GameManager.player.GetComponent<PlayerController> ().weapon;
 		weaponEffects = weapon.GetComponentInChildren<Xft.XWeaponTrail>();
-		weaponEffects.StopSmoothly(0.1f);
+		//weaponEffects.StopSmoothly(0.1f);
 	}
 
 	protected override void update(){

@@ -87,7 +87,6 @@ public class IAController : MonoBehaviour {
 			RaycastHit hit;
 			if (Physics.Raycast(GetComponent<Rigidbody>().worldCenterOfMass,playerDirection, out hit, minimumDistanceSeePlayer,layersToFindCollision))
 			{
-
 				Collider target = hit.collider; // What did I hit?
 				if(target.tag == "Player"){ 
 					return true;

@@ -17,7 +17,7 @@ public class ComboAttack : Attack {
 		stick = GameManager.player.GetComponent<PlayerController>().weapon.GetComponentInChildren<Collider>();
 		attackCollider = GameManager.player.GetComponent<PlayerController>().weapon.GetComponentInChildren<AttackCollider>();
 		weaponEffects = GameManager.player.GetComponent<PlayerController>().weapon.GetComponentInChildren<Xft.XWeaponTrail>();
-		weaponEffects.StopSmoothly(0.1f);
+		//weaponEffects.StopSmoothly(0.1f);
 	}
 	
 	public override void enemyCollisionEnter(GameObject enemy) {
@@ -70,7 +70,7 @@ public class ComboAttack : Attack {
 	}
 
 	public void enableHitbox() {
-		print ("itboxo enabled");
+		//print ("itboxo enabled");
 		stick.enabled = true;
 	}
 	
@@ -91,7 +91,7 @@ public class ComboAttack : Attack {
 		GameManager.playerAnimator.ResetTrigger("doComboAttack");
 		attackCollider.attack = null;
 		stick.enabled = false;
-		print ("combo ended");
+		//print ("combo ended");
 	}
 	
 	public override bool isAttackFinished(){

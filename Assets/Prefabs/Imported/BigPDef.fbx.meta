@@ -4870,7 +4870,7 @@ ModelImporter:
       name: Do Tracking Missiles
       takeName: Armature|ArmatureAction
       firstFrame: 391
-      lastFrame: 408
+      lastFrame: 413
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

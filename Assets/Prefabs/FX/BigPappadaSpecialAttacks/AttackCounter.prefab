@@ -42,8 +42,8 @@ MonoBehaviour:
   lightPointsCost: 0
   damage: 1
   positionInFrontPlayer: .5
-  timeToActivate: .400000006
-  timeToDeactivate: .75
+  timeToActivate: .100000001
+  timeToDeactivate: .600000024
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

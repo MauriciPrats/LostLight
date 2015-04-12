@@ -321,7 +321,7 @@ AnimatorStateTransition:
   m_TransitionOffset: 0
   m_ExitTime: .899999976
   m_HasExitTime: 0
-  m_InterruptionSource: 2
+  m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
 --- !u!1101 &110139787
@@ -475,11 +475,11 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: .0121693062
+  m_TransitionDuration: .0114864232
   m_TransitionOffset: 0
-  m_ExitTime: 2.1439468e-09
+  m_ExitTime: .0157353058
   m_HasExitTime: 0
-  m_InterruptionSource: 2
+  m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
 --- !u!1101 &110152734
@@ -891,7 +891,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: .187500015
+  m_TransitionDuration: .1497982
   m_TransitionOffset: 0
   m_ExitTime: .0025511554
   m_HasExitTime: 0
@@ -1253,7 +1253,7 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_Motion: {fileID: 7400020, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+  m_Motion: {fileID: 7400044, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
   m_Tag: 
 --- !u!1102 &110234364
 AnimatorState:
@@ -1432,7 +1432,7 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_Motion: {fileID: 7400044, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+  m_Motion: {fileID: 7400020, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
   m_Tag: 
 --- !u!1102 &110280888
 AnimatorState:
@@ -1549,7 +1549,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Tracking Missiles Attack
-  m_Speed: 21
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 110139652}

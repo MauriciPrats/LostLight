@@ -85,7 +85,7 @@ public class WalkOnMultiplePaths : MonoBehaviour {
 	public float getClosestEnemyInFront(){
 		float closestEnemyDistance = float.PositiveInfinity;
 		foreach(GameObject enemyClose in closeOtherEnemies){
-			if((ia.getIsLookingRight() && Util.isARightToB(enemyClose,gameObject)) ||
+			if(((ia.getIsLookingRight()) && Util.isARightToB(enemyClose,gameObject)) ||
 			   (!ia.getIsLookingRight() && !Util.isARightToB(enemyClose,gameObject))){
 				if(enemyClose!=null){
 					WalkOnMultiplePaths womp = enemyClose.GetComponent<WalkOnMultiplePaths>();

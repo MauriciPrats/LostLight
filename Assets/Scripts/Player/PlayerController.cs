@@ -71,7 +71,14 @@ public class PlayerController : MonoBehaviour {
 		flyParticles = flyingParticles.GetComponent<ParticleSystem> ();
 
 		initializeVariables ();
-		
+		StartCoroutine ("resetWeaponTrail");	
+	}
+
+	IEnumerator resetWeaponTrail(){
+		//We reset the weapon trail because otherwise it will come out of big P original position in space
+		//weapon.GetComponentInChildren<Xft.XWeaponTrail> ().Activate ();
+		yield return new WaitForSeconds(1f);
+		weapon.GetComponentInChildren<Xft.XWeaponTrail> ().Deactivate ();
 	}
 
 	private void initializeVariables(){
