@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Killable : MonoBehaviour {
+public class Killable:MonoBehaviour {
 
 	public int HP = 3;
 
@@ -13,12 +13,7 @@ public class Killable : MonoBehaviour {
 
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-	
-	public void Damage (int AttackPoints) {
+	public void TakeDamage (int AttackPoints) {
 		
 		HP -= AttackPoints;
 		

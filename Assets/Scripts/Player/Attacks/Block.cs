@@ -26,7 +26,11 @@ public class Block : MonoBehaviour {
 		cooldownFinished = false;
 		for (float radius = initialRadius; radius >=0;){
 			float previousRadius = gameObject.transform.localScale.x;
-			radius = previousRadius - (radiusLostOnDiff*Time.deltaTime);
+			if (GameManager.player.GetComponent<PlayerController>().isHit () ){
+				radius = previousRadius - (radiusLostOnHit*Time.deltaTime);
+			} else {
+				radius = previousRadius - (radiusLostOnDiff*Time.deltaTime);
+			}
 			if (radius < 0) {
 				this.enabled = false;
 			} else {
