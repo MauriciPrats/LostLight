@@ -63,7 +63,7 @@ public class InputController : MonoBehaviour {
 			}
 
 			//BLOCK BUTTON
-			if (Input.GetButton("Block")){
+			if (Input.GetButton("Block") && isCharacterAllowedToBlock()){
 				attackController.doBlock();
 			}
 
@@ -195,7 +195,16 @@ public class InputController : MonoBehaviour {
 	bool isCharacterAllowedToDash(){
 		if(attackController.isDoingAnyAttack()){
 			return false;
-		}if(attackController.isDoingDash() || attackController.isDashOnCooldown()){
+		}else if(attackController.isDoingDash() || attackController.isDashOnCooldown()){
+			return false;
+		}
+		return true;
+	}
+
+	bool isCharacterAllowedToBlock(){
+		if (attackController.isDoingAnyAttack ()) {
+			return false;
+		}else if (attackController.isDoingBlock () || attackController.isBlockOnCooldown ()) {
 			return false;
 		}
 		return true;

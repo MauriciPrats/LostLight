@@ -12,7 +12,16 @@ public class Block : MonoBehaviour {
 	private bool isDoingBlock = false;
 	private GameObject block;
 
+	public bool getIsDoingBlock() {
+		return isDoingBlock;
+	}
+
+	public bool isCooldownFinished() {
+		return cooldownFinished;
+	}
+
 	IEnumerator doBlock(){
+
 		isDoingBlock = true;
 		cooldownFinished = false;
 		for (float radius = initialRadius; radius >=0;){
@@ -22,10 +31,12 @@ public class Block : MonoBehaviour {
 				this.enabled = false;
 			} else {
 				gameObject.transform.localScale = new Vector3(radius,radius,radius);
-				//TODO: modificar la posicion del escudo en el eje de las Y para que siempre este centrado en el jugador. 
 			}
 			yield return null;
 		}
+		isDoingBlock = false;
+		yield return new WaitForSeconds (blockCooldown);
+		cooldownFinished = true;
 	}
 
 	public void StartBlock() {
