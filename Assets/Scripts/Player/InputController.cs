@@ -136,11 +136,11 @@ public class InputController : MonoBehaviour {
 			}
 
 			//BLOCK BUTTON
-			if(Input.GetButton("Block") && isSpaceJumpCharged){
+			/*if(Input.GetButton("Block") && isSpaceJumpCharged){
 				CancelChargingSpaceJump();
 			}else if(Input.GetButton("Block") && isCharacterAllowedToDash()){
 				attackController.doDash();
-			}
+			}*/
 
 			if (Input.GetButton("Block")) {
 				Interactuable entity = EntityManager.getClosestInteractuable();

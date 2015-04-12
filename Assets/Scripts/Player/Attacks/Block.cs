@@ -17,20 +17,21 @@ public class Block : MonoBehaviour {
 		cooldownFinished = false;
 		for (float radius = initialRadius; radius >=0;){
 			float previousRadius = gameObject.transform.localScale.x;
-			radius = previousRadius - radiusLostOnDiff;
+			radius = previousRadius - (radiusLostOnDiff*Time.deltaTime);
 			if (radius < 0) {
 				this.enabled = false;
 			} else {
 				gameObject.transform.localScale = new Vector3(radius,radius,radius);
 				//TODO: modificar la posicion del escudo en el eje de las Y para que siempre este centrado en el jugador. 
 			}
-			yield return new WaitForSeconds(0.05f);
+			yield return null;
 		}
 	}
 
 	public void StartBlock() {
+		this.transform.position = GameManager.player.GetComponent<Rigidbody> ().worldCenterOfMass;
 		this.transform.parent = GameManager.player.transform;
-		this.transform.localPosition = new Vector3(0,0,0);
+
 		this.transform.localScale = new Vector3 (initialRadius, initialRadius, initialRadius);
 		this.enabled = true;
 		StartCoroutine ("doBlock");
