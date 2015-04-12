@@ -73,6 +73,14 @@ public class CharacterAttackController : MonoBehaviour {
 		return !dash.isCooldownFinished ();
 	}
 
+	public bool isDoingBlock(){
+		return block.getIsDoingBlock();
+	}
+
+	public bool isBlockOnCooldown(){
+		return !block.isCooldownFinished ();
+	}
+
 	public void doDash(){
 		if(dash.isCooldownFinished()){
 			dash.startAction();

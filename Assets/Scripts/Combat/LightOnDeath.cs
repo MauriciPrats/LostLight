@@ -55,7 +55,7 @@ public class LightOnDeath : MonoBehaviour {
 	public void getHurt(int hurtAmmount){
 		//Play hurt effects
 		Debug.Log ("Hurt");
-		GetComponent<Killable> ().Damage (hurtAmmount);
+		GetComponent<Killable> ().TakeDamage (hurtAmmount);
 		if(GetComponent<Killable>().isDead()){
 			//Play on death effects and despawn
 			Debug.Log("Dead");
