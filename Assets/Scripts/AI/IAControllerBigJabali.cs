@@ -55,7 +55,7 @@ public class IAControllerBigJabali : IAController {
 	}
 
 	protected override void idleWalking(){
-		if(!isDoingAttack){
+		if(!attackController.isDoingAnyAttack()){
 			timeWalkingDirectionIdle += Time.deltaTime;
 			if(timeWalkingDirectionIdle>timePatroling || isBlockedBySomethingInFront){
 				isWalkingRight = !isWalkingRight;

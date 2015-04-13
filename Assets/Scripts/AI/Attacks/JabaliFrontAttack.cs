@@ -12,7 +12,6 @@ public class JabaliFrontAttack : Attack {
 
 
 	private float attackTimer = 0f;
-	private bool isAttacking = false;
 	private bool isChargingAttack = false;
 	private bool isDoingAttack = false;
 	private float chargeAttackTimer = 0f;
@@ -39,7 +38,7 @@ public class JabaliFrontAttack : Attack {
 
 	public override void startAttack(){
 		isChargingAttack = true;
-		isAttacking = true;
+		isFinished = false;
 	}
 
 	protected override void update(){
@@ -48,10 +47,6 @@ public class JabaliFrontAttack : Attack {
 		}else if(isDoingAttack){
 			attack();
 		}
-	}
-	
-	public override bool isAttackFinished(){
-		return !isAttacking;
 	}
 
 	private void chargeAttack(){
@@ -73,7 +68,7 @@ public class JabaliFrontAttack : Attack {
 		attackTimer+=Time.deltaTime;
 		if(attackTimer>=attackDuration){
 			particlesAttack.GetComponent<ParticleSystem>().Stop();
-			isAttacking = false;
+			isFinished = true;
 			isDoingAttack = false;
 			chargeAttackTimer = 0f;
 			attackTimer = 0f;
@@ -85,7 +80,6 @@ public class JabaliFrontAttack : Attack {
 	}
 
 	private void attackEffect(){
-		isAttacking = false;
 		if(isPlayerInsideAttack){
 			GameManager.player.GetComponent<PlayerController>().getHurt(damage);
 		}
@@ -94,11 +88,10 @@ public class JabaliFrontAttack : Attack {
 	public override void interruptAttack(){
 		if(isInterruptable){
 			isChargingAttack = false;
-			isAttacking = false;
+			isFinished = true;
 			iaAnimator.SetBool("isDoingAttack",false);
 			iaAnimator.SetBool("isChargingAttack",false);
 			particlesChargeAttack.GetComponent<ParticleSystem>().Stop();
-			isAttacking = false;
 			isDoingAttack = false;
 			chargeAttackTimer = 0f;
 			attackTimer = 0f;

@@ -15,7 +15,6 @@ public class JabaliChargeAttack : Attack {
 
 	private GameObject parent;
 	private float attackTimer = 0f;
-	private bool isAttacking = false;
 	private bool isChargingAttack = false;
 	private bool isDoingAttack = false;
 	private float chargeAttackTimer = 0f;
@@ -54,7 +53,7 @@ public class JabaliChargeAttack : Attack {
 		}else{
 			direction = -1f;
 		}
-		isAttacking = true;
+		isFinished = false;
 		StartCoroutine ("attack");
 	}
 
@@ -83,13 +82,9 @@ public class JabaliChargeAttack : Attack {
 		yield return new WaitForSeconds(timeItLastsCharge);
 		whileChargingParticles.SetActive (false);
 		iaAnimator.SetBool("isDoingChargeAttack",false);
-		isAttacking = false;
+		isFinished = true;
 		parent.GetComponent<CharacterController> ().speed = originalSpeed;
 		GetComponent<Collider> ().enabled = false;
-	}
-
-	public override bool isAttackFinished(){
-		return !isAttacking;
 	}
 
 	
