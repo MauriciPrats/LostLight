@@ -17076,13 +17076,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec06a48d6e79c1545b627c9608862dbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackMissilesGO: {fileID: 132678, guid: 6abace219e3a76d4c8c33167cba5ec6b, type: 2}
-  attackKameGO: {fileID: 103610, guid: e1610933011bf384babb0feea97e3b60, type: 2}
-  attackShockwaveGO: {fileID: 107160, guid: 68d4de2056c78114a927b185fd06c13a, type: 2}
-  attackGuardBreakerGO: {fileID: 130282, guid: a097d3410e7e93e41a0ee6e6d7612e32, type: 2}
-  attackOnAirGO: {fileID: 108746, guid: e76d15d659543584ea1be9379b301ba7, type: 2}
-  attackComboGO: {fileID: 100000, guid: 3dae2ed6c0672064b8a64a3ab5285182, type: 2}
-  attackCounterGO: {fileID: 158534, guid: 23d72b2cf72e2b1439f1621a19d01541, type: 2}
+  attacksGO:
+  - {fileID: 100000, guid: 3dae2ed6c0672064b8a64a3ab5285182, type: 2}
+  - {fileID: 158534, guid: 23d72b2cf72e2b1439f1621a19d01541, type: 2}
+  - {fileID: 130282, guid: a097d3410e7e93e41a0ee6e6d7612e32, type: 2}
+  - {fileID: 132678, guid: 6abace219e3a76d4c8c33167cba5ec6b, type: 2}
+  - {fileID: 103610, guid: e1610933011bf384babb0feea97e3b60, type: 2}
+  - {fileID: 107160, guid: 68d4de2056c78114a927b185fd06c13a, type: 2}
+  - {fileID: 108746, guid: e76d15d659543584ea1be9379b301ba7, type: 2}
   blockGO: {fileID: 164580, guid: 1a9c03b514fb9274eb4ff95fde96889d, type: 2}
   dashGO: {fileID: 195346, guid: 799bc3aad3ac1c44f82cb2951d09e130, type: 2}
 --- !u!114 &1294720935

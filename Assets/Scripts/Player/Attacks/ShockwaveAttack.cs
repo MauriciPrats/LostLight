@@ -9,7 +9,6 @@ public class ShockwaveAttack : Attack {
 	public float timeItDoesAttack = 0.8f;
 	public float endScaleOfAttack = 4f;
 	public float startChargeScale = 1f;
-	public int damageAmmount = 2;
 	public float forceExplosion = 5f;
 	public float timeToCharge = 0.8f;
 
@@ -17,7 +16,7 @@ public class ShockwaveAttack : Attack {
 
 	public override void enemyCollisionEnter(GameObject enemy){
 		//If it's an enemy we damage him
-		enemy.GetComponent<IAController>().getHurt(damageAmmount,enemy.transform.position);
+		enemy.GetComponent<IAController>().getHurt(damage,enemy.transform.position);
 		//We find the radius of areaEffect
 		float radius = areaEffect.GetComponent<SphereCollider> ().radius * endScaleOfAttack;
 		Vector3 position = areaEffect.transform.position;
@@ -27,7 +26,7 @@ public class ShockwaveAttack : Attack {
 	}
 
 	public override void initialize(){
-		
+		attackType = AttackType.Shockwave;
 	}
 	
 	protected override void update(){

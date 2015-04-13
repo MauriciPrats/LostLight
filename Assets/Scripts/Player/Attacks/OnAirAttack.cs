@@ -4,16 +4,16 @@ using System.Collections;
 public class OnAirAttack : Attack {
 	
 	public GameObject triggerBox;
-	public int ammountOfDamage = 1;
 	public float positionInFrontPlayer = 0.5f;
 	// Use this for initialization
-	void Start () {
-	
+
+	public override void initialize(){
+		attackType = AttackType.OnAir;
 	}
 
 	public override void enemyCollisionEnter(GameObject enemy){
 		//If it's an enemy we damage him
-		enemy.GetComponent<IAController>().getHurt(ammountOfDamage,enemy.transform.position);
+		enemy.GetComponent<IAController>().getHurt(damage,enemy.transform.position);
 		GameManager.comboManager.addCombo ();
 	}
 	

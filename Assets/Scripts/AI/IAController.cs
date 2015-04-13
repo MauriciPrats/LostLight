@@ -42,7 +42,7 @@ public class IAController : MonoBehaviour {
 	protected CharacterController characterController;
 	protected Animator iaAnimator;
 	protected WalkOnMultiplePaths walkOnMultiplePaths;
-	protected AIAttack actualAttack;
+	protected CharacterAttackController attackController;
 	protected GameObject player;
 
 	//State of the AI
@@ -56,8 +56,10 @@ public class IAController : MonoBehaviour {
 
 	private GameObject[] hitParticles;
 
+	private bool hasBeenInitialized = false;
 	// Use this for initialization
 	void Start () {
+		attackController = GetComponent<CharacterAttackController> ();
 		isOnGuard = false;
 		iaAnimator = GetComponentInChildren<Animator> ();
 		player = GameManager.player;
@@ -79,6 +81,10 @@ public class IAController : MonoBehaviour {
 		foreach (GameObject particles in hitParticles) {
 			particles.transform.parent = gameObject.transform;
 		}
+	}
+
+	protected virtual void initialize(){
+
 	}
 
 	private bool canSeePlayer(){
@@ -172,6 +178,10 @@ public class IAController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		if(!hasBeenInitialized){
+			initialize();
+			hasBeenInitialized = true;
+		}
 		updateTimers ();
 		if (isDead) {
 			timeHasBeenDead+=Time.deltaTime;
@@ -273,14 +283,16 @@ public class IAController : MonoBehaviour {
 	}
 
 	public void interruptAttack(){
-		if(actualAttack!=null && isDoingAttack){
-			actualAttack.interruptAttack();
-		}
+		attackController.interruptActualAttacks ();
 	}
 
 
 	public void breakGuard(){
 
+	}
+
+	public Animator getIAAnimator(){
+		return iaAnimator;
 	}
 
 }

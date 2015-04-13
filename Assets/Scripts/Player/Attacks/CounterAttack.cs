@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class CounterAttack : Attack {
-	public int damage = 1;
 	public float positionInFrontPlayer = 0.5f;
 	public float timeToActivate = 0.1f;
 	public float timeToDeactivate = 0.4f;
@@ -17,6 +16,7 @@ public class CounterAttack : Attack {
 	private bool hasHitEnemy;
 
 	public override void initialize() {
+		attackType = AttackType.CounterAttack;
 		weapon = GameManager.player.GetComponent<PlayerController> ().weapon;
 		weaponEffects = weapon.GetComponentInChildren<Xft.XWeaponTrail>();
 	}

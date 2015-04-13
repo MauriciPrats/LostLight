@@ -3,16 +3,21 @@ using System.Collections;
 
 public class IAControllerBigJabali : IAController {
 
+	public AttackType attack1;
 	public float chargeChance = 0.2f;
 	public float timeBetweenCheckAggresiveBehaviours = 2f;
 	private float timerBetweenAggresiveBehaviours = 0f;
 	private float timeWalkingDirectionIdle;
 
 
+	protected override void initialize(){
+		Attack attack1ToDo = attackController.getAttack(attack1);
+		attack1ToDo.informParent(gameObject);
+	}
 
 	//Called when can see the player
 	protected override void offensiveMoves(){
-		if (!isDoingAttack){
+		if (!attackController.isDoingAnyAttack()){
 			offensiveMovement();
 			timerBetweenAggresiveBehaviours += Time.deltaTime;
 			if(timerBetweenAggresiveBehaviours>= timeBetweenCheckAggresiveBehaviours){
@@ -21,12 +26,6 @@ public class IAControllerBigJabali : IAController {
 					//DoCharge
 					doCharge();
 				}
-			}
-		}else{
-			if(actualAttack.isAttackFinished()){
-				isDoingAttack = false;
-			}else{
-				actualAttack.doAttack();
 			}
 		}
 		//Random between slowly approach and charge
@@ -47,10 +46,7 @@ public class IAControllerBigJabali : IAController {
 
 		timerBetweenAggresiveBehaviours = 0f;
 		GameObject attack = shortRangeAttacks[Random.Range(0,shortRangeAttacks.Length)];
-		AIAttack bAttack = attack.GetComponent<AIAttack>();
-		isDoingAttack = true;
-		actualAttack = bAttack;
-		actualAttack.startAttack();
+		attackController.doAttack (attack1);
 
 	}
 	

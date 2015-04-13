@@ -11,7 +11,6 @@ public class KameAttack : Attack {
 	public float chargeTime = 0.6f;
 	public float distance = 5f;
 	public float forceExplosion = 10f;
-	public int damageAmmount = 1;
 
 	public float maxWidthKame = 0.2f;
 
@@ -23,12 +22,12 @@ public class KameAttack : Attack {
 
 	private int objectsCollided = 0;
 	public override void initialize(){
-
+		attackType = AttackType.Kame;
 	}
 
 	public override void enemyCollisionEnter(GameObject enemy){
 		//If it's an enemy we damage him
-		enemy.GetComponent<IAController>().getHurt(damageAmmount,(kameEffect.transform.position+enemy.transform.position)/2f);
+		enemy.GetComponent<IAController>().getHurt(damage,(kameEffect.transform.position+enemy.transform.position)/2f);
 		//We find the radius of areaEffect
 		enemy.GetComponent<Rigidbody>().AddExplosionForce(forceExplosion,transform.position,1f);
 		GameObject newEffect = GameObject.Instantiate (enemyHitEffectPrefab) as GameObject;

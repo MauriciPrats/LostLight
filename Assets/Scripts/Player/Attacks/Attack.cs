@@ -4,7 +4,11 @@ using System.Collections;
 public class Attack : MonoBehaviour {
 
 	protected bool isFinished = true;
-	public int lightPointsCost = 0;
+	public int damage = 1;
+	public int cost = 0;
+	protected bool isInterruptable;
+	protected AttackType attackType;
+
 	// Use this for initialization
 	void Start () {
 		initialize ();
@@ -27,6 +31,9 @@ public class Attack : MonoBehaviour {
 	public virtual void otherCollisionEnter(GameObject enemy){
 	}
 
+	public virtual void informParent(GameObject parentObject){
+
+	}
 
 	public virtual void initialize(){
 	}
@@ -42,6 +49,14 @@ public class Attack : MonoBehaviour {
 	}
 
 	public bool canPayAttackCost(){
-		return GameManager.lightGemEnergyManager.canDoSpecialAttack (lightPointsCost);
+		return GameManager.lightGemEnergyManager.canDoSpecialAttack (cost);
+	}
+
+	public virtual void interruptAttack(){
+		
+	}
+
+	public AttackType getAttackType(){
+		return attackType;
 	}
 }

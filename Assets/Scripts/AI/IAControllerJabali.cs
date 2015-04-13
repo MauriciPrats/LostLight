@@ -3,17 +3,17 @@ using System.Collections;
 
 public class IAControllerJabali : IAController {
 
+	public AttackType attack1;
 	private float timeWalkingDirectionIdle = 0f;
 	private float attackTimer = 0f;
 
+	protected override void initialize(){
+		Attack attack1ToDo = attackController.getAttack(attack1);
+		attack1ToDo.informParent(gameObject);
+	}
+
 	protected override void offensiveMoves(){
-		if(isDoingAttack){
-			if(actualAttack.isAttackFinished()){
-				isDoingAttack = false;
-			}else{
-				actualAttack.doAttack();
-			}
-		}else{
+		if(!attackController.isDoingAnyAttack()){
 			//Check how far away is the player
 			attackTimer += Time.deltaTime;
 			
@@ -29,12 +29,10 @@ public class IAControllerJabali : IAController {
 						//Choose the actual attack
 						if(shortRangeAttacks.Length>0){
 							GameObject attack = shortRangeAttacks[Random.Range(0,shortRangeAttacks.Length)];
-							AIAttack bAttack = attack.GetComponent<AIAttack>();
-							
-							if(GameManager.enemyAttackManager.askForNewAttack(bAttack.getAttackValue())){
-								isDoingAttack = true;
-								actualAttack = bAttack;
-								actualAttack.startAttack();
+							//AIAttack bAttack = attack.GetComponent<AIAttack>();
+							int aCost = attackController.getAttack(attack1).cost;
+							if(GameManager.enemyAttackManager.askForNewAttack(attackController.getAttack(attack1).cost)){
+								attackController.doAttack(attack1);
 							}
 						}
 					}else{

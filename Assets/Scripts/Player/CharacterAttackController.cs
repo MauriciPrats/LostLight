@@ -1,63 +1,41 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-
-public enum AttackType{Missiles,Kame,Shockwave,GuardBreaker,CounterAttack,OnAir,Combo};
+public enum AttackType{Missiles,Kame,Shockwave,GuardBreaker,CounterAttack,OnAir,Combo,JabaliFrontAttack,JabaliChargeAttack};
 
 public class CharacterAttackController : MonoBehaviour {
 
+	//Attacks
+	public GameObject[] attacksGO;
 
-	public GameObject attackMissilesGO;
-	public GameObject attackKameGO;
-	public GameObject attackShockwaveGO;
-	public GameObject attackGuardBreakerGO;
-	public GameObject attackOnAirGO;
-	public GameObject attackComboGO;
-	public GameObject attackCounterGO;
+	private List<Attack> attacksInCharacter;
 
 	public GameObject blockGO;
 	public GameObject dashGO;
-
-	private Attack attackMissiles;
-	private Attack attackKame;
-	private Attack attackShockwave;
-	private Attack attackGuardBreaker;
-	private Attack attackOnAir;
-	private Attack attackCombo;
-	private Attack attackCounter;
 
 	private Block block;
 	private Dash dash;
 	
 	// Initialization
-	void Start () {
-		attackMissiles = (GameObject.Instantiate(attackMissilesGO) as GameObject).GetComponent<Attack> ();
-		attackKame = (GameObject.Instantiate(attackKameGO) as GameObject).GetComponent<Attack> ();
-		attackShockwave = (GameObject.Instantiate(attackShockwaveGO) as GameObject).GetComponent<Attack> ();
-		attackGuardBreaker = (GameObject.Instantiate(attackGuardBreakerGO) as GameObject).GetComponent<Attack> ();
-		attackOnAir = (GameObject.Instantiate(attackOnAirGO) as GameObject).GetComponent<Attack> ();
-		attackCounter = (GameObject.Instantiate(attackCounterGO) as GameObject).GetComponent<Attack> ();
-		block = (GameObject.Instantiate (blockGO) as GameObject).GetComponent<Block> ();
-		dash = (GameObject.Instantiate(dashGO) as GameObject).GetComponent<Dash> ();
-		attackCombo = (GameObject.Instantiate(attackComboGO) as GameObject).GetComponent<Attack> ();	
+	void Awake () {
+		attacksInCharacter = new List<Attack> (0);
+		foreach(GameObject attackGO in attacksGO){
+			Attack attack = (Instantiate(attackGO) as GameObject).GetComponent<Attack>();
+			attacksInCharacter.Add(attack);
+		}
+
+		if(blockGO!=null){block = (GameObject.Instantiate (blockGO) as GameObject).GetComponent<Block> ();}
+		if(dashGO!=null){dash = (GameObject.Instantiate(dashGO) as GameObject).GetComponent<Dash> ();}
 	}
 
 	public Attack getAttack(AttackType aType){
-		if(aType.Equals(AttackType.Missiles)){
-			return attackMissiles;
-		}else if(aType.Equals(AttackType.Kame)){
-			return attackKame;
-		}else if(aType.Equals(AttackType.Shockwave)){
-			return attackShockwave;
-		}else if(aType.Equals(AttackType.GuardBreaker)){
-			return attackGuardBreaker;
-		}else if(aType.Equals(AttackType.CounterAttack)){
-			return attackCounter;
-		}else if(aType.Equals(AttackType.OnAir)){
-			return attackOnAir;
-		}else if(aType.Equals(AttackType.Combo)){
-			return attackCombo;
+		foreach(Attack attack in attacksInCharacter){
+			if(aType.Equals (attack.getAttackType())){
+				return attack;
+			}
 		}
+
 		return null;
 	}
 
@@ -92,7 +70,7 @@ public class CharacterAttackController : MonoBehaviour {
 
 		if(attackToDo!=null){
 			if(attackToDo.canPayAttackCost()){
-				GameManager.lightGemEnergyManager.substractPoints(attackToDo.lightPointsCost);
+				GameManager.lightGemEnergyManager.substractPoints(attackToDo.cost);
 				attackToDo.startAttack ();
 			}
 		}else{
@@ -105,21 +83,16 @@ public class CharacterAttackController : MonoBehaviour {
 	}
 
 	public bool isDoingAnyAttack(){
-		if(!attackMissiles.isAttackFinished()){
-			return true;
-		}else if(!attackKame.isAttackFinished()){
-			return true;
-		}else if(!attackShockwave.isAttackFinished()){
-			return true;
-		}else if(!attackGuardBreaker.isAttackFinished()){
-			return true;
-		}else if(!attackOnAir.isAttackFinished()){
-			return true;
-		}else if(!attackCombo.isAttackFinished()){
-			return true;
-		}else if(!attackCounter.isAttackFinished()){
-			return true;
+		foreach(Attack attack in attacksInCharacter){
+			if(!attack.isAttackFinished()){return true;}
 		}
+
 		return false;
+	}
+
+	public void interruptActualAttacks(){
+		foreach(Attack attack in attacksInCharacter){
+			if(!attack.isAttackFinished()){attack.interruptAttack();}
+		}
 	}
 }

@@ -8,14 +8,17 @@ public class TrackingMissilesAttack : Attack {
 	public GameObject missilePrefab;
 	public float timeToChargeAttack = 0.7f;
 	public int maxAmmountOfMissilesSpawned = 4;
-	public int damagePerMissile = 2;
 
 	public float range = 8f;
 
 	float timer = 0f;
 
+	public override void initialize(){
+		attackType = AttackType.Missiles;
+	}
+
 	public void enemyHit(GameObject enemy){
-		enemy.GetComponent<IAController>().getHurt(damagePerMissile,(enemy.transform.position));
+		enemy.GetComponent<IAController>().getHurt(damage,(enemy.transform.position));
 		GameManager.comboManager.addCombo ();
 	}
 
