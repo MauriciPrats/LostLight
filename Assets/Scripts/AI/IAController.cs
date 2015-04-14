@@ -28,9 +28,13 @@ public class IAController : MonoBehaviour {
 	public int numberOfLightsAvg = 2;
 	public float timeToChangeBehaviour = 0.1f;
 
-	//Private variables for being stunned, dying,juimping and checking things in front
+	//Private variables for being frozen, dying,juimping and checking things in front
+	private float frozenTime;
+	private float frozenTimer;
+
 	private float stunnedTime;
 	private float stunnedTimer;
+
 	private float timeToDie = 0.5f;
 	private float minimumDistanceFront = 0f;
 	private float timeToJump = 0f;
@@ -52,6 +56,7 @@ public class IAController : MonoBehaviour {
 	protected bool isDoingAttack = false;
 	protected bool isDead;
 	protected bool isOnGuard;
+	protected bool isFrozen;
 	protected bool isStunned;
 
 	private GameObject[] hitParticles;
@@ -190,6 +195,12 @@ public class IAController : MonoBehaviour {
 				Destroy(gameObject);
 			}
 		}else{
+			if(isFrozen){
+				frozenTimer+=Time.deltaTime;
+				if(frozenTimer>=frozenTime){
+					isFrozen = false;
+				}
+			}
 			if(isStunned){
 				stunnedTimer+=Time.deltaTime;
 				if(stunnedTimer>=stunnedTime){
@@ -222,6 +233,12 @@ public class IAController : MonoBehaviour {
 
 	public bool getIsLookingRight(){
 		return characterController.getIsLookingRight();
+	}
+
+	public void freeze(float timeFrozen){
+		frozenTimer = 0f;
+		frozenTime = timeFrozen;
+		isFrozen = true;
 	}
 
 	public void stun(float timeStunned){

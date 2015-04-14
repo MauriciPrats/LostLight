@@ -6,6 +6,7 @@ public class Attack : MonoBehaviour {
 	protected bool isFinished = true;
 	public int damage = 1;
 	public int cost = 0;
+	public ElementType elementAttack = ElementType.None;
 	protected bool isInterruptable;
 	protected AttackType attackType;
 

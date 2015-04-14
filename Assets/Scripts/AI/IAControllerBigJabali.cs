@@ -22,7 +22,7 @@ public class IAControllerBigJabali : IAController {
 			timerBetweenAggresiveBehaviours += Time.deltaTime;
 			if(timerBetweenAggresiveBehaviours>= timeBetweenCheckAggresiveBehaviours){
 				timerBetweenAggresiveBehaviours = 0f;
-				if(Random.value<=chargeChance){
+				if(Random.value<=chargeChance && !isStunned){
 					//DoCharge
 					doCharge();
 				}
@@ -82,7 +82,7 @@ public class IAControllerBigJabali : IAController {
 		}
 		characterController.LookLeftOrRight (moveDirection);
 		
-		if(!isStunned){
+		if(!isFrozen && !isStunned){
 			walk (moveDirection);
 		}
 	}

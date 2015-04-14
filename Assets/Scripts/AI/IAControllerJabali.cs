@@ -23,7 +23,7 @@ public class IAControllerJabali : IAController {
 			if(distanceToPlayer<= minimumDistanceAttackPlayer){
 				if(attackTimer>= attackChoosingCooldown){
 					attackTimer = 0f;
-					if(Random.value<attackChance){
+					if(Random.value<attackChance && !isStunned){
 						//If we actually want to attack
 						
 						//Choose the actual attack
@@ -73,7 +73,7 @@ public class IAControllerJabali : IAController {
 		}
 		characterController.LookLeftOrRight (moveDirection);
 		
-		if(!isStunned){
+		if(!isFrozen && !isStunned){
 			walk (moveDirection);
 		}
 	}
