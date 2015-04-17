@@ -26,6 +26,8 @@ public class JabaliChargeAttack : Attack {
 
 	public override void initialize(){
 		attackType = AttackType.JabaliChargeAttack;
+		whileChargingParticles.SetActive (true);
+		whileChargingParticles.GetComponent<ParticleSystem> ().Stop ();
 	}
 
 	void OnTriggerEnter(Collider col) {
@@ -78,9 +80,10 @@ public class JabaliChargeAttack : Attack {
 		iaAnimator.SetBool("isDoingChargeAttack",true);
 		StartCoroutine ("moveStraight");
 		GetComponent<Collider> ().enabled = true;
-		whileChargingParticles.SetActive (true);
+		whileChargingParticles.GetComponent<ParticleSystem> ().Play ();
 		yield return new WaitForSeconds(timeItLastsCharge);
-		whileChargingParticles.SetActive (false);
+		//whileChargingParticles.SetActive (false);
+		whileChargingParticles.GetComponent<ParticleSystem> ().Stop ();
 		iaAnimator.SetBool("isDoingChargeAttack",false);
 		isFinished = true;
 		parent.GetComponent<CharacterController> ().speed = originalSpeed;

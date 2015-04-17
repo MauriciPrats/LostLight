@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 73a724b9e1c25b54e9522c396b887b81
 ModelImporter:
-  serializedVersion: 16
+  serializedVersion: 18
   fileIDToRecycleName:
     100000: //RootNode
     100002: arbol
@@ -1187,6 +1187,7 @@ ModelImporter:
     4300414: camino.007
     4300416: camino.006
     4300418: camino.005
+    4300420: camino.001
     4300422: camino
     4300424: Sphere.003
     4300426: camino.004
@@ -1247,11 +1248,13 @@ ModelImporter:
     generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
+    keepQuads: 0
     weldVertices: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
+    useFileScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     splitTangentsAcrossUV: 1
@@ -1274,3 +1277,5 @@ ModelImporter:
   animationType: 2
   additionalBone: 0
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -198,8 +198,8 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Time: 1
-  m_StartWidth: .100000001
-  m_EndWidth: 0
+  m_StartWidth: .0299999993
+  m_EndWidth: .0299999993
   m_Colors:
     m_Color[0]:
       serializedVersion: 2
@@ -243,8 +243,8 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Time: 1
-  m_StartWidth: .100000001
-  m_EndWidth: 0
+  m_StartWidth: .0299999993
+  m_EndWidth: .0299999993
   m_Colors:
     m_Color[0]:
       serializedVersion: 2
@@ -288,8 +288,8 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Time: 1
-  m_StartWidth: .100000001
-  m_EndWidth: 0
+  m_StartWidth: .0299999993
+  m_EndWidth: .0299999993
   m_Colors:
     m_Color[0]:
       serializedVersion: 2
@@ -333,8 +333,8 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Time: 1
-  m_StartWidth: .100000001
-  m_EndWidth: 0
+  m_StartWidth: .0299999993
+  m_EndWidth: .0299999993
   m_Colors:
     m_Color[0]:
       serializedVersion: 2
@@ -378,8 +378,8 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Time: 1
-  m_StartWidth: .100000001
-  m_EndWidth: 0
+  m_StartWidth: .0299999993
+  m_EndWidth: .0299999993
   m_Colors:
     m_Color[0]:
       serializedVersion: 2
@@ -411,11 +411,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   elementsCanJumpTo: 2
-  passes: 5
-  maxDistanceBetweenElements: 2
-  distortion: 1
-  segmentSize: 1
+  maxDistanceBetweenElements: 2.5
   speed: 20
+  timeToWaitAfterEffectFinished: .300000012
+  proportionJaggedness: .5
   trails:
   - {fileID: 118700}
   - {fileID: 162604}

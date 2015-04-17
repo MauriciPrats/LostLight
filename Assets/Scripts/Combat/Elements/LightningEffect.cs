@@ -1,16 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+
 public class LightningEffect : MonoBehaviour {
 
 	public int damage;
 	public int elementsCanJumpTo = 3;
-	public int passes = 5;
 	public float maxDistanceBetweenElements = 20f;
-
-	public float distortion = 1f;
-	public float segmentSize = 1f;
 	public float speed = 10f;
+	public float timeToWaitAfterEffectFinished = 0.3f;
+	public float proportionJaggedness = 0.8f;
 
 	public GameObject[] trails;
 
@@ -71,7 +70,8 @@ public class LightningEffect : MonoBehaviour {
 					if(Random.value>=0.5f){
 						randomUp *=-1f;
 					}
-					Vector3 movement = (direction * 0.5f * distanceToMove) + (randomUp * 0.5f * distanceToMove);
+					randomUp *= Random.value;
+					Vector3 movement = (direction * (1f-proportionJaggedness) * distanceToMove) + (randomUp * proportionJaggedness * distanceToMove);
 					trail.transform.position +=movement;
 				}
 			}
@@ -82,7 +82,7 @@ public class LightningEffect : MonoBehaviour {
 	}
 
 	IEnumerator destroyAfterTime(){
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(timeToWaitAfterEffectFinished);
 		Destroy(gameObject);
 	}
 

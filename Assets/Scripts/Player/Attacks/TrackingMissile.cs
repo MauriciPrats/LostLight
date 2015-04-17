@@ -43,7 +43,6 @@ public class TrackingMissile : MonoBehaviour {
 		speed = ((speed * 0.8f) + vectorUp).normalized;
 
 		if(!elementType.Equals(ElementType.None)){
-			Debug.Log("aaaa");
 			elementalParticleEffect.SetActive(true);
 			elementalParticleEffect.GetComponent<ParticleSystem>().Play();
 			Material material = AttackElementsManager.getElement(elementType).material;

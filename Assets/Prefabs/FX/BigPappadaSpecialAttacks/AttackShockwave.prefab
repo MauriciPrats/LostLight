@@ -241,8 +241,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  cost: 0
-  elementAttack: 3
+  cost: 3
+  elementAttack: 4
   areaEffect: {fileID: 110408}
   chargeEffect: {fileID: 115210}
   elementalParticlesOnCharge: {fileID: 117730}
