@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class ComboAttack : Attack {
+public class ComboAttack : Attack, AnimationSubscriber {
 
 	private AnimationEventBroadcast eventHandler;
 	private Collider stick;
@@ -14,6 +14,7 @@ public class ComboAttack : Attack {
 	private bool hasHitEnemy;
 	public override void initialize() {
 		eventHandler = GameManager.playerAnimator.gameObject.GetComponent<AnimationEventBroadcast>();
+		eventHandler.subscribe(this);
 		stick = GameManager.player.GetComponent<PlayerController>().weapon.GetComponentInChildren<Collider>();
 		attackCollider = GameManager.player.GetComponent<PlayerController>().weapon.GetComponentInChildren<AttackCollider>();
 		weaponEffects = GameManager.player.GetComponent<PlayerController>().weapon.GetComponentInChildren<Xft.XWeaponTrail>();
@@ -52,7 +53,7 @@ public class ComboAttack : Attack {
 			attackCollider.attack = gameObject;
 			//stick.enabled = true;
 			weaponEffects.Activate();
-			eventHandler.subscribe(this);
+
 			isFinished = false;
 			GameManager.playerAnimator.SetTrigger("doComboAttack");	
 			combosteep = 1;
@@ -70,7 +71,6 @@ public class ComboAttack : Attack {
 	}
 
 	public void enableHitbox() {
-		//print ("itboxo enabled");
 		stick.enabled = true;
 	}
 	
@@ -85,7 +85,7 @@ public class ComboAttack : Attack {
 	public void endCombo() {
 		//gameObject.GetComponent<ParticleSystem>().enableEmission = true;
 		weaponEffects.StopSmoothly(0.5f);
-		eventHandler.unsubscribe(this);
+	//	eventHandler.unsubscribe(this);
 		isComboable = false;
 		isFinished = true;
 		GameManager.playerAnimator.ResetTrigger("doComboAttack");
@@ -96,6 +96,32 @@ public class ComboAttack : Attack {
 	
 	public override bool isAttackFinished(){
 		return isFinished || isComboable;
+	}
+	
+	void AnimationSubscriber.handleEvent(string idEvent) {
+		switch (idEvent) {
+		case "start": 
+			enableHitbox();
+			break;
+		case "end":
+			dissableHitbox();
+			break;
+		case "done":
+			endCombo();
+			break;
+		case "combo":
+			allowChaining();
+			break;
+		default: 
+			
+			break;
+		}
+		
+	}
+	
+	
+	string AnimationSubscriber.subscriberName() {
+		return  "ComboAttack";	
 	}
 	
 	

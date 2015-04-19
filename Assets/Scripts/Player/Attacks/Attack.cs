@@ -3,6 +3,14 @@ using System.Collections;
 
 public class Attack : MonoBehaviour {
 
+/**
+Ciclo de vida de un ataque:
+Al inicio de la escena characterattackcontroller instancia y almacena los prefabs
+Se llaman los initialize de cada ataque
+
+*/
+
+
 	protected bool isFinished = true;
 	public int lightPointsCost = 0;
 	// Use this for initialization
