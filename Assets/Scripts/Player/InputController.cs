@@ -47,9 +47,7 @@ public class InputController : MonoBehaviour {
 			if(!attackController.isDoingDash()){
 				if (Input.GetAxis ("Horizontal")!=0f) {
 					if(isSpaceJumpCharged){
-						//character.CancelChargingSpaceJump();
 						character.MoveArrow(Input.GetAxisRaw ("Horizontal"),Input.GetAxis ("Vertical"));
-						//character.StopMove();
 					}else if(isCharacterAllowedToMove()){
 						ResetJumping ();
 						character.Move ();
@@ -60,11 +58,6 @@ public class InputController : MonoBehaviour {
 				} else {
 					character.StopMove ();
 				}
-			}
-
-			//BLOCK BUTTON
-			if (Input.GetButton("Block")){
-				attackController.doBlock();
 			}
 
 			//NORMAL ATTACK BUTTON
@@ -79,14 +72,12 @@ public class InputController : MonoBehaviour {
 						attackController.doAttack(upNormalAttack);
 					}
 				}else if(Input.GetButtonUp("Normal Attack") && Input.GetAxisRaw("Vertical")<0f){
-					//character.StartAttack();
 					if(isCharacterAllowedToDoNormalAttack()){
 						attackController.doAttack(downNormalAttack);
 					}
 				}
 			}else{
 				if (Input.GetButtonUp("Normal Attack") && isCharacterAllowedToDoNormalAttack()) {
-					//character.StartAttack();
 					attackController.doAttack(sidesNormalAttack);
 				}
 			}
@@ -96,14 +87,11 @@ public class InputController : MonoBehaviour {
 				if(Mathf.Abs(Input.GetAxisRaw("Vertical"))>Mathf.Abs(Input.GetAxisRaw("Horizontal"))){
 					if(Input.GetAxisRaw("Vertical")>0f){
 						attackController.doAttack(upSpecialAttack);
-						//GetComponent<CharacterSpecialAttackController>().doUpSpecialAttack();
 					}else if(Input.GetAxisRaw("Vertical")<0f){
 						attackController.doAttack(downSpecialAttack);
-						//GetComponent<CharacterSpecialAttackController>().doDownSpecialAttack();
 					}
 				}else{
 					attackController.doAttack(sidesSpecialAttack);
-					//GetComponent<CharacterSpecialAttackController>().doSidesSpecialAttack();
 				}
 			}
 
@@ -144,7 +132,14 @@ public class InputController : MonoBehaviour {
 
 			if (Input.GetButton("Block")) {
 				Interactuable entity = EntityManager.getClosestInteractuable();
-				if (entity != null) entity.doInteractAction();
+				if (entity != null){ entity.doInteractAction();}
+				else if (isSpaceJumpCharged){
+					CancelChargingSpaceJump();
+				}else if(Input.GetAxis("Vertical")<0f && isCharacterAllowedToBlock()){
+					attackController.doBlock();
+				}else if(isCharacterAllowedToDash()){
+					attackController.doDash();
+				}
 			}
 
 
@@ -195,7 +190,18 @@ public class InputController : MonoBehaviour {
 	bool isCharacterAllowedToDash(){
 		if(attackController.isDoingAnyAttack()){
 			return false;
-		}if(attackController.isDoingDash() || attackController.isDashOnCooldown()){
+		}else if(attackController.isDoingDash() || attackController.isDashOnCooldown()){
+			return false;
+		}else if(attackController.isDoingBlock()){
+			return false;
+		}
+		return true;
+	}
+
+	bool isCharacterAllowedToBlock(){
+		if (attackController.isDoingAnyAttack ()) {
+			return false;
+		}else if (attackController.isDoingBlock () || attackController.isBlockOnCooldown ()) {
 			return false;
 		}
 		return true;

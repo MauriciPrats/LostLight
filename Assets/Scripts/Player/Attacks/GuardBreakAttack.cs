@@ -7,7 +7,6 @@ public class GuardBreakAttack : Attack {
 	public float positionInFrontPlayer = 0.5f;
 	public float timeToActivate = 0.1f;
 	public float timeToDeactivate = 0.4f;
-	public int damage = 1;
 	private bool hasHitEnemy;
 	private GameObject weapon;
 	private List<GameObject> enemiesHit;
@@ -15,6 +14,7 @@ public class GuardBreakAttack : Attack {
 	private Xft.XWeaponTrail weaponEffects;
 
 	public override void initialize() {
+		attackType = AttackType.GuardBreaker;
 		weapon = GameManager.player.GetComponent<PlayerController> ().weapon;
 		weaponEffects = weapon.GetComponentInChildren<Xft.XWeaponTrail>();
 		//weaponEffects.StopSmoothly(0.1f);

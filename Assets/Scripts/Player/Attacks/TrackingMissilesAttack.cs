@@ -8,15 +8,26 @@ public class TrackingMissilesAttack : Attack {
 	public GameObject missilePrefab;
 	public float timeToChargeAttack = 0.7f;
 	public int maxAmmountOfMissilesSpawned = 4;
-	public int damagePerMissile = 2;
+
+	private List<GameObject> enemiesHit;
 
 	public float range = 8f;
 
 	float timer = 0f;
 
+	public override void initialize(){
+		attackType = AttackType.Missiles;
+	}
+
 	public void enemyHit(GameObject enemy){
-		enemy.GetComponent<IAController>().getHurt(damagePerMissile,(enemy.transform.position));
-		GameManager.comboManager.addCombo ();
+		if(!enemiesHit.Contains(enemy)){
+			enemiesHit.Add(enemy);
+			enemy.GetComponent<IAController>().getHurt(damage,(enemy.transform.position));
+			GameManager.comboManager.addCombo ();
+			if(!elementAttack.Equals(ElementType.None)){
+				AttackElementsManager.getElement(elementAttack).doEffect(enemy);
+			}
+		}
 	}
 
 	private void spawnMissiles(){
@@ -37,7 +48,7 @@ public class TrackingMissilesAttack : Attack {
 		for(int i = 0;i<ammountOfMissiles;++i){
 			GameObject newMissile = Instantiate(missilePrefab);
 			newMissile.transform.position = attackCharge.transform.position;
-			newMissile.GetComponent<TrackingMissile>().initialize(GameManager.player.transform.up,enemiesInRange[i],this);
+			newMissile.GetComponent<TrackingMissile>().initialize(GameManager.player.transform.up,enemiesInRange[i],this,elementAttack);
 		}
 	}
 	
@@ -63,6 +74,7 @@ public class TrackingMissilesAttack : Attack {
 	}
 
 	IEnumerator doTrackingMissilesAttack(){
+		enemiesHit = new List<GameObject> (0);
 		attackCharge.SetActive (true);
 		attackCharge.transform.position = GameManager.lightGemObject.transform.position ;
 		isFinished = false;

@@ -1,26 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class JabaliFrontAttack : AIAttack {
+public class JabaliFrontAttack : Attack {
 	
 	public float timeToChargeAttack = 0.5f;
 	public float attackDuration = 0.1f;
-	public int damage = 1;	
 	public GameObject particlesChargeAttack;
 	public GameObject particlesAttack;
 	public GameObject animator;
+	public Vector3 localPosition;
 
 
 	private float attackTimer = 0f;
-	private bool isAttacking = false;
 	private bool isChargingAttack = false;
 	private bool isDoingAttack = false;
 	private float chargeAttackTimer = 0f;
+	private GameObject parent;
 	private Animator iaAnimator;
 	private bool isPlayerInsideAttack = false;
 
-	void Start(){
-		iaAnimator = animator.GetComponent<Animator> ();
+
+	public override void initialize(){
+		attackType = AttackType.JabaliFrontAttack;
 	}
 
 	void OnTriggerEnter(Collider col) {
@@ -37,23 +38,19 @@ public class JabaliFrontAttack : AIAttack {
 
 	public override void startAttack(){
 		isChargingAttack = true;
-		isAttacking = true;
+		isFinished = false;
 	}
 
-	public override void doAttack(){
+	protected override void update(){
 		if(isChargingAttack){
 			chargeAttack();
 		}else if(isDoingAttack){
 			attack();
 		}
 	}
-	
-	public override bool isAttackFinished(){
-		return !isAttacking;
-	}
 
 	private void chargeAttack(){
-		isInterruptableNow = true;
+		isInterruptable = true;
 		chargeAttackTimer+=Time.deltaTime;
 		iaAnimator.SetBool("isChargingAttack",true);
 		particlesChargeAttack.GetComponent<ParticleSystem>().Play();
@@ -71,37 +68,43 @@ public class JabaliFrontAttack : AIAttack {
 		attackTimer+=Time.deltaTime;
 		if(attackTimer>=attackDuration){
 			particlesAttack.GetComponent<ParticleSystem>().Stop();
-			isAttacking = false;
+			isFinished = true;
 			isDoingAttack = false;
 			chargeAttackTimer = 0f;
 			attackTimer = 0f;
 			attackEffect();
 			iaAnimator.SetBool("isDoingAttack",false);
 			iaAnimator.SetBool("isChargingAttack",false);
-			isInterruptableNow = false;
+			isInterruptable = false;
 		}
 	}
 
 	private void attackEffect(){
-		isAttacking = false;
 		if(isPlayerInsideAttack){
 			GameManager.player.GetComponent<PlayerController>().getHurt(damage);
 		}
 	}
 
 	public override void interruptAttack(){
-		if(isInterruptableNow){
+		if(isInterruptable){
 			isChargingAttack = false;
-			isAttacking = false;
+			isFinished = true;
 			iaAnimator.SetBool("isDoingAttack",false);
 			iaAnimator.SetBool("isChargingAttack",false);
 			particlesChargeAttack.GetComponent<ParticleSystem>().Stop();
-			isAttacking = false;
 			isDoingAttack = false;
 			chargeAttackTimer = 0f;
 			attackTimer = 0f;
-			isInterruptableNow = false;
+			isInterruptable = false;
 		}
+	}
+
+	public override void informParent(GameObject parentObject){
+		transform.parent = parentObject.transform;
+		transform.rotation = parentObject.transform.rotation;
+		transform.localPosition = localPosition;
+		parent = parentObject;
+		iaAnimator = parent.GetComponent<IAController> ().getIAAnimator ();
 	}
 
 }

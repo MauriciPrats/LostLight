@@ -12,7 +12,12 @@ Se llaman los initialize de cada ataque
 
 
 	protected bool isFinished = true;
-	public int lightPointsCost = 0;
+	public int damage = 1;
+	public int cost = 0;
+	public ElementType elementAttack = ElementType.None;
+	protected bool isInterruptable;
+	protected AttackType attackType;
+
 	// Use this for initialization
 	void Start () {
 		initialize ();
@@ -35,6 +40,9 @@ Se llaman los initialize de cada ataque
 	public virtual void otherCollisionEnter(GameObject enemy){
 	}
 
+	public virtual void informParent(GameObject parentObject){
+
+	}
 
 	public virtual void initialize(){
 	}
@@ -50,6 +58,14 @@ Se llaman los initialize de cada ataque
 	}
 
 	public bool canPayAttackCost(){
-		return GameManager.lightGemEnergyManager.canDoSpecialAttack (lightPointsCost);
+		return GameManager.lightGemEnergyManager.canDoSpecialAttack (cost);
+	}
+
+	public virtual void interruptAttack(){
+		
+	}
+
+	public AttackType getAttackType(){
+		return attackType;
 	}
 }

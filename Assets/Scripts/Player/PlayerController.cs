@@ -38,13 +38,14 @@ public class PlayerController : MonoBehaviour {
 
 
 	private CharacterController characterController;
+	private CharacterAttackController attackController;
 	private Animator bpAnimator;
 	private SpaceGravityBody body;
 
 	private Vector3 smoothMoveVelocity;
 
 	private bool isSpaceJumping = false;
-
+	private bool gotHit = false;
 	private bool isOutsideAthmosphere;
 	private float timeHasBeenInSpace = 0f;
 	private Killable killable;
@@ -62,6 +63,7 @@ public class PlayerController : MonoBehaviour {
 		body = GetComponent<SpaceGravityBody> ();
 		killable = GetComponent<Killable> ();
 		characterController = GetComponent<CharacterController> ();
+		attackController = GetComponent<CharacterAttackController> ();
 		GameObject attack = GameObject.Find("skillAttack");
 		transform.forward = new Vector3(1f,0f,0f);
 		//OLD ATTACK
@@ -107,7 +109,6 @@ public class PlayerController : MonoBehaviour {
 
 
 	void Update() {
-
 		if(characterController.getIsJumping()){
 			if (characterController.getIsGoingUp()) {
 				bpAnimator.SetBool("isGoingUp",true);
@@ -234,18 +235,30 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void getHurt(int hitPointsToSubstract){
-		if(!isInvulnerable){
+		if (!isInvulnerable && !attackController.isDoingBlock ()) {
 			GUIManager.getHurtEffect ();
-			killable.HP -= hitPointsToSubstract;
-			pappadaC.newProportionOfLife(killable.proportionHP());
-			if(killable.HP<=0){
-				GameManager.loseGame();
+			killable.TakeDamage (hitPointsToSubstract);
+			pappadaC.newProportionOfLife (killable.proportionHP ());
+			if (killable.HP <= 0) {
+				GameManager.loseGame ();
 			}
 		}
+		StartCoroutine ("takeHit");
+
 	}
 
 	public void kill(){
 		getHurt(killable.HP);
+	}
+
+	public bool isHit() {
+		return gotHit;
+	}
+
+	IEnumerator takeHit() {
+		gotHit = true;
+		yield return new WaitForSeconds (1f);	
+		gotHit = false;
 	}
 
 	public void MoveArrow(float horizontalMove,float verticalMove){

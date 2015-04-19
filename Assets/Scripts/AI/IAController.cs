@@ -28,9 +28,13 @@ public class IAController : MonoBehaviour {
 	public int numberOfLightsAvg = 2;
 	public float timeToChangeBehaviour = 0.1f;
 
-	//Private variables for being stunned, dying,juimping and checking things in front
+	//Private variables for being frozen, dying,juimping and checking things in front
+	private float frozenTime;
+	private float frozenTimer;
+
 	private float stunnedTime;
 	private float stunnedTimer;
+
 	private float timeToDie = 0.5f;
 	private float minimumDistanceFront = 0f;
 	private float timeToJump = 0f;
@@ -42,7 +46,7 @@ public class IAController : MonoBehaviour {
 	protected CharacterController characterController;
 	protected Animator iaAnimator;
 	protected WalkOnMultiplePaths walkOnMultiplePaths;
-	protected AIAttack actualAttack;
+	protected CharacterAttackController attackController;
 	protected GameObject player;
 
 	//State of the AI
@@ -52,12 +56,15 @@ public class IAController : MonoBehaviour {
 	protected bool isDoingAttack = false;
 	protected bool isDead;
 	protected bool isOnGuard;
+	protected bool isFrozen;
 	protected bool isStunned;
 
 	private GameObject[] hitParticles;
 
+	private bool hasBeenInitialized = false;
 	// Use this for initialization
 	void Start () {
+		attackController = GetComponent<CharacterAttackController> ();
 		isOnGuard = false;
 		iaAnimator = GetComponentInChildren<Animator> ();
 		player = GameManager.player;
@@ -79,6 +86,10 @@ public class IAController : MonoBehaviour {
 		foreach (GameObject particles in hitParticles) {
 			particles.transform.parent = gameObject.transform;
 		}
+	}
+
+	protected virtual void initialize(){
+
 	}
 
 	private bool canSeePlayer(){
@@ -172,6 +183,10 @@ public class IAController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		if(!hasBeenInitialized){
+			initialize();
+			hasBeenInitialized = true;
+		}
 		updateTimers ();
 		if (isDead) {
 			timeHasBeenDead+=Time.deltaTime;
@@ -180,6 +195,12 @@ public class IAController : MonoBehaviour {
 				Destroy(gameObject);
 			}
 		}else{
+			if(isFrozen){
+				frozenTimer+=Time.deltaTime;
+				if(frozenTimer>=frozenTime){
+					isFrozen = false;
+				}
+			}
 			if(isStunned){
 				stunnedTimer+=Time.deltaTime;
 				if(stunnedTimer>=stunnedTime){
@@ -214,6 +235,12 @@ public class IAController : MonoBehaviour {
 		return characterController.getIsLookingRight();
 	}
 
+	public void freeze(float timeFrozen){
+		frozenTimer = 0f;
+		frozenTime = timeFrozen;
+		isFrozen = true;
+	}
+
 	public void stun(float timeStunned){
 		stunnedTimer = 0f;
 		stunnedTime = timeStunned;
@@ -229,7 +256,7 @@ public class IAController : MonoBehaviour {
 			particles.transform.position = hitPosition + (transform.up * 0.2f);
 		}
 		
-		GetComponent<Killable> ().Damage (hurtAmmount);
+		GetComponent<Killable> ().TakeDamage (hurtAmmount);
 		iaAnimator.SetTrigger("isHurt");
 		if(GetComponent<Killable>().isDead()){
 			//Play on death effects and despawn
@@ -273,14 +300,16 @@ public class IAController : MonoBehaviour {
 	}
 
 	public void interruptAttack(){
-		if(actualAttack!=null && isDoingAttack){
-			actualAttack.interruptAttack();
-		}
+		attackController.interruptActualAttacks ();
 	}
 
 
 	public void breakGuard(){
 
+	}
+
+	public Animator getIAAnimator(){
+		return iaAnimator;
 	}
 
 }

@@ -36,11 +36,6 @@ public class EnemySpawned : MonoBehaviour {
 	}
 
 	public void OnEnemyDead(){
-		//GetComponent<Collider>().enabled = false;
-
-		//Create light spheres
-
-		//Destroy (gameObject);
 		actionToCallOnDie (gameObject);
 	}
 

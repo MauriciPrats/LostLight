@@ -11,6 +11,8 @@ public class TrackingMissile : MonoBehaviour {
 	public float angleTimeIncrement = 0.05f;
 	public float explosionMaxScale = 1f;
 	public float timeExplode = 0.8f;
+
+	public GameObject elementalParticleEffect;
 	
 	float timeHasBeenAlive;
 	
@@ -34,11 +36,20 @@ public class TrackingMissile : MonoBehaviour {
 
 	}
 
-	public void initialize(Vector3 vectorUp,GameObject objective,TrackingMissilesAttack originalAttack){
+	public void initialize(Vector3 vectorUp,GameObject objective,TrackingMissilesAttack originalAttack,ElementType elementType){
 		this.objective = objective;
 		this.originalAttack = originalAttack;
 		speed = new Vector3 (Random.value, Random.value,0f).normalized;
 		speed = ((speed * 0.8f) + vectorUp).normalized;
+
+		if(!elementType.Equals(ElementType.None)){
+			elementalParticleEffect.SetActive(true);
+			elementalParticleEffect.GetComponent<ParticleSystem>().Play();
+			Material material = AttackElementsManager.getElement(elementType).material;
+			if(material!=null){
+				elementalParticleEffect.GetComponent<ParticleSystemRenderer >().material = material;
+			}
+		}
 	}
 	// Use this for initialization
 	void Start () {

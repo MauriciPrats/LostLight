@@ -12,7 +12,9 @@ public class ComboAttack : Attack, AnimationSubscriber {
 	
 	private List<GameObject> enemiesHit;
 	private bool hasHitEnemy;
+
 	public override void initialize() {
+		attackType = AttackType.Combo;
 		eventHandler = GameManager.playerAnimator.gameObject.GetComponent<AnimationEventBroadcast>();
 		eventHandler.subscribe(this);
 		stick = GameManager.player.GetComponent<PlayerController>().weapon.GetComponentInChildren<Collider>();

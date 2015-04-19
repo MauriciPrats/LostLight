@@ -69,12 +69,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28e130d7896152342a64b97861bce0f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightPointsCost: 3
+  damage: 1
+  cost: 3
+  elementAttack: 3
   attackCharge: {fileID: 156766}
   missilePrefab: {fileID: 187768, guid: c9fcddc3315c9e34980284b459f62ea7, type: 2}
   timeToChargeAttack: .600000024
   maxAmmountOfMissilesSpawned: 5
-  damagePerMissile: 1
   range: 5
 --- !u!198 &19832324
 ParticleSystem:

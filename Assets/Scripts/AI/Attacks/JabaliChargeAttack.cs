@@ -1,19 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class JabaliChargeAttack : AIAttack {
+public class JabaliChargeAttack : Attack {
 
-	
-	public float timeToChargeAttack = 0.5f;
-	public float attackDuration = 0.1f;
+
 	public float timeItLastsCharge = 6f;
-	public int damage = 1;	
-	public GameObject animator;
 	public float chargeSpeed = 6f;
-	public GameObject enemy;
+	public float velocityAppliedToPlayer = 2f;
+	public float velocityAppliedToEnemy = 2f;
+	public float timeBeforeCharge = 2f;
+	public Vector3 localPosition;
+	public GameObject chargeParticles;
+	public GameObject whileChargingParticles;
 
+	private GameObject parent;
 	private float attackTimer = 0f;
-	private bool isAttacking = false;
 	private bool isChargingAttack = false;
 	private bool isDoingAttack = false;
 	private float chargeAttackTimer = 0f;
@@ -23,39 +24,38 @@ public class JabaliChargeAttack : AIAttack {
 	
 	private bool isPlayerInsideAttack = false;
 
+	public override void initialize(){
+		attackType = AttackType.JabaliChargeAttack;
+		whileChargingParticles.SetActive (true);
+		whileChargingParticles.GetComponent<ParticleSystem> ().Stop ();
+	}
+
 	void OnTriggerEnter(Collider col) {
 		if(col.tag == "Player"){
-			GameManager.player.GetComponent<Rigidbody>().AddForce(col.gameObject.transform.up * 8f,ForceMode.Impulse);
-			GameManager.player.GetComponent<PlayerController>().getHurt(1);
+			GameManager.player.GetComponent<Rigidbody>().velocity = GameManager.player.transform.up * velocityAppliedToPlayer;
+			GameManager.player.GetComponent<PlayerController>().getHurt(damage);
 		}else if(col.gameObject.tag == "Enemy"){
-			col.gameObject.GetComponent<Rigidbody>().AddForce(col.gameObject.transform.up * 20f,ForceMode.Impulse);
+			col.gameObject.GetComponent<Rigidbody>().velocity = col.gameObject.transform.up * velocityAppliedToEnemy;
 		}
 	}
 	
 	void OnCollisionEnter(Collision col) {
 		if(col.gameObject.tag == "Player"){
-			GameManager.player.GetComponent<Rigidbody>().AddForce(col.gameObject.transform.up * 8f,ForceMode.Impulse);
-			GameManager.player.GetComponent<PlayerController>().getHurt(1);
+			GameManager.player.GetComponent<Rigidbody>().velocity = GameManager.player.transform.up * velocityAppliedToEnemy;
+			GameManager.player.GetComponent<PlayerController>().getHurt(damage);
 		}else if(col.gameObject.tag == "Enemy"){
-			Debug.Log("Aa2");
-			col.gameObject.GetComponent<Rigidbody>().AddForce(col.gameObject.transform.up * 8f,ForceMode.Impulse);
+			col.gameObject.GetComponent<Rigidbody>().velocity = col.gameObject.transform.up * velocityAppliedToEnemy;
 		}
-	}
-
-
-	void Start(){
-		iaAnimator = animator.GetComponent<Animator> ();
 	}
 	
 	public override void startAttack(){
-		bool isRight = enemy.GetComponent<IAController>().getIsLookingRight();
+		bool isRight = parent.GetComponent<IAController>().getIsLookingRight();
 		if(isRight){
 			direction = 1f;
 		}else{
 			direction = -1f;
 		}
-		GetComponent<Collider> ().enabled = true;
-		isAttacking = true;
+		isFinished = false;
 		StartCoroutine ("attack");
 	}
 
@@ -63,30 +63,31 @@ public class JabaliChargeAttack : AIAttack {
 		attackTimer = 0f;
 		while(attackTimer<=timeItLastsCharge){
 			attackTimer+=Time.deltaTime;
-			enemy.GetComponent<CharacterController> ().Move(direction);
+			parent.GetComponent<CharacterController> ().Move(direction);
 			yield return null;
 		}
 		yield return true;
 	}
 
 	private IEnumerator attack(){
+		chargeParticles.SetActive (true);
+		originalSpeed = parent.GetComponent<CharacterController> ().speed;
+		parent.GetComponent<CharacterController> ().speed = chargeSpeed;
+		iaAnimator.SetTrigger("isChargingChargeAttack");
 
-		originalSpeed = enemy.GetComponent<CharacterController> ().speed;
-		enemy.GetComponent<CharacterController> ().speed = chargeSpeed;
+		yield return new WaitForSeconds (timeBeforeCharge);
+		chargeParticles.SetActive (false);
+		iaAnimator.SetBool("isDoingChargeAttack",true);
 		StartCoroutine ("moveStraight");
+		GetComponent<Collider> ().enabled = true;
+		whileChargingParticles.GetComponent<ParticleSystem> ().Play ();
 		yield return new WaitForSeconds(timeItLastsCharge);
-
-		isAttacking = false;
-		enemy.GetComponent<CharacterController> ().speed = originalSpeed;
+		//whileChargingParticles.SetActive (false);
+		whileChargingParticles.GetComponent<ParticleSystem> ().Stop ();
+		iaAnimator.SetBool("isDoingChargeAttack",false);
+		isFinished = true;
+		parent.GetComponent<CharacterController> ().speed = originalSpeed;
 		GetComponent<Collider> ().enabled = false;
-	}
-	
-	public override void doAttack(){
-
-	}
-	
-	public override bool isAttackFinished(){
-		return !isAttacking;
 	}
 
 	
@@ -94,4 +95,12 @@ public class JabaliChargeAttack : AIAttack {
 
 	}
 
+	public override void informParent(GameObject parentObject){
+		transform.parent = parentObject.transform;
+		transform.rotation = parentObject.transform.rotation;
+		//transform.eulerAngles = new Vector3 (0f, 0f, 0f);
+		transform.localPosition = localPosition;
+		parent = parentObject;
+		iaAnimator = parent.GetComponent<IAController> ().getIAAnimator ();
+	}
 }
