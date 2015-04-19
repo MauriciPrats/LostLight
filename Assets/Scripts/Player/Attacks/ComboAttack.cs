@@ -22,18 +22,19 @@ public class ComboAttack : Attack, AnimationSubscriber {
 		weaponEffects = GameManager.player.GetComponent<PlayerController>().weapon.GetComponentInChildren<Xft.XWeaponTrail>();
 		//weaponEffects.StopSmoothly(0.1f);
 	}
-	
+	//Cuando se hace el combo 3 con el enemies hit  activo, los enemigos no son afectados por el tercer golpe. 
 	public override void enemyCollisionEnter(GameObject enemy) {
-		if(!enemiesHit.Contains(enemy)){
+		//if(!enemiesHit.Contains(enemy)){
 			enemiesHit.Add(enemy);
 			enemy.GetComponent<IAController>().getHurt(1,(enemy.transform.position));
+			
 			enemy.GetComponent<IAController> ().interruptAttack ();
 			GameManager.comboManager.addCombo ();
 			if(!hasHitEnemy){
 				hasHitEnemy = true;
 				GameManager.lightGemEnergyManager.addPoints(1);
 			}
-		}
+		//}
 	}
 
 

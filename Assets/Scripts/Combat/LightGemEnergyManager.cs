@@ -54,6 +54,5 @@ public class LightGemEnergyManager : MonoBehaviour {
 			timer = 0f;
 			addPoints(1);
 		}
-	
 	}
 }
