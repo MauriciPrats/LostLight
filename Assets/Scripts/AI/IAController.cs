@@ -279,7 +279,7 @@ public class IAController : MonoBehaviour {
 
 	private void onDeath(){
 		Vector3 centerBoar = GetComponent<Rigidbody> ().worldCenterOfMass;
-		int numberLights = numberOfLightsAvg + Random.Range (-1, 1);
+		int numberLights = numberOfLightsAvg;
 		for(int i = 0;i<numberLights;i++){
 			GameObject newLight = GameObject.Instantiate(onDeathLight) as GameObject;
 			newLight.transform.position = (centerBoar);

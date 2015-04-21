@@ -1444,7 +1444,7 @@ MonoBehaviour:
   thirdOnHitEffect: {fileID: 161062, guid: a1c5a491ff9fea147a1325163b3b21fb, type: 2}
   onDeathEffect: {fileID: 171198, guid: 000150e52e26a1344950b32e9ce179c7, type: 2}
   onDeathLight: {fileID: 190320, guid: 1b14ff513f64b5c47a24d2bcf4e709e7, type: 2}
-  numberOfLightsAvg: 8
+  numberOfLightsAvg: 3
   timeToChangeBehaviour: .100000001
   attack1: 8
   chargeChance: .800000012
@@ -1497,7 +1497,7 @@ SkinnedMeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: db442c0f476a5cf4a9cbfb6dcb970433, type: 2}
+  - {fileID: 2100000, guid: f08281c156fceb44a9ff6ebdedc0e7d5, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1

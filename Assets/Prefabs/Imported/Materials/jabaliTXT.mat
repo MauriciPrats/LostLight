@@ -7,8 +7,8 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: jabaliTXT
-  m_Shader: {fileID: 4800000, guid: aaa7ff61fba3d2d44b98c75b70dfc3b6, type: 3}
-  m_ShaderKeywords: _ALPHATEST_ON
+  m_Shader: {fileID: 4800000, guid: 76374158b4c4e5744b394e9290aae693, type: 3}
+  m_ShaderKeywords: _ALPHATEST_ON _COLOR_ON _DS_ON _OUTL_ON _TEX_ON _TRANSP_ON
   m_LightmapFlags: 5
   m_CustomRenderQueue: 2450
   m_SavedProperties:
@@ -91,6 +91,13 @@ Material:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _ToonShade
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
@@ -154,12 +161,52 @@ Material:
         second: 0
       data:
         first:
+          name: _TintColor
+        second: 1
+      data:
+        first:
           name: _SliceAmount
         second: 0
       data:
         first:
+          name: _DetailTex
+        second: 1
+      data:
+        first:
           name: _Cull
         second: 2
+      data:
+        first:
+          name: _Outl
+        second: 1
+      data:
+        first:
+          name: _VertexColor
+        second: 0
+      data:
+        first:
+          name: _Brightness
+        second: 1
+      data:
+        first:
+          name: _DS
+        second: 1
+      data:
+        first:
+          name: _Outline
+        second: .300000012
+      data:
+        first:
+          name: _Asym
+        second: 0
+      data:
+        first:
+          name: _Trans
+        second: 1
+      data:
+        first:
+          name: _TrOp
+        second: 0
     m_Colors:
       data:
         first:
@@ -168,7 +215,7 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: .800000072, g: .387037992, b: .1085243, a: 1}
+        second: {r: 1, g: 1, b: 1, a: 1}
       data:
         first:
           name: _SpecColor
@@ -181,3 +228,11 @@ Material:
         first:
           name: _HueVariation
         second: {r: 1, g: .5, b: 0, a: .100000001}
+      data:
+        first:
+          name: _OutlineColor
+        second: {r: 0, g: 0, b: 0, a: 1}
+      data:
+        first:
+          name: _Asymmetry
+        second: {r: 0, g: .25, b: .5, a: 0}
