@@ -54262,22 +54262,22 @@ AnimationClip:
   m_GenerateMotionCurves: 0
   m_Events:
   - time: .0416666679
-    functionName: informAttack
-    data: combo
+    functionName: informEvent
+    data: ComboAttack:combo
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: .25
-    functionName: informAttack
-    data: start
+    functionName: informEvent
+    data: ComboAttack:start
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 1.04166663
-    functionName: informAttack
-    data: end
+    functionName: informEvent
+    data: ComboAttack:end
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0

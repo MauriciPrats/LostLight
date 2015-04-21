@@ -1181,7 +1181,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Attack2
-  m_Speed: 1.60000002
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 110139787}
@@ -1352,7 +1352,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Attack1
-  m_Speed: 1.5
+  m_Speed: 2.29999995
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 110140978}
@@ -1459,7 +1459,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Attack3
-  m_Speed: 1.5
+  m_Speed: 2.4000001
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 110171109}
@@ -1468,7 +1468,7 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_Motion: {fileID: 7400000, guid: 21a72d15f18d29542a41578784884d1d, type: 2}
+  m_Motion: {fileID: 7400000, guid: 4f8e7f73544eea445baeb18f4f0932fa, type: 2}
   m_Tag: cancombo
 --- !u!1102 &110283882
 AnimatorState:

@@ -33,7 +33,6 @@ public class ShockwaveAttack : Attack {
 				AttackElementsManager.getElement(elementAttack).doEffect(enemy);
 			}
 		}
-
 	}
 
 	public override void initialize(){
@@ -88,7 +87,7 @@ public class ShockwaveAttack : Attack {
 		yield return new WaitForSeconds (timeToCharge);
 
 		elementalParticlesOnCharge.SetActive (false);
-		if(!elementAttack.Equals(ElementType.None)){
+		if(!elementAttack.Equals(ElementType.None)) {
 			elementalParticlesOnExplode.SetActive(true);
 			elementalParticlesOnExplode.transform.position = areaEffect.transform.position;
 			elementalParticlesOnExplode.GetComponent<ParticleSystem>().Play();
