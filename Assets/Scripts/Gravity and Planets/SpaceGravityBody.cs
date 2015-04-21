@@ -60,8 +60,7 @@ public class SpaceGravityBody : GravityBody {
 		else 
 		{
 			isOutsideAthmosphere = false;
-			if(gameObject.tag == "Player"){
-				//Ponemos el drag solo para el player
+			if(usesSpaceGravity){
 				float dragProportion = minimumPlanetDistance / Constants.GRAVITY_DISTANCE_FROM_PLANET_FLOOR;
 				float invertDragProportion = 1f - dragProportion;
 				if(invertDragProportion>1f){invertDragProportion = 1f;}

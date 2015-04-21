@@ -67,8 +67,11 @@ public class InputController : MonoBehaviour {
 					attackController.doAttack(onAirAttack);
 				}
 			}else if(Mathf.Abs(Input.GetAxisRaw("Vertical"))>Mathf.Abs(Input.GetAxisRaw("Horizontal"))){
+				Debug.Log(Input.GetButtonUp("Normal Attack")+" "+Input.GetAxisRaw("Vertical"));
 				if (Input.GetButtonUp("Normal Attack") && Input.GetAxisRaw("Vertical")>0f) {
+					Debug.Log("Badam Attack");
 					if(isCharacterAllowedToDoNormalAttack()){
+						Debug.Log("Front Attack");
 						attackController.doAttack(upNormalAttack);
 					}
 				}else if(Input.GetButtonUp("Normal Attack") && Input.GetAxisRaw("Vertical")<0f){
