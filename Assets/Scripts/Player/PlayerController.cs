@@ -179,6 +179,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void SpaceJump() {
+
 		//We jump with the 
 		characterController.Jump (spaceJumpForce);
 		GetComponent<Rigidbody> ().velocity = lineJumpDirection * spaceJumpForce;
@@ -191,8 +192,8 @@ public class PlayerController : MonoBehaviour {
 		HideArrow ();
 		flyParticles.Clear();
 		flyParticles.Play();
-
 		isFinishedSpaceJump = false;
+		body.setIsGettingOutOfOrbit (true);
 	}
 
 	public void Jump() {

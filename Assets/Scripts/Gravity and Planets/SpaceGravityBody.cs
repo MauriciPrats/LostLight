@@ -9,6 +9,8 @@ public class SpaceGravityBody : GravityBody {
 	protected bool isGettingOutOfOrbit = false;
 	public float dragMultiplyierOnCloseOrbit = 5f;
 
+	private GameObject closestPlanet;
+
 	public override void checkTouchEnter(GameObject obj){
 		if (obj.tag == "Planet" || obj.tag == "Enemy") {
 			collidingObjects.Add (obj);
@@ -46,11 +48,13 @@ public class SpaceGravityBody : GravityBody {
 			}
 			if(distance<minimumPlanetDistance){
 				minimumPlanetDistance = distance;
+				closestPlanet = planet;
 			}
 		}
 		
 		if (closePlanets == 0) 
 		{
+			closestPlanet = null;
 			usesSpaceGravity = true;
 			isOutsideAthmosphere = true;
 			GetComponent<Rigidbody>().drag = 0f;
@@ -60,16 +64,14 @@ public class SpaceGravityBody : GravityBody {
 		else 
 		{
 			isOutsideAthmosphere = false;
-			if(usesSpaceGravity){
-				float dragProportion = minimumPlanetDistance / Constants.GRAVITY_DISTANCE_FROM_PLANET_FLOOR;
+			if(isGettingOutOfOrbit){
+				GetComponent<Rigidbody>().drag = 0f;
+			}else if(usesSpaceGravity){
+				float dragProportion = minimumPlanetDistance / closestPlanet.GetComponent<GravityAttractor>().gravityDistance;
 				float invertDragProportion = 1f - dragProportion;
 				if(invertDragProportion>1f){invertDragProportion = 1f;}
 				else if(invertDragProportion<Constants.PERCENTAGE_DRAG_ATHMOSPHERE){invertDragProportion = 0.0f;}
-				if(usesSpaceGravity){
-					invertDragProportion*=dragMultiplyierOnCloseOrbit;
-				}else{
-					invertDragProportion = 0f;
-				}
+				invertDragProportion*=dragMultiplyierOnCloseOrbit;
 				GetComponent<Rigidbody>().drag = invertDragProportion * Constants.GRAVITY_DRAG_OF_ATHMOSPHERE;
 			}else{
 				GetComponent<Rigidbody>().drag = drag;

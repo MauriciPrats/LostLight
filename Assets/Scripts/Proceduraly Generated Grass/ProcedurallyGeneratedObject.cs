@@ -64,7 +64,6 @@ public class ProcedurallyGeneratedObject : MonoBehaviour {
 		int[] triangles = objectiveMesh.GetComponent<MeshFilter> ().mesh.triangles;
 		if(texture!=null){
 			transform.position = objectiveMesh.transform.position;
-			transform.parent = objectiveMesh.transform;
 
 			for(int i = triangles.Length-3;i>=0;i-=3){
 				Color vertex1Col = texture.GetPixelBilinear(uvs[triangles[i]].x,uvs[triangles[i]].y);
@@ -109,8 +108,8 @@ public class ProcedurallyGeneratedObject : MonoBehaviour {
 					createRandomPlants(blueBillboardPlants,blueBillboard,vertex1Pos,vertex2Pos,vertex3Pos,normal);
 
 			}
+			transform.parent = objectiveMesh.transform;
 		}
-		transform.localEulerAngles = new Vector3(0f,0f,0f);
 	}
 
 	void createRandomPlants(int ammountOfPlants,GameObject billboard,Vector3 vertix1,Vector3 vertix2,Vector3 vertix3,Vector3 normal){
@@ -164,6 +163,7 @@ public class ProcedurallyGeneratedObject : MonoBehaviour {
 
 	void createNewBillboard(GameObject billboard,Vector3 position,Vector3 normal){
 		GameObject newObject = Instantiate(billboard) as GameObject;
+		position = objectiveMesh.transform.rotation * position;
 		newObject.transform.position = (objectiveMesh.transform.position+(position * objectiveMesh.transform.lossyScale.y ));
 
 		newObject.transform.parent = levels[lastLevelPut].transform;

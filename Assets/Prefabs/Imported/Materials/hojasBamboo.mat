@@ -8,7 +8,7 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: hojasBamboo
   m_Shader: {fileID: 4800000, guid: 76374158b4c4e5744b394e9290aae693, type: 3}
-  m_ShaderKeywords: _COLOR_ON _OUTL_ON _TEX_ON
+  m_ShaderKeywords: _COLOR_ON _OUTL_ON _TEX_ON _TRANSP_ON
   m_LightmapFlags: 5
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -88,7 +88,7 @@ Material:
       data:
         first:
           name: _Cutoff
-        second: .5
+        second: .495999992
       data:
         first:
           name: _SrcBlend
@@ -143,15 +143,15 @@ Material:
         second: 1
       data:
         first:
-          name: _DetailTex
-        second: 1
-      data:
-        first:
           name: _Cull
         second: 2
       data:
         first:
           name: _Outl
+        second: 1
+      data:
+        first:
+          name: _DetailTex
         second: 1
       data:
         first:
@@ -176,7 +176,7 @@ Material:
       data:
         first:
           name: _Trans
-        second: 0
+        second: 1
       data:
         first:
           name: _TrOp
@@ -189,7 +189,7 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: .175991863, g: .28829664, b: .0642895401, a: 1}
+        second: {r: .485085309, g: .691176474, b: .47772491, a: 1}
       data:
         first:
           name: _EmissionColorUI
