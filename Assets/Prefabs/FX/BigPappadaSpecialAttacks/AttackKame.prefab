@@ -119,12 +119,12 @@ GameObject:
   m_Component:
   - 4: {fileID: 488478}
   - 33: {fileID: 3328190}
-  - 136: {fileID: 13662376}
   - 23: {fileID: 2317764}
   - 198: {fileID: 19837492}
   - 199: {fileID: 19939506}
   - 96: {fileID: 9688668}
   - 114: {fileID: 11431352}
+  - 135: {fileID: 13553948}
   m_Layer: 0
   m_Name: KameShot
   m_TagString: Untagged
@@ -159,7 +159,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 103610}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 68.030838, y: 62.3230667, z: .121444583}
+  m_LocalPosition: {x: 330.784668, y: -422.554871, z: 459.382629}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 488478}
@@ -727,6 +727,18 @@ MonoBehaviour:
   objectToRotateAround: {fileID: 177992}
   angle: 1000
   randomVector: 0
+--- !u!135 &13553948
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 177992}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.44500732
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &13622060
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -759,19 +771,6 @@ CapsuleCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 149934}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: .5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!136 &13662376
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 177992}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1

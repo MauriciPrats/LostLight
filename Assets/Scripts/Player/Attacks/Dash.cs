@@ -8,9 +8,10 @@ public class Dash : MonoBehaviour {
 	public GameObject dashStartParticles;
 	public LayerMask layerToDash;
 	public float dashCooldown = 1f;
-
+	public LayerMask maskToCollide;
 	private bool cooldownFinished = true;
 	private bool isDoingDash = false;
+
 
 	Vector3 originalMovement;
 
@@ -31,7 +32,7 @@ public class Dash : MonoBehaviour {
 		dashStartParticles.GetComponent<ParticleSystem> ().Play ();
 		dashStartParticles.transform.position = GameManager.player.GetComponent<Rigidbody>().worldCenterOfMass;
 		originalMovement = GameManager.player.GetComponent<CharacterController>().getMoveAmout ();
-		GameManager.playerAnimator.SetBool("isWalking",true);
+		GameManager.playerAnimator.SetTrigger("isDashing");
 		Vector3 newMove;
 		if(GameManager.player.GetComponent<PlayerController>().getIsLookingRight()){
 			newMove = (dashSpeed) * -GameManager.player.transform.right;
@@ -39,7 +40,23 @@ public class Dash : MonoBehaviour {
 			newMove = (dashSpeed) * GameManager.player.transform.right;
 		}
 		GameManager.player.GetComponent<CharacterController> ().setMoveAmount (newMove);
-		yield return new WaitForSeconds(dashTime);
+
+		float distance = dashSpeed * dashTime;
+		float dashTimeR = dashTime;
+		//Raycast 
+		RaycastHit hit;
+
+		Vector3 velocity = GameManager.player.GetComponent<Rigidbody> ().velocity;
+		Vector3 forward = GameManager.player.transform.forward;
+		Vector3 direction = (velocity + (forward * dashSpeed)).normalized;
+		Vector3 position = GameManager.player.GetComponent<Rigidbody> ().worldCenterOfMass;
+
+		if (Physics.Raycast (position,direction, out hit, distance, layerToDash)) {
+			dashTimeR = ((hit.distance/distance)*dashTime);
+		}
+		dashTimeR = dashTimeR - 0.05f;
+
+		yield return new WaitForSeconds(dashTimeR);
 		isDoingDash = false;
 		Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"),LayerMask.NameToLayer("Enemy"),false);
 		GameManager.player.GetComponent<CharacterController> ().setMoveAmount (originalMovement);
@@ -47,6 +64,7 @@ public class Dash : MonoBehaviour {
 		yield return new WaitForSeconds(dashCooldown);
 		dashStartParticles.SetActive (false);
 		cooldownFinished = true;
+		GameManager.playerAnimator.ResetTrigger("isDashing");
 	}
 
 	public void startAction(){

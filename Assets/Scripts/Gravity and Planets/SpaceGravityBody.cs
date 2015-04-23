@@ -70,7 +70,6 @@ public class SpaceGravityBody : GravityBody {
 				GetComponent<Rigidbody>().drag = 0f;
 			}else if(usesSpaceGravity){
 				float dragProportion = minimumPlanetDistance / closestPlanet.GetComponent<GravityAttractor>().gravityDistance;
-				Debug.Log(dragProportion);
 				float invertDragProportion = 1f - dragProportion;
 				if(invertDragProportion>1f){invertDragProportion = 1f;}
 				else if(invertDragProportion<Constants.PERCENTAGE_DRAG_ATHMOSPHERE){invertDragProportion = 0.0f;}

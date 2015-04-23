@@ -70,12 +70,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dashSpeed: 13
-  dashTime: .150000006
+  dashTime: .200000003
   dashStartParticles: {fileID: 135620}
   layerToDash:
     serializedVersion: 2
     m_Bits: 256
   dashCooldown: .5
+  maskToCollide:
+    serializedVersion: 2
+    m_Bits: 4352
 --- !u!198 &19888558
 ParticleSystem:
   m_ObjectHideFlags: 1

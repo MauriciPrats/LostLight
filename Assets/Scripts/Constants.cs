@@ -13,7 +13,7 @@ public static class Constants{
 	//ORBIT AROUND PLANETS
 	public static float GRAVITY_MULTIPLYIER_ON_SPACE_JUMPS = 10f;
 	public static float GRAVITY_DRAG_OF_ATHMOSPHERE = 3f;
-	public static float PERCENTAGE_ATHMOSPHERE_CAN_ENTER_ORBIT_START = 0.35f;
+	public static float PERCENTAGE_ATHMOSPHERE_CAN_ENTER_ORBIT_START = 0.5f;
 	public static float PERCENTAGE_ATHMOSPHERE_CAN_ENTER_ORBIT_END = 1f;
 	public static float ANGLE_CAN_ENTER_ORBIT_START = 70f;
 	public static float ANGLE_CAN_ENTER_ORBIT_END = 97f;

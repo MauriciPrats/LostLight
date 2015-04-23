@@ -18,14 +18,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: 966496a304c56b24c81659277736c4be, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _SliceGuide
-        second:
-          m_Texture: {fileID: 2800000, guid: 88a9d0d31cc41514998c4157a2e273cd, type: 3}
+          m_Texture: {fileID: 2800000, guid: 93d0c58aff3f44642a5641dff06a5f3d, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -33,6 +26,13 @@ Material:
           name: _ToonShade
         second:
           m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _SliceGuide
+        second:
+          m_Texture: {fileID: 2800000, guid: 88a9d0d31cc41514998c4157a2e273cd, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -44,10 +44,6 @@ Material:
         first:
           name: _TintColor
         second: 1
-      data:
-        first:
-          name: _SliceAmount
-        second: 0
       data:
         first:
           name: _DetailTex
@@ -87,6 +83,10 @@ Material:
       data:
         first:
           name: _TrOp
+        second: 0
+      data:
+        first:
+          name: _SliceAmount
         second: 0
     m_Colors:
       data:
