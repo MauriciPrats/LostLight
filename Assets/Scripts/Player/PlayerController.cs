@@ -165,6 +165,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void FinishSpaceJump(){
+		GUIManager.showMinimap ();
 		bpAnimator.SetBool("isSpaceJumping",false);
 		isSpaceJumping = false;
 		flyParticles.Stop();
@@ -214,6 +215,7 @@ public class PlayerController : MonoBehaviour {
 
 
 	public void CancelChargingSpaceJump(){
+		GUIManager.showMinimap ();
 		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().returnOriginalZ();
 		ParticleSystem particles = particleSystemJumpCharge.GetComponent<ParticleSystem> ();
 		particles.Stop ();
@@ -228,6 +230,7 @@ public class PlayerController : MonoBehaviour {
 
 
 	public void ChargeJump() {
+		GUIManager.hideMinimap ();
 		bpAnimator.SetBool("isChargingSpaceJumping",true);
 		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().setObjectiveZCameraOnSpaceJump ();
 		ParticleSystem particles = particleSystemJumpCharge.GetComponent<ParticleSystem> ();

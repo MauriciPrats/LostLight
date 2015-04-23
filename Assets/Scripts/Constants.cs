@@ -13,12 +13,12 @@ public static class Constants{
 	//ORBIT AROUND PLANETS
 	public static float GRAVITY_MULTIPLYIER_ON_SPACE_JUMPS = 10f;
 	public static float GRAVITY_DRAG_OF_ATHMOSPHERE = 3f;
-	public static float PERCENTAGE_ATHMOSPHERE_CAN_ENTER_ORBIT_START = 0.5f;
+	public static float PERCENTAGE_ATHMOSPHERE_CAN_ENTER_ORBIT_START = 0.35f;
 	public static float PERCENTAGE_ATHMOSPHERE_CAN_ENTER_ORBIT_END = 1f;
 	public static float ANGLE_CAN_ENTER_ORBIT_START = 70f;
 	public static float ANGLE_CAN_ENTER_ORBIT_END = 97f;
 	public static float PERCENTAGE_DRAG_ATHMOSPHERE = 0.5f;
-
+	public static float AMMOUNT_OF_DOWN_SPEED_ON_LANDING = 2f;
 
 	//CAMERA CONSTANTS
 	public static float CAMERA_ANGLE_FOLLOWING_SPEED = 8f;

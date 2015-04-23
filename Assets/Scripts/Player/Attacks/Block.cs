@@ -20,8 +20,11 @@ public class Block : MonoBehaviour {
 		return cooldownFinished;
 	}
 
+	void Start(){
+		GetComponent<Renderer> ().enabled = false;
+	}
 	IEnumerator doBlock(){
-
+		GetComponent<Renderer> ().enabled = true;
 		isDoingBlock = true;
 		cooldownFinished = false;
 		for (float radius = initialRadius; radius >=0;){
@@ -44,6 +47,7 @@ public class Block : MonoBehaviour {
 	}
 
 	public void StartBlock() {
+
 		this.transform.position = GameManager.player.GetComponent<Rigidbody> ().worldCenterOfMass;
 		this.transform.parent = GameManager.player.transform;
 

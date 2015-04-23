@@ -7,6 +7,7 @@ public class SpaceGravityBody : GravityBody {
 	protected bool isOutsideAthmosphere;
 	protected bool isOrbitingAroundPlanet = false;
 	protected bool isGettingOutOfOrbit = false;
+	protected bool isFallingIntoPlanet = false;
 	public float dragMultiplyierOnCloseOrbit = 5f;
 
 	private GameObject closestPlanet;
@@ -21,6 +22,7 @@ public class SpaceGravityBody : GravityBody {
 			objectsTouching++;
 			isTouchingPlanet = true;
 			usesSpaceGravity = false;
+			isFallingIntoPlanet = false;
 		}
 	}
 
@@ -68,6 +70,7 @@ public class SpaceGravityBody : GravityBody {
 				GetComponent<Rigidbody>().drag = 0f;
 			}else if(usesSpaceGravity){
 				float dragProportion = minimumPlanetDistance / closestPlanet.GetComponent<GravityAttractor>().gravityDistance;
+				Debug.Log(dragProportion);
 				float invertDragProportion = 1f - dragProportion;
 				if(invertDragProportion>1f){invertDragProportion = 1f;}
 				else if(invertDragProportion<Constants.PERCENTAGE_DRAG_ATHMOSPHERE){invertDragProportion = 0.0f;}
@@ -98,7 +101,9 @@ public class SpaceGravityBody : GravityBody {
 	
 	public void setIsOrbitingAroundPlanet(bool orbiting){
 		isOrbitingAroundPlanet = orbiting;
-		GameManager.gameState.isCameraLockedToPlayer = !orbiting;
+		if (!orbiting) {
+			GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().unfollowObjective();
+		}
 	}
 	
 	public bool getIsGettingOutOfOrbit(){
@@ -106,6 +111,18 @@ public class SpaceGravityBody : GravityBody {
 	}
 	
 	public void setIsGettingOutOfOrbit(bool orbit){
-		isGettingOutOfOrbit = orbit;
+		if(!isFallingIntoPlanet){
+			isGettingOutOfOrbit = orbit;
+		}
+	}
+
+	public void setIsFallingIntoPlanet(bool falling){
+		if(!isGettingOutOfOrbit){
+			isFallingIntoPlanet = falling;
+		}
+	}
+
+	public bool getIsFallingIntoPlanet(){
+		return isFallingIntoPlanet;
 	}
 }

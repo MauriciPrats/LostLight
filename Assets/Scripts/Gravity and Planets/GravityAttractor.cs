@@ -70,6 +70,7 @@ public class GravityAttractor : MonoBehaviour {
 		//Only attract the body to the planet if it is close enough.
 		distance = Vector3.Distance (transform.position, objectToAttract.position);
 		SpaceGravityBody body = objectToAttract.GetComponent<SpaceGravityBody> ();
+		float forceMagnitude = body.GetComponent<Rigidbody>().velocity.magnitude;
 
 		distance = distance - sphereRadius;
 		
@@ -94,13 +95,18 @@ public class GravityAttractor : MonoBehaviour {
 					angle = Mathf.Abs(angle);
 					if(angle>= Constants.ANGLE_CAN_ENTER_ORBIT_START && angle<= Constants.ANGLE_CAN_ENTER_ORBIT_END){
 						if(ratioDistance>= Constants.PERCENTAGE_ATHMOSPHERE_CAN_ENTER_ORBIT_START && ratioDistance<= Constants.PERCENTAGE_ATHMOSPHERE_CAN_ENTER_ORBIT_END){
+							GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().followObjective (gameObject);
 							isOrbiting = true;
 							body.setIsOrbitingAroundPlanet(true);
+
 						}
 					}
 				}
 
 				if(ratioDistance<=Constants.PERCENTAGE_ATHMOSPHERE_CAN_ENTER_ORBIT_START){
+					if(isOrbiting){
+						GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().unfollowObjective();
+					}
 					isOrbiting = false;
 					body.setIsOrbitingAroundPlanet(false);
 				}
@@ -112,7 +118,7 @@ public class GravityAttractor : MonoBehaviour {
 					bool goesRight = GameManager.player.GetComponent<PlayerController>().getIsLookingRight();
 					float angle2 = Util.getAngleFromVectorAToB(body.GetComponent<Rigidbody>().velocity,transform.position - body.transform.position);
 					goesRight = angle2<0f;
-					float forceMagnitude = body.GetComponent<Rigidbody>().velocity.magnitude;
+
 					
 					if(goesRight){
 						forceMagnitude *= -1;
@@ -122,10 +128,14 @@ public class GravityAttractor : MonoBehaviour {
 					float forceRatio = Mathf.Cos(Mathf.Deg2Rad * Vector3.Angle(body.GetComponent<Rigidbody>().velocity,targetDir));
 					
 					Vector3 forwardDirection = body.GetComponent<Rigidbody>().transform.forward.normalized;
+
 					if(!GameManager.player.GetComponent<PlayerController>().getIsLookingRight()){
 						forwardDirection *= -1f;
 					}
 					body.GetComponent<Rigidbody>().velocity = ((forwardDirection) + (((targetDir.normalized) * Mathf.Abs(forceRatio)))).normalized * forceMagnitude;
+					if(body.getIsFallingIntoPlanet()){
+						body.GetComponent<Rigidbody>().velocity-=objectUp*Constants.AMMOUNT_OF_DOWN_SPEED_ON_LANDING;
+					}
 					objectToAttract.parent = transform;
 				}
 				
@@ -135,10 +145,12 @@ public class GravityAttractor : MonoBehaviour {
 				
 				float ratio = 1f-(distance / gravityDistance);
 				forceToAdd *=Constants.GRAVITY_MULTIPLYIER_ON_SPACE_JUMPS * ratio;
+
 			}
 			if(hasToAddForce){
 				objectToAttract.GetComponent<Rigidbody>().AddForce (targetDir * forceToAdd ,ForceMode.Force);
 			}
+			body.GetComponent<Rigidbody>().velocity = body.GetComponent<Rigidbody>().velocity.normalized* Mathf.Abs(forceMagnitude);
 			//We only put the body in the hierarchy if it has touched a planet after doing "Space travel".
 			if(!body.getUsesSpaceGravity()){
 				objectToAttract.parent = transform;

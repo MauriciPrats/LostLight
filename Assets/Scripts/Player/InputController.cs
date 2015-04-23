@@ -99,21 +99,22 @@ public class InputController : MonoBehaviour {
 			}
 
 			//JUMP BUTTON
+
+
 			if (Input.GetButtonUp("Jump") && isSpaceJumpCharged) {
 				ResetJumping(); 
 				character.SpaceJump(); 
-			}else if (Input.GetButtonUp("Jump") && !isSpaceJumpCharged && characterGravityBody.getIsTouchingPlanet()) { 
-				ResetJumping (); 
-				character.Jump(); 
 			}
 
-			if (Input.GetButton("Jump")) {
+			if(Input.GetButton("Jump") && (Input.GetAxisRaw("Vertical")<0f || isSpaceJumpCharging)){
 				if(!character.getIsSpaceJumping()){
 					timeJumpPressed += Time.deltaTime;
 					if (timeJumpPressed >= startChargeSpaceJump && !isSpaceJumpCharging) {isSpaceJumpCharging = true; }
 					if (timeJumpPressed >= timeIsSpaceJumpCharged && !isSpaceJumpCharged) {isSpaceJumpCharged = true; character.ChargeJump(); }
 				}
-			} else {
+			} else if(Input.GetButtonDown("Jump") && !character.getIsSpaceJumping() && !character.getIsJumping()) {
+				character.Jump(); 
+			}else {
 				ResetJumping();
 			}
 
@@ -126,6 +127,8 @@ public class InputController : MonoBehaviour {
 				}
 			}
 
+
+
 			//BLOCK BUTTON
 			/*if(Input.GetButton("Block") && isSpaceJumpCharged){
 				CancelChargingSpaceJump();
@@ -135,7 +138,10 @@ public class InputController : MonoBehaviour {
 
 			if (Input.GetButton("Block")) {
 				Interactuable entity = EntityManager.getClosestInteractuable();
-				if (entity != null){ entity.doInteractAction();}
+				SpaceGravityBody body = GetComponent<SpaceGravityBody>();
+				if(character.getIsSpaceJumping() && body.getIsOrbitingAroundPlanet()){
+					body.setIsFallingIntoPlanet(true);
+				}else if (entity != null){ entity.doInteractAction();}
 				else if (isSpaceJumpCharged){
 					CancelChargingSpaceJump();
 				}else if(Input.GetAxis("Vertical")<0f && isCharacterAllowedToBlock()){
