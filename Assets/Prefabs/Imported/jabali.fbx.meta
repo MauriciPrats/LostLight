@@ -563,7 +563,7 @@ ModelImporter:
     - serializedVersion: 16
       name: IsHurt
       takeName: ArmatureJabali|ArmatureJabaliAction
-      firstFrame: 121
+      firstFrame: 126
       lastFrame: 135
       wrapMode: 0
       orientationOffsetY: 0

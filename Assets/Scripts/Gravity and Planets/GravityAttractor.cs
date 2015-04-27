@@ -60,7 +60,7 @@ public class GravityAttractor : MonoBehaviour {
 			
 			objectToAttract.rotation = Quaternion.FromToRotation (objectUp, targetDir) * objectToAttract.rotation;
 			float forceToAdd = -Constants.GRAVITY_FORCE_OF_PLANETS;
-			objectToAttract.GetComponent<Rigidbody>().AddForce (targetDir * forceToAdd ,ForceMode.Force);
+			objectToAttract.GetComponent<Rigidbody>().AddForce (targetDir * forceToAdd ,ForceMode.Acceleration);
 			return true;
 		}
 		return false;
@@ -148,7 +148,7 @@ public class GravityAttractor : MonoBehaviour {
 
 			}
 			if(hasToAddForce){
-				objectToAttract.GetComponent<Rigidbody>().AddForce (targetDir * forceToAdd ,ForceMode.Force);
+				objectToAttract.GetComponent<Rigidbody>().AddForce (targetDir * forceToAdd ,ForceMode.Acceleration);
 			}
 			body.GetComponent<Rigidbody>().velocity = body.GetComponent<Rigidbody>().velocity.normalized* Mathf.Abs(forceMagnitude);
 			//We only put the body in the hierarchy if it has touched a planet after doing "Space travel".
