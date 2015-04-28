@@ -67,7 +67,7 @@ public class KameAttack : Attack {
 		}
 		tr.time = tmp;
 		kameEffect.GetComponent<TrailRenderer>().startWidth = maxWidthKame;
-		kameEffect.GetComponent<TrailRenderer>().endWidth = maxWidthKame ;
+		kameEffect.GetComponent<TrailRenderer>().endWidth = 0f ;
 		yield return null;
 	}
 

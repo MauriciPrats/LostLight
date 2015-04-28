@@ -19,6 +19,11 @@ public class GravityBody : MonoBehaviour {
 	void Start() {
 		planets = GravityBodiesManager.getGravityBodies ();
 		GetComponent<Rigidbody> ().drag = drag;
+		onStart ();
+	}
+
+	protected virtual void onStart(){
+
 	}
 
 	public virtual void checkTouchEnter(GameObject obj){

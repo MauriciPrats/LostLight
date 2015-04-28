@@ -9,8 +9,15 @@ public class SpaceGravityBody : GravityBody {
 	protected bool isGettingOutOfOrbit = false;
 	protected bool isFallingIntoPlanet = false;
 	public float dragMultiplyierOnCloseOrbit = 5f;
+	public float massOnJump;
+	private float originalMass;
 
 	private GameObject closestPlanet;
+
+
+	protected override void onStart(){
+		originalMass = GetComponent<Rigidbody>().mass;
+	}
 
 	public override void checkTouchEnter(GameObject obj){
 		if (obj.tag == "Planet" || obj.tag == "Enemy") {
@@ -23,6 +30,9 @@ public class SpaceGravityBody : GravityBody {
 			isTouchingPlanet = true;
 			usesSpaceGravity = false;
 			isFallingIntoPlanet = false;
+			if(obj.tag == "Planet"){
+				GetComponent<Rigidbody>().mass = originalMass;
+			}
 		}
 	}
 
@@ -33,6 +43,7 @@ public class SpaceGravityBody : GravityBody {
 			objectsTouching--;
 			if(objectsTouching==0){
 				isTouchingPlanet = false;
+				GetComponent<Rigidbody>().mass = massOnJump;
 			}
 		}
 	}
@@ -124,4 +135,5 @@ public class SpaceGravityBody : GravityBody {
 	public bool getIsFallingIntoPlanet(){
 		return isFallingIntoPlanet;
 	}
+
 }

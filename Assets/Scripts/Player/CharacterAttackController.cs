@@ -34,6 +34,7 @@ public class CharacterAttackController : MonoBehaviour {
 			if(aType.Equals (attack.getAttackType())){
 				return attack;
 			}
+			Debug.Log(attack.getAttackType());
 		}
 
 		return null;
