@@ -239,6 +239,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void getHurt(int hitPointsToSubstract){
+		GameManager.playerAnimator.SetTrigger("isHurt");
 		if (!isInvulnerable && !attackController.isDoingBlock ()) {
 			GUIManager.getHurtEffect ();
 			killable.TakeDamage (hitPointsToSubstract);

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-public class KameAttack : Attack {
+public class KameAttack : Attack,AnimationSubscriber {
 
 	public GameObject kameEffect;
 	public GameObject kameCore;
@@ -12,7 +12,7 @@ public class KameAttack : Attack {
 	public float chargeTime = 0.6f;
 	public float distance = 5f;
 	public float forceExplosion = 10f;
-
+	public float timeItStaysCasting = 0.1f;
 	public float maxWidthKame = 0.2f;
 
 	float timer = 0f;
@@ -20,12 +20,14 @@ public class KameAttack : Attack {
 	private Vector3 startPosition;
 	private Vector3 closestPlanetCenter;
 	private bool isCharged = false;
-
+	private AnimationEventBroadcast eventHandler;
 	private List<GameObject> enemiesHit;
 
 	private int objectsCollided = 0;
 	public override void initialize(){
 		attackType = AttackType.Kame;
+		eventHandler = GameManager.playerAnimator.gameObject.GetComponent<AnimationEventBroadcast>();
+		eventHandler.subscribe(this);
 	}
 
 	public override void enemyCollisionEnter(GameObject enemy){
@@ -138,7 +140,7 @@ public class KameAttack : Attack {
 		kameCore.transform.forward = kameEffect.transform.forward;
 		timer = 0f;
 		objectsCollided = 0;
-		GameManager.playerAnimator.SetTrigger("isChargingKame");
+
 		isCharged = false;
 
 	}
@@ -165,15 +167,16 @@ public class KameAttack : Attack {
 		//We set the trail farther away because a few fotograms will be cut when we clean the trail
 		kameEffect.transform.position = GameManager.lightGemObject.transform.position - (kameEffect.transform.forward * distance * Time.deltaTime * 2f);
 		StartCoroutine ("makeKameTrail");
-
-		yield return new WaitForSeconds (totalTimeLasts);
-
+		kameCore.GetComponent<ParticleSystem>().Stop();
+		yield return new WaitForSeconds (timeItStaysCasting);
 		GameManager.playerAnimator.SetBool("isDoingKame",false);
+		isFinished = true;
+		yield return new WaitForSeconds (totalTimeLasts);
+		
 		kameCore.GetComponent<ParticleSystem>().Stop();
 		if(!elementAttack.Equals(ElementType.None)){
 			elementalParticleSystem.GetComponent<ParticleSystem>().Stop();
 		}
-		isFinished = true;
 		StartCoroutine ("cleanKameTrail");
 		yield return new WaitForSeconds (timeToDisappear);
 		if(isFinished){
@@ -186,7 +189,29 @@ public class KameAttack : Attack {
 
 
 	public override void startAttack(){
+		GameManager.playerAnimator.SetTrigger("isChargingKame");
+		isFinished = false;
+	}
 
-		StartCoroutine("doKame");
+	void AnimationSubscriber.handleEvent(string idEvent) {
+		Debug.Log (idEvent);
+		switch (idEvent) {
+		case "chargeStart": 
+			StartCoroutine("doKame");
+			//enableHitbox();
+			break;
+		case "chargeEnd":
+			//dissableHitbox();
+			break;
+		default: 
+			
+			break;
+		}
+		
+	}
+	
+	
+	string AnimationSubscriber.subscriberName() {
+		return  "Kame";	
 	}
 }

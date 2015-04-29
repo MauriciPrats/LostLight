@@ -24,20 +24,16 @@ public class ComboAttack : Attack, AnimationSubscriber {
 	}
 	//Cuando se hace el combo 3 con el enemies hit  activo, los enemigos no son afectados por el tercer golpe. 
 	public override void enemyCollisionEnter(GameObject enemy) {
-		//if(!enemiesHit.Contains(enemy)){
+		if(!enemiesHit.Contains(enemy)){
 			enemiesHit.Add(enemy);
 			enemy.GetComponent<IAController>().getHurt(1,(enemy.transform.position));
-			
-			enemy.GetComponent<IAController> ().interruptAttack ();
 			GameManager.comboManager.addCombo ();
 			if(!hasHitEnemy){
 				hasHitEnemy = true;
 				GameManager.lightGemEnergyManager.addPoints(1);
 			}
-		//}
+		}
 	}
-
-
 
 	protected override void update(){
 		//just if update is needed, might be unecessary if coroutines are used
@@ -51,8 +47,6 @@ public class ComboAttack : Attack, AnimationSubscriber {
 	public override void startAttack(){
 	
 	if (isFinished) {
-			enemiesHit = new List<GameObject>(0);
-			hasHitEnemy = false;
 			attackCollider.attack = gameObject;
 			//stick.enabled = true;
 			weaponEffects.Activate();
@@ -62,8 +56,6 @@ public class ComboAttack : Attack, AnimationSubscriber {
 			combosteep = 1;
 	} else {
 		if (isComboable && combosteep < 3) {
-				enemiesHit = new List<GameObject>(0);
-				hasHitEnemy = false;
 				isComboable = false;
 				GameManager.playerAnimator.SetTrigger("doComboAttack");	
 				combosteep++;
@@ -75,6 +67,8 @@ public class ComboAttack : Attack, AnimationSubscriber {
 
 	public void enableHitbox() {
 		stick.enabled = true;
+		enemiesHit = new List<GameObject>(0);
+		hasHitEnemy = false;
 	}
 	
 	public void allowChaining() {

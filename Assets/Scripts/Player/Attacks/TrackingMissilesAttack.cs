@@ -2,12 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class TrackingMissilesAttack : Attack {
+public class TrackingMissilesAttack : Attack,AnimationSubscriber {
 
 	public GameObject attackCharge;
 	public GameObject missilePrefab;
 	public float timeToChargeAttack = 0.7f;
 	public int maxAmmountOfMissilesSpawned = 4;
+	private AnimationEventBroadcast eventHandler;
 
 	private List<GameObject> enemiesHit;
 
@@ -17,6 +18,8 @@ public class TrackingMissilesAttack : Attack {
 
 	public override void initialize(){
 		attackType = AttackType.Missiles;
+		eventHandler = GameManager.playerAnimator.gameObject.GetComponent<AnimationEventBroadcast>();
+		eventHandler.subscribe(this);
 	}
 
 	public void enemyHit(GameObject enemy){
@@ -65,7 +68,7 @@ public class TrackingMissilesAttack : Attack {
 		}*/
 	}
 
-	IEnumerator putTrackingMisssilesInPosition(){
+	IEnumerator putTrackingMissilesInPosition(){
 		while(timer<=timeToChargeAttack){
 			timer+=Time.deltaTime;
 			attackCharge.transform.position = GameManager.lightGemObject.transform.position ;
@@ -77,12 +80,9 @@ public class TrackingMissilesAttack : Attack {
 		enemiesHit = new List<GameObject> (0);
 		attackCharge.SetActive (true);
 		attackCharge.transform.position = GameManager.lightGemObject.transform.position ;
-		isFinished = false;
-		GameManager.playerAnimator.SetBool("isDoingMissiles",true);
 		timer = 0f;
-		StartCoroutine ("putTrackingMisssilesInPosition");
+		StartCoroutine ("putTrackingMissilesInPosition");
 		yield return new WaitForSeconds (timeToChargeAttack);
-
 		spawnMissiles();
 		attackCharge.SetActive (false);
 		isFinished = true;
@@ -90,6 +90,26 @@ public class TrackingMissilesAttack : Attack {
 	}
 
 	public override void startAttack(){
-		StartCoroutine ("doTrackingMissilesAttack");
+		GameManager.playerAnimator.SetBool("isDoingMissiles",true);
+		isFinished = false;
+	}
+
+	void AnimationSubscriber.handleEvent(string idEvent) {
+		Debug.Log (idEvent);
+		switch (idEvent) {
+		case "start": 
+			StartCoroutine ("doTrackingMissilesAttack");
+			break;
+		case "end":
+			break;
+		default: 
+			break;
+		}
+		
+	}
+	
+	
+	string AnimationSubscriber.subscriberName() {
+		return  "TrackingMissiles";	
 	}
 }

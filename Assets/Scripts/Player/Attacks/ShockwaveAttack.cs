@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class ShockwaveAttack : Attack {
+public class ShockwaveAttack : Attack,AnimationSubscriber {
 
 	public GameObject areaEffect;
 	public GameObject chargeEffect;
@@ -16,6 +16,7 @@ public class ShockwaveAttack : Attack {
 	public float forceExplosion = 5f;
 	public float timeToCharge = 0.8f;
 	private float timer;
+	private AnimationEventBroadcast eventHandler;
 
 	private List<GameObject> enemiesHit;
 
@@ -37,6 +38,8 @@ public class ShockwaveAttack : Attack {
 
 	public override void initialize(){
 		attackType = AttackType.Shockwave;
+		eventHandler = GameManager.playerAnimator.gameObject.GetComponent<AnimationEventBroadcast>();
+		eventHandler.subscribe(this);
 	}
 	
 	protected override void update(){
@@ -66,7 +69,6 @@ public class ShockwaveAttack : Attack {
 
 	private IEnumerator doShockwave(){
 		enemiesHit = new List<GameObject> (0);
-		isFinished = false;
 		areaEffect.transform.localScale = new Vector3(0f,0f,0f);
 		chargeEffect.transform.localScale = new Vector3(startChargeScale,startChargeScale,startChargeScale);
 		areaEffect.transform.position = GameManager.player.transform.position;
@@ -81,7 +83,6 @@ public class ShockwaveAttack : Attack {
 				elementalParticlesOnCharge.GetComponent<ParticleSystemRenderer >().material = material;
 			}
 		}
-		GameManager.playerAnimator.SetTrigger("isChargingShockwave");
 		timer = 0f;
 		StartCoroutine ("makeSmallArea");
 		yield return new WaitForSeconds (timeToCharge);
@@ -112,7 +113,30 @@ public class ShockwaveAttack : Attack {
 
 
 	public override void startAttack(){
-		StartCoroutine ("doShockwave");
+		GameManager.playerAnimator.SetTrigger("isChargingShockwave");
+		isFinished = false;
+	}
 
+	
+	void AnimationSubscriber.handleEvent(string idEvent) {
+		Debug.Log (idEvent);
+		switch (idEvent) {
+		case "chargeStart": 
+			StartCoroutine("doShockwave");
+			//enableHitbox();
+			break;
+		case "chargeEnd":
+			//dissableHitbox();
+			break;
+		default: 
+			
+			break;
+		}
+		
+	}
+	
+	
+	string AnimationSubscriber.subscriberName() {
+		return  "Shockwave";	
 	}
 }
