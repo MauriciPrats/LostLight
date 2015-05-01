@@ -75,7 +75,7 @@ MonoBehaviour:
   layerToDash:
     serializedVersion: 2
     m_Bits: 256
-  dashCooldown: .5
+  dashCooldown: .200000003
   maskToCollide:
     serializedVersion: 2
     m_Bits: 4352

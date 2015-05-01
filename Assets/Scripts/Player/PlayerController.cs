@@ -204,6 +204,7 @@ public class PlayerController : MonoBehaviour {
 		bpAnimator.SetBool("isChargingSpaceJumping",false);
 		bpAnimator.SetBool("isJumping",true);
 		characterController.Jump (normalJumpForce);
+		body.applySpaceBodyChangesOnJump ();
 	}
 
 	public void Move() {

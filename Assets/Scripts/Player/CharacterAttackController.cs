@@ -69,7 +69,7 @@ public class CharacterAttackController : MonoBehaviour {
 		Attack attackToDo = getAttack (aType);
 
 		if(attackToDo!=null){
-			if(attackToDo.canPayAttackCost()){
+			if(attackToDo.canPayAttackCost() && attackToDo.canDoNextAttack()){
 				GameManager.lightGemEnergyManager.substractPoints(attackToDo.cost);
 				attackToDo.startAttack ();
 			}

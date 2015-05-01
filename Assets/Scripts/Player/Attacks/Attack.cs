@@ -57,6 +57,10 @@ Se llaman los initialize de cada ataque
 		return isFinished;
 	}
 
+	public virtual bool canDoNextAttack(){
+		return isFinished;
+	}
+
 	public bool canPayAttackCost(){
 		return GameManager.lightGemEnergyManager.canDoSpecialAttack (cost);
 	}

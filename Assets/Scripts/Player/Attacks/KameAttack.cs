@@ -3,10 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 public class KameAttack : Attack,AnimationSubscriber {
 
+	//GameObjects
 	public GameObject kameEffect;
 	public GameObject kameCore;
 	public GameObject elementalParticleSystem;
+	public GameObject elementalParticleOnCharge;
 	public GameObject enemyHitEffectPrefab;
+
+	//Public Variables
 	public float totalTimeLasts = 0.9f;
 	public float timeToDisappear = 0.2f;
 	public float chargeTime = 0.6f;
@@ -14,20 +18,31 @@ public class KameAttack : Attack,AnimationSubscriber {
 	public float forceExplosion = 10f;
 	public float timeItStaysCasting = 0.1f;
 	public float maxWidthKame = 0.2f;
+	public float startChargeScale = 1f;
 
-	float timer = 0f;
-	float timerCleanTrail = 0f;
+	//Private Variables
+	private bool canDoNext = true;
+	private float timer = 0f;
+	private float timerCleanTrail = 0f;
 	private Vector3 startPosition;
 	private Vector3 closestPlanetCenter;
 	private bool isCharged = false;
 	private AnimationEventBroadcast eventHandler;
 	private List<GameObject> enemiesHit;
-
 	private int objectsCollided = 0;
+
+
 	public override void initialize(){
 		attackType = AttackType.Kame;
 		eventHandler = GameManager.playerAnimator.gameObject.GetComponent<AnimationEventBroadcast>();
 		eventHandler.subscribe(this);
+		Color trailsColor = kameCore.GetComponent<ParticleSystemRenderer> ().material.GetColor("_TintColor");
+		TrailRenderer tr = kameEffect.GetComponent<TrailRenderer>();
+		TrailRenderer[] renderers = kameEffect.GetComponentsInChildren<TrailRenderer> ();
+		for(int i = 0;i<renderers.Length;++i){
+			renderers[i].material.color = trailsColor;
+		}
+		tr.material.color = trailsColor;
 	}
 
 	public override void enemyCollisionEnter(GameObject enemy){
@@ -40,16 +55,14 @@ public class KameAttack : Attack,AnimationSubscriber {
 			GameObject newEffect = GameObject.Instantiate (enemyHitEffectPrefab) as GameObject;
 			newEffect.transform.position = enemy.GetComponent<Rigidbody> ().worldCenterOfMass - (kameEffect.transform.forward * 0.15f);
 			Vector3 direction = (enemy.transform.position - kameCore.transform.position).normalized + (enemy.transform.up * 2f);
-			enemy.GetComponent<Rigidbody> ().AddForce (direction.normalized * forceExplosion,ForceMode.Impulse);
+			//enemy.GetComponent<Rigidbody> ().AddForce (direction.normalized * forceExplosion,ForceMode.Impulse);
+			enemy.GetComponent<Rigidbody>().velocity = direction * forceExplosion;
+
 			GameManager.comboManager.addCombo ();
 			if(!elementAttack.Equals(ElementType.None)){
 				AttackElementsManager.getElement(elementAttack).doEffect(enemy);
 			}
 		}
-	}
-
-	protected override void update(){
-
 	}
 
 	private IEnumerator resetTrails(){
@@ -71,40 +84,6 @@ public class KameAttack : Attack,AnimationSubscriber {
 		kameEffect.GetComponent<TrailRenderer>().startWidth = maxWidthKame;
 		kameEffect.GetComponent<TrailRenderer>().endWidth = 0f ;
 		yield return null;
-	}
-
-	private IEnumerator makeKameTrail(){
-		timer = 0f;
-		StartCoroutine ("resetTrails");
-		while(timer<totalTimeLasts){
-			timer+=Time.deltaTime;
-			float ratio = (timer)/totalTimeLasts;
-			float magnitude = ratio * distance;
-			
-			Vector3 newPostion = kameEffect.transform.position + (kameEffect.transform.forward * distance * Time.deltaTime) ;
-			kameEffect.transform.position = newPostion;
-			
-			//We rotate the object
-			Vector3 objectiveUp = (kameEffect.transform.position - closestPlanetCenter);
-			objectiveUp = new Vector3(objectiveUp.x,objectiveUp.y,0f).normalized;
-			Vector3 objectUp = new Vector3(kameEffect.transform.up.x,kameEffect.transform.up.y,0f).normalized;
-			kameEffect.transform.rotation = Quaternion.FromToRotation (objectUp, objectiveUp) *kameEffect.transform.rotation;
-
-			elementalParticleSystem.transform.position = kameEffect.transform.position;
-
-			yield return null;
-		}
-	}
-
-	private IEnumerator chargeKame(){
-		timer = 0f;
-		while(timer<chargeTime && !isCharged){
-			timer+=Time.deltaTime;
-			kameCore.transform.position = GameManager.lightGemObject.transform.position;
-			kameEffect.transform.position = GameManager.lightGemObject.transform.position;
-			elementalParticleSystem.transform.position = kameEffect.transform.position;
-			yield return null;
-		}
 	}
 
 	private IEnumerator cleanKameTrail(){
@@ -142,72 +121,113 @@ public class KameAttack : Attack,AnimationSubscriber {
 		objectsCollided = 0;
 
 		isCharged = false;
-
 	}
-
-
 
 	IEnumerator doKame(){
 		enemiesHit = new List<GameObject> (0);
 		initializeVariables ();
-		StartCoroutine ("chargeKame");
+
+		//CHARGE THE KAME START
 		if(!elementAttack.Equals(ElementType.None)){
-			elementalParticleSystem.SetActive(true);
-			elementalParticleSystem.GetComponent<ParticleSystem>().Play();
+			elementalParticleOnCharge.SetActive(true);
+			elementalParticleOnCharge.GetComponent<ParticleSystem>().Play ();
 			Material material = AttackElementsManager.getElement(elementAttack).material;
 			if(material!=null){
 				elementalParticleSystem.GetComponent<ParticleSystemRenderer >().material = material;
+				elementalParticleOnCharge.GetComponent<ParticleSystemRenderer >().material = material;
 			}
 		}
-		yield return new WaitForSeconds (chargeTime);
+		timer = 0f;
+		while(timer<chargeTime && !isCharged){
+			timer+=Time.deltaTime;
+			float ratio = (1f - ((timer) / (chargeTime))) * startChargeScale;
+			kameCore.transform.localScale = new Vector3 (ratio, ratio, ratio);
+			kameCore.transform.position = GameManager.lightGemObject.transform.position;
+			kameCore.transform.position = GameManager.lightGemObject.transform.position;
+			elementalParticleOnCharge.transform.position = GameManager.lightGemObject.transform.position;
+			
+			kameEffect.transform.position = GameManager.lightGemObject.transform.position;
+			elementalParticleSystem.transform.position = kameEffect.transform.position;
+			yield return null;
+		}
 		isCharged = true;
 		GameManager.playerAnimator.SetBool("isDoingKame",true);
-		kameEffect.SetActive (true);
-
-		//We set the trail farther away because a few fotograms will be cut when we clean the trail
-		kameEffect.transform.position = GameManager.lightGemObject.transform.position - (kameEffect.transform.forward * distance * Time.deltaTime * 2f);
-		StartCoroutine ("makeKameTrail");
-		kameCore.GetComponent<ParticleSystem>().Stop();
-		yield return new WaitForSeconds (timeItStaysCasting);
-		GameManager.playerAnimator.SetBool("isDoingKame",false);
 		isFinished = true;
-		yield return new WaitForSeconds (totalTimeLasts);
-		
+		kameEffect.SetActive (true);
+		//CHARGE THE KAME END
+
+		//THROW THE KAME START
+		kameEffect.transform.position = GameManager.lightGemObject.transform.position - (kameEffect.transform.forward * distance * Time.deltaTime * 2f);
+		kameCore.GetComponent<ParticleSystem>().Stop();
+		if(!elementAttack.Equals(ElementType.None)){
+			elementalParticleSystem.SetActive(true);
+			elementalParticleSystem.GetComponent<ParticleSystem>().Play();
+		}
+		StartCoroutine ("resetTrails");
+		timer = 0f;
+		while(timer<totalTimeLasts){
+			timer+=Time.deltaTime;
+			float ratio = (timer)/totalTimeLasts;
+			float magnitude = ratio * distance;
+			
+			Vector3 newPostion = kameEffect.transform.position + (kameEffect.transform.forward * distance * Time.deltaTime) ;
+			kameEffect.transform.position = newPostion;
+			
+			//We rotate the object
+			Vector3 objectiveUp = (kameEffect.transform.position - closestPlanetCenter);
+			objectiveUp = new Vector3(objectiveUp.x,objectiveUp.y,0f).normalized;
+			Vector3 objectUp = new Vector3(kameEffect.transform.up.x,kameEffect.transform.up.y,0f).normalized;
+			kameEffect.transform.rotation = Quaternion.FromToRotation (objectUp, objectiveUp) *kameEffect.transform.rotation;
+			
+			elementalParticleSystem.transform.position = kameEffect.transform.position;
+			
+			yield return null;
+		}
+		elementalParticleOnCharge.SetActive(false);
+		//THROW THE KAME END
+
+		//CLEAN THE KAME START
 		kameCore.GetComponent<ParticleSystem>().Stop();
 		if(!elementAttack.Equals(ElementType.None)){
 			elementalParticleSystem.GetComponent<ParticleSystem>().Stop();
+			elementalParticleSystem.SetActive(true);
 		}
 		StartCoroutine ("cleanKameTrail");
 		yield return new WaitForSeconds (timeToDisappear);
 		if(isFinished){
 			kameEffect.SetActive (false);
 			kameCore.SetActive (false);
+
 			elementalParticleSystem.SetActive(false);
+			canDoNext = true;
+		}
+		//CLEAN THE KAME END
+	}
+
+	public override void startAttack(){
+		if(canDoNext){
+			GameManager.playerAnimator.SetTrigger("isChargingKame");
+			isFinished = false;
+			canDoNext = false;
 		}
 	}
 
-
-
-	public override void startAttack(){
-		GameManager.playerAnimator.SetTrigger("isChargingKame");
-		isFinished = false;
+	public override bool canDoNextAttack()
+	{
+		return canDoNext;
 	}
 
 	void AnimationSubscriber.handleEvent(string idEvent) {
-		Debug.Log (idEvent);
 		switch (idEvent) {
 		case "chargeStart": 
 			StartCoroutine("doKame");
-			//enableHitbox();
 			break;
 		case "chargeEnd":
-			//dissableHitbox();
 			break;
 		default: 
 			
 			break;
 		}
-		
 	}
 	
 	

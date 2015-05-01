@@ -15,7 +15,6 @@ public class IsTouchingGround : MonoBehaviour {
 	
 	void OnCollisionEnter (Collision col)
 	{
-		//Debug.Log (col.gameObject.tag);
 		gravityBody.checkTouchEnter (col.gameObject);
 	}
 	

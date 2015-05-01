@@ -171,16 +171,16 @@ public class InputController : MonoBehaviour {
 	}
 
 	bool isCharacterAllowedToMove(){
-		if(GetComponent<CharacterAttackController>().isDoingAnyAttack()){
+		if(GetComponent<CharacterAttackController>().isDoingAnyAttack() && !character.getIsJumping()){
 			return false;
 		}
 		return true;
 	}
 
 	bool isCharacterAllowedToDoSpecialAttack(){
-		if(character.getIsJumping()){
+		/*if(character.getIsJumping()){
 			return false;
-		}else if(GetComponent<CharacterAttackController>().isDoingAnyAttack()){
+		}else */if(GetComponent<CharacterAttackController>().isDoingAnyAttack()){
 			return false;
 		}
 		return true;

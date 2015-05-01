@@ -55,10 +55,10 @@ public class ComboAttack : Attack, AnimationSubscriber {
 			GameManager.playerAnimator.SetTrigger("doComboAttack");	
 			combosteep = 1;
 	} else {
-		if (isComboable && combosteep < 3) {
+		if (isComboable) {
 				isComboable = false;
 				GameManager.playerAnimator.SetTrigger("doComboAttack");	
-				combosteep++;
+				combosteep = (combosteep%3)+1;
 		}
 	}
 	
@@ -92,6 +92,11 @@ public class ComboAttack : Attack, AnimationSubscriber {
 	}
 	
 	public override bool isAttackFinished(){
+		return isFinished || isComboable;
+	}
+
+	public override bool canDoNextAttack()
+	{
 		return isFinished || isComboable;
 	}
 	

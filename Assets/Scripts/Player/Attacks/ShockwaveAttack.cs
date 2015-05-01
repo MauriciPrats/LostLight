@@ -4,20 +4,22 @@ using System.Collections.Generic;
 
 public class ShockwaveAttack : Attack,AnimationSubscriber {
 
+	//GameObjects
 	public GameObject areaEffect;
 	public GameObject chargeEffect;
-
 	public GameObject elementalParticlesOnCharge;
 	public GameObject elementalParticlesOnExplode;
 
+	//Public Variables
 	public float timeItDoesAttack = 0.8f;
 	public float endScaleOfAttack = 4f;
 	public float startChargeScale = 1f;
 	public float forceExplosion = 5f;
 	public float timeToCharge = 0.8f;
+
+	//Private Variables
 	private float timer;
 	private AnimationEventBroadcast eventHandler;
-
 	private List<GameObject> enemiesHit;
 
 	public override void enemyCollisionEnter(GameObject enemy){
@@ -25,10 +27,9 @@ public class ShockwaveAttack : Attack,AnimationSubscriber {
 		if(!enemiesHit.Contains(enemy)){
 			enemiesHit.Add(enemy);
 			enemy.GetComponent<IAController>().getHurt(damage,enemy.transform.position);
-			//We find the radius of areaEffect
 			float radius = areaEffect.GetComponent<SphereCollider> ().radius * endScaleOfAttack;
 			Vector3 position = areaEffect.transform.position;
-			enemy.GetComponent<Rigidbody>().AddExplosionForce(forceExplosion,position,radius);
+			enemy.GetComponent<Rigidbody>().velocity = ((enemy.transform.position - chargeEffect.transform.position).normalized + enemy.transform.up).normalized*forceExplosion;
 			GameManager.comboManager.addCombo ();
 			if(!elementAttack.Equals(ElementType.None)){
 				AttackElementsManager.getElement(elementAttack).doEffect(enemy);
@@ -40,31 +41,6 @@ public class ShockwaveAttack : Attack,AnimationSubscriber {
 		attackType = AttackType.Shockwave;
 		eventHandler = GameManager.playerAnimator.gameObject.GetComponent<AnimationEventBroadcast>();
 		eventHandler.subscribe(this);
-	}
-	
-	protected override void update(){
-
-	}
-
-	private IEnumerator growArea(){
-		while(timer<timeItDoesAttack){
-			timer += Time.deltaTime;
-			float ratio = (timer/(timeItDoesAttack)) * endScaleOfAttack;
-			areaEffect.transform.localScale = new Vector3(ratio,ratio,ratio);
-			yield return null;
-		}
-		yield return true;
-	}
-
-
-	private IEnumerator makeSmallArea(){
-		while (timer<timeToCharge) {
-			timer += Time.deltaTime;
-			float ratio = (1f - ((timer) / (timeToCharge))) * startChargeScale;
-			chargeEffect.transform.localScale = new Vector3 (ratio, ratio, ratio);
-			yield return null;
-		}
-		yield return true;
 	}
 
 	private IEnumerator doShockwave(){
@@ -84,8 +60,14 @@ public class ShockwaveAttack : Attack,AnimationSubscriber {
 			}
 		}
 		timer = 0f;
-		StartCoroutine ("makeSmallArea");
-		yield return new WaitForSeconds (timeToCharge);
+		while (timer<timeToCharge) {
+			timer += Time.deltaTime;
+			float ratio = (1f - ((timer) / (timeToCharge))) * startChargeScale;
+			chargeEffect.transform.localScale = new Vector3 (ratio, ratio, ratio);
+			chargeEffect.transform.position = GameManager.lightGemObject.transform.position;
+			elementalParticlesOnCharge.transform.position = GameManager.lightGemObject.transform.position;
+			yield return null;
+		}
 
 		elementalParticlesOnCharge.SetActive (false);
 		if(!elementAttack.Equals(ElementType.None)) {
@@ -102,8 +84,14 @@ public class ShockwaveAttack : Attack,AnimationSubscriber {
 		GameManager.playerAnimator.SetBool("isDoingShockwave",true);
 
 		timer = 0f;
-		StartCoroutine ("growArea");
-		yield return new WaitForSeconds (timeItDoesAttack);
+		while(timer<timeItDoesAttack){
+			timer += Time.deltaTime;
+			float ratio = (timer/(timeItDoesAttack)) * endScaleOfAttack;
+			areaEffect.transform.localScale = new Vector3(ratio,ratio,ratio);
+			areaEffect.transform.position = GameManager.lightGemObject.transform.position;
+			elementalParticlesOnExplode.transform.position = GameManager.lightGemObject.transform.position;
+			yield return null;
+		}
 
 		isFinished = true;
 		GameManager.playerAnimator.SetBool("isDoingShockwave",false);
@@ -123,16 +111,13 @@ public class ShockwaveAttack : Attack,AnimationSubscriber {
 		switch (idEvent) {
 		case "chargeStart": 
 			StartCoroutine("doShockwave");
-			//enableHitbox();
 			break;
 		case "chargeEnd":
-			//dissableHitbox();
 			break;
 		default: 
 			
 			break;
 		}
-		
 	}
 	
 	

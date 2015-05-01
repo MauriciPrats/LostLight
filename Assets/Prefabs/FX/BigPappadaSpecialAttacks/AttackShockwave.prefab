@@ -165,7 +165,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 203aa3bdd8055fe459a7a1bbf7628d37, type: 2}
+  - {fileID: 2100000, guid: a17f084b761826f45b54b450a1affd58, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -189,7 +189,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 203aa3bdd8055fe459a7a1bbf7628d37, type: 2}
+  - {fileID: 2100000, guid: a17f084b761826f45b54b450a1affd58, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -247,10 +247,11 @@ MonoBehaviour:
   chargeEffect: {fileID: 115210}
   elementalParticlesOnCharge: {fileID: 117730}
   elementalParticlesOnExplode: {fileID: 111282}
+  shockWaveOnHitPrefab: {fileID: 159862, guid: 49f31d12d8eb80743a0ec0a4c051c2ac, type: 2}
   timeItDoesAttack: .5
   endScaleOfAttack: 5
   startChargeScale: 1
-  forceExplosion: 750
+  forceExplosion: 6
   timeToCharge: .600000024
 --- !u!135 &13531314
 SphereCollider:
@@ -447,7 +448,7 @@ ParticleSystem:
         m_NumAlphaKeys: 2
       minColor:
         serializedVersion: 2
-        rgba: 1898570994
+        rgba: 1912602623
       maxColor:
         serializedVersion: 2
         rgba: 1911356159
@@ -3579,7 +3580,7 @@ ParticleSystem:
         rgba: 4294967295
       maxColor:
         serializedVersion: 2
-        rgba: 4285005821
+        rgba: 4294967295
       minMaxState: 0
     startSize:
       scalar: .800000012
@@ -4494,7 +4495,7 @@ ParticleSystemRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a3e014c0a7a5bc444a870a41ad2964d4, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -4566,7 +4567,7 @@ ParticleSystemRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a3e014c0a7a5bc444a870a41ad2964d4, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1

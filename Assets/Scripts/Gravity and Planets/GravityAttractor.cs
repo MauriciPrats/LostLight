@@ -40,7 +40,6 @@ public class GravityAttractor : MonoBehaviour {
 
 	void FixedUpdate(){
 		if (isRotating && GameManager.gameState.arePlanetsMoving) {
-			//print (Vector3.Distance (transform.parent.position, transform.position));
 			transform.position = OrbiteAroundPoint (transform.position, transform.parent.position, Quaternion.Euler (0, 0, speedRotation * Time.deltaTime));
 		}
 	}

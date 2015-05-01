@@ -43,9 +43,12 @@ public class SpaceGravityBody : GravityBody {
 			objectsTouching--;
 			if(objectsTouching==0){
 				isTouchingPlanet = false;
-				GetComponent<Rigidbody>().mass = massOnJump;
 			}
 		}
+	}
+
+	public void applySpaceBodyChangesOnJump(){
+		GetComponent<Rigidbody>().mass = massOnJump;
 	}
 
 	public override void attract(){
