@@ -1,12 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
 public enum EnemyType{Jabali,BigJabali,DarkPappada,None}
 
 [RequireComponent (typeof (WalkOnMultiplePaths))]
 public class IAController : MonoBehaviour {
 
+	//GameObjects
+	public GameObject onHitEffect;
+	public GameObject secondOnHitEffect;
+	public GameObject thirdOnHitEffect;
+	public GameObject onDeathEffect;
+	public GameObject onDeathLight;
 
+	//Public Variables
 	public float minimumDistanceSeePlayer = 50f;
 	public LayerMask layersToFindCollision;
 	public float cooldownChangeBehaviour = 0.1f;
@@ -17,32 +24,23 @@ public class IAController : MonoBehaviour {
 	public float minimumDistanceAttackPlayer = 1f;
 	public float attackChoosingCooldown = 0.5f;
 	public float attackChance = 0.2f;
-	public GameObject[] shortRangeAttacks;
-	public GameObject[] middleRangeAttacks;
-	public GameObject[] longRangeAttacks;
-	public GameObject onHitEffect;
-	public GameObject secondOnHitEffect;
-	public GameObject thirdOnHitEffect;
-	public GameObject onDeathEffect;
-	public GameObject onDeathLight;
 	public int numberOfLightsAvg = 2;
 	public float timeToChangeBehaviour = 0.1f;
 
-	//Private variables for being frozen, dying,juimping and checking things in front
+	//Private Variables
 	private float frozenTime;
 	private float frozenTimer;
-
 	private float stunnedTime;
 	private float stunnedTimer;
-
 	private float timeToDie = 0.5f;
 	private float minimumDistanceFront = 0f;
 	private float timeToJump = 0f;
 	private float lastTimeCheckedClosestThingInFront = 0f;
 	private float cooldownRaycastingClosestThingInFront = 0.1f;
-	private float timeHasBeenDead;
+	private GameObject[] hitParticles;
+	private bool hasBeenInitialized = false;
 
-	//Elements connected to the AI
+	//Protected Variables to be used by all the AI
 	protected CharacterController characterController;
 	protected Animator iaAnimator;
 	protected WalkOnMultiplePaths walkOnMultiplePaths;
@@ -50,18 +48,13 @@ public class IAController : MonoBehaviour {
 	protected GameObject player;
 
 	//State of the AI
-	protected bool isBlockedBySomethingInFront = false;
-	protected bool isWalkingRight = true;
 	protected float closestThingInFront = 0f;
-	protected bool isDoingAttack = false;
 	protected bool isDead;
 	protected bool isOnGuard;
 	protected bool isFrozen;
 	protected bool isStunned;
 
-	private GameObject[] hitParticles;
 
-	private bool hasBeenInitialized = false;
 	// Use this for initialization
 	void Start () {
 		attackController = GetComponent<CharacterAttackController> ();
@@ -73,7 +66,6 @@ public class IAController : MonoBehaviour {
 		minimumDistanceFront = ((Random.value)*0.2f) + 0.2f;
 
 		isDead = false;
-		timeHasBeenDead = 0f;
 		walkOnMultiplePaths = GetComponent<WalkOnMultiplePaths> ();
 
 		//Particle Inicialization
@@ -88,11 +80,52 @@ public class IAController : MonoBehaviour {
 		}
 	}
 
-	protected virtual void initialize(){
+	protected float closestThingInFrontDistance(){
+		lastTimeCheckedClosestThingInFront += Time.deltaTime;
+		if(lastTimeCheckedClosestThingInFront>cooldownRaycastingClosestThingInFront){
+			lastTimeCheckedClosestThingInFront = 0f;
+			
+			float enemyDistanceFront = walkOnMultiplePaths.getClosestEnemyInFront ();
+			PlayerController chaCon = player.GetComponent<PlayerController>();
+			float playerDistance = Vector3.Distance (player.GetComponent<Rigidbody>().worldCenterOfMass, transform.position) - (walkOnMultiplePaths.centerToExtremesDistance + chaCon.centerToExtremesDistance);
 
+			if(playerDistance<enemyDistanceFront){
+				closestThingInFront = playerDistance;
+			}else{
+				closestThingInFront = enemyDistanceFront;
+			}
+		}
+		return closestThingInFront;
 	}
 
-	private bool canSeePlayer(){
+	//Functions to override
+	protected virtual void initialize(){
+	}
+
+	protected virtual void UpdateAI(){
+	}
+
+	//FUNCTIONS FOR MOVING
+	protected void Move(float moveDirection){
+		characterController.Move(moveDirection);
+		iaAnimator.SetBool("isWalking",true);
+	}
+
+	protected void StopMoving(){
+		characterController.Move(0f);
+		iaAnimator.SetBool("isWalking",false);
+	}
+
+	protected void Jump(){
+		GetComponent<Rigidbody> ().velocity += (transform.up * jumpStrength);
+	}
+
+	protected bool getIsTouchingPlanet(){
+		return GetComponent<GravityBody> ().getIsTouchingPlanet ();
+	}
+
+	//FUNCTIONS FOR GETTING INFORMATION
+	protected bool canSeePlayer(){
 		Vector3 playerDirection = player.GetComponent<Rigidbody>().worldCenterOfMass - GetComponent<Rigidbody>().worldCenterOfMass;
 		if(playerDirection.magnitude<minimumDistanceSeePlayer){
 			RaycastHit hit;
@@ -111,6 +144,45 @@ public class IAController : MonoBehaviour {
 		return false;
 	}
 
+	protected float getPlayerDistance(){
+		PlayerController chaCon = player.GetComponent<PlayerController>();
+		return Vector3.Distance (player.GetComponent<Rigidbody>().worldCenterOfMass, transform.position) - (walkOnMultiplePaths.centerToExtremesDistance + chaCon.centerToExtremesDistance);
+	}
+
+	protected float getPlayerDirection(){
+		if(isElementLeft(player)){
+			return -1f;
+		}else{
+			return 1f;
+		}
+	}
+
+	protected List<GameObject> getListCloseAllies(){
+		return walkOnMultiplePaths.getListCloseAllies();
+	}
+
+	protected bool getIsBlockedBySomethingInFront(){
+		if(closestThingInFrontDistance()<minimumDistanceFront){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	protected float getLookingDirection(){
+		if(getIsLookingRight()){
+			return 1f;
+		}else{
+			return -1f;
+		}
+	}
+	
+	public bool getIsLookingRight(){
+		return characterController.getIsLookingRight();
+	}
+
+
+	//BASE AI FUNCTIONS
 	public bool isElementLeft(GameObject element){
 		if(Util.getPlanetaryAngleFromAToB(gameObject,element)>0f){
 			return false;
@@ -118,62 +190,6 @@ public class IAController : MonoBehaviour {
 			return true;
 		}
 		return true;
-	}
-
-	private float closestThingInFrontDistance(){
-		lastTimeCheckedClosestThingInFront += Time.deltaTime;
-		if(lastTimeCheckedClosestThingInFront>cooldownRaycastingClosestThingInFront){
-			lastTimeCheckedClosestThingInFront = 0f;
-
-			float enemyDistanceFront = walkOnMultiplePaths.getClosestEnemyInFront ();
-			PlayerController chaCon = player.GetComponent<PlayerController>();
-			float playerDistance = Vector3.Distance (player.GetComponent<Rigidbody>().worldCenterOfMass, transform.position) - (walkOnMultiplePaths.centerToExtremesDistance + chaCon.centerToExtremesDistance);
-
-
-			if(playerDistance<enemyDistanceFront){
-				closestThingInFront = playerDistance;
-			}else{
-				closestThingInFront = enemyDistanceFront;
-			}
-		}
-		return closestThingInFront;
-
-	}
-
-	protected virtual void offensiveMoves(){
-
-	}
-
-	protected virtual void idleWalking(){
-		
-	}
-
-
-
-
-
-
-
-	protected void walk(float moveDirection){
-		if(GetComponent<GravityBody>().getIsTouchingPlanet()){
-			if(closestThingInFrontDistance() > minimumDistanceFront){
-				characterController.Move(moveDirection);
-				isBlockedBySomethingInFront = false;
-				iaAnimator.SetBool("isWalking",true);
-			}else{
-				isBlockedBySomethingInFront  = true;
-				iaAnimator.SetBool("isWalking",false);
-			}
-		}else{
-			iaAnimator.SetBool("isWalking",false);
-		}
-	}
-
-	protected void jump(){
-		if(timeToJump>jumpCooldown){
-			GetComponent<Rigidbody>().AddForce(transform.up * jumpStrength,ForceMode.Impulse);
-			timeToJump = 0f+Random.value;
-		}
 	}
 
 	private void updateTimers(){
@@ -187,52 +203,7 @@ public class IAController : MonoBehaviour {
 			initialize();
 			hasBeenInitialized = true;
 		}
-		updateTimers ();
-		if (isDead) {
-			timeHasBeenDead+=Time.deltaTime;
-			if(timeHasBeenDead>=timeToDie ){
-				onDeath();
-				Destroy(gameObject);
-			}
-		}else{
-			if(isFrozen){
-				frozenTimer+=Time.deltaTime;
-				if(frozenTimer>=frozenTime){
-					isFrozen = false;
-				}
-			}
-			if(isStunned){
-				stunnedTimer+=Time.deltaTime;
-				if(stunnedTimer>=stunnedTime){
-					isStunned = false;
-				}
-			}
-
-			characterController.StopMoving();
-			
-				if(timeToChangeBehaviour>cooldownChangeBehaviour){
-					timeToChangeBehaviour = 0f;
-					if(canSeePlayer ()){
-						isIdle = false;
-					}else{
-						isIdle = true;
-					}
-				}
-
-				if(isIdle){
-					idleWalking();
-				}else{
-					offensiveMoves();
-				}
-
-			if(walkOnMultiplePaths.getIsChangingPath()){
-				iaAnimator.SetBool("isWalking",true);
-			}
-		}
-	}
-
-	public bool getIsLookingRight(){
-		return characterController.getIsLookingRight();
+		UpdateAI ();
 	}
 
 	public void freeze(float timeFrozen){
@@ -262,11 +233,11 @@ public class IAController : MonoBehaviour {
 			//Play on death effects and despawn
 			//Animation and lots of particles
 			if(!isDead){
-				timeHasBeenDead = 0f;
 				iaAnimator.SetTrigger("Die");
 				GameObject particlesOnDeath = GameObject.Instantiate (onDeathEffect) as GameObject;
 				particlesOnDeath.transform.position = GetComponent<Rigidbody>().worldCenterOfMass;
 				particlesOnDeath.transform.parent = transform;
+				StartCoroutine("disappearOnDeath");
 			}
 			iaAnimator.SetBool("isWalking",false);
 			iaAnimator.SetBool("isChargingAttack",false);
@@ -274,8 +245,15 @@ public class IAController : MonoBehaviour {
 			isDead = true;
 		}
 	}
-
-
+	IEnumerator disappearOnDeath(){
+		float timeHasBeenDead = 0f;
+		while(timeHasBeenDead<timeToDie){
+			timeHasBeenDead+=Time.deltaTime;
+			yield return null;
+		}
+		onDeath();
+		Destroy(gameObject);
+	}
 
 	private void onDeath(){
 		Vector3 centerBoar = GetComponent<Rigidbody> ().worldCenterOfMass;
@@ -305,11 +283,22 @@ public class IAController : MonoBehaviour {
 
 
 	public void breakGuard(){
-
+		//Unused
 	}
 
 	public Animator getIAAnimator(){
 		return iaAnimator;
 	}
+
+	//Functions and variables for the AI
+	//UpdateAI
+	//Move
+	//Jump
+	//canSeePlayer()
+	//getIsBlockedBySomethingInFront()
+	//getPlayerDistance
+	//closestThingInFront()
+
+
 
 }

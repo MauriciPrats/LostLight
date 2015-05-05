@@ -35,11 +35,6 @@ public class ComboAttack : Attack, AnimationSubscriber {
 		}
 	}
 
-	protected override void update(){
-		//just if update is needed, might be unecessary if coroutines are used
-		
-	}
-
 	public bool isComboable = false;
 	public int combosteep = 0;
 	
@@ -66,16 +61,18 @@ public class ComboAttack : Attack, AnimationSubscriber {
 	}
 
 	public void enableHitbox() {
-		stick.enabled = true;
-		enemiesHit = new List<GameObject>(0);
-		hasHitEnemy = false;
+		if(!isFinished){
+			stick.enabled = true;
+			enemiesHit = new List<GameObject>(0);
+			hasHitEnemy = false;
+		}
 	}
 	
 	public void allowChaining() {
 		isComboable = true;
 	}
 	
-	public void dissableHitbox() {
+	public void disableHitbox() {
 		stick.enabled = false;
 	}
 	
@@ -99,6 +96,13 @@ public class ComboAttack : Attack, AnimationSubscriber {
 	{
 		return isFinished || isComboable;
 	}
+
+	public override void interruptAttack(){
+		Debug.Log ("aa");
+		endCombo ();
+	}
+
+
 	
 	void AnimationSubscriber.handleEvent(string idEvent) {
 		switch (idEvent) {
@@ -106,7 +110,7 @@ public class ComboAttack : Attack, AnimationSubscriber {
 			enableHitbox();
 			break;
 		case "end":
-			dissableHitbox();
+			disableHitbox();
 			break;
 		case "done":
 			endCombo();

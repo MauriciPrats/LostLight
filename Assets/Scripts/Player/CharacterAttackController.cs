@@ -92,7 +92,7 @@ public class CharacterAttackController : MonoBehaviour {
 
 	public void interruptActualAttacks(){
 		foreach(Attack attack in attacksInCharacter){
-			if(!attack.isAttackFinished()){attack.interruptAttack();}
+			attack.interruptAttack();
 		}
 	}
 }

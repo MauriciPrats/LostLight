@@ -8,7 +8,7 @@ public class AnimatedGrass : MonoBehaviour {
 	
 	//the current frame to display
 	private int index = 0;
-	
+	private int direction = 1;
 	void Start()
 	{
 		StartCoroutine(updateTiling());
@@ -23,17 +23,20 @@ public class AnimatedGrass : MonoBehaviour {
 		while (true)
 		{
 			//move to the next index
-			index++;
-			if (index >= rows * columns)
-				index = 0;
+			index+=direction;
+			if (index >= (rows * columns) || index < 0){
+				direction *=-1;
+				index+=direction;
+			}
 			
 			//split into x and y indexes
 			Vector2 offset = new Vector2((float)index / columns - (index / columns), //x index
 			                             (index / columns) / (float)rows);          //y index
 			
 			GetComponent<Renderer>().sharedMaterial.SetTextureOffset("_MainTex", offset);
-			
+
 			yield return new WaitForSeconds(1f / framesPerSecond);
+
 		}
 		
 	}

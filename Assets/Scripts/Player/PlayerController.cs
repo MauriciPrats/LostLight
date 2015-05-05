@@ -245,7 +245,7 @@ public class PlayerController : MonoBehaviour {
 			GUIManager.getHurtEffect ();
 			killable.TakeDamage (hitPointsToSubstract);
 			pappadaC.newProportionOfLife (killable.proportionHP ());
-			if (killable.HP <= 0) {
+			if (killable.HP <= 0 && !GameManager.gameState.isGameEnded) {
 				GameManager.loseGame ();
 			}
 		}

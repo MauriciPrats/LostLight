@@ -196,6 +196,9 @@ public class WalkOnMultiplePaths : MonoBehaviour {
 		}
 	}
 
+	public List<GameObject> getListCloseAllies(){
+		return closeOtherEnemies;
+	}
 	
 	public bool IsFrontPath(){
 		return isFrontPath;

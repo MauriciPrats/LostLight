@@ -148,9 +148,6 @@ public class InputController : MonoBehaviour {
 				}
 			}
 
-
-
-
 			//OTHER BUTTONS
 			if(Input.GetKeyUp(KeyCode.Escape)){
 				GUIManager.closeCraftingMenu();
