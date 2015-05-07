@@ -12,7 +12,14 @@ public class GravityAttractor : MonoBehaviour {
 
 	private float sphereRadius;
 	void Awake(){
+
 		GravityBodiesManager.registerNewBody (this.gameObject);
+
+		//We initialize the corruption
+		if(GetComponent<PlanetCorruption>()!=null){
+			GetComponent<PlanetCorruption>().initialize();
+		}
+
 
 		athmosphere = GameObject.Instantiate(athmospherePrefab) as GameObject;
 		athmosphere.transform.parent = transform;
@@ -172,5 +179,9 @@ public class GravityAttractor : MonoBehaviour {
 
 	private Vector3 OrbiteAroundPoint(Vector3 point, Vector3 pivot, Quaternion angle) {
 		return angle * ( point - pivot) + pivot;
+	}
+
+	public GameObject getAthmosphere(){
+		return athmosphere;
 	}
 }
