@@ -15,18 +15,18 @@ public class IAControllerBigJabali : IAController {
 	}
 
 	protected override void UpdateAI(){
-		if(getPlayerDistance()<7f && getPlayerDistance()>4f && !attackController.isDoingAnyAttack()){
+		/*if(getPlayerDistance()<7f && getPlayerDistance()>4f && !attackController.isDoingAnyAttack()){
 			if(getLookingDirection()!=getPlayerDirection()){
 				Move(0.01f*getPlayerDirection());
 			}
-			attackController.doAttack(attack1);
+			attackController.doAttack(attack1,false);
 		}else if(!attackController.isDoingAnyAttack()){
 			if(getIsTouchingPlanet()){
 				Move (getPlayerDirection ());
 			}
 		}else{
 			StopMoving();
-		}
+		}*/
 	}
 
 }

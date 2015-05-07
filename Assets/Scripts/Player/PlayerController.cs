@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour {
 
 
 	void Awake(){
-		GameManager.registerPlayer (gameObject);		
+		GameManager.registerPlayer (gameObject);	
 	}
 
 	void Start () {
@@ -73,13 +73,17 @@ public class PlayerController : MonoBehaviour {
 		flyParticles = flyingParticles.GetComponent<ParticleSystem> ();
 
 		initializeVariables ();
-		StartCoroutine ("resetWeaponTrail");	
+		StartCoroutine ("resetWeaponTrail");
+
 	}
 
 	IEnumerator resetWeaponTrail(){
+		//weapon.GetComponentInChildren<Xft.XWeaponTrail> ().Deactivate ();
 		//We reset the weapon trail because otherwise it will come out of big P original position in space
-		//weapon.GetComponentInChildren<Xft.XWeaponTrail> ().Activate ();
+		Color color = weapon.GetComponentInChildren<Xft.XWeaponTrail> ().MyColor ;
+		weapon.GetComponentInChildren<Xft.XWeaponTrail> ().MyColor = new Color (0f, 0f, 0f, 0f);
 		yield return new WaitForSeconds(1f);
+		weapon.GetComponentInChildren<Xft.XWeaponTrail> ().MyColor = color;
 		weapon.GetComponentInChildren<Xft.XWeaponTrail> ().Deactivate ();
 	}
 

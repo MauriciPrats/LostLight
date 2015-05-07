@@ -2453,7 +2453,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: .99115485
+  m_TransitionDuration: .542697966
   m_TransitionOffset: 0
   m_ExitTime: 0
   m_HasExitTime: 1
@@ -2878,9 +2878,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: .211958289
+  m_TransitionDuration: .0633348674
   m_TransitionOffset: 0
-  m_ExitTime: 0
+  m_ExitTime: 4.09236245e-09
   m_HasExitTime: 0
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -7718,13 +7718,13 @@ AnimatorStateMachine:
       first: {fileID: 0}
       second: []
     data:
-      first: {fileID: 110754998}
+      first: {fileID: 110747896}
       second: []
     data:
       first: {fileID: 110700000}
       second: []
     data:
-      first: {fileID: 110747896}
+      first: {fileID: 110754998}
       second: []
     data:
       first: {fileID: 110708838}
@@ -7790,15 +7790,15 @@ AnimatorStateMachine:
   m_EntryTransitions: []
   m_StateMachineTransitions:
     data:
+      first: {fileID: 110710716}
+      second:
+      - {fileID: 110977624}
+    data:
       first: {fileID: 110724460}
       second: []
     data:
       first: {fileID: 110708162}
       second: []
-    data:
-      first: {fileID: 110710716}
-      second:
-      - {fileID: 110977624}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 84, y: -36, z: 0}
   m_EntryPosition: {x: 60, y: -168, z: 0}
@@ -8055,10 +8055,10 @@ AnimatorStateMachine:
       first: {fileID: 110747896}
       second: []
     data:
-      first: {fileID: 110727736}
+      first: {fileID: 110762358}
       second: []
     data:
-      first: {fileID: 110762358}
+      first: {fileID: 110727736}
       second: []
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 50, y: 20, z: 0}
@@ -8179,10 +8179,10 @@ AnimatorStateMachine:
       first: {fileID: 110754998}
       second: []
     data:
-      first: {fileID: 110724460}
+      first: {fileID: 110710716}
       second: []
     data:
-      first: {fileID: 110710716}
+      first: {fileID: 110724460}
       second: []
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 50, y: 20, z: 0}

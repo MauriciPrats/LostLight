@@ -29,6 +29,9 @@ public class SceneManager : MonoBehaviour {
 		GUIManager.registerInteractuablePopup (interactuablePopupPrefab);
 		GUIManager.registerOnPauseMenu (onPauseMenuPrefab);
 		GUIManager.registerPlayingGUI (playingGUIPrefab);
+
+		Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Dashing"),LayerMask.NameToLayer("Enemy"),true);
+		Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Dashing"),LayerMask.NameToLayer("Dashing"),true);
 	}
 
 	void Update () {

@@ -56,7 +56,7 @@ public class KameAttack : Attack,AnimationSubscriber {
 			newEffect.transform.position = enemy.GetComponent<Rigidbody> ().worldCenterOfMass - (kameEffect.transform.forward * 0.15f);
 			Vector3 direction = (enemy.transform.position - kameCore.transform.position).normalized + (enemy.transform.up * 2f);
 			//enemy.GetComponent<Rigidbody> ().AddForce (direction.normalized * forceExplosion,ForceMode.Impulse);
-			enemy.GetComponent<Rigidbody>().velocity = direction * forceExplosion;
+			enemy.GetComponent<Rigidbody>().velocity += direction * forceExplosion;
 
 			GameManager.comboManager.addCombo ();
 			if(!elementAttack.Equals(ElementType.None)){

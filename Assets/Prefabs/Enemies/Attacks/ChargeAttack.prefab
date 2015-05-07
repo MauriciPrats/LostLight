@@ -99,8 +99,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: .385277271, y: .551542282, z: .77921617}
-  m_Center: {x: .0003657341, y: .290580273, z: .852630794}
+  m_Size: {x: .385277271, y: .551542282, z: .328543782}
+  m_Center: {x: .0003657341, y: .290580273, z: .627294481}
 --- !u!114 &11426736
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -113,11 +113,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  cost: 0
+  cost: 20
+  elementAttack: 0
   timeItLastsCharge: .699999988
   chargeSpeed: 8
   velocityAppliedToPlayer: 10
-  velocityAppliedToEnemy: 10
+  velocityAppliedToEnemy: 3
   timeBeforeCharge: 2
   localPosition: {x: 0, y: 0, z: 0}
   chargeParticles: {fileID: 170878}
@@ -1336,10 +1337,10 @@ ParticleSystem:
         m_NumAlphaKeys: 2
       minColor:
         serializedVersion: 2
-        rgba: 4287657783
+        rgba: 4291414473
       maxColor:
         serializedVersion: 2
-        rgba: 4287071095
+        rgba: 0
       minMaxState: 2
     startSize:
       scalar: 3

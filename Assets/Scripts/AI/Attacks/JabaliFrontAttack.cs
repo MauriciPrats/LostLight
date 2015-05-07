@@ -5,10 +5,8 @@ public class JabaliFrontAttack : Attack {
 	
 	public float timeToChargeAttack = 0.5f;
 	public float attackDuration = 0.1f;
-	public GameObject particlesChargeAttack;
 	public GameObject particlesAttack;
 	public GameObject animator;
-	public Vector3 localPosition;
 
 
 	private float attackTimer = 0f;
@@ -18,6 +16,8 @@ public class JabaliFrontAttack : Attack {
 	private GameObject parent;
 	private Animator iaAnimator;
 	private bool isPlayerInsideAttack = false;
+
+	private OutlineChanging outlineChanger;
 
 
 	public override void initialize(){
@@ -52,15 +52,17 @@ public class JabaliFrontAttack : Attack {
 	private void chargeAttack(){
 		isInterruptable = true;
 		chargeAttackTimer+=Time.deltaTime;
-		iaAnimator.SetBool("isChargingAttack",true);
-		particlesChargeAttack.GetComponent<ParticleSystem>().Play();
+		iaAnimator.SetTrigger ("isChargingHeadbutt");
+		float ratio = chargeAttackTimer / timeToChargeAttack;
+		Color newColor = Color.Lerp (Color.black, Color.red, ratio);
+		outlineChanger.setOutlineColor (newColor);
 		if(chargeAttackTimer>=timeToChargeAttack){
+			outlineChanger.setOutlineColor (Color.black);
 			isChargingAttack = false;
 			isDoingAttack = true;
-			particlesChargeAttack.GetComponent<ParticleSystem>().Stop();
-			iaAnimator.SetBool("isChargingAttack",false);
+			iaAnimator.ResetTrigger ("isChargingHeadbutt");
+			iaAnimator.SetTrigger ("isDoingHeadbutt");
 			particlesAttack.GetComponent<ParticleSystem>().Play();
-			iaAnimator.SetBool("isDoingAttack",true);
 		}
 	}
 	
@@ -73,8 +75,6 @@ public class JabaliFrontAttack : Attack {
 			chargeAttackTimer = 0f;
 			attackTimer = 0f;
 			attackEffect();
-			iaAnimator.SetBool("isDoingAttack",false);
-			iaAnimator.SetBool("isChargingAttack",false);
 			isInterruptable = false;
 		}
 	}
@@ -87,11 +87,10 @@ public class JabaliFrontAttack : Attack {
 
 	public override void interruptAttack(){
 		if(isInterruptable){
+			outlineChanger.setOutlineColor (Color.black);
+			iaAnimator.ResetTrigger ("isChargingHeadbutt");
 			isChargingAttack = false;
 			isFinished = true;
-			iaAnimator.SetBool("isDoingAttack",false);
-			iaAnimator.SetBool("isChargingAttack",false);
-			particlesChargeAttack.GetComponent<ParticleSystem>().Stop();
 			isDoingAttack = false;
 			chargeAttackTimer = 0f;
 			attackTimer = 0f;
@@ -102,9 +101,10 @@ public class JabaliFrontAttack : Attack {
 	public override void informParent(GameObject parentObject){
 		transform.parent = parentObject.transform;
 		transform.rotation = parentObject.transform.rotation;
-		transform.localPosition = localPosition;
+		transform.position = parentObject.GetComponent<Rigidbody>().worldCenterOfMass + (parentObject.transform.forward*parentObject.GetComponent<WalkOnMultiplePaths>().centerToExtremesDistance*1.3f);
 		parent = parentObject;
 		iaAnimator = parent.GetComponent<IAController> ().getIAAnimator ();
+		outlineChanger = parent.GetComponent<OutlineChanging> ();
 	}
 
 }

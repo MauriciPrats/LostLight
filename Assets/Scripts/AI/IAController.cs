@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-public enum EnemyType{Jabali,BigJabali,DarkPappada,None}
+public enum EnemyType{Jabali,BigJabali,Rat,None}
 
 [RequireComponent (typeof (WalkOnMultiplePaths))]
 public class IAController : MonoBehaviour {
@@ -16,7 +16,6 @@ public class IAController : MonoBehaviour {
 	//Public Variables
 	public float minimumDistanceSeePlayer = 50f;
 	public LayerMask layersToFindCollision;
-	public float cooldownChangeBehaviour = 0.1f;
 	public float timePatroling = 3f;
 	public float jumpCooldown = 2f;
 	public float jumpStrength = 10f;
@@ -176,6 +175,10 @@ public class IAController : MonoBehaviour {
 			return -1f;
 		}
 	}
+
+	protected void lookAtDirection(float direction){
+		characterController.LookLeftOrRight (direction);
+	}
 	
 	public bool getIsLookingRight(){
 		return characterController.getIsLookingRight();
@@ -233,6 +236,7 @@ public class IAController : MonoBehaviour {
 			//Play on death effects and despawn
 			//Animation and lots of particles
 			if(!isDead){
+				interruptAttack();
 				iaAnimator.SetTrigger("Die");
 				GameObject particlesOnDeath = GameObject.Instantiate (onDeathEffect) as GameObject;
 				particlesOnDeath.transform.position = GetComponent<Rigidbody>().worldCenterOfMass;
@@ -240,8 +244,6 @@ public class IAController : MonoBehaviour {
 				StartCoroutine("disappearOnDeath");
 			}
 			iaAnimator.SetBool("isWalking",false);
-			iaAnimator.SetBool("isChargingAttack",false);
-			iaAnimator.SetBool("isDoingAttack",false);
 			isDead = true;
 		}
 	}

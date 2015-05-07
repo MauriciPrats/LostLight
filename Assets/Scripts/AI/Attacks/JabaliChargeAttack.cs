@@ -21,6 +21,7 @@ public class JabaliChargeAttack : Attack {
 	private Animator iaAnimator;
 	private float originalSpeed = 0f;
 	private float direction = 0f;
+	private OutlineChanging outlineChanger;
 	
 	private bool isPlayerInsideAttack = false;
 
@@ -35,7 +36,7 @@ public class JabaliChargeAttack : Attack {
 			GameManager.player.GetComponent<Rigidbody>().velocity = GameManager.player.transform.up * velocityAppliedToPlayer;
 			GameManager.player.GetComponent<PlayerController>().getHurt(damage);
 		}else if(col.gameObject.tag == "Enemy"){
-			col.gameObject.GetComponent<Rigidbody>().velocity = col.gameObject.transform.up * velocityAppliedToEnemy;
+			col.gameObject.GetComponent<Rigidbody>().velocity += col.gameObject.transform.up * velocityAppliedToEnemy;
 		}
 	}
 	
@@ -44,7 +45,7 @@ public class JabaliChargeAttack : Attack {
 			GameManager.player.GetComponent<Rigidbody>().velocity = GameManager.player.transform.up * velocityAppliedToEnemy;
 			GameManager.player.GetComponent<PlayerController>().getHurt(damage);
 		}else if(col.gameObject.tag == "Enemy"){
-			col.gameObject.GetComponent<Rigidbody>().velocity = col.gameObject.transform.up * velocityAppliedToEnemy;
+			col.gameObject.GetComponent<Rigidbody>().velocity += col.gameObject.transform.up * velocityAppliedToEnemy;
 		}
 	}
 	
@@ -60,13 +61,16 @@ public class JabaliChargeAttack : Attack {
 	}
 
 	private IEnumerator moveStraight(){
+		parent.layer = LayerMask.NameToLayer ("Dashing");
 		attackTimer = 0f;
 		while(attackTimer<=timeItLastsCharge){
 			attackTimer+=Time.deltaTime;
 			parent.GetComponent<CharacterController> ().Move(direction);
 			yield return null;
 		}
+		parent.layer = LayerMask.NameToLayer ("Enemy");
 		yield return true;
+
 	}
 
 	private IEnumerator attack(){
@@ -75,13 +79,22 @@ public class JabaliChargeAttack : Attack {
 		parent.GetComponent<CharacterController> ().speed = chargeSpeed;
 		iaAnimator.SetTrigger("isChargingChargeAttack");
 
-		yield return new WaitForSeconds (timeBeforeCharge);
+		float timer = 0f;
+		while(timer<timeBeforeCharge){
+			timer+=Time.deltaTime;
+			float ratio = timer/timeBeforeCharge;
+			Color newColor = Color.Lerp (Color.black, Color.red, ratio);
+			outlineChanger.setOutlineColor (newColor);
+			yield return null;
+		}
+		//yield return new WaitForSeconds (timeBeforeCharge);
 		chargeParticles.SetActive (false);
 		iaAnimator.SetBool("isDoingChargeAttack",true);
 		StartCoroutine ("moveStraight");
 		GetComponent<Collider> ().enabled = true;
 		whileChargingParticles.GetComponent<ParticleSystem> ().Play ();
 		yield return new WaitForSeconds(timeItLastsCharge);
+		outlineChanger.setOutlineColor (Color.black);
 		//whileChargingParticles.SetActive (false);
 		whileChargingParticles.GetComponent<ParticleSystem> ().Stop ();
 		iaAnimator.SetBool("isDoingChargeAttack",false);
@@ -92,7 +105,9 @@ public class JabaliChargeAttack : Attack {
 
 	
 	public override void interruptAttack(){
-
+		whileChargingParticles.GetComponent<ParticleSystem> ().Stop ();
+		outlineChanger.setOutlineColor (Color.black);
+		GetComponent<Collider> ().enabled = false;
 	}
 
 	public override void informParent(GameObject parentObject){
@@ -102,5 +117,6 @@ public class JabaliChargeAttack : Attack {
 		transform.localPosition = localPosition;
 		parent = parentObject;
 		iaAnimator = parent.GetComponent<IAController> ().getIAAnimator ();
+		outlineChanger = parent.GetComponent<OutlineChanging> ();
 	}
 }

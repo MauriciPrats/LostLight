@@ -28,6 +28,9 @@ public class ComboAttack : Attack, AnimationSubscriber {
 			enemiesHit.Add(enemy);
 			enemy.GetComponent<IAController>().getHurt(1,(enemy.transform.position));
 			GameManager.comboManager.addCombo ();
+			//Pruebas de que lanze al enemigo por los aires)
+			//Vector3 direction = enemy.GetComponent<Rigidbody>().worldCenterOfMass - GameManager.player.transform.position;
+			//enemy.GetComponent<Rigidbody>().velocity+=(direction*4f);
 			if(!hasHitEnemy){
 				hasHitEnemy = true;
 				GameManager.lightGemEnergyManager.addPoints(1);

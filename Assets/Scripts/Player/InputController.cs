@@ -64,21 +64,21 @@ public class InputController : MonoBehaviour {
 
 			if(character.getIsJumping() && !character.getIsSpaceJumping()){
 				if (Input.GetButtonUp("Normal Attack")) {
-					attackController.doAttack(onAirAttack);
+					attackController.doAttack(onAirAttack,true);
 				}
 			}else if(Mathf.Abs(Input.GetAxisRaw("Vertical"))>Mathf.Abs(Input.GetAxisRaw("Horizontal"))){
 				if (Input.GetButtonUp("Normal Attack") && Input.GetAxisRaw("Vertical")>0f) {
 					if(isCharacterAllowedToDoNormalAttack()){
-						attackController.doAttack(upNormalAttack);
+						attackController.doAttack(upNormalAttack,true);
 					}
 				}else if(Input.GetButtonUp("Normal Attack") && Input.GetAxisRaw("Vertical")<0f){
 					if(isCharacterAllowedToDoNormalAttack()){
-						attackController.doAttack(downNormalAttack);
+						attackController.doAttack(downNormalAttack,true);
 					}
 				}
 			}else{
 				if (Input.GetButtonUp("Normal Attack") && isCharacterAllowedToDoNormalAttack()) {
-					attackController.doAttack(sidesNormalAttack);
+					attackController.doAttack(sidesNormalAttack,true);
 				}
 			}
 
@@ -86,12 +86,12 @@ public class InputController : MonoBehaviour {
 			if (Input.GetButton("Special Attack") && isCharacterAllowedToDoSpecialAttack()) {
 				if(Mathf.Abs(Input.GetAxisRaw("Vertical"))>Mathf.Abs(Input.GetAxisRaw("Horizontal"))){
 					if(Input.GetAxisRaw("Vertical")>0f){
-						attackController.doAttack(upSpecialAttack);
+						attackController.doAttack(upSpecialAttack,true);
 					}else if(Input.GetAxisRaw("Vertical")<0f){
-						attackController.doAttack(downSpecialAttack);
+						attackController.doAttack(downSpecialAttack,true);
 					}
 				}else{
-					attackController.doAttack(sidesSpecialAttack);
+					attackController.doAttack(sidesSpecialAttack,true);
 				}
 			}
 

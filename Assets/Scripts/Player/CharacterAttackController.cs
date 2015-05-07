@@ -65,17 +65,26 @@ public class CharacterAttackController : MonoBehaviour {
 		}
 	}
 
-	public void  doAttack(AttackType aType){
+	public bool doAttack(AttackType aType,bool isPlayer){
 		Attack attackToDo = getAttack (aType);
-
 		if(attackToDo!=null){
-			if(attackToDo.canPayAttackCost() && attackToDo.canDoNextAttack()){
-				GameManager.lightGemEnergyManager.substractPoints(attackToDo.cost);
-				attackToDo.startAttack ();
+			if(isPlayer){
+				if(attackToDo.canPayAttackCost() && attackToDo.canDoNextAttack()){
+					GameManager.lightGemEnergyManager.substractPoints(attackToDo.cost);
+					attackToDo.startAttack ();
+					return true;
+				}
+			}else{
+				if(GameManager.enemyAttackManager.canPayAttack(getAttack(aType).cost) && attackToDo.canDoNextAttack()){
+					attackToDo.startAttack ();
+					GameManager.enemyAttackManager.doNewAttack(getAttack(aType).cost);
+					return true;
+				}
 			}
 		}else{
 			Debug.Log("No attack exists for the type given");
 		}
+		return false;
 	}
 
 	public void doBlock() {

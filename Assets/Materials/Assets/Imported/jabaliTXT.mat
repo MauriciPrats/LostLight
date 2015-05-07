@@ -190,7 +190,7 @@ Material:
       data:
         first:
           name: _Outline
-        second: 40
+        second: 60
       data:
         first:
           name: _Asym
