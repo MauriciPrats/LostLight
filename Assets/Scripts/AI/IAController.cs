@@ -21,6 +21,7 @@ public class IAController : MonoBehaviour {
 	public float jumpStrength = 10f;
 	public bool isIdle = true;
 	public float minimumDistanceAttackPlayer = 1f;
+	public float meleeRange = 1f; 
 	public float attackChoosingCooldown = 0.5f;
 	public float attackChance = 0.2f;
 	public int numberOfLightsAvg = 2;
@@ -291,6 +292,31 @@ public class IAController : MonoBehaviour {
 	public Animator getIAAnimator(){
 		return iaAnimator;
 	}
+
+	protected void SetVisionRange(float value) {
+		minimumDistanceSeePlayer = value;
+	}
+
+	protected void SetMeleeRange(float value) {
+		meleeRange = value;
+	}
+
+	protected bool isAtVisionRange(){
+		if (getPlayerDistance () < minimumDistanceSeePlayer) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	protected bool isAtMeleeRange(){
+		if (getPlayerDistance () < meleeRange) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 
 	//Functions and variables for the AI
 	//UpdateAI
