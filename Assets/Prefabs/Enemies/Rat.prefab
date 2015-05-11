@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attacksGO:
-  - {fileID: 148722, guid: 10532201da2879f4ba94646295e2bdda, type: 2}
+  - {fileID: 0}
   blockGO: {fileID: 0}
   dashGO: {fileID: 0}
 --- !u!114 &11437158
@@ -170,9 +170,11 @@ MonoBehaviour:
   attackChance: .200000003
   numberOfLightsAvg: 2
   timeToChangeBehaviour: .100000001
+  timeToDie: .5
+  isDead: 0
   poisonAttack: 0
   jumpingAttack: 0
-  burrowAttack: 9
+  burrowAttack: 10
 --- !u!114 &11454616
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -1449,7 +1449,7 @@ MonoBehaviour:
   timeToDie: 2
   isDead: 0
   rangedAttack: 9
-  minimumDistanceInFront: .400000006
+  minimumDistanceInFront: .800000012
   patrolTimeToTurn: 1.5
   maxDistancePlayer: 20
   chanceToRangedAttack: .600000024
@@ -1480,7 +1480,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0ec1e9e6c11dfb44b6671bf6e22ab65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 5
+  HP: 3
 --- !u!114 &11442812
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1523,7 +1523,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointsCost: 4
-  maximumEnemiesInPlanet: 5
+  maximumEnemiesInPlanet: 3
   enemyType: 3
 --- !u!114 &11469788
 MonoBehaviour:
