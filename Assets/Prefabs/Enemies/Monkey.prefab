@@ -1453,10 +1453,11 @@ MonoBehaviour:
   patrolTimeToTurn: 1.5
   maxDistancePlayer: 20
   chanceToRangedAttack: .600000024
+  rangedAttackCooldown: 1
   maxDistanceCharge: 8
   lookTime: .100000001
-  minimumPlayerDistanceForRangedAttack: 4
-  maximumPlayerDistanceForRangedAttack: 8
+  minimumPlayerDistanceForRangedAttack: 1.75
+  maximumPlayerDistanceForRangedAttack: 3.5
 --- !u!114 &11435444
 MonoBehaviour:
   m_ObjectHideFlags: 1

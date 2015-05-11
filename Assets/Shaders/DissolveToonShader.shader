@@ -99,9 +99,9 @@
 						if(dissolveColor.r>highest){highest = dissolveColor.r;}
 						if(dissolveColor.g>highest){highest = dissolveColor.g;}
 						if(dissolveColor.b>highest){highest = dissolveColor.b;}
-						if(highest>(_DissolveThreshold -_BurningWidth) && _DissolveThreshold <= 1-_BurningWidth){
-							o.pos = o.pos - (float4(v.normal,0.0));
-						}
+						//if(highest>(_DissolveThreshold -_BurningWidth) && _DissolveThreshold <= 1-_BurningWidth){
+						//	o.pos = o.pos - (float4(v.normal,0.0));
+						//}
 					#endif
 					
                     return o;

@@ -37,6 +37,13 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
+          name: _DissolveNoise
+        second:
+          m_Texture: {fileID: 2800000, guid: fdcc49f69a12f0e41b9ed2c94e230662, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
           name: _ParallaxMap
         second:
           m_Texture: {fileID: 0}
@@ -77,13 +84,6 @@ Material:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _DissolveNoise
-        second:
-          m_Texture: {fileID: 2800000, guid: fdcc49f69a12f0e41b9ed2c94e230662, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
@@ -97,6 +97,30 @@ Material:
         first:
           name: _DstBlend
         second: 10
+      data:
+        first:
+          name: _OutlineSize
+        second: 4
+      data:
+        first:
+          name: _YCutOut
+        second: 0
+      data:
+        first:
+          name: _Dissolution
+        second: 1
+      data:
+        first:
+          name: _BurningWidth
+        second: 0
+      data:
+        first:
+          name: _TileSize
+        second: .202999994
+      data:
+        first:
+          name: _DissolveThreshold
+        second: 1
       data:
         first:
           name: _Parallax
@@ -143,32 +167,8 @@ Material:
         second: .550000012
       data:
         first:
-          name: _DissolveThreshold
-        second: 1
-      data:
-        first:
-          name: _BurningWidth
-        second: .0199999996
-      data:
-        first:
-          name: _Dissolution
-        second: 1
-      data:
-        first:
-          name: _YCutOut
-        second: 0
-      data:
-        first:
-          name: _OutlineSize
-        second: 4
-      data:
-        first:
           name: _Alpha
         second: 1
-      data:
-        first:
-          name: _TileSize
-        second: .202999994
     m_Colors:
       data:
         first:
@@ -180,7 +180,11 @@ Material:
         second: {r: 1, g: 1, b: 1, a: 1}
       data:
         first:
-          name: _EmissionColorUI
+          name: _OutlineColor
+        second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _BurningColor
         second: {r: 1, g: 1, b: 1, a: 1}
       data:
         first:
@@ -188,9 +192,5 @@ Material:
         second: {r: .132352948, g: .0690960214, b: .0690960214, a: .501960814}
       data:
         first:
-          name: _OutlineColor
-        second: {r: 1, g: 1, b: 1, a: 1}
-      data:
-        first:
-          name: _BurningColor
+          name: _EmissionColorUI
         second: {r: 1, g: 1, b: 1, a: 1}

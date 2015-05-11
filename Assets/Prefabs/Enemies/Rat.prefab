@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attacksGO:
-  - {fileID: 0}
+  - {fileID: 148722, guid: a2ac376fcf342c6479f5cdfe5b95d0f0, type: 2}
   blockGO: {fileID: 0}
   dashGO: {fileID: 0}
 --- !u!114 &11437158

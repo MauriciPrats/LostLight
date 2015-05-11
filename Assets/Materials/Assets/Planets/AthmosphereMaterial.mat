@@ -30,9 +30,9 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _ParallaxMap
+          name: _DissolveNoise
         second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 2800000, guid: fdcc49f69a12f0e41b9ed2c94e230662, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -44,9 +44,9 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _DissolveNoise
+          name: _ParallaxMap
         second:
-          m_Texture: {fileID: 2800000, guid: fdcc49f69a12f0e41b9ed2c94e230662, type: 3}
+          m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -60,16 +60,24 @@ Material:
         second: .699999988
       data:
         first:
-          name: _Parallax
-        second: .0199999996
+          name: _OutlineSize
+        second: 4
       data:
         first:
-          name: _TintColor
+          name: _YCutOut
+        second: -100000
+      data:
+        first:
+          name: _Dissolution
         second: 1
       data:
         first:
-          name: _DetailTex
-        second: 1
+          name: _BurningWidth
+        second: 0
+      data:
+        first:
+          name: _TileSize
+        second: .204999998
       data:
         first:
           name: _Cull
@@ -77,6 +85,14 @@ Material:
       data:
         first:
           name: _Outl
+        second: 1
+      data:
+        first:
+          name: _DetailTex
+        second: 1
+      data:
+        first:
+          name: _TintColor
         second: 1
       data:
         first:
@@ -108,24 +124,8 @@ Material:
         second: 0
       data:
         first:
-          name: _BurningWidth
-        second: .0500000007
-      data:
-        first:
-          name: _Dissolution
-        second: 1
-      data:
-        first:
-          name: _YCutOut
-        second: -100000
-      data:
-        first:
-          name: _OutlineSize
-        second: 4
-      data:
-        first:
-          name: _TileSize
-        second: .204999998
+          name: _Parallax
+        second: .0199999996
     m_Colors:
       data:
         first:
@@ -137,29 +137,29 @@ Material:
         second: {r: 1, g: 1, b: 1, a: 1}
       data:
         first:
-          name: _Emission
-        second: {r: 0, g: 0, b: 0, a: 0}
-      data:
-        first:
-          name: _TintColor
-        second: {r: 1, g: 1, b: 1, a: .501960814}
-      data:
-        first:
-          name: _OutlineColor
-        second: {r: 1, g: 1, b: 1, a: 1}
-      data:
-        first:
-          name: _Asymmetry
-        second: {r: 0, g: .25, b: .5, a: 0}
-      data:
-        first:
-          name: _BurningColor
-        second: {r: 1, g: 1, b: 1, a: 1}
-      data:
-        first:
           name: _OriginalColor
         second: {r: 1, g: 1, b: 1, a: .501960814}
       data:
         first:
           name: _CorruptedColor
         second: {r: .677443087, g: .221237034, b: .683823526, a: .36470589}
+      data:
+        first:
+          name: _OutlineColor
+        second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _BurningColor
+        second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _TintColor
+        second: {r: 1, g: 1, b: 1, a: .501960814}
+      data:
+        first:
+          name: _Asymmetry
+        second: {r: 0, g: .25, b: .5, a: 0}
+      data:
+        first:
+          name: _Emission
+        second: {r: 0, g: 0, b: 0, a: 0}

@@ -7,6 +7,11 @@ public class BurrowAttack : Attack {
 
 	private float direction = 0f;
 
+	public override void initialize ()
+	{
+		attackType = AttackType.BurrowAttack;
+	}
+
 	public override void startAttack(){
 		bool isRight = gameObject.GetComponent<IAController>().getIsLookingRight();
 		if(isRight){

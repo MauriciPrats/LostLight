@@ -27,6 +27,7 @@ public class IAControllerJabali : IAController {
 	private bool isDoingMeleeAttack = false;
 	private float looktimer = 0f;
 
+
 	protected override void initialize(){
 		Attack frontAttackA = attackController.getAttack(frontAttack);
 		frontAttackA.informParent(gameObject);
