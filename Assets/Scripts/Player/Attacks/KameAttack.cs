@@ -46,7 +46,7 @@ public class KameAttack : Attack,AnimationSubscriber {
 	}
 
 	public override void enemyCollisionEnter(GameObject enemy){
-		if(!enemiesHit.Contains(enemy)){
+		if(!enemiesHit.Contains(enemy) && !enemy.GetComponent<IAController>().isDead){
 			enemiesHit.Add(enemy);
 			//If it's an enemy we damage him
 			enemy.GetComponent<IAController>().getHurt(damage,(kameEffect.transform.position+enemy.transform.position)/2f);
@@ -100,7 +100,7 @@ public class KameAttack : Attack,AnimationSubscriber {
 
 	private void initializeVariables(){
 		kameEffect.transform.rotation = Quaternion.LookRotation (GameManager.player.transform.forward, GameManager.player.transform.up);
-		GameObject[] planets = GravityBodiesManager.getGravityBodies ();
+		GameObject[] planets = GravityAttractorsManager.getGravityAttractors ();
 		float smallestDistance = float.PositiveInfinity;
 		foreach(GameObject planet in planets){
 			if(Vector3.Distance(planet.transform.position,GameManager.player.transform.position)<smallestDistance){

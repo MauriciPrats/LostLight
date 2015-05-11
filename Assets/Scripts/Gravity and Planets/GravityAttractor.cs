@@ -13,7 +13,7 @@ public class GravityAttractor : MonoBehaviour {
 	private float sphereRadius;
 	void Awake(){
 
-		GravityBodiesManager.registerNewBody (this.gameObject);
+		GravityAttractorsManager.registerNewAttractor(this.gameObject);
 
 		//We initialize the corruption
 		if(GetComponent<PlanetCorruption>()!=null){

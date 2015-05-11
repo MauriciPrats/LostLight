@@ -12,10 +12,6 @@ public class PappadaController : MonoBehaviour {
 	public float maxPappadaZScale;
 	public float minPappadaZScale;
 
-	public float criticalPercentageBlood;
-
-	public GameObject pappadaBlood;
-
 
 	// Use this for initialization
 	void Start () {
@@ -41,15 +37,6 @@ public class PappadaController : MonoBehaviour {
 		if(scaleZ<minPappadaZScale){scaleZ = minPappadaZScale;}
 
 		transform.localScale = new Vector3 (scaleX, scaleY, scaleZ);
-
-
-		if(pappadaBlood!=null){
-			if(proportion<criticalPercentageBlood){
-				pappadaBlood.SetActive(true);
-			}else{
-				pappadaBlood.SetActive(false);
-			}
-		}
 
 		//transform.renderer.material.color = new Color (1f - proportion, 0f, 0f);
 	}

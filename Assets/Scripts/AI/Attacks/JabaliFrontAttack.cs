@@ -39,6 +39,7 @@ public class JabaliFrontAttack : Attack {
 	public override void startAttack(){
 		isChargingAttack = true;
 		isFinished = false;
+		iaAnimator.SetTrigger ("isChargingHeadbutt");
 	}
 
 	protected override void update(){
@@ -52,7 +53,6 @@ public class JabaliFrontAttack : Attack {
 	private void chargeAttack(){
 		isInterruptable = true;
 		chargeAttackTimer+=Time.deltaTime;
-		iaAnimator.SetTrigger ("isChargingHeadbutt");
 		float ratio = chargeAttackTimer / timeToChargeAttack;
 		Color newColor = Color.Lerp (Color.black, Color.red, ratio);
 		outlineChanger.setOutlineColor (newColor);
@@ -60,7 +60,6 @@ public class JabaliFrontAttack : Attack {
 			outlineChanger.setOutlineColor (Color.black);
 			isChargingAttack = false;
 			isDoingAttack = true;
-			iaAnimator.ResetTrigger ("isChargingHeadbutt");
 			iaAnimator.SetTrigger ("isDoingHeadbutt");
 			particlesAttack.GetComponent<ParticleSystem>().Play();
 		}

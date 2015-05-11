@@ -17,7 +17,7 @@ public class GravityBody : MonoBehaviour {
 
 
 	void Start() {
-		planets = GravityBodiesManager.getGravityBodies ();
+		planets = GravityAttractorsManager.getGravityAttractors ();
 		GetComponent<Rigidbody> ().drag = drag;
 		onStart ();
 	}

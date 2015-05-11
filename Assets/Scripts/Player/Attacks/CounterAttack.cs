@@ -22,7 +22,7 @@ public class CounterAttack : Attack {
 	}
 
 	public override void enemyCollisionEnter(GameObject enemy){
-		if(!enemiesHit.Contains(enemy)){
+		if(!enemiesHit.Contains(enemy) && !enemy.GetComponent<IAController>().isDead){
 			enemiesHit.Add(enemy);
 			enemy.GetComponent<IAController>().getHurt(damage,(enemy.transform.position));
 			enemy.GetComponent<IAController> ().interruptAttack ();

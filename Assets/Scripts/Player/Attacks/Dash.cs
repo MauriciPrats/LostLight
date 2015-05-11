@@ -25,6 +25,7 @@ public class Dash : MonoBehaviour {
 
 	IEnumerator doDash(){
 		Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"),LayerMask.NameToLayer("Enemy"),true);
+		Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"),LayerMask.NameToLayer("Dashing"),true);
 		isDoingDash = true;
 		cooldownFinished = false;
 
@@ -59,6 +60,7 @@ public class Dash : MonoBehaviour {
 		yield return new WaitForSeconds(dashTimeR);
 		isDoingDash = false;
 		Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"),LayerMask.NameToLayer("Enemy"),false);
+		Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"),LayerMask.NameToLayer("Dashing"),false);
 		GameManager.player.GetComponent<CharacterController> ().setMoveAmount (originalMovement);
 		GameManager.playerAnimator.SetBool("isWalking",false);
 		yield return new WaitForSeconds(dashCooldown);

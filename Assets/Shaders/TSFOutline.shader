@@ -74,6 +74,5 @@ Shader "TSF/BaseOutline1"
             ENDCG
         }
     }
-    CustomEditor "TSF"
     Fallback "Diffuse"
 }

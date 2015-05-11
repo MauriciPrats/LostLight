@@ -10,12 +10,12 @@ public class IAControllerJabali : IAController {
 	public float patrolTimeToTurn = 1.5f;
 	public float maxDistancePlayer = 20f;
 	public float maxDistanceMeleeAttack = 0.1f;
-	public float changeToCharge = 0.02f;
-	public float changeToAttackMelee = 0.05f;
+	public float chanceToCharge = 0.02f;
+	public float chanceToAttackMelee = 0.05f;
 	public float meleeAttackCooldown = 0.5f;
 	public float chargeAttackCooldown = 1.5f;
-	public float changeBehaviours = 0.2f;
 	public float maxDistanceCharge = 8f;
+	public float lookTime = 0.1f;
 
 	private float meleeAttackTimer = 0f;
 	private float chargeAttackTimer = 0f;
@@ -25,6 +25,7 @@ public class IAControllerJabali : IAController {
 	private float changeBehaviourTimer = 0f;
 	private bool isCharging = false;
 	private bool isDoingMeleeAttack = false;
+	private float looktimer = 0f;
 
 	protected override void initialize(){
 		Attack frontAttackA = attackController.getAttack(frontAttack);
@@ -37,33 +38,31 @@ public class IAControllerJabali : IAController {
 		doActualBehaviour ();
 		meleeAttackTimer += Time.deltaTime;
 		chargeAttackTimer += Time.deltaTime;
-		changeBehaviourTimer += Time.deltaTime;
-			
-		//if(changeBehaviourTimer>=timeToChangeBehaviour){
-				//changeBehaviourTimer = 0f;
 		changeBehaviour();
-		//}
 	}
 
 
 	private void changeBehaviour(){
-			if (!attackController.isDoingAnyAttack()) {
-				if(isDoingMeleeAttack){meleeAttackTimer = 0f; isDoingMeleeAttack=false;}
-				if(isCharging){chargeAttackTimer = 0f; isCharging = false;}
-			}
+		//Changes the behaviour depending on the conditions of the AI
 
-			if(!canSeePlayer()){
+		if (!attackController.isDoingAnyAttack()) {
+			//We check if we have to reset the melee and charging attack timers
+			if(isDoingMeleeAttack){meleeAttackTimer = 0f; isDoingMeleeAttack=false;}
+			if(isCharging){chargeAttackTimer = 0f; isCharging = false;}
+		}
+
+		if(!canSeePlayer()){
+			actualBehaviour = ActualBehaviour.Patroling;
+		}else{
+			if(getPlayerDistance()>=maxDistancePlayer){
 				actualBehaviour = ActualBehaviour.Patroling;
-			}else{
-				if(getPlayerDistance()>=maxDistancePlayer){
-					actualBehaviour = ActualBehaviour.Patroling;
-				}
+			}
 
 			if(getPlayerDistance()<=maxDistanceMeleeAttack){
 					//Is at melee range
 					if(meleeAttackTimer>meleeAttackCooldown){
 						meleeAttackTimer = 0f;
-						if(Random.value<=changeToAttackMelee){
+						if(Random.value<=chanceToAttackMelee){
 							actualBehaviour = ActualBehaviour.MeleeAttack;
 						}else{
 							actualBehaviour = ActualBehaviour.OffensiveIdle;
@@ -76,7 +75,7 @@ public class IAControllerJabali : IAController {
 					//Is farther away
 					if(chargeAttackTimer>chargeAttackCooldown){
 						chargeAttackTimer = 0f;
-						if(Random.value<=changeToCharge){
+						if(Random.value<=chanceToCharge){
 							actualBehaviour = ActualBehaviour.ChargeAttack;
 						}else{
 							actualBehaviour = ActualBehaviour.ChasePlayer;
@@ -92,6 +91,7 @@ public class IAControllerJabali : IAController {
 	}
 
 	private void doActualBehaviour(){
+		//Does the action that corresponds to the actual behaviour unless it is dead
 		if(!isDead){
 			if(!attackController.isDoingAnyAttack() && getIsTouchingPlanet()){
 				if(actualBehaviour.Equals(ActualBehaviour.Patroling)){
@@ -123,18 +123,24 @@ public class IAControllerJabali : IAController {
 					}else{
 						StopMoving();
 					}
+				}else if(actualBehaviour.Equals(ActualBehaviour.OffensiveIdle)){
+					IdleInFrontOfPlayer();
 				}
 			}
 		}
 	}
 
 	private void IdleInFrontOfPlayer(){
-		patrolTime += Time.deltaTime;
-		lookAtDirection(getPlayerDirection());
-
+		//Looks in the player direction
+		looktimer += Time.deltaTime;
+		if(looktimer>lookTime){
+			looktimer = 0f;
+			lookAtDirection(getPlayerDirection());
+		}
 	}
 
 	private void Patrol(){
+		//Patrols around
 		patrolTime += Time.deltaTime;
 		if(patrolTime>=patrolTimeToTurn){
 			patrolTime = 0f;
@@ -144,18 +150,6 @@ public class IAControllerJabali : IAController {
 		}
 	}
 
-
-	/*private IEnumerator jumpRandomly(){
-		while(true){
-		float timeToWait = Random.value+0.5f;
-		float timer = 0f;
-			while(timer<timeToWait){
-				timer+=Time.deltaTime;
-				yield return null;
-			}
-			if(getIsTouchingPlanet()){Jump ();}
-		}
-	}*/
 	/***FUNCTIONS***/
 	//initialize()
 	//UpdateAI()

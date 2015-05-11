@@ -32,6 +32,10 @@ public class SceneManager : MonoBehaviour {
 
 		Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Dashing"),LayerMask.NameToLayer("Enemy"),true);
 		Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Dashing"),LayerMask.NameToLayer("Dashing"),true);
+
+		Physics.IgnoreLayerCollision(LayerMask.NameToLayer("OnlyFloor"),LayerMask.NameToLayer("Enemy"),true);
+		Physics.IgnoreLayerCollision(LayerMask.NameToLayer("OnlyFloor"),LayerMask.NameToLayer("Dashing"),true);
+		Physics.IgnoreLayerCollision(LayerMask.NameToLayer("OnlyFloor"),LayerMask.NameToLayer("Player"),true);
 	}
 
 	void Update () {

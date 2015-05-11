@@ -32,20 +32,24 @@ public class JabaliChargeAttack : Attack {
 	}
 
 	void OnTriggerEnter(Collider col) {
-		if(col.tag == "Player"){
-			GameManager.player.GetComponent<Rigidbody>().velocity = GameManager.player.transform.up * velocityAppliedToPlayer;
-			GameManager.player.GetComponent<PlayerController>().getHurt(damage);
-		}else if(col.gameObject.tag == "Enemy"){
-			col.gameObject.GetComponent<Rigidbody>().velocity += col.gameObject.transform.up * velocityAppliedToEnemy;
+		if(!parent.GetComponent<IAController>().isDead){
+			if(col.tag == "Player"){
+				GameManager.player.GetComponent<Rigidbody>().velocity = GameManager.player.transform.up * velocityAppliedToPlayer;
+				GameManager.player.GetComponent<PlayerController>().getHurt(damage);
+			}else if(col.gameObject.tag == "Enemy"){
+				col.gameObject.GetComponent<Rigidbody>().velocity += col.gameObject.transform.up * velocityAppliedToEnemy;
+			}
 		}
 	}
 	
 	void OnCollisionEnter(Collision col) {
-		if(col.gameObject.tag == "Player"){
-			GameManager.player.GetComponent<Rigidbody>().velocity = GameManager.player.transform.up * velocityAppliedToEnemy;
-			GameManager.player.GetComponent<PlayerController>().getHurt(damage);
-		}else if(col.gameObject.tag == "Enemy"){
-			col.gameObject.GetComponent<Rigidbody>().velocity += col.gameObject.transform.up * velocityAppliedToEnemy;
+		if(!parent.GetComponent<IAController>().isDead){
+			if(col.gameObject.tag == "Player"){
+				GameManager.player.GetComponent<Rigidbody>().velocity = GameManager.player.transform.up * velocityAppliedToEnemy;
+				GameManager.player.GetComponent<PlayerController>().getHurt(damage);
+			}else if(col.gameObject.tag == "Enemy"){
+				col.gameObject.GetComponent<Rigidbody>().velocity += col.gameObject.transform.up * velocityAppliedToEnemy;
+			}
 		}
 	}
 	
@@ -61,11 +65,14 @@ public class JabaliChargeAttack : Attack {
 	}
 
 	private IEnumerator moveStraight(){
+
 		parent.layer = LayerMask.NameToLayer ("Dashing");
 		attackTimer = 0f;
 		while(attackTimer<=timeItLastsCharge){
 			attackTimer+=Time.deltaTime;
-			parent.GetComponent<CharacterController> ().Move(direction);
+			if(!parent.GetComponent<IAController>().isDead){
+				parent.GetComponent<IAController> ().Move(direction);
+			}
 			yield return null;
 		}
 		parent.layer = LayerMask.NameToLayer ("Enemy");
@@ -90,9 +97,11 @@ public class JabaliChargeAttack : Attack {
 		//yield return new WaitForSeconds (timeBeforeCharge);
 		chargeParticles.SetActive (false);
 		iaAnimator.SetBool("isDoingChargeAttack",true);
-		StartCoroutine ("moveStraight");
-		GetComponent<Collider> ().enabled = true;
-		whileChargingParticles.GetComponent<ParticleSystem> ().Play ();
+		if(!parent.GetComponent<IAController>().isDead){
+			StartCoroutine ("moveStraight");
+			GetComponent<Collider> ().enabled = true;
+			whileChargingParticles.GetComponent<ParticleSystem> ().Play ();
+		}
 		yield return new WaitForSeconds(timeItLastsCharge);
 		outlineChanger.setOutlineColor (Color.black);
 		//whileChargingParticles.SetActive (false);

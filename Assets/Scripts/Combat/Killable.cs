@@ -19,6 +19,14 @@ public class Killable:MonoBehaviour {
 		
 	}
 
+	public void GainHealth(int healthAmmount){
+		if(healthAmmount+HP>maxHP){
+			HP = maxHP;
+		}else{
+			HP+=healthAmmount;
+		}
+	}
+
 	public void resetHP(){
 		HP = maxHP;
 	}
@@ -33,6 +41,7 @@ public class Killable:MonoBehaviour {
 	}
 
 	public float proportionHP(){
+		if(HP == maxHP){return 1f;}
 		return (float)HP / (float)maxHP;
 	}
 

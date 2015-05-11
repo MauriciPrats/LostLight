@@ -257,6 +257,10 @@ public class PlayerController : MonoBehaviour {
 
 	}
 
+	public void gainLife(int lifeToGain){
+		killable.GainHealth (lifeToGain);
+	}
+
 	public void kill(){
 		getHurt(killable.HP);
 	}
@@ -299,7 +303,6 @@ public class PlayerController : MonoBehaviour {
 		lineRenderer.SetPosition (0, transform.position);
 		lineRenderer.SetPosition (1, transform.position);
 		isShowingLineJump = false;
-
 	}
 
 	public void reset(){

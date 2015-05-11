@@ -102,6 +102,5 @@ Shader "TSF/Base1"
             ENDCG
         }
     }
-    CustomEditor "TSF"
     Fallback "Diffuse"
 }

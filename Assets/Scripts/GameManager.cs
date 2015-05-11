@@ -7,6 +7,8 @@ public static class GameManager{
 	public static GameObject player;
 	public static Animator playerAnimator;
 	public static GameObject lightGemObject;
+	public static GameObject playerTongueObject;
+	public static GameObject playerNeckObject;
 	public static SceneManager actualSceneManager;
 	public static GameState gameState = new GameState ();
 	public static GameObject mainCamera;
@@ -150,5 +152,13 @@ public static class GameManager{
 
 	public static void registerComboManager(GameObject comboManagerGO){
 		comboManager = comboManagerGO.GetComponent<ComboManager> ();
+	}
+
+	public static void registerPlayerTongue(GameObject playerTongueGO){
+		playerTongueObject = playerTongueGO;
+	}
+
+	public static void registerPlayerNeck(GameObject playerNeckGO){
+		playerNeckObject = playerNeckGO;
 	}
 }

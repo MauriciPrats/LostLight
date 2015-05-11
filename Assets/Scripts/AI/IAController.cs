@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-public enum EnemyType{Jabali,BigJabali,Rat,None}
+public enum EnemyType{Jabali,BigJabali,Rat,Monkey,None}
 
 [RequireComponent (typeof (WalkOnMultiplePaths))]
 public class IAController : MonoBehaviour {
@@ -26,13 +26,14 @@ public class IAController : MonoBehaviour {
 	public float attackChance = 0.2f;
 	public int numberOfLightsAvg = 2;
 	public float timeToChangeBehaviour = 0.1f;
+	public float timeToDie = 0.5f;
 
 	//Private Variables
 	private float frozenTime;
 	private float frozenTimer;
 	private float stunnedTime;
 	private float stunnedTimer;
-	private float timeToDie = 0.5f;
+
 	private float minimumDistanceFront = 0f;
 	private float timeToJump = 0f;
 	private float lastTimeCheckedClosestThingInFront = 0f;
@@ -49,7 +50,7 @@ public class IAController : MonoBehaviour {
 
 	//State of the AI
 	protected float closestThingInFront = 0f;
-	protected bool isDead;
+	public bool isDead;
 	protected bool isOnGuard;
 	protected bool isFrozen;
 	protected bool isStunned;
@@ -84,15 +85,38 @@ public class IAController : MonoBehaviour {
 		lastTimeCheckedClosestThingInFront += Time.deltaTime;
 		if(lastTimeCheckedClosestThingInFront>cooldownRaycastingClosestThingInFront){
 			lastTimeCheckedClosestThingInFront = 0f;
-			
+
+			//Enemy distance
 			float enemyDistanceFront = walkOnMultiplePaths.getClosestEnemyInFront ();
+
+			//Player distance
 			PlayerController chaCon = player.GetComponent<PlayerController>();
 			float playerDistance = Vector3.Distance (player.GetComponent<Rigidbody>().worldCenterOfMass, transform.position) - (walkOnMultiplePaths.centerToExtremesDistance + chaCon.centerToExtremesDistance);
 
-			if(playerDistance<enemyDistanceFront){
-				closestThingInFront = playerDistance;
+			//terrain elements distance
+			float terrainDistance = float.PositiveInfinity;
+			RaycastHit hit;
+			if (Physics.Raycast(GetComponent<Rigidbody>().worldCenterOfMass,transform.forward, out hit, 100000f,layersToFindCollision))
+			{
+				Collider target = hit.collider; // What did I hit?
+				if(target.gameObject.layer == LayerMask.NameToLayer("Planets")){ 
+					terrainDistance = hit.distance;
+				}
+			}
+
+			if(!getIsLookingRight() == isElementLeft(player)){
+				if(playerDistance<enemyDistanceFront){
+					closestThingInFront = playerDistance;
+				}else{
+					closestThingInFront = enemyDistanceFront;
+				}
 			}else{
 				closestThingInFront = enemyDistanceFront;
+			}
+
+			if(terrainDistance<closestThingInFront){
+				Debug.Log(closestThingInFront);
+				closestThingInFront = terrainDistance;
 			}
 		}
 		return closestThingInFront;
@@ -106,9 +130,11 @@ public class IAController : MonoBehaviour {
 	}
 
 	//FUNCTIONS FOR MOVING
-	protected void Move(float moveDirection){
-		characterController.Move(moveDirection);
-		iaAnimator.SetBool("isWalking",true);
+	public void Move(float moveDirection){
+		if(!isDead){
+			characterController.Move(moveDirection);
+			iaAnimator.SetBool("isWalking",true);
+		}
 	}
 
 	protected void StopMoving(){
@@ -117,7 +143,7 @@ public class IAController : MonoBehaviour {
 	}
 
 	protected void Jump(){
-		GetComponent<Rigidbody> ().velocity += (transform.up * jumpStrength);
+		characterController.Jump (jumpStrength);
 	}
 
 	protected bool getIsTouchingPlanet(){
@@ -207,6 +233,9 @@ public class IAController : MonoBehaviour {
 			initialize();
 			hasBeenInitialized = true;
 		}
+		if(getIsTouchingPlanet()){
+			characterController.stopJumping();
+		}
 		UpdateAI ();
 	}
 
@@ -225,33 +254,38 @@ public class IAController : MonoBehaviour {
 	public void getHurt(int hurtAmmount,Vector3 hitPosition){
 		//Play hurt effects
 		//Particles
-		
-		foreach (GameObject particles in hitParticles) {
-			particles.GetComponent<ParticleSystem>().Play();
-			particles.transform.position = hitPosition + (transform.up * 0.2f);
-		}
-		
-		GetComponent<Killable> ().TakeDamage (hurtAmmount);
-		iaAnimator.SetTrigger("isHurt");
-		if(GetComponent<Killable>().isDead()){
-			//Play on death effects and despawn
-			//Animation and lots of particles
-			if(!isDead){
-				interruptAttack();
-				iaAnimator.SetTrigger("Die");
-				GameObject particlesOnDeath = GameObject.Instantiate (onDeathEffect) as GameObject;
-				particlesOnDeath.transform.position = GetComponent<Rigidbody>().worldCenterOfMass;
-				particlesOnDeath.transform.parent = transform;
-				StartCoroutine("disappearOnDeath");
+		if(!isDead){
+			foreach (GameObject particles in hitParticles) {
+				particles.GetComponent<ParticleSystem>().Play();
+				particles.transform.position = hitPosition + (transform.up * 0.2f);
 			}
-			iaAnimator.SetBool("isWalking",false);
-			isDead = true;
+			
+			GetComponent<Killable> ().TakeDamage (hurtAmmount);
+			iaAnimator.SetTrigger("isHurt");
+			if(GetComponent<Killable>().isDead()){
+				//Play on death effects and despawn
+				//Animation and lots of particles
+				if(!isDead){
+					interruptAttack();
+					iaAnimator.SetTrigger("Die");
+					GameObject particlesOnDeath = GameObject.Instantiate (onDeathEffect) as GameObject;
+					particlesOnDeath.transform.position = GetComponent<Rigidbody>().worldCenterOfMass;
+					particlesOnDeath.transform.parent = transform;
+					gameObject.layer = LayerMask.NameToLayer("OnlyFloor");
+					StopMoving();
+					StartCoroutine("disappearOnDeath");
+				}
+				iaAnimator.SetBool("isWalking",false);
+				isDead = true;
+			}
 		}
 	}
 	IEnumerator disappearOnDeath(){
 		float timeHasBeenDead = 0f;
 		while(timeHasBeenDead<timeToDie){
 			timeHasBeenDead+=Time.deltaTime;
+			float ratio = timeHasBeenDead/timeToDie;
+			GetComponent<Dissolve>().setDisolution(1f-ratio);
 			yield return null;
 		}
 		onDeath();
@@ -259,11 +293,11 @@ public class IAController : MonoBehaviour {
 	}
 
 	private void onDeath(){
-		Vector3 centerBoar = GetComponent<Rigidbody> ().worldCenterOfMass;
+		Vector3 center = GetComponent<Rigidbody> ().worldCenterOfMass;
 		int numberLights = numberOfLightsAvg;
 		for(int i = 0;i<numberLights;i++){
 			GameObject newLight = GameObject.Instantiate(onDeathLight) as GameObject;
-			newLight.transform.position = (centerBoar);
+			newLight.transform.position = (center);
 			newLight.GetComponent<LightOnDeath>().setVectorUp(transform.up);
 			int randRGB = UnityEngine.Random.Range(0,3);
 			Color color = new Color(1f,1f,1f);
