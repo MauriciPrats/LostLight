@@ -20,7 +20,7 @@ public class MonkeyBananaAttack : Attack {
 	}
 	
 	public override void startAttack(){
-		Debug.Log ("Banana attaaack!!");
+
 	}
 
 	

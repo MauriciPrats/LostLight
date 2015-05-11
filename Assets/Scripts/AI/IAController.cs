@@ -115,7 +115,6 @@ public class IAController : MonoBehaviour {
 			}
 
 			if(terrainDistance<closestThingInFront){
-				Debug.Log(closestThingInFront);
 				closestThingInFront = terrainDistance;
 			}
 		}

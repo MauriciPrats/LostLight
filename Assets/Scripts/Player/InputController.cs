@@ -42,7 +42,6 @@ public class InputController : MonoBehaviour {
 		if(!GameManager.gameState.isGameEnded){
 			if (Input.GetKey(KeyCode.Escape)) { Application.Quit(); }
 
-
 			//MOVEMENT BUTTON
 			if(!attackController.isDoingDash()){
 				if (Input.GetAxis ("Horizontal")!=0f) {
@@ -67,11 +66,11 @@ public class InputController : MonoBehaviour {
 					attackController.doAttack(onAirAttack,true);
 				}
 			}else if(Mathf.Abs(Input.GetAxisRaw("Vertical"))>Mathf.Abs(Input.GetAxisRaw("Horizontal"))){
-				if (Input.GetButtonUp("Normal Attack") && Input.GetAxisRaw("Vertical")>0f) {
+				if (Input.GetButtonUp("Normal Attack") && Input.GetAxis("Vertical")>0.5f) {
 					if(isCharacterAllowedToDoNormalAttack()){
 						attackController.doAttack(upNormalAttack,true);
 					}
-				}else if(Input.GetButtonUp("Normal Attack") && Input.GetAxisRaw("Vertical")<0f){
+				}else if(Input.GetButtonUp("Normal Attack") && Input.GetAxis("Vertical")<-0.5f){
 					if(isCharacterAllowedToDoNormalAttack()){
 						attackController.doAttack(downNormalAttack,true);
 					}
@@ -85,9 +84,9 @@ public class InputController : MonoBehaviour {
 			//SPECIAL ATTACK BUTTON
 			if (Input.GetButton("Special Attack") && isCharacterAllowedToDoSpecialAttack()) {
 				if(Mathf.Abs(Input.GetAxisRaw("Vertical"))>Mathf.Abs(Input.GetAxisRaw("Horizontal"))){
-					if(Input.GetAxisRaw("Vertical")>0f){
+					if(Input.GetAxis("Vertical")>0.5f){
 						attackController.doAttack(upSpecialAttack,true);
-					}else if(Input.GetAxisRaw("Vertical")<0f){
+					}else if(Input.GetAxis("Vertical")<-0.5f){
 						attackController.doAttack(downSpecialAttack,true);
 					}
 				}else{
@@ -103,7 +102,7 @@ public class InputController : MonoBehaviour {
 				character.SpaceJump(); 
 			}
 
-			if(Input.GetButton("Jump") && (Input.GetAxisRaw("Vertical")<0f || isSpaceJumpCharging)){
+			if(Input.GetButton("Jump") && (Input.GetAxis("Vertical")<-0.5f || isSpaceJumpCharging)){
 				if(!character.getIsSpaceJumping()){
 					timeJumpPressed += Time.deltaTime;
 					if (timeJumpPressed >= startChargeSpaceJump && !isSpaceJumpCharging) {isSpaceJumpCharging = true; }
@@ -141,7 +140,7 @@ public class InputController : MonoBehaviour {
 				}else if (entity != null){ entity.doInteractAction();}
 				else if (isSpaceJumpCharged){
 					CancelChargingSpaceJump();
-				}else if(Input.GetAxis("Vertical")<0f && isCharacterAllowedToBlock()){
+				}else if(Input.GetAxis("Vertical")<-0.5f && isCharacterAllowedToBlock()){
 					attackController.doBlock();
 				}else if(isCharacterAllowedToDash()){
 					attackController.doDash();

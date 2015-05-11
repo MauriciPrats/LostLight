@@ -57,11 +57,11 @@ public class IAControllerMonkey : IAController {
 	}
 
 	private void moveAndAvoid(float direction){
-		if(getIsBlockedBySomethingInFront() && closestThingInFrontDistance()<=minimumDistanceInFront ){
+		if(closestThingInFrontDistance()<=minimumDistanceInFront ){
 			if(getIsTouchingPlanet()){
 				Jump();
 			}
-			Move (direction);
+			//Move (direction);
 		}else{
 			Move (direction);
 		}
