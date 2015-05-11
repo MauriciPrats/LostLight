@@ -114,6 +114,7 @@ public class JabaliChargeAttack : Attack {
 
 	
 	public override void interruptAttack(){
+		chargeParticles.GetComponent<ParticleSystem> ().Stop ();
 		whileChargingParticles.GetComponent<ParticleSystem> ().Stop ();
 		outlineChanger.setOutlineColor (Color.black);
 		GetComponent<Collider> ().enabled = false;

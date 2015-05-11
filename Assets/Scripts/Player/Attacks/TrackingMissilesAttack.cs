@@ -158,7 +158,6 @@ public class TrackingMissilesAttack : Attack,AnimationSubscriber {
 	}
 
 	void AnimationSubscriber.handleEvent(string idEvent) {
-		Debug.Log (idEvent);
 		switch (idEvent) {
 		case "start": 
 			StartCoroutine ("doTrackingMissilesAttack");

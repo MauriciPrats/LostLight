@@ -130,8 +130,10 @@
 						if(dissolveColor.b>highest){highest = dissolveColor.b;}
 						
 						if(highest>_DissolveThreshold || highest == 0){
-							return (0,0,0,0);
+							discard;
 						}else if(highest>(_DissolveThreshold -_BurningWidth) && _DissolveThreshold <= 1-_BurningWidth){
+						//float alpha = 1.0 - ((highest - (_DissolveThreshold -_BurningWidth))/_BurningWidth);
+						//_BurningColor.a = alpha;
 							return _BurningColor;
 						}
 					#endif
@@ -190,8 +192,8 @@
 				fixed4 outline = _OutlineColor;
 				#if _DISS_ON
 					float outlineAlpha = _DissolveThreshold;
-					if(outlineAlpha<=0.5){outlineAlpha = 0;}
-					else{outlineAlpha = (outlineAlpha-0.5)*2;}
+					if(outlineAlpha<=0.75){discard;}
+					else{outlineAlpha = (outlineAlpha-0.75)*4;}
 					outline.a = outlineAlpha;
 				#endif
 		    	return outline;

@@ -8,7 +8,8 @@ public class PlanetCorruption : MonoBehaviour {
 	public float yMin = -3f;
 	public float yMax = 30f;
 
-	private float direction = 3f;
+	public float speed = 5f;
+	private float direction = 1f;
 	private float yValue = 0f;
 	private float offset = 0f;
 	// Use this for initialization
@@ -51,9 +52,9 @@ public class PlanetCorruption : MonoBehaviour {
 		}
 	}
 	// Update is called once per frame
-	void Update () {
+	void LateUpdate () {
 		offset += Time.deltaTime/100f;
-		yValue += (direction * Time.deltaTime);
+		yValue += (direction * speed * Time.deltaTime);
 		if(yValue>yMax){
 			yValue = yMax;
 		}

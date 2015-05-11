@@ -192,7 +192,7 @@ public class KameAttack : Attack,AnimationSubscriber {
 			elementalParticleSystem.GetComponent<ParticleSystem>().Stop();
 			elementalParticleSystem.SetActive(true);
 		}
-		StartCoroutine ("cleanKameTrail");
+		//StartCoroutine ("cleanKameTrail");
 		yield return new WaitForSeconds (timeToDisappear);
 		if(isFinished){
 			kameEffect.SetActive (false);
