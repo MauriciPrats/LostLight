@@ -4968,7 +4968,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 422012066}
-  m_LocalRotation: {x: .0056574042, y: .705257714, z: .708897531, w: .0066195298}
+  m_LocalRotation: {x: .0056574042, y: .705257714, z: .708897531, w: .00661952887}
   m_LocalPosition: {x: -.0299999993, y: -1.05999994, z: -.209999993}
   m_LocalScale: {x: .181682199, y: .181682199, z: .181682214}
   m_Children:
@@ -7676,6 +7676,7 @@ GameObject:
   - 114: {fileID: 578384439}
   - 135: {fileID: 578384438}
   - 114: {fileID: 578384442}
+  - 114: {fileID: 578384443}
   m_Layer: 0
   m_Name: First Planet Reloaded
   m_TagString: Untagged
@@ -7792,6 +7793,22 @@ MonoBehaviour:
   pointsUntilSeal3ShintoDoor: 300
   maxPointsSpawnedAtSameTime: 30
   timeBetweenSpawns: 1
+--- !u!114 &578384443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 578384436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3361a91d5bc343140bd49f1dc1e87c3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  container: {fileID: 1375738055}
+  material: {fileID: 2100000, guid: c9719fd028677b141ab68a68fac7fa7a, type: 2}
+  yMin: -15
+  yMax: 45
+  speed: 6
 --- !u!1 &580311929
 GameObject:
   m_ObjectHideFlags: 0
@@ -9609,7 +9626,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 812195800}
-  m_LocalRotation: {x: .0056574042, y: .705257714, z: .708897531, w: .0066195298}
+  m_LocalRotation: {x: .0056574042, y: .705257714, z: .708897531, w: .00661952887}
   m_LocalPosition: {x: -.0299999993, y: 1.03400004, z: .268999994}
   m_LocalScale: {x: .128048003, y: .128048003, z: .128048018}
   m_Children:
