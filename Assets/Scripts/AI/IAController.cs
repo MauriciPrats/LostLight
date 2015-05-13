@@ -10,7 +10,7 @@ public class IAController : MonoBehaviour {
 	public GameObject onHitEffect;
 	public GameObject secondOnHitEffect;
 	public GameObject thirdOnHitEffect;
-	public GameObject onDeathEffect;
+	public GameObject[] onDeathEffects;
 	public GameObject onDeathLight;
 
 	//Public Variables
@@ -267,9 +267,9 @@ public class IAController : MonoBehaviour {
 				if(!isDead){
 					interruptAttack();
 					iaAnimator.SetTrigger("Die");
-					GameObject particlesOnDeath = GameObject.Instantiate (onDeathEffect) as GameObject;
-					particlesOnDeath.transform.position = GetComponent<Rigidbody>().worldCenterOfMass;
-					particlesOnDeath.transform.parent = transform;
+					foreach(GameObject onDeathEffect in onDeathEffects){
+						onDeathEffect.GetComponent<ParticleSystem>().Play();
+					}
 					gameObject.layer = LayerMask.NameToLayer("OnlyFloor");
 					StopMoving();
 					StartCoroutine("disappearOnDeath");
@@ -285,6 +285,7 @@ public class IAController : MonoBehaviour {
 			timeHasBeenDead+=Time.deltaTime;
 			float ratio = timeHasBeenDead/timeToDie;
 			GetComponent<Dissolve>().setDisolution(1f-ratio);
+			//onDeathEffect.transform.position = GetComponent<Rigidbody>().worldCenterOfMass;
 			yield return null;
 		}
 		onDeath();
