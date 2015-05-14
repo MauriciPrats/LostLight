@@ -7,13 +7,18 @@ public class IAControllerRat : IAController {
 	public AttackType jumpingAttack;
 	public AttackType burrowAttack;
 
+	public float patrolTimeToTurn = 1.5f;
+
 	private float timeWalkingDirectionIdle = 0f;
 	private float attackTimer = 0f;
-
+	private float patrolTime = 0f;
 
 	protected override void initialize(){
 		Attack poisonAttackA = attackController.getAttack(poisonAttack);
-		Attack jumpingAttackA = attackController.getAttack (jumpingAttack);
+		Attack burrowAttackA = attackController.getAttack (burrowAttack);
+		//Attack jumpingAttackA = attackController.getAttack (jumpingAttack);
+		burrowAttackA.informParent (gameObject);
+		//jumpingA
 		//poisonAttack.informParent(gameObject);
 		SetMeleeRange (1f);
 		SetVisionRange (40f);
@@ -49,7 +54,19 @@ public class IAControllerRat : IAController {
 		} else {
 			StopMoving ();
 		}*/
-		Burrow ();
+		//Burrow ();
+		Patrol ();
+	}
+
+	private void Patrol(){
+		//Patrols around
+		patrolTime += Time.deltaTime;
+		if(patrolTime>=patrolTimeToTurn){
+			patrolTime = 0f;
+			Move(getLookingDirection()*-1f);
+		}else{
+			Move(getLookingDirection());
+		}
 	}
 
 	private void Burrow() {
