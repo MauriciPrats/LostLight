@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 public class PlanetCorruption : MonoBehaviour {
 
-	public GameObject container;
 	public Material material;
 	public float yMin = -3f;
 	public float yMax = 30f;
@@ -12,16 +11,25 @@ public class PlanetCorruption : MonoBehaviour {
 	private float direction = 1f;
 	private float yValue = 0f;
 	private float offset = 0f;
+
+	private List<Material> materials;
 	// Use this for initialization
 	void Awake () {
 		yValue = yMax;
 	}
 
-
 	public void initialize(){
-		foreach(MeshRenderer meshRenderer in GetComponentsInChildren<MeshRenderer>()){
-			if(meshRenderer.enabled && meshRenderer.gameObject.activeSelf){
-				MeshFilter meshFilter = meshRenderer.gameObject.GetComponent<MeshFilter>();
+		materials = new List<Material> (0);
+
+		foreach(Renderer renderer in GetComponentsInChildren<Renderer>()){
+			if(renderer.enabled && renderer.gameObject.activeSelf){
+				foreach(Material material in renderer.materials){
+					if(material.HasProperty("_YCutOut")){
+						materials.Add(material);
+					}
+				}
+
+				/*MeshFilter meshFilter = meshRenderer.gameObject.GetComponent<MeshFilter>();
 				Mesh mesh = meshFilter.mesh;
 				if(mesh!=null){
 					Mesh newMesh = Mesh.Instantiate(mesh);
@@ -47,9 +55,10 @@ public class PlanetCorruption : MonoBehaviour {
 					newObject.transform.parent = container.transform;
 					newObject.layer = LayerMask.NameToLayer("Planets");
 					
-				}
+				}*/
 			}
 		}
+
 	}
 	// Update is called once per frame
 	void LateUpdate () {
@@ -66,14 +75,14 @@ public class PlanetCorruption : MonoBehaviour {
 			direction*=-1f;
 		}
 
-		foreach(Renderer renderer in container.GetComponentsInChildren<Renderer>()){
-			foreach(Material material in renderer.materials){
+		//foreach(Renderer renderer in container.GetComponentsInChildren<Renderer>()){
+			foreach(Material material in materials){
 				if(material.HasProperty("_YCutOut")){
 					material.SetFloat("_YCutOut",yValue);
-					material.SetTextureOffset("_MainTex",new Vector2(offset,0));
+					material.SetTextureOffset("_CorruptionTexture",new Vector2(offset,0));
 				}
 			}
-		}
+		//}
 
 		Renderer athmosphereRenderer = GetComponent<GravityAttractor> ().getAthmosphere ().GetComponent<Renderer> ();
 		foreach(Material material in athmosphereRenderer.materials){
@@ -82,7 +91,7 @@ public class PlanetCorruption : MonoBehaviour {
 			}
 		}
 
-		foreach(ParticleSystem particles in container.GetComponentsInChildren<ParticleSystem>()){
+		/*foreach(ParticleSystem particles in container.GetComponentsInChildren<ParticleSystem>()){
 			if(particles.gameObject.transform.position.y<yValue){
 				if(!particles.isPlaying){
 					particles.Play();
@@ -90,6 +99,6 @@ public class PlanetCorruption : MonoBehaviour {
 			}else{
 				particles.Stop();
 			}
-		}
+		}*/
 	}
 }

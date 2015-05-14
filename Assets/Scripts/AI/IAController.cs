@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-public enum EnemyType{Jabali,BigJabali,Rat,Monkey,None}
+public enum EnemyType{Jabali,BigJabali,Rat,Monkey,Penguin,None}
 
 [RequireComponent (typeof (WalkOnMultiplePaths))]
 public class IAController : MonoBehaviour {
@@ -174,7 +174,7 @@ public class IAController : MonoBehaviour {
 		return Vector3.Distance (player.GetComponent<Rigidbody>().worldCenterOfMass, transform.position) - (walkOnMultiplePaths.centerToExtremesDistance + chaCon.centerToExtremesDistance);
 	}
 
-	protected float getPlayerDirection(){
+	public float getPlayerDirection(){
 		if(isElementLeft(player)){
 			return -1f;
 		}else{

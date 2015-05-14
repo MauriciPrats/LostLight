@@ -23,7 +23,7 @@ public class IAControllerMonkey : IAController {
 	private float patrolTime = 0f;
 	private float changeBehaviourTimer = 0f;
 	private bool isCharging = false;
-	private bool isDoingMeleeAttack = false;
+	private bool isDoingRangedAttack = false;
 	private float looktimer = 0f;
 	
 	protected override void initialize(){
@@ -40,7 +40,7 @@ public class IAControllerMonkey : IAController {
 	private void changeBehaviour(){
 		if (!attackController.isDoingAnyAttack()) {
 			//We check if we have to reset the melee and charging attack timers
-			if(isDoingMeleeAttack){rangedAttackTimer = 0f; isDoingMeleeAttack=false;}
+			if(isDoingRangedAttack){rangedAttackTimer = 0f; isDoingRangedAttack=false;}
 			if(isCharging){rangedAttackTimer = 0f; isCharging = false;}
 		}
 
@@ -77,7 +77,9 @@ public class IAControllerMonkey : IAController {
 			}else if(actualBehaviour.Equals(ActualBehaviour.RangedAttack)){
 				StopMoving();
 				if(getIsTouchingPlanet()){
-					attackController.doAttack(rangedAttack,false);
+					if(attackController.doAttack(rangedAttack,false)){
+						isDoingRangedAttack = true;
+					}
 				}
 			}
 		}
