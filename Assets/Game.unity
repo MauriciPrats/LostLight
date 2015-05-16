@@ -3611,7 +3611,7 @@ Prefab:
     - target: {fileID: 11400000, guid: f92a6b1e907e705489a5b21134895bc7, type: 2}
       propertyPath: enemyPrefabsCanSpawn.Array.data[0]
       value: 
-      objectReference: {fileID: 147550, guid: caa3b76d7af440449a9f5a5645b420d9, type: 2}
+      objectReference: {fileID: 100050, guid: a8815a4bb4d8d9d44a7a87c0be01ed17, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f92a6b1e907e705489a5b21134895bc7, type: 2}
   m_IsPrefabParent: 0
@@ -4995,7 +4995,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 422012066}
-  m_LocalRotation: {x: .0056574042, y: .705257714, z: .708897531, w: .00661949906}
+  m_LocalRotation: {x: .0056574042, y: .705257714, z: .708897531, w: .00661949348}
   m_LocalPosition: {x: -.0299999993, y: -1.05999994, z: -.209999993}
   m_LocalScale: {x: .181682199, y: .181682199, z: .181682214}
   m_Children:
@@ -5014,7 +5014,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefabsCanSpawn:
-  - {fileID: 147550, guid: caa3b76d7af440449a9f5a5645b420d9, type: 2}
+  - {fileID: 100050, guid: a8815a4bb4d8d9d44a7a87c0be01ed17, type: 2}
   isOutsidePlanet: 1
 --- !u!1 &434400500
 GameObject:
@@ -9659,7 +9659,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefabsCanSpawn:
-  - {fileID: 147550, guid: caa3b76d7af440449a9f5a5645b420d9, type: 2}
+  - {fileID: 100050, guid: a8815a4bb4d8d9d44a7a87c0be01ed17, type: 2}
   isOutsidePlanet: 1
 --- !u!4 &812195802
 Transform:
@@ -9667,7 +9667,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 812195800}
-  m_LocalRotation: {x: .0056574042, y: .705257714, z: .708897531, w: .00661949906}
+  m_LocalRotation: {x: .0056574042, y: .705257714, z: .708897531, w: .00661949348}
   m_LocalPosition: {x: -.0299999993, y: 1.03400004, z: .268999994}
   m_LocalScale: {x: .128048003, y: .128048003, z: .128048018}
   m_Children:

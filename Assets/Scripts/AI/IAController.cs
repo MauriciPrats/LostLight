@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-public enum EnemyType{Jabali,BigJabali,Rat,Monkey,Penguin,None}
+public enum EnemyType{Jabali,BigJabali,Rat,Monkey,Penguin,Crane,None}
 
 [RequireComponent (typeof (WalkOnMultiplePaths))]
 public class IAController : MonoBehaviour {
