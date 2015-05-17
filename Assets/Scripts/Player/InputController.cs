@@ -103,12 +103,12 @@ public class InputController : MonoBehaviour {
 			}
 
 			if(Input.GetButton("Jump") && (Input.GetAxis("Vertical")<-0.5f || isSpaceJumpCharging)){
-				if(!character.getIsSpaceJumping()){
+				if(isCharacterAllowedToSpaceJump()){
 					timeJumpPressed += Time.deltaTime;
 					if (timeJumpPressed >= startChargeSpaceJump && !isSpaceJumpCharging) {isSpaceJumpCharging = true; }
 					if (timeJumpPressed >= timeIsSpaceJumpCharged && !isSpaceJumpCharged) {isSpaceJumpCharged = true; character.ChargeJump(); }
 				}
-			} else if(Input.GetButtonDown("Jump") && !character.getIsSpaceJumping() && !character.getIsJumping()) {
+			} else if(Input.GetButtonDown("Jump") && isCharacterAllowedToJump()) {
 				character.Jump(); 
 			}else {
 				ResetJumping();
@@ -164,6 +164,27 @@ public class InputController : MonoBehaviour {
 				}
 			}
 		}
+	}
+
+	bool isCharacterAllowedToJump(){
+		if(character.getIsSpaceJumping()){
+			return false;
+		}else if(character.getIsJumping()){
+			return false;
+		}
+
+		return true;
+	}
+
+	bool isCharacterAllowedToSpaceJump(){
+		if(character.getIsSpaceJumping()){
+			return false;
+		}else if(character.getIsJumping()){
+			return false;
+		}else if(GameManager.actualPlanetSpawnerManager!=null && GameManager.actualPlanetSpawnerManager.isActive){
+			return false;
+		}
+		return true;
 	}
 
 	bool isCharacterAllowedToMove(){

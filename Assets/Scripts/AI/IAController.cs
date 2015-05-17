@@ -24,7 +24,6 @@ public class IAController : MonoBehaviour {
 	public float meleeRange = 1f; 
 	public float attackChoosingCooldown = 0.5f;
 	public float attackChance = 0.2f;
-	public int numberOfLightsAvg = 2;
 	public float timeToChangeBehaviour = 0.1f;
 	public float timeToDie = 0.5f;
 
@@ -55,9 +54,12 @@ public class IAController : MonoBehaviour {
 	protected bool isFrozen;
 	protected bool isStunned;
 
+	private bool despawned = false;
+
 
 	// Use this for initialization
 	void Start () {
+		despawned = false;
 		attackController = GetComponent<CharacterAttackController> ();
 		isOnGuard = false;
 		iaAnimator = GetComponentInChildren<Animator> ();
@@ -262,43 +264,54 @@ public class IAController : MonoBehaviour {
 			GetComponent<Killable> ().TakeDamage (hurtAmmount);
 			iaAnimator.SetTrigger("isHurt");
 			if(GetComponent<Killable>().isDead()){
-				//Play on death effects and despawn
-				//Animation and lots of particles
-				if(!isDead){
-					interruptAttack();
-					iaAnimator.SetTrigger("Die");
-					foreach(GameObject onDeathEffect in onDeathEffects){
-						onDeathEffect.GetComponent<ParticleSystem>().Play();
-					}
-					gameObject.layer = LayerMask.NameToLayer("OnlyFloor");
-					StopMoving();
-					StartCoroutine("disappearOnDeath");
-				}
-				iaAnimator.SetBool("isWalking",false);
-				isDead = true;
+				die(false);
 			}
 		}
 	}
+
+	public void die(bool despawn){
+		//A despawned enemy will not give points (spawn light)
+		despawned = despawn;
+		if(!isDead){
+			interruptAttack();
+			iaAnimator.SetTrigger("Die");
+			foreach(GameObject onDeathEffect in onDeathEffects){
+				onDeathEffect.GetComponent<ParticleSystem>().Play();
+			}
+			gameObject.layer = LayerMask.NameToLayer("OnlyFloor");
+			StopMoving();
+			StartCoroutine("disappearOnDeath");
+		}
+		iaAnimator.SetBool("isWalking",false);
+		isDead = true;
+	}
 	IEnumerator disappearOnDeath(){
+		bool deathLightBallsSpawned = false;
 		float timeHasBeenDead = 0f;
 		while(timeHasBeenDead<timeToDie){
 			timeHasBeenDead+=Time.deltaTime;
 			float ratio = timeHasBeenDead/timeToDie;
 			GetComponent<Dissolve>().setDisolution(1f-ratio);
+			if(ratio>0.2f && !deathLightBallsSpawned){
+				deathLightBallsSpawned = true;
+				if(!despawned){
+					onDeath();
+				}
+			}
 			//onDeathEffect.transform.position = GetComponent<Rigidbody>().worldCenterOfMass;
 			yield return null;
 		}
-		onDeath();
 		Destroy(gameObject);
 	}
 
 	private void onDeath(){
 		Vector3 center = GetComponent<Rigidbody> ().worldCenterOfMass;
-		int numberLights = numberOfLightsAvg;
-		for(int i = 0;i<numberLights;i++){
+		//int numberLights = numberOfLightsAvg;
+		//for(int i = 0;i<numberLights;i++){
 			GameObject newLight = GameObject.Instantiate(onDeathLight) as GameObject;
 			newLight.transform.position = (center);
 			newLight.GetComponent<LightOnDeath>().setVectorUp(transform.up);
+			newLight.GetComponent<LightOnDeath>().pointsToAddPerLight = GetComponent<EnemySpawned>().pointsCost;
 			int randRGB = UnityEngine.Random.Range(0,3);
 			Color color = new Color(1f,1f,1f);
 			float complementary = 1f;
@@ -311,7 +324,7 @@ public class IAController : MonoBehaviour {
 				color = new Color(complementary,complementary,mainColor);
 			}
 			newLight.GetComponent<TrailRenderer>().material.color = color;
-		}
+		//}
 	}
 
 	public void interruptAttack(){

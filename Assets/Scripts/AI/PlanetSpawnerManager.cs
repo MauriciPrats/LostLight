@@ -6,16 +6,15 @@ public class PlanetSpawnerManager : MonoBehaviour {
 
 	public GameObject[] spawners;
 	public GameObject shintoDoor;
+	public bool isActive;
 
-	public int pointsUntilSeal1ShintoDoor;
-	public int pointsUntilSeal2ShintoDoor;
-	public int pointsUntilSeal3ShintoDoor;
+	public int pointsUntilSealShintoDoor;
+
 	public int maxPointsSpawnedAtSameTime;
 
 	public float timeBetweenSpawns;
 	private int ammountOfActualPointsSpawned = 0;
 	private int accumulatedPoints = 0;
-	private ShintoDoor shinto;
 
 	public List<EnemyTypeAmmount> enemiesAmmount = new List<EnemyTypeAmmount> (0);
 	
@@ -32,12 +31,12 @@ public class PlanetSpawnerManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		shinto = shintoDoor.GetComponent<ShintoDoor> ();
+		//shinto = shintoDoor.GetComponent<ShintoDoor> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if(!GameManager.gameState.isGameEnded){
+		if(!GameManager.gameState.isGameEnded && isActive){
 			timerSpawn += Time.deltaTime;
 			if(ammountOfActualPointsSpawned< maxPointsSpawnedAtSameTime && timerSpawn > timeBetweenSpawns){
 				timerSpawn = 0f;
@@ -54,6 +53,7 @@ public class PlanetSpawnerManager : MonoBehaviour {
 				if(inRangeSpawners.Count>0){
 					Spawner randomSpawner = inRangeSpawners[Random.Range(0,inRangeSpawners.Count)];
 					EnemyType type;
+
 					ammountOfActualPointsSpawned+= randomSpawner.spawnRandomEnemy(onEnemyDead,onEnemyDespawned,out type,enemiesAmmount);
 					if(!type.Equals(EnemyType.None)){
 						addEnemyType(type);
@@ -90,24 +90,28 @@ public class PlanetSpawnerManager : MonoBehaviour {
 				break;
 			}
 		}
-		if(!found){
-			Debug.Log("Error: No tiene sentido llegar a este punto de codigo");
-		}
-
 	}
 
 	public void onEnemyDead(GameObject enemy){
-		EnemySpawned enemySpawned = enemy.GetComponent<EnemySpawned> ();
-		accumulatedPoints+=enemySpawned.pointsCost;
-		ammountOfActualPointsSpawned-=enemySpawned.pointsCost;
-		substractEnemyType (enemySpawned.enemyType);
-		
-		if(accumulatedPoints>=pointsUntilSeal3ShintoDoor){
-			shintoDoorEffect (3);
-		}else if(accumulatedPoints>=pointsUntilSeal2ShintoDoor){
-			shintoDoorEffect (2);
-		}else if(accumulatedPoints>=pointsUntilSeal1ShintoDoor){
-			shintoDoorEffect (1);
+		if (isActive) {
+			EnemySpawned enemySpawned = enemy.GetComponent<EnemySpawned> ();
+			//accumulatedPoints += enemySpawned.pointsCost;
+			ammountOfActualPointsSpawned -= enemySpawned.pointsCost;
+			substractEnemyType (enemySpawned.enemyType);
+		}
+	}
+
+	public void incrementAccumulatedPoints(int ammountPoints){
+		accumulatedPoints += ammountPoints;
+		GUIManager.setPercentageCorruption ((float)accumulatedPoints / (float)pointsUntilSealShintoDoor);
+		if(accumulatedPoints>=pointsUntilSealShintoDoor){
+			isActive = false;
+			GUIManager.deactivateCorruptionBar();
+			GetComponent<PlanetCorruption>().cleanCorruption();
+			//We clean all the enemies of the planet
+			foreach(IAController iaController in FindObjectsOfType<IAController>()){
+				iaController.die(true);
+			}
 		}
 	}
 
@@ -121,10 +125,18 @@ public class PlanetSpawnerManager : MonoBehaviour {
 
 	}
 
-	public void shintoDoorEffect(int level){
+	/*public void shintoDoorEffect(int level){
 		if(level>lastLevelShintoActivated){
 			lastLevelShintoActivated = level;
 			shinto.activateKanjiLevel (level);
+		}
+	}*/
+
+	public void activate(){
+		if(accumulatedPoints<pointsUntilSealShintoDoor){
+			isActive = true;
+			GUIManager.activateCorruptionBar();
+			GUIManager.setPercentageCorruption ((float)accumulatedPoints / (float)pointsUntilSealShintoDoor);
 		}
 	}
 }

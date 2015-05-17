@@ -33,13 +33,12 @@
    
     Subshader 
     {
-    	Tags { "Queue"="Transparent" }
+    	Tags { "RenderType"="Opaque" }
 		LOD 250
     	ZWrite On
 	   	Cull [_Cull]
 		Lighting Off
 		Fog { Mode Off }
-		Blend SrcAlpha OneMinusSrcAlpha
 		
         Pass 
         {

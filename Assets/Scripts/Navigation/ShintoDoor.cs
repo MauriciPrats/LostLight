@@ -123,6 +123,12 @@ public class ShintoDoor : MonoBehaviour {
 		//On finish, give the timeScale back the original value and change the gamestate
 	}
 
+	public void activateKanjis(){
+		KanjiLevel1.SetActive (true);
+		KanjiLevel2.SetActive (true);
+		KanjiLevel3.SetActive (true);
+	}
+
 	private void activateKanji(){
 		if(actualLevelChanging == 1){
 			KanjiLevel1.SetActive (true);

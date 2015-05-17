@@ -199,6 +199,8 @@ public class PlayerController : MonoBehaviour {
 		flyParticles.Play();
 		isFinishedSpaceJump = false;
 		body.setIsGettingOutOfOrbit (true);
+
+		GUIManager.deactivateCorruptionBar ();
 	}
 
 	public void Jump() {

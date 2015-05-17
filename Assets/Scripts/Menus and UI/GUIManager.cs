@@ -38,6 +38,8 @@ public class GUIManager : MonoBehaviour {
 	private static GameObject onPauseMenuO;
 	private static GameObject playingGUIO;
 
+	private static GameObject corruptionBar;
+
 	private static Menu nextMenu;
 
 	private static GUIManager singleton;
@@ -189,6 +191,8 @@ public class GUIManager : MonoBehaviour {
 	public static void registerPlayingGUI(GameObject playingGUIGO){
 		if(playingGUIGO!=null && playingGUIO == null){
 			playingGUIO = GameObject.Instantiate (playingGUIGO) as GameObject;
+			corruptionBar = playingGUIO.GetComponentInChildren<CorruptionProgress>().gameObject;
+			corruptionBar.SetActive(false);
 			playingGUIO.SetActive (false);
 		}
 	}
@@ -246,6 +250,38 @@ public class GUIManager : MonoBehaviour {
 
 	public static void deactivatePauseMenu(){
 		activateMenu (Menu.None);
+	}
+
+	public static void activateCorruptionBar(){
+		corruptionBar.SetActive (true);
+		corruptionBar.GetComponent<CanvasGroup> ().alpha = 1f;
+	}
+
+	public static void deactivateCorruptionBarC(){
+		//corruptionBar.SetActive (false);
+	}
+
+	public static void deactivateCorruptionBar(){
+		fadeManager.fadeOutWithSpeed (deactivateCorruptionBarC, corruptionBar,2f);
+		//corruptionBar.SetActive (false);
+	}
+
+	public static void setPercentageCorruption(float percentage){
+		corruptionBar.GetComponent<CorruptionProgress> ().setPercentage (percentage);
+	}
+
+	public static Vector3 getCorruptionBarPosition(){
+		Ray ray = GameManager.mainCamera.GetComponent<Camera> ().ScreenPointToRay (corruptionBar.GetComponent<CorruptionProgress> ().getPixelPositionCorruptionBar ());
+		Plane plane = new Plane (Vector3.forward * -1f, Vector3.forward * -(GameManager.player.transform.position.z));
+		//Ray ray = new Ray (position, GameManager.mainCamera.transform.forward);
+		float distance;
+		if(plane.Raycast (ray, out distance)){
+	
+			return ray.GetPoint (distance);
+		}else{
+			return new Vector3(0f,0f,0f);
+		}
+
 	}
 
 	public static void activateInteractuablePopup(){

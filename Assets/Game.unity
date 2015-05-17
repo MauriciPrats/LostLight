@@ -4973,6 +4973,33 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 419175112}
   m_Mesh: {fileID: 4300016, guid: 5870a6cebdf50fe4f8629caa8f757a7d, type: 3}
+--- !u!1 &421011937
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 421011938}
+  m_Layer: 9
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &421011938
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 421011937}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 11.7600002, z: 8.57999992}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1294720926}
+  m_RootOrder: 4
 --- !u!1 &422012066
 GameObject:
   m_ObjectHideFlags: 0
@@ -4995,7 +5022,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 422012066}
-  m_LocalRotation: {x: .0056574042, y: .705257714, z: .708897531, w: .00661949348}
+  m_LocalRotation: {x: .0056574042, y: .705257714, z: .708897531, w: .00661945855}
   m_LocalPosition: {x: -.0299999993, y: -1.05999994, z: -.209999993}
   m_LocalScale: {x: .181682199, y: .181682199, z: .181682214}
   m_Children:
@@ -7814,9 +7841,8 @@ MonoBehaviour:
   - {fileID: 422012066}
   - {fileID: 812195800}
   shintoDoor: {fileID: 375318934}
-  pointsUntilSeal1ShintoDoor: 100
-  pointsUntilSeal2ShintoDoor: 200
-  pointsUntilSeal3ShintoDoor: 300
+  isActive: 0
+  pointsUntilSealShintoDoor: 10
   maxPointsSpawnedAtSameTime: 30
   timeBetweenSpawns: 1
 --- !u!114 &578384443
@@ -7830,6 +7856,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3361a91d5bc343140bd49f1dc1e87c3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shintoDoor: {fileID: 375318934}
   material: {fileID: 2100000, guid: c9719fd028677b141ab68a68fac7fa7a, type: 2}
   yMin: -15
   yMax: 45
@@ -8000,6 +8027,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3361a91d5bc343140bd49f1dc1e87c3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shintoDoor: {fileID: 0}
   material: {fileID: 2100000, guid: c9719fd028677b141ab68a68fac7fa7a, type: 2}
   yMin: -100
   yMax: -61
@@ -9667,7 +9695,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 812195800}
-  m_LocalRotation: {x: .0056574042, y: .705257714, z: .708897531, w: .00661949348}
+  m_LocalRotation: {x: .0056574042, y: .705257714, z: .708897531, w: .00661945855}
   m_LocalPosition: {x: -.0299999993, y: 1.03400004, z: .268999994}
   m_LocalScale: {x: .128048003, y: .128048003, z: .128048018}
   m_Children:
@@ -11027,6 +11055,7 @@ Transform:
   - {fileID: 405070160}
   - {fileID: 633603994}
   - {fileID: 2048034219}
+  - {fileID: 1139036673}
   m_Father: {fileID: 0}
   m_RootOrder: 6
 --- !u!114 &955999564
@@ -12970,6 +12999,47 @@ Transform:
   - {fileID: 1651559740}
   m_Father: {fileID: 259172925}
   m_RootOrder: 0
+--- !u!1 &1139036672
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1139036673}
+  - 114: {fileID: 1139036674}
+  m_Layer: 0
+  m_Name: DialoguesManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1139036673
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1139036672}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 955999563}
+  m_RootOrder: 8
+--- !u!114 &1139036674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1139036672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d80e38a3b3b71a8498aa67448b76cb51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabDialogue: {fileID: 104310, guid: 2bd3219069aa2b24c8cc1bc84f582041, type: 2}
+  prefabExpression: {fileID: 177728, guid: 9ed86d40275b2d547a8e7c4a0f3d3bdb, type: 2}
 --- !u!1 &1147677899
 GameObject:
   m_ObjectHideFlags: 0
@@ -14106,6 +14176,7 @@ GameObject:
   - 114: {fileID: 1294720934}
   - 114: {fileID: 1294720935}
   - 114: {fileID: 1294720927}
+  - 114: {fileID: 1294720931}
   m_Layer: 9
   m_Name: BigPappada
   m_TagString: Player
@@ -14127,6 +14198,7 @@ Transform:
   - {fileID: 1624591129}
   - {fileID: 1038900395}
   - {fileID: 1732856654}
+  - {fileID: 421011938}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!114 &1294720927
@@ -14213,6 +14285,18 @@ MonoBehaviour:
   explosionOnDieInSpacePrefab: {fileID: 100000, guid: b68930a8995e3644f903c1261cb92423,
     type: 2}
   weapon: {fileID: 434400500}
+--- !u!114 &1294720931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1294720925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91653a1c793cdab40a84b9169199f51d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  positionOffset: {x: 0, y: 22, z: 10}
 --- !u!114 &1294720932
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -24,6 +24,8 @@ public class FadeManager : MonoBehaviour {
 	int fadeDirAll = 1;
 	bool isFinishedAll = true;
 
+	float fadeSpeed = Constants.FADE_SPEED;
+
 	GameObject fadingMenu;
 
 
@@ -54,6 +56,7 @@ public class FadeManager : MonoBehaviour {
 			menu.GetComponent<CanvasGroup> ().alpha = 0f;
 			menu.GetComponent<CanvasGroup> ().interactable = false;
 			fadeInAction = fadeAction;
+			fadeSpeed = Constants.FADE_SPEED;
 		}
 	}
 
@@ -63,10 +66,17 @@ public class FadeManager : MonoBehaviour {
 		fadeOutAction = fadeAction;
 		isFinished = false;
 		fadingMenu = menu;
+		fadeSpeed = Constants.FADE_SPEED;
 		if(menu!=null){
 			menu.GetComponent<CanvasGroup> ().alpha = 1f;
 			menu.GetComponent<CanvasGroup> ().interactable = false;
 		}
+	}
+
+
+	public void fadeOutWithSpeed(Action fadeAction,GameObject menu,float speed){
+		fadeSpeed = speed;
+		fadeOut (fadeAction, menu);
 	}
 
 	public void fadeAllOut(Action fadeAction){
@@ -95,7 +105,7 @@ public class FadeManager : MonoBehaviour {
 
 	void drawFadeTexture(){
 		if (!isFinished) {
-			alpha += fadeDir * Constants.FADE_SPEED * Time.deltaTime;
+			alpha += fadeDir * fadeSpeed * Time.deltaTime;
 			alpha = Mathf.Clamp01 (alpha); 
 			if(fadingMenu!=null){
 				fadingMenu.GetComponent<CanvasGroup>().alpha = alpha;

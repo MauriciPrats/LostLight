@@ -766,7 +766,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   cost: 3
-  elementAttack: 0
+  elementAttack: 2
   kameEffect: {fileID: 177992}
   kameCore: {fileID: 146442}
   elementalParticleSystem: {fileID: 126410}

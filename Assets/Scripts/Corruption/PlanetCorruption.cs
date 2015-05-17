@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 public class PlanetCorruption : MonoBehaviour {
 
+	public GameObject shintoDoor;
+	private ShintoDoor shinto;
 	public Material material;
 	public float yMin = -3f;
 	public float yMax = 30f;
@@ -16,6 +18,12 @@ public class PlanetCorruption : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		yValue = yMax;
+	}
+
+	void Start(){
+		if(shintoDoor!=null){
+			shinto = shintoDoor.GetComponent<ShintoDoor> ();
+		}
 	}
 
 	public void initialize(){
@@ -59,6 +67,15 @@ public class PlanetCorruption : MonoBehaviour {
 			}
 		}
 
+	}
+
+	public void cleanCorruption(){
+		direction=-1f;
+		shinto.activateKanjis ();
+	}
+
+	public void corrupt(){
+		direction=1f;
 	}
 	// Update is called once per frame
 	void LateUpdate () {

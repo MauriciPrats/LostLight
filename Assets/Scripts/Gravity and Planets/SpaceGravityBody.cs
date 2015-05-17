@@ -25,6 +25,10 @@ public class SpaceGravityBody : GravityBody {
 			if(usesSpaceGravity){
 				//Just landed from spaceJump
 				GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);
+				GameManager.actualPlanetSpawnerManager = closestPlanet.GetComponent<PlanetSpawnerManager>();
+				if(GameManager.actualPlanetSpawnerManager!=null){
+					GameManager.actualPlanetSpawnerManager.activate();
+				}
 			}
 			objectsTouching++;
 			isTouchingPlanet = true;
@@ -139,4 +143,7 @@ public class SpaceGravityBody : GravityBody {
 		return isFallingIntoPlanet;
 	}
 
+	public GameObject getClosestGravityAttractor(){
+		return closestPlanet;
+	}
 }
