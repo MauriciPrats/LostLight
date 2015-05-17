@@ -61,6 +61,7 @@ GameObject:
   - 223: {fileID: 22334888}
   - 114: {fileID: 11408388}
   - 114: {fileID: 11495282}
+  - 225: {fileID: 22567910}
   m_Layer: 5
   m_Name: Dialogue
   m_TagString: Untagged
@@ -75,8 +76,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 104310}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -90.6019974, y: 21.3969994, z: -.389999986}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: .183029994, y: -.216839999, z: 0}
+  m_LocalScale: {x: .480009198, y: .480009198, z: .480009198}
   m_Children:
   - {fileID: 22472914}
   m_Father: {fileID: 0}
@@ -258,6 +259,17 @@ RectTransform:
   m_AnchoredPosition: {x: .351989746, y: -.416999817}
   m_SizeDelta: {x: 126.010002, y: 100.910004}
   m_Pivot: {x: .5, y: .5}
+--- !u!225 &22567910
+CanvasGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 170096}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

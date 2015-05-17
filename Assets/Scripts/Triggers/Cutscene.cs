@@ -7,18 +7,16 @@ abstract public class Cutscene: MonoBehaviour  {
 
 	public EndMode endMode; 
 	public float endTime;
-	public bool isActive;
+	public bool isActive = true;
 	public LayerMask collisionMask;
 
 	public abstract void ActivateTrigger();
-	private bool running;
+	private bool running = false;
 
 	void OnTriggerEnter(Collider other) {
 		if (isActive && !running){
 			running = true;
-			//TODO: we should check this with a layer collision, not hard coded. 
-			if(other.gameObject.name == "BigPDef") {
-				Debug.Log(other.gameObject.layer);
+			if(other.gameObject.layer == LayerMask.NameToLayer("Player")) {
 				InitializeCutscene ();
 				if (endMode == EndMode.ByTime) {
 					StartCoroutine ("checkTime");
@@ -31,7 +29,9 @@ abstract public class Cutscene: MonoBehaviour  {
 	void InitializeCutscene() {
 		//Stop all player input. 
 		GameObject player = GameManager.player;
-		player.GetComponent<InputController> ().enabled = false;
+		if (endMode == EndMode.ByTime) {
+			player.GetComponent<InputController> ().enabled = false;
+		}
 		player.GetComponent<CharacterController> ().StopMoving ();	
 		player.GetComponent<PlayerController> ().StopMove ();
 	}

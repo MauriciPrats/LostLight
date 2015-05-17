@@ -14,12 +14,13 @@ public class IAControllerRat : IAController {
 	private float patrolTime = 0f;
 
 	protected override void initialize(){
-
+		Debug.Log ("initialize");
 		//Attack poisonAttackA = attackController.getAttack(poisonAttack);
 		Attack burrowAttackA = attackController.getAttack(burrowAttack);
 		//Attack jumpingAttackA = attackController.getAttack (jumpingAttack);
-
 		burrowAttackA.informParent (gameObject);
+
+
 		//jumpingA
 		//poisonAttack.informParent(gameObject);
 		SetMeleeRange (1f);

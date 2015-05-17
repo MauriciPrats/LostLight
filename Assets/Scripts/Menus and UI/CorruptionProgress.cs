@@ -76,7 +76,7 @@ public class CorruptionProgress : MonoBehaviour {
 		beatTimer = 0f;
 
 		objectivePercentage = percentage;
-		percentage = lastRatioCalculated;
+		this.percentage = lastRatioCalculated;
 		lerping = true;
 		timer = 0f;
 

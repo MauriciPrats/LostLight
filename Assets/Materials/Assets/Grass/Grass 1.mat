@@ -81,7 +81,7 @@ Material:
       data:
         first:
           name: _Cutoff
-        second: .5
+        second: .515999973
       data:
         first:
           name: _Shininess
@@ -105,7 +105,7 @@ Material:
       data:
         first:
           name: _Glossiness
-        second: .5
+        second: 0
       data:
         first:
           name: _BumpScale

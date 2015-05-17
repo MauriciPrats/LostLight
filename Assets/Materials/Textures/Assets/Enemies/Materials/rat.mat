@@ -6,11 +6,11 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Grass 2
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _ALPHATEST_ON
+  m_Name: rat
+  m_Shader: {fileID: 4800000, guid: a021b6bfcab3cc44fbf4bc8ded279bae, type: 3}
+  m_ShaderKeywords: _DISS_ON _OUTL_ON _TEX_ON
   m_LightmapFlags: 5
-  m_CustomRenderQueue: 2450
+  m_CustomRenderQueue: -1
   m_SavedProperties:
     serializedVersion: 2
     m_TexEnvs:
@@ -18,7 +18,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: c543f88196a75b346866754085d5794a, type: 3}
+          m_Texture: {fileID: 2800000, guid: 45f4555d09978ba45b446d9d6724cb9d, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -31,6 +31,13 @@ Material:
       data:
         first:
           name: _DetailNormalMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _DissolveNoise
         second:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
@@ -77,11 +84,18 @@ Material:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _ToonShade
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
           name: _Cutoff
-        second: .549000025
+        second: .5
       data:
         first:
           name: _SrcBlend
@@ -90,6 +104,18 @@ Material:
         first:
           name: _DstBlend
         second: 0
+      data:
+        first:
+          name: _Dissolution
+        second: 1
+      data:
+        first:
+          name: _BurningWidth
+        second: .0500000007
+      data:
+        first:
+          name: _DissolveThreshold
+        second: 1
       data:
         first:
           name: _Parallax
@@ -125,21 +151,77 @@ Material:
       data:
         first:
           name: _Mode
-        second: 1
+        second: 0
       data:
         first:
           name: _Metallic
+        second: 0
+      data:
+        first:
+          name: _TintColor
+        second: 0
+      data:
+        first:
+          name: _DetailTex
+        second: 1
+      data:
+        first:
+          name: _Cull
+        second: 2
+      data:
+        first:
+          name: _Outl
+        second: 1
+      data:
+        first:
+          name: _VertexColor
+        second: 0
+      data:
+        first:
+          name: _Brightness
+        second: 1
+      data:
+        first:
+          name: _DS
+        second: 0
+      data:
+        first:
+          name: _Outline
+        second: .00999999978
+      data:
+        first:
+          name: _Asym
+        second: 0
+      data:
+        first:
+          name: _Trans
+        second: 0
+      data:
+        first:
+          name: _TrOp
         second: 0
     m_Colors:
       data:
         first:
           name: _EmissionColor
-        second: {r: 0, g: 0, b: 0, a: 0}
+        second: {r: 0, g: 0, b: 0, a: 1}
       data:
         first:
           name: _Color
         second: {r: 1, g: 1, b: 1, a: 1}
       data:
         first:
+          name: _OutlineColor
+        second: {r: .5, g: .5, b: .5, a: 1}
+      data:
+        first:
+          name: _BurningColor
+        second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
           name: _EmissionColorUI
         second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _Asymmetry
+        second: {r: 0, g: .25, b: .5, a: 0}

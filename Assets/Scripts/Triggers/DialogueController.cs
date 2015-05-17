@@ -29,7 +29,7 @@ public class DialogueController : MonoBehaviour {
 
 	void Update(){
 		if(Input.GetKeyUp(KeyCode.V)){
-			createNewExpression("Ouch!",1f,true,false);
+
 		}
 	}
 

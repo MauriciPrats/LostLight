@@ -168,14 +168,15 @@ public class ProcedurallyGeneratedObject : MonoBehaviour {
 
 		newObject.transform.parent = levels[lastLevelPut].transform;
 		lastLevelPut = (lastLevelPut + 1) % detailLevel;
-
-		newObject.transform.up = (normal).normalized;
+		newObject.transform.rotation = Quaternion.LookRotation (Vector3.forward, position);
+		//newObject.transform.up = (normal).normalized;
 		newObject.transform.position += newObject.transform.up * (billboard.GetComponent<MeshRenderer> ().bounds.size.y * 0.5f);
 		
-		float zrotation = newObject.transform.eulerAngles.z;
-		newObject.transform.forward = Vector3.forward;
-		newObject.transform.eulerAngles = new Vector3 (newObject.transform.eulerAngles.x, newObject.transform.eulerAngles.y, zrotation);
-		newObject.transform.Rotate (billboard.transform.eulerAngles);
+		//float zrotation = newObject.transform.eulerAngles.z;
+		//newObject.transform.forward = Vector3.forward;
+		newObject.transform.rotation = Quaternion.LookRotation (Vector3.forward, position);
+		//newObject.transform.eulerAngles = new Vector3 (newObject.transform.eulerAngles.x, newObject.transform.eulerAngles.y, zrotation);
+		//newObject.transform.Rotate (billboard.transform.eulerAngles);
 
 	}
 

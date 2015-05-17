@@ -258,12 +258,11 @@ public class GUIManager : MonoBehaviour {
 	}
 
 	public static void deactivateCorruptionBarC(){
-		//corruptionBar.SetActive (false);
+		corruptionBar.SetActive (false);
 	}
 
 	public static void deactivateCorruptionBar(){
 		fadeManager.fadeOutWithSpeed (deactivateCorruptionBarC, corruptionBar,2f);
-		//corruptionBar.SetActive (false);
 	}
 
 	public static void setPercentageCorruption(float percentage){

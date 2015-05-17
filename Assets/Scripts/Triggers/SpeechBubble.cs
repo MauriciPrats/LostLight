@@ -26,6 +26,7 @@ public class SpeechBubble : MonoBehaviour {
 		offsetFromObject = transform.localPosition;
 		transform.parent = null;
 		timer = 0f;
+		GetComponentInChildren<CanvasGroup> ().alpha = 1f;
 
 		if(bouncingIn){
 			StartCoroutine ("beat");
@@ -35,8 +36,8 @@ public class SpeechBubble : MonoBehaviour {
 	protected IEnumerator beat(){
 		
 		float timer = 0f;
-		float beatTime = 0.1f;
-		float extraScale = 0.1f;
+		float beatTime = 0.15f;
+		float extraScale = 0.2f;
 		Vector3 extraScaleV = new Vector3 (extraScale, extraScale, extraScale);
 		Vector3 originalScale = transform.localScale;
 		
@@ -65,10 +66,15 @@ public class SpeechBubble : MonoBehaviour {
 				GameManager.dialogueManager.dialogueFinished(gameObject);
 				deactivate();
 			}else{
+				if(fadeOut){
+					float ratio = timer/timeItLasts;
+					GetComponentInChildren<CanvasGroup>().alpha = 1f-ratio;
+				}
 				transform.parent = gameObjectToFollow.transform;
 				transform.localPosition = offsetFromObject;
 				transform.parent = null;
 				transform.up = gameObjectToFollow.transform.up;
+				transform.rotation = Quaternion.LookRotation(transform.position-GameManager.mainCamera.transform.position,GameManager.mainCamera.transform.up);
 			}
 		}
 	}
