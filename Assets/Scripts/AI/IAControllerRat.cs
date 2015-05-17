@@ -3,8 +3,8 @@ using System.Collections;
 
 public class IAControllerRat : IAController {
 
-	public AttackType poisonAttack;
-	public AttackType jumpingAttack;
+	//public AttackType poisonAttack;
+	//public AttackType jumpingAttack;
 	public AttackType burrowAttack;
 
 	public float patrolTimeToTurn = 1.5f;
@@ -14,9 +14,11 @@ public class IAControllerRat : IAController {
 	private float patrolTime = 0f;
 
 	protected override void initialize(){
-		Attack poisonAttackA = attackController.getAttack(poisonAttack);
-		Attack burrowAttackA = attackController.getAttack (burrowAttack);
+
+		//Attack poisonAttackA = attackController.getAttack(poisonAttack);
+		Attack burrowAttackA = attackController.getAttack(burrowAttack);
 		//Attack jumpingAttackA = attackController.getAttack (jumpingAttack);
+
 		burrowAttackA.informParent (gameObject);
 		//jumpingA
 		//poisonAttack.informParent(gameObject);
@@ -54,8 +56,8 @@ public class IAControllerRat : IAController {
 		} else {
 			StopMoving ();
 		}*/
-		//Burrow ();
-		Patrol ();
+		Burrow ();
+		//Patrol ();
 	}
 
 	private void Patrol(){

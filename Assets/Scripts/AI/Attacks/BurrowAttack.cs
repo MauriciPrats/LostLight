@@ -10,8 +10,7 @@ public class BurrowAttack : Attack {
 	private Animator iaAnimator;
 	private OutlineChanging outlineChanger;
 
-	public override void initialize ()
-	{
+	public override void initialize(){
 		attackType = AttackType.BurrowAttack;
 	}
 
