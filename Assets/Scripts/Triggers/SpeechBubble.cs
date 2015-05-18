@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class SpeechBubble : MonoBehaviour {
+public abstract class SpeechBubble : MonoBehaviour {
 
 	
 	private float timeItLasts = 1f;
@@ -63,7 +63,7 @@ public class SpeechBubble : MonoBehaviour {
 		if(isActive){
 			timer+=Time.deltaTime;
 			if(timer>timeItLasts){
-				GameManager.dialogueManager.dialogueFinished(gameObject);
+				onFinish();
 				deactivate();
 			}else{
 				if(fadeOut){
@@ -78,6 +78,8 @@ public class SpeechBubble : MonoBehaviour {
 			}
 		}
 	}
+
+	protected abstract void onFinish();
 
 	public void deactivate(){
 		isActive = false;

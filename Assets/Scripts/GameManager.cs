@@ -24,6 +24,7 @@ public static class GameManager{
 	public static GameObject gemCounter;
 	public static List<ProcedurallyGeneratedObject> proceduralGrass = new List<ProcedurallyGeneratedObject>(0);
 	public static PlanetSpawnerManager actualPlanetSpawnerManager;
+	public static GrassManager grassManager;
 
 	private static Color originalAmbientLight;
 
@@ -177,5 +178,9 @@ public static class GameManager{
 
 	public static void registerDialogueManager(DialogueManager dialogueM){
 		dialogueManager = dialogueM;
+	}
+
+	public static void registerGrassManager(GrassManager gM){
+		grassManager = gM;
 	}
 }

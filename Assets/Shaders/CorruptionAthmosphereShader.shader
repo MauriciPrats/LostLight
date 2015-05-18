@@ -11,6 +11,7 @@
 		_BurningColor ("Burning Color", Color) = (1,1,1,1)							//20
 		_BurningWidth ("Burning Width", Range(0,0.2)) = 0.05 						//21
 		_TileSize ("NoiseTilesRatio", Range(0,1.0)) = 0
+		_OriginCorruption ("OriginCorruption", Vector) = (0.0,0.0,0.0,0.0)     		
     }
     SubShader {
     	Tags { "Queue" = "Transparent" }
@@ -30,6 +31,7 @@
 			float4 _OutlineColor;
 			float _OutlineSize;
 			float _YCutOut;
+			float4 _OriginCorruption;
 			
 			sampler2D _DissolveNoise;
 			float _BurningWidth;
@@ -59,10 +61,10 @@
             float4 frag(fragmentInput i) : SV_Target {
             	float4 textureColor = tex2D(_MainTex, i.uv);
             	float4 finalColor = _CorruptedColor * textureColor;
-            	float yPosition = i.world.y;
+            	float yPosition = distance(i.world,_OriginCorruption);
             	
             	if(yPosition<(_YCutOut+(_OutlineSize/2.0)) && yPosition>(_YCutOut-(_OutlineSize/2.0))){
-            		float magnitude = 1.0 - ((yPosition - (_YCutOut-(_OutlineSize/2.0)))/_OutlineSize);
+            		float magnitude = 1.0 - (((_YCutOut+(_OutlineSize/2.0)) - yPosition)/_OutlineSize);
             		
             		//#if _DISS_ON
 						fixed4 dissolveColor = tex2D( _DissolveNoise, (i.world.xz*_TileSize));
@@ -77,7 +79,7 @@
 							return _BurningColor;
 						}
 					//#endif
-            	}else if(yPosition>_YCutOut){
+            	}else if(yPosition<_YCutOut){
             		finalColor = textureColor * _OriginalColor;
             	}
             	

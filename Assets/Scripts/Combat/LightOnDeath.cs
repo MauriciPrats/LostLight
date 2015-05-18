@@ -33,9 +33,10 @@ public class LightOnDeath : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		Vector3 currentObjectivePosition = getObjectivePosition();
 		timeHasBeenAlive += Time.deltaTime;
-		if(Vector3.Distance(getObjectivePosition(),transform.position)<0.1f || hasArrived){
-			transform.position = getObjectivePosition();
+		if(Vector3.Distance(currentObjectivePosition,transform.position)<0.1f || hasArrived){
+			transform.position = currentObjectivePosition;
 			if(!hasArrived){
 				hasArrived = true;
 				timerWhenArrived = 0f;
@@ -55,7 +56,7 @@ public class LightOnDeath : MonoBehaviour {
 		}else{
 			totalspeed = totalSpeedStart + (timeHasBeenAlive * speedIncrease);
 			transform.position = transform.position+(speed * Time.deltaTime * totalspeed);
-			Vector3 objectiveDirection = getObjectivePosition() -  transform.position;
+			Vector3 objectiveDirection = currentObjectivePosition -  transform.position;
 			int angleRotation =(int) (timeHasBeenAlive * angleMultiplyier);
 			speed = Vector3.RotateTowards(speed,objectiveDirection,Mathf.Deg2Rad * angleRotation,1f).normalized;
 			//transform.position = Vector3.Lerp(transform.position,GameManager.lightGemObject.transform.position,0.05f);
