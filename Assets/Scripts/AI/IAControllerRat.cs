@@ -3,8 +3,8 @@ using System.Collections;
 
 public class IAControllerRat : IAController {
 
-	public AttackType poisonAttack;
-	public AttackType jumpingAttack;
+	//public AttackType poisonAttack;
+	//public AttackType jumpingAttack;
 	public AttackType burrowAttack;
 
 	public float patrolTimeToTurn = 1.5f;
@@ -14,10 +14,13 @@ public class IAControllerRat : IAController {
 	private float patrolTime = 0f;
 
 	protected override void initialize(){
-		Attack poisonAttackA = attackController.getAttack(poisonAttack);
-		Attack burrowAttackA = attackController.getAttack (burrowAttack);
+		Debug.Log ("initialize");
+		//Attack poisonAttackA = attackController.getAttack(poisonAttack);
+		Attack burrowAttackA = attackController.getAttack(burrowAttack);
 		//Attack jumpingAttackA = attackController.getAttack (jumpingAttack);
 		burrowAttackA.informParent (gameObject);
+
+
 		//jumpingA
 		//poisonAttack.informParent(gameObject);
 		SetMeleeRange (1f);
@@ -25,19 +28,25 @@ public class IAControllerRat : IAController {
 	}
 
 	protected override void UpdateAI(){
+		/*doActualBehaviour ();
+		meleeAttackTimer += Time.deltaTime;
+		chargeAttackTimer += Time.deltaTime;
+		changeBehaviour();*/
+
 		//Can I see the player? 
-		/*if(isAtVisionRange() && !attackController.isDoingAnyAttack()){
+		if(isAtVisionRange() && !attackController.isDoingAnyAttack()){
 			//I'm at melee range?
 			if(isAtMeleeRange()){
 				//Poison attack
-				attackController.doAttack (poisonAttack,false);
+				//attackController.doAttack (poisonAttack,false);
 			} else {
 				//70% chance to burrow. 30% chance to attack jumping. 
 				float randomNum = Random.Range (0,100);
 				if ( randomNum > 30 ) {
 					attackController.doAttack(burrowAttack,false);
 				} else {
-					attackController.doAttack(jumpingAttack,false);
+					Patrol ();
+					//attackController.doAttack(jumpingAttack,false);
 				}
 			}
 		//I can't see the player. Just Patrol or Burrow
@@ -46,16 +55,16 @@ public class IAControllerRat : IAController {
 				float randomNum = Random.Range (0,100);
 				if ( randomNum > 30 ) {
 					//TODO: Enhance the patrolling system.
-					Move (getPlayerDirection ());
+					Patrol ();
 				}else {
 					attackController.doAttack(burrowAttack,false);
 				}
 			}
 		} else {
 			StopMoving ();
-		}*/
+		}
 		//Burrow ();
-		Patrol ();
+		//Patrol ();
 	}
 
 	private void Patrol(){
@@ -70,7 +79,9 @@ public class IAControllerRat : IAController {
 	}
 
 	private void Burrow() {
-		//TODO: play burrow Animation (not created yet). 
+		//TODO: play burrow Animation (not created yet).
+		gameObject.GetComponentInChildren<MeshRenderer> ().enabled = false;
 		attackController.doAttack(burrowAttack,false);
+		gameObject.GetComponentInChildren<MeshRenderer> ().enabled = true;
 	}
 }

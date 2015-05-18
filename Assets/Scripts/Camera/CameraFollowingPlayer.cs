@@ -5,6 +5,7 @@ public class CameraFollowingPlayer : MonoBehaviour {
 
 
 	public float distanceCameraOnSpaceJump = 100;
+	public float distanceCameraOnCleansePlanet = 40;
 	public float upMultiplyierWithAngle = 2.5f;
 	public float upMultiplyierWithoutAngle = 1.2f;
 	public float lerpMultiplyierZPosition = 4f;
@@ -32,16 +33,20 @@ public class CameraFollowingPlayer : MonoBehaviour {
 		originalZ = transform.position.z;
 		objectiveZ = originalZ;
 		followingObjective = false;
+
 	}
 
 	void updatePosition(){
+		if(objective==null){
+			objective = GameManager.player;
+		}
 		timerZPosition += Time.deltaTime;
 		Vector3 objectiveUp;
 		Vector3 objectivePosition;
 		Vector3 objectiveVectorZ;
 		if(!followingObjective){
-			objectiveUp = new Vector3(GameManager.player.transform.up.x,GameManager.player.transform.up.y,0f).normalized;
-			objectivePosition = new Vector3 (GameManager.player.transform.position.x, GameManager.player.transform.position.y,transform.position.z);
+			objectiveUp = new Vector3(objective.transform.up.x,objective.transform.up.y,0f).normalized;
+			objectivePosition = new Vector3 (objective.transform.position.x, objective.transform.position.y,transform.position.z);
 			objectiveVectorZ = new Vector3 (objectivePosition.x, objectivePosition.y, objectiveZ);
 		}else{
 			objectiveUp =  transform.up.normalized;
@@ -60,10 +65,10 @@ public class CameraFollowingPlayer : MonoBehaviour {
 				timer+=Time.deltaTime;
 					objectiveUp = Vector3.Lerp(objectiveUp,objectiveUpRotated,timer * lerpMultiplyierXAngle);
 				}
-				objectivePosition += GameManager.player.transform.up*upMultiplyierWithAngle;
+				objectivePosition += objective.transform.up*upMultiplyierWithAngle;
 			}else{
 				timer = 0f;
-				objectivePosition += GameManager.player.transform.up*upMultiplyierWithoutAngle;
+				objectivePosition += objective.transform.up*upMultiplyierWithoutAngle;
 			}
 
 			Vector3 newUp;
@@ -90,6 +95,11 @@ public class CameraFollowingPlayer : MonoBehaviour {
 		timerZPosition = 0f;
 		objectiveZ = -distanceCameraOnSpaceJump;
 	}
+
+	public void setObjectiveZCameraCleansePlanet(){
+		timerZPosition = 0f;
+		objectiveZ = -distanceCameraOnCleansePlanet;
+	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
@@ -99,24 +109,33 @@ public class CameraFollowingPlayer : MonoBehaviour {
 	}
 
 	public void resetPosition(){
+		if(objective==null){
+			objective = GameManager.player;
+		}
 		GravityBody playerGravityBody = GameManager.player.GetComponent<GravityBody> ();
-		Vector3 objectiveUp = new Vector3(GameManager.player.transform.up.x,GameManager.player.transform.up.y,0f);
+		Vector3 objectiveUp = new Vector3(objective.transform.up.x,objective.transform.up.y,0f);
 		transform.up = objectiveUp;
 		
-		Vector3 objectivePosition = new Vector3 (GameManager.player.transform.position.x, GameManager.player.transform.position.y, transform.position.z);
+		Vector3 objectivePosition = new Vector3 (objective.transform.position.x, objective.transform.position.y, transform.position.z);
 		objectivePosition += transform.up*1.2f;
 		transform.position = objectivePosition;
 	}
 
 	public void followObjective(GameObject objectiveGO){
 		objective = objectiveGO;
-		followingObjective = true;
+		//followingObjective = true;
+	}
+
+	public void resetObjective(){
+		objective = GameManager.player;
+		//followingObjective = true;
 	}
 
 	public void unfollowObjective(){
 		objective = null;
 		followingObjective = false;
 	}
+
 }
 
 

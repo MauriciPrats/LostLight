@@ -1,0 +1,88 @@
+﻿using UnityEngine;
+using System.Collections;
+using UnityEngine.UI;
+
+public abstract class SpeechBubble : MonoBehaviour {
+
+	
+	private float timeItLasts = 1f;
+	private GameObject gameObjectToFollow;
+	
+	private Text textO;
+	bool isActive = false;
+	float timer = 0f;
+	Vector3 offsetFromObject;
+	private bool fadeOut;
+	
+	
+	public virtual void initialize(string text,GameObject goToFollow,float timeItLasts,bool bouncingIn,bool fadeOut){
+		this.fadeOut = fadeOut;
+		textO = GetComponentInChildren<Text> ();
+		textO.text = text;
+		gameObjectToFollow = goToFollow;
+		this.timeItLasts = timeItLasts;
+		isActive = true;
+		transform.parent = gameObjectToFollow.transform; 
+		offsetFromObject = transform.localPosition;
+		transform.parent = null;
+		timer = 0f;
+		GetComponentInChildren<CanvasGroup> ().alpha = 1f;
+
+		if(bouncingIn){
+			StartCoroutine ("beat");
+		}
+	}
+	
+	protected IEnumerator beat(){
+		
+		float timer = 0f;
+		float beatTime = 0.15f;
+		float extraScale = 0.2f;
+		Vector3 extraScaleV = new Vector3 (extraScale, extraScale, extraScale);
+		Vector3 originalScale = transform.localScale;
+		
+		
+		while(timer<beatTime){
+			timer+=Time.deltaTime;
+			float ratio = timer/beatTime;
+			transform.localScale = originalScale + (extraScaleV * ratio);
+			yield return null;
+		}
+		
+		timer = 0f;
+		while(timer<beatTime){
+			timer+=Time.deltaTime;
+			float ratio = 1f-(timer/beatTime);
+			transform.localScale = originalScale + (extraScaleV * ratio);
+			yield return null;
+		}
+		
+	}
+	
+	void Update(){
+		if(isActive){
+			timer+=Time.deltaTime;
+			if(timer>timeItLasts){
+				onFinish();
+				deactivate();
+			}else{
+				if(fadeOut){
+					float ratio = timer/timeItLasts;
+					GetComponentInChildren<CanvasGroup>().alpha = 1f-ratio;
+				}
+				transform.parent = gameObjectToFollow.transform;
+				transform.localPosition = offsetFromObject;
+				transform.parent = null;
+				transform.up = gameObjectToFollow.transform.up;
+				transform.rotation = Quaternion.LookRotation(transform.position-GameManager.mainCamera.transform.position,GameManager.mainCamera.transform.up);
+			}
+		}
+	}
+
+	protected abstract void onFinish();
+
+	public void deactivate(){
+		isActive = false;
+	}
+
+}

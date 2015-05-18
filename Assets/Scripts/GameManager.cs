@@ -20,8 +20,11 @@ public static class GameManager{
 	public static LightGemEnergyManager lightGemEnergyManager;
 	public static LightGemSoulsManager lightGemSoulsManager;
 	public static ComboManager comboManager;
+	public static DialogueManager dialogueManager;
 	public static GameObject gemCounter;
 	public static List<ProcedurallyGeneratedObject> proceduralGrass = new List<ProcedurallyGeneratedObject>(0);
+	public static PlanetSpawnerManager actualPlanetSpawnerManager;
+	public static GrassManager grassManager;
 
 	private static Color originalAmbientLight;
 
@@ -42,14 +45,14 @@ public static class GameManager{
 	}
 
 	public static void rebuildGameFromGameState(){
-		originalAmbientLight = RenderSettings.ambientLight;
+		/*originalAmbientLight = RenderSettings.ambientLight;
 		Light[] lights = GameObject.FindObjectsOfType<Light>() as Light[];
 		directionalLights = new List<Light> (0);
 		foreach(Light light in lights){
 			if(light.type == LightType.Directional){
 				directionalLights.Add(light);
 			}
-		}
+		}*/
 
 
 		//We put the player in the last checkpoint
@@ -61,7 +64,18 @@ public static class GameManager{
 		}	
 
 		player.GetComponent<PlayerController>().reset();
-		player.GetComponent<GravityBody>().attract();
+		player.GetComponent<SpaceGravityBody>().attract();
+
+		//We check if we have to activate the the corruption bar once we respawn Big Pappada in the planet it respawned
+		PlanetSpawnerManager psm = player.GetComponent<SpaceGravityBody> ().getClosestGravityAttractor ().GetComponent<PlanetSpawnerManager> ();
+		if(psm!=null){
+			actualPlanetSpawnerManager = psm;
+			psm.activate();
+			if(psm.isActive){
+				GUIManager.activateCorruptionBar();
+			}
+		}
+
 		mainCamera.GetComponent<CameraFollowingPlayer>().resetPosition();
 		//minimapCamera.SetActive(false);
 		GUIManager.deactivatePlayingGUI ();
@@ -160,5 +174,13 @@ public static class GameManager{
 
 	public static void registerPlayerNeck(GameObject playerNeckGO){
 		playerNeckObject = playerNeckGO;
+	}
+
+	public static void registerDialogueManager(DialogueManager dialogueM){
+		dialogueManager = dialogueM;
+	}
+
+	public static void registerGrassManager(GrassManager gM){
+		grassManager = gM;
 	}
 }

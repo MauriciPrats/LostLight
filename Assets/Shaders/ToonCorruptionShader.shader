@@ -28,18 +28,18 @@
 		_BurningColor ("Burning Color", Color) = (1,1,1,1)							//20
 		_BurningWidth ("Burning Width", Range(0,0.2)) = 0 							//21
 		_TileSize ("NoiseTilesRatio", Range(0,1.0)) = 0.15
+		_OriginCorruption ("OriginCorruption", Vector) = (0.0,0.0,0.0,0.0)     			//13
 		
     }
    
     Subshader 
     {
-    	Tags { "Queue"="Transparent" }
+    	Tags { "RenderType"="Opaque" }
 		LOD 250
     	ZWrite On
 	   	Cull [_Cull]
 		Lighting Off
 		Fog { Mode Off }
-		Blend SrcAlpha OneMinusSrcAlpha
 		
         Pass 
         {
@@ -72,6 +72,7 @@
                 fixed _BurningWidth;
 				float _TileSize;
 				float _CorruptionAlpha = 0.3;
+				float4 _OriginCorruption;
 				#endif
 				
 				sampler2D _ToonShade;
@@ -153,10 +154,10 @@
 	                   mixedTexture.a = 1.0;
 	                   //End of manual alphablending
 	                   
-            		   float yPosition = i.world.y;
+            		   float yPosition = distance(i.world,_OriginCorruption);
             	
             			if(yPosition<(_YCutOut+(_OutlineSize/2.0)) && yPosition>(_YCutOut-(_OutlineSize/2.0))){
-	            			float magnitude = 1.0 - ((yPosition - (_YCutOut-(_OutlineSize/2.0)))/_OutlineSize);
+	            			float magnitude = 1.0 - (((_YCutOut+(_OutlineSize/2.0)) - yPosition)/_OutlineSize);
 	            		
 							fixed4 dissolveColor = tex2D( _DissolveNoise, (i.world.xz*_TileSize));
 							fixed highest = 0;
@@ -171,7 +172,7 @@
 							}else{
 								return mixedTexture;
 							}
-		            	}else if(yPosition<_YCutOut){
+		            	}else if(yPosition>_YCutOut){
 		            		return mixedTexture;
 		            	}
 					#endif

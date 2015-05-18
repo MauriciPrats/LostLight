@@ -199,6 +199,8 @@ public class PlayerController : MonoBehaviour {
 		flyParticles.Play();
 		isFinishedSpaceJump = false;
 		body.setIsGettingOutOfOrbit (true);
+
+		GUIManager.deactivateCorruptionBar ();
 	}
 
 	public void Jump() {
@@ -244,8 +246,10 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void getHurt(int hitPointsToSubstract){
-		GameManager.playerAnimator.SetTrigger("isHurt");
+
 		if (!isInvulnerable && !attackController.isDoingBlock ()) {
+			GameManager.playerAnimator.SetTrigger("isHurt");
+			GetComponent<DialogueController>().createNewExpression("Ouch!",0.5f,true,true);
 			GUIManager.getHurtEffect ();
 			killable.TakeDamage (hitPointsToSubstract);
 			pappadaC.newProportionOfLife (killable.proportionHP ());
