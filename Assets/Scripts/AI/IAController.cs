@@ -12,6 +12,7 @@ public class IAController : MonoBehaviour {
 	public GameObject thirdOnHitEffect;
 	public GameObject[] onDeathEffects;
 	public GameObject onDeathLight;
+	public GameObject corruptionEffect;
 
 	//Public Variables
 	public float minimumDistanceSeePlayer = 50f;
@@ -281,6 +282,9 @@ public class IAController : MonoBehaviour {
 			gameObject.layer = LayerMask.NameToLayer("OnlyFloor");
 			StopMoving();
 			StartCoroutine("disappearOnDeath");
+			if(corruptionEffect!=null){
+				corruptionEffect.GetComponent<ParticleSystem>().Stop();
+			}
 		}
 		iaAnimator.SetBool("isWalking",false);
 		isDead = true;

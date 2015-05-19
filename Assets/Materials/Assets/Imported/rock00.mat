@@ -118,7 +118,7 @@ Material:
       data:
         first:
           name: _YCutOut
-        second: 1000
+        second: 0
       data:
         first:
           name: _BurningWidth
@@ -243,4 +243,8 @@ Material:
       data:
         first:
           name: _CorruptionColor
-        second: {r: .5, g: .5, b: .5, a: .300000012}
+        second: {r: 0, g: 0, b: 0, a: .384313732}
+      data:
+        first:
+          name: _OriginCorruption
+        second: {r: 0, g: 0, b: 0, a: 0}
