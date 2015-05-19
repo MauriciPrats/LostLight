@@ -126,14 +126,23 @@ public class PlayerController : MonoBehaviour {
 			}
 		}
 
+		if(body.getUsesSpaceGravity()){
+			if(!body.getIsOutsideAthmosphere()){
+				timeHasBeenInSpace = 0f;
+			}
+			float ratio = 1f - (timeHasBeenInSpace/timeToDieInSpace);
+			GUIManager.setPercentageOfBreathing(ratio);
+		}
+
 
 		if(body.getIsOutsideAthmosphere()){
-			breathingBubble.SetActive(true);
+			//breathingBubble.SetActive(true);
+			//GUIManager.activateSpaceJumpGUI();
 			//rigidbody.velocity = rigidbody.velocity.normalized * (Constants.GRAVITY_FORCE_OF_PLANETS/1.5f);
 
 			if(!GameManager.gameState.isGameEnded){
 				if(timeHasBeenInSpace>=timeToDieInSpace){
-					breathingBubble.transform.localScale = new Vector3(0f,0f,0f);
+					//breathingBubble.transform.localScale = new Vector3(0f,0f,0f);
 					timeHasNotBeenBreathing+=Time.deltaTime;
 					if(timeHasNotBeenBreathing>=timeBetweenDamageWhenNotBreathing){
 						kill ();
@@ -148,7 +157,7 @@ public class PlayerController : MonoBehaviour {
 					timeHasBeenInSpace += Time.deltaTime;
 					float ratio = 1f - (timeHasBeenInSpace/timeToDieInSpace);
 					float newScale = ((maximumBreathingBubbleScale - minimumBreathingBubbleScale) * ratio)+minimumBreathingBubbleScale;
-					breathingBubble.transform.localScale = new Vector3(newScale,newScale,newScale);
+					//breathingBubble.transform.localScale = new Vector3(newScale,newScale,newScale);
 				}
 			}
 
@@ -157,7 +166,7 @@ public class PlayerController : MonoBehaviour {
 
 			if(!GameManager.gameState.isGameEnded){
 				timeHasBeenInSpace = 0f;
-				breathingBubble.SetActive(false);
+				//breathingBubble.SetActive(false);
 			}
 		}
 
@@ -184,7 +193,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void SpaceJump() {
-
+		GUIManager.activateSpaceJumpGUI();
 		//We jump with the 
 		characterController.Jump (spaceJumpForce);
 		GetComponent<Rigidbody> ().velocity = lineJumpDirection * spaceJumpForce;

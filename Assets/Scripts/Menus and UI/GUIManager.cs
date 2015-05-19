@@ -37,6 +37,7 @@ public class GUIManager : MonoBehaviour {
 	private static GameObject interactuablePopupO;
 	private static GameObject onPauseMenuO;
 	private static GameObject playingGUIO;
+	private static GameObject spaceJumpGUIO;
 
 	private static GameObject corruptionBar;
 
@@ -197,19 +198,37 @@ public class GUIManager : MonoBehaviour {
 		}
 	}
 
+	public static void registerSpaceJumpGUI(GameObject spaceJumpGUIGO){
+		if(spaceJumpGUIGO!=null && spaceJumpGUIO == null){
+			spaceJumpGUIO = GameObject.Instantiate (spaceJumpGUIGO) as GameObject;
+			spaceJumpGUIO.SetActive (false);
+		}
+	}
+
 	public static void activatePlayingGUI(){
 		playingGUIO.SetActive (true);
 	}
 
-	/*private static void deactivatePlayingGUIAfterFade(){
-		playingGUIO.SetActive (false);
-	}*/
 	public static void deactivatePlayingGUI(){
 		playingGUIO.SetActive (false);
-		//fadeManager.fadeOut(deactivatePlayingGUIAfterFade,playingGUIO);
 	}
 
+	public static void activateSpaceJumpGUI(){
+		spaceJumpGUIO.SetActive (true);
+	}
 
+	public static void setPercentageOfBreathing(float percentage){
+		if(spaceJumpGUIO!=null){
+			BreathingGUI breathingGUI = spaceJumpGUIO.GetComponentInChildren<BreathingGUI> ();
+			if(breathingGUI!=null){
+				spaceJumpGUIO.GetComponentInChildren<BreathingGUI> ().setPercentage (percentage);
+			}
+		}
+	}
+	
+	public static void deactivateSpaceJumpGUI(){
+		spaceJumpGUIO.SetActive (false);
+	}
 
 	public static void activateMenu(Menu newMenu){
 		deactivateMenus ();
@@ -241,7 +260,6 @@ public class GUIManager : MonoBehaviour {
 	public static void closeCraftingMenu(){
 		activateMenu (Menu.None);
 		GameManager.unPauseGame ();
-		//fadeOut (GameManager.unPauseGame);
 	}
 
 	public static void activatePauseMenu(){

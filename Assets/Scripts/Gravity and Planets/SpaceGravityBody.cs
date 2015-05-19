@@ -29,6 +29,7 @@ public class SpaceGravityBody : GravityBody {
 				if(GameManager.actualPlanetSpawnerManager!=null){
 					GameManager.actualPlanetSpawnerManager.activate();
 				}
+				GUIManager.deactivateSpaceJumpGUI();
 			}
 			objectsTouching++;
 			isTouchingPlanet = true;
