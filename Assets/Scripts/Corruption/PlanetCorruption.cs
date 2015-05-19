@@ -11,6 +11,7 @@ public class PlanetCorruption : MonoBehaviour {
 	public float yMax = 30f;
 
 	public float speed = 5f;
+	public float particlesOnPurificationSpeed = 5f;
 	private float direction = -1f;
 	private float yValue = 0f;
 	private float offset = 0f;
@@ -28,6 +29,11 @@ public class PlanetCorruption : MonoBehaviour {
 			shinto = shintoDoor.GetComponent<ShintoDoor> ();
 		}
 		originPosition = new Vector4 (corruptionOrigin.transform.position.x, corruptionOrigin.transform.position.y, corruptionOrigin.transform.position.z, 0f);
+		ParticleSystem particlesOnDescorrupt = corruptionOrigin.GetComponent<ParticleSystem> ();
+		if(particlesOnDescorrupt!=null){
+			particlesOnDescorrupt.startSpeed = particlesOnPurificationSpeed;
+			particlesOnDescorrupt.startLifetime = ((float)(yMax-yMin))/Mathf.Abs (particlesOnPurificationSpeed);
+		}
 	}
 
 	public void initialize(){
@@ -62,7 +68,7 @@ public class PlanetCorruption : MonoBehaviour {
 	private IEnumerator startCleaningWithDelay(){
 		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().lerpMultiplyierUp = 1f;
 		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().lerpMultiplyierPos = 1.5f;
-		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().xAngle = 15f;
+		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().xAngle = 13f;
 		float timer = 0f;
 		while(timer<2f){
 			timer+=Time.deltaTime;

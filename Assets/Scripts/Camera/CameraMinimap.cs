@@ -15,6 +15,6 @@ public class CameraMinimap : MonoBehaviour {
 	void Update () {
 		Vector3 objectivePosition = new Vector3 (GameManager.player.transform.position.x, GameManager.player.transform.position.y, transform.position.z);
 		transform.position = objectivePosition;
-		transform.up = GameManager.player.transform.up;
+		transform.rotation = Quaternion.LookRotation (Vector3.forward, GameManager.player.transform.up);
 	}
 }

@@ -6173,7 +6173,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 422012066}
-  m_LocalRotation: {x: .00565740466, y: .705257773, z: .708897591, w: .0066194348}
+  m_LocalRotation: {x: .00565740466, y: .705257773, z: .708897591, w: .00661943201}
   m_LocalPosition: {x: -.0299999993, y: -1.05999994, z: -.209999993}
   m_LocalScale: {x: .181682199, y: .181682199, z: .181682214}
   m_Children:
@@ -8994,7 +8994,7 @@ MonoBehaviour:
   - {fileID: 812195800}
   shintoDoor: {fileID: 375318934}
   isActive: 0
-  pointsUntilSealShintoDoor: 10
+  pointsUntilSealShintoDoor: 2
   maxPointsSpawnedAtSameTime: 30
   timeBetweenSpawns: 1
 --- !u!114 &578384443
@@ -9013,7 +9013,8 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: c9719fd028677b141ab68a68fac7fa7a, type: 2}
   yMin: -2
   yMax: 36
-  speed: 6
+  speed: 3.5
+  particlesOnPurificationSpeed: 5
 --- !u!1 &580311929
 GameObject:
   m_ObjectHideFlags: 0
@@ -9186,6 +9187,7 @@ MonoBehaviour:
   yMin: -100
   yMax: -61
   speed: 5
+  particlesOnPurificationSpeed: 5
 --- !u!1001 &595585862
 Prefab:
   m_ObjectHideFlags: 0
@@ -10877,7 +10879,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 812195800}
-  m_LocalRotation: {x: .00565740466, y: .705257773, z: .708897591, w: .0066194348}
+  m_LocalRotation: {x: .00565740466, y: .705257773, z: .708897591, w: .00661943201}
   m_LocalPosition: {x: -.0299999993, y: 1.03400004, z: .268999994}
   m_LocalScale: {x: .128048003, y: .128048003, z: .128048018}
   m_Children:
@@ -12273,6 +12275,7 @@ MonoBehaviour:
     type: 2}
   onPauseMenuPrefab: {fileID: 100004, guid: bf7f82f12b6b01344937477b7fa6a314, type: 2}
   playingGUIPrefab: {fileID: 157692, guid: 1f13b40ac1d34bb449630f7fb84f540c, type: 2}
+  spaceJumpGUIPrefab: {fileID: 197098, guid: df2c559be55ced640ab044b70092a87e, type: 2}
 --- !u!114 &955999565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25498,7 +25501,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distanceCameraOnSpaceJump: 100
-  distanceCameraOnCleansePlanet: 50
+  distanceCameraOnCleansePlanet: 40
   upMultiplyierWithAngle: 2.5
   upMultiplyierWithoutAngle: 1.20000005
   lerpMultiplyierZPosition: .349999994
