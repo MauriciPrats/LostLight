@@ -6,15 +6,9 @@ public class FadeManager : MonoBehaviour {
 
 	public Texture2D blackTexture;
 	public Texture2D getHurtTexture;
-	public Texture2D backgroundTexture;
 	
 	public float getHurtStartAlpha = 0.8f;
 	public int drawDepth = -1000;
-
-
-	float alpha = 0f; 
-	int fadeDir = 1;
-	bool isFinished = true;
 
 	float getHurtAlpha = 0f;
 	int fadeDirGetHurt = 1;
@@ -25,10 +19,6 @@ public class FadeManager : MonoBehaviour {
 	bool isFinishedAll = true;
 
 	float fadeSpeed = Constants.FADE_SPEED;
-
-	GameObject fadingMenu;
-
-
 	private Action fadeInAction,fadeOutAction;
 
 	void Awake () {
@@ -49,28 +39,29 @@ public class FadeManager : MonoBehaviour {
 
 	public void fadeInWithAction(Action fadeAction,GameObject menu){
 		if(menu!=null){
-			fadeDir = 1;
-			alpha = 0f;
-			isFinished = false;
-			fadingMenu = menu;
 			menu.GetComponent<CanvasGroup> ().alpha = 0f;
 			menu.GetComponent<CanvasGroup> ().interactable = false;
-			fadeInAction = fadeAction;
 			fadeSpeed = Constants.FADE_SPEED;
+			StartCoroutine(fadeTexture(menu,1f,0f,fadeAction,fadeSpeed));
 		}
 	}
 
 	public void fadeOut(Action fadeAction,GameObject menu){
-		fadeDir = -1;
-		alpha = 1f;
-		fadeOutAction = fadeAction;
-		isFinished = false;
-		fadingMenu = menu;
-		fadeSpeed = Constants.FADE_SPEED;
 		if(menu!=null){
 			menu.GetComponent<CanvasGroup> ().alpha = 1f;
 			menu.GetComponent<CanvasGroup> ().interactable = false;
 		}
+		StartCoroutine(fadeTexture(menu,-1f,1f,fadeAction,fadeSpeed));
+	}
+
+	public void fadeOutCoroutine(GameObject menu,Action fadeAction = null,float fadeSpeed = 1f){
+		StartCoroutine(fadeTexture(menu,-1f,1f,fadeAction,fadeSpeed));
+	}
+
+	public void fadeInCoroutine(GameObject menu,Action fadeAction = null,float fadeSpeed = 1f){
+		menu.GetComponent<CanvasGroup> ().alpha = 0f;
+		menu.GetComponent<CanvasGroup> ().interactable = false;
+		StartCoroutine(fadeTexture(menu,1f,0f,fadeAction,fadeSpeed));
 	}
 
 
@@ -90,42 +81,42 @@ public class FadeManager : MonoBehaviour {
 	}
 	
 	public void fadeAllInWithAction(Action fadeAction){
+		fadeDirAll = 1;
+		allAlpha = 0f;
+		isFinishedAll = false;
+		fadeInAction = fadeAction;
 
-			fadeDirAll = 1;
-			allAlpha = 0f;
-			isFinishedAll = false;
-			fadeInAction = fadeAction;
 	}
 	
 	void OnGUI(){
-		drawFadeTexture ();
 		drawGetHurtTexture ();
 		drawFadeOutCompleteTexture ();
 	}
 
-	void drawFadeTexture(){
-		if (!isFinished) {
+	private IEnumerator fadeTexture(GameObject fadingMenu,float fadeDir,float alpha,Action fadeAction,float fadeSpeed){
+		bool isFinishedF = false;
+		while(!isFinishedF){
 			alpha += fadeDir * fadeSpeed * Time.deltaTime;
 			alpha = Mathf.Clamp01 (alpha); 
 			if(fadingMenu!=null){
 				fadingMenu.GetComponent<CanvasGroup>().alpha = alpha;
 			}
-
+			
 			if (fadeDir == -1 && alpha == 0f) {
-				isFinished = true;
-				if(fadeOutAction!=null){
-					fadeOutAction ();
+				isFinishedF = true;
+				if(fadeAction!=null){
+					fadeAction ();
 				}
 			} else if (fadeDir == 1 && alpha == 1f) {
-				isFinished = true;
+				isFinishedF = true;
 				if(fadingMenu!=null){
 					fadingMenu.GetComponent<CanvasGroup>().interactable = true;
 				}
-				if(fadeInAction!=null){
-					fadeInAction();
+				if(fadeAction!=null){
+					fadeAction();
 				}
 			}
-		
+			yield return null;
 		}
 	}
 
@@ -148,6 +139,7 @@ public class FadeManager : MonoBehaviour {
 			}
 		}
 	}
+
 	void drawGetHurtTexture(){
 		if (!isFinishedGetHurt) {
 			getHurtAlpha += fadeDirGetHurt * Constants.FADE_SPEED * Time.fixedDeltaTime;

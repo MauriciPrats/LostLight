@@ -54,21 +54,16 @@ public class PlanetCorruption : MonoBehaviour {
 	public void cleanCorruption(){
 		if(!cleaningCorruption){
 			cleaningCorruption = true;
-			//direction=1f;
-			//shinto.activateKanjis ();
-			//corruptionOrigin.GetComponent<ParticleSystem> ().Play ();
-			//cleaningCorruption = true;
-			//GameManager.player.GetComponent<InputController> ().enabled = false;
 			GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().setObjectiveZCameraCleansePlanet ();
-			GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().followObjective(corruptionOrigin);
+			GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().followObjective(corruptionOrigin,13f,2.5f);
+
 			StartCoroutine("startCleaningWithDelay");
 		}
 	}
 
 	private IEnumerator startCleaningWithDelay(){
-		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().lerpMultiplyierUp = 1f;
-		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().lerpMultiplyierPos = 1.5f;
-		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().xAngle = 13f;
+		GameManager.inputController.disableInputController ();
+		GUIManager.deactivatePlayingGUIWithFadeOut ();
 		float timer = 0f;
 		while(timer<2f){
 			timer+=Time.deltaTime;
@@ -77,32 +72,14 @@ public class PlanetCorruption : MonoBehaviour {
 		direction=1f;
 		shinto.activateKanjis ();
 		corruptionOrigin.GetComponent<ParticleSystem> ().Play ();
-
-		//GameManager.player.GetComponent<InputController> ().enabled = false;
-	}
-
-	private IEnumerator resetCameraValuesWithDelay(){
-		float timer = 0f;
-		while(timer<1f){
-			timer+=Time.deltaTime;
-			float ratio = timer/1f;
-			GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().lerpMultiplyierUp = 1f+(3.5f*ratio);
-			GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().lerpMultiplyierPos = 1.5f+(3.5f*ratio);
-			yield return null;
-		}
-		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().lerpMultiplyierUp = 4.5f;
-		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().lerpMultiplyierPos = 5f;
-		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().xAngle = 17f;
-		
-		//GameManager.player.GetComponent<InputController> ().enabled = false;
 	}
 
 	public void isFinishedCleaning(){
+		GameManager.inputController.enableInputController ();
+		GUIManager.activatePlayingGUIWithFadeIn ();
 		cleaningCorruption = false;
-		//GameManager.player.GetComponent<InputController> ().enabled = true;
 		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().returnOriginalZ ();
 		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().resetObjective ();
-		StartCoroutine ("resetCameraValuesWithDelay");
 	}
 
 	public void corrupt(){

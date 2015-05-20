@@ -64,8 +64,8 @@ public class ShockwaveAttack : Attack,AnimationSubscriber {
 			timer += Time.deltaTime;
 			float ratio = (1f - ((timer) / (timeToCharge))) * startChargeScale;
 			chargeEffect.transform.localScale = new Vector3 (ratio, ratio, ratio);
-			chargeEffect.transform.position = GameManager.lightGemObject.transform.position;
-			elementalParticlesOnCharge.transform.position = GameManager.lightGemObject.transform.position;
+			chargeEffect.transform.position = GameManager.playerController.lightGemObject.transform.position;
+			elementalParticlesOnCharge.transform.position = GameManager.playerController.lightGemObject.transform.position;
 			yield return null;
 		}
 
@@ -88,8 +88,8 @@ public class ShockwaveAttack : Attack,AnimationSubscriber {
 			timer += Time.deltaTime;
 			float ratio = (timer/(timeItDoesAttack)) * endScaleOfAttack;
 			areaEffect.transform.localScale = new Vector3(ratio,ratio,ratio);
-			areaEffect.transform.position = GameManager.lightGemObject.transform.position;
-			elementalParticlesOnExplode.transform.position = GameManager.lightGemObject.transform.position;
+			areaEffect.transform.position = GameManager.playerController.lightGemObject.transform.position;
+			elementalParticlesOnExplode.transform.position = GameManager.playerController.lightGemObject.transform.position;
 			yield return null;
 		}
 

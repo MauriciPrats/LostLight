@@ -12,9 +12,7 @@ public class LightGemEnergyUI : MonoBehaviour {
 	float lastRatioCalculated = 0f;
 
 	
-	void Awake(){
-		GameManager.gemCounter = gameObject;
-	}
+
 	// Use this for initialization
 	void Start () {
 		GetComponent<Image>().fillAmount = energyPercentage;

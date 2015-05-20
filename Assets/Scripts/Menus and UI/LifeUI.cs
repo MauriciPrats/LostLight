@@ -13,9 +13,7 @@ public class LifeUI : MonoBehaviour {
 	private float lerpTime;
 	
 	
-	void Awake(){
-		GameManager.gemCounter = gameObject;
-	}
+
 	// Use this for initialization
 	void Start () {
 		GetComponent<Image>().fillAmount = lifePercentage;

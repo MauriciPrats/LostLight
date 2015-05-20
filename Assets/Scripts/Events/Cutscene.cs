@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum CutsceneIdentifyier {SanctuaryLightGem};
+
 abstract public class Cutscene: MonoBehaviour  {
 
 	public enum EndMode { ByTime, Inheritance };
@@ -9,15 +11,25 @@ abstract public class Cutscene: MonoBehaviour  {
 	public float endTime;
 	public bool isActive = true;
 	public LayerMask collisionMask;
+	public GameObject planetEventsManagerGO;
+
 
 	public abstract void ActivateTrigger();
+	public abstract void Initialize();
 	private bool running = false;
+	private PlanetEventsManager planetEventsManager;
+	protected CutsceneIdentifyier identifyier;
+
+	void Start(){
+		planetEventsManager = planetEventsManagerGO.GetComponent<PlanetEventsManager> ();
+	}
 
 	void OnTriggerEnter(Collider other) {
 		if (isActive && !running){
+			planetEventsManager.informEventActivated(identifyier);
 			running = true;
 			if(other.gameObject.layer == LayerMask.NameToLayer("Player")) {
-				InitializeCutscene ();
+				StartCutscene ();
 				if (endMode == EndMode.ByTime) {
 					StartCoroutine ("checkTime");
 				}
@@ -26,19 +38,16 @@ abstract public class Cutscene: MonoBehaviour  {
 		}
 	}
 
-	void InitializeCutscene() {
+
+	void StartCutscene() {
 		//Stop all player input. 
-		GameObject player = GameManager.player;
 		if (endMode == EndMode.ByTime) {
-			player.GetComponent<InputController> ().enabled = false;
+			GameManager.inputController.disableInputController();
 		}
-		player.GetComponent<CharacterController> ().StopMoving ();	
-		player.GetComponent<PlayerController> ().StopMove ();
 	}
 
 	void EndCutScene(){
-		GameObject player = GameManager.player;
-		player.GetComponent<InputController> ().enabled = true;
+		GameManager.inputController.enableInputController();
 	}
 
 	IEnumerator checkTime() {

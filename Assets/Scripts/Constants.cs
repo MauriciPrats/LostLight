@@ -51,7 +51,7 @@ public static class Constants{
 	public static float WEAPONSMITH_ROOT_MENU_BUTTONS_V_OFFSET = 5;
 
 
-	public static float FADE_SPEED = 0.5f;
+	public static float FADE_SPEED = 1f;
 
 	//ENEMY SPAWNING
 	public static float SPAWNING_MINIMUM_DISTANCE_OF_PLAYER = 5f;

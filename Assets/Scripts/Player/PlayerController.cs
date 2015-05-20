@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour {
 	public GameObject particleSystemJumpCharge;
 	public GameObject animationBigPappada;
 	public GameObject breathingBubble;
+	public GameObject lightGemObject;
+	public GameObject playerTongueObject;
+	public GameObject playerNeckObject;
 	public float timeBetweenDamageWhenNotBreathing = 0.5f;
 	public int damageWhenNotBreathing = 1;
 	public float minimumBreathingBubbleScale = 6f;

@@ -9,11 +9,7 @@ public class NeckController : MonoBehaviour {
 	private bool lockedAngle = false;
 	Vector3 originalAngle;
 	Vector3 objectivePosition;
-	// Use this for initialization
-	void Awake () {
-		GameManager.registerPlayerNeck (gameObject);
-	}
-	
+
 	// Update is called once per frame
 	void Update () {
 	
@@ -40,7 +36,7 @@ public class NeckController : MonoBehaviour {
 
 		if (rotatingNeck) {
 			if(!lockedAngle){
-				Vector3 directionHealthFirefly = objectivePosition - GameManager.playerNeckObject.transform.position;
+				Vector3 directionHealthFirefly = objectivePosition - transform.position;
 				Vector3 directionPlayer = GameManager.player.transform.forward;
 				float newAngle = Util.getAngleFromVectorAToB (directionPlayer, directionHealthFirefly);
 				float zAngle = 0f;
@@ -60,7 +56,7 @@ public class NeckController : MonoBehaviour {
 				}
 				originalAngle = new Vector3 (newAngle, 0f, zAngle);
 			}
-			GameManager.playerNeckObject.transform.eulerAngles += originalAngle;
+			transform.eulerAngles += originalAngle;
 		}
 
 	}

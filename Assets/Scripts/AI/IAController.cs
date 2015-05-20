@@ -57,9 +57,12 @@ public class IAController : MonoBehaviour {
 
 	private bool despawned = false;
 
+	private bool enabled = true;
+
 
 	// Use this for initialization
 	void Start () {
+		GameManager.iaManager.registerIA (this);
 		despawned = false;
 		attackController = GetComponent<CharacterAttackController> ();
 		isOnGuard = false;
@@ -231,14 +234,16 @@ public class IAController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if(!hasBeenInitialized){
-			initialize();
-			hasBeenInitialized = true;
+		if(enabled){
+			if(!hasBeenInitialized){
+				initialize();
+				hasBeenInitialized = true;
+			}
+			if(getIsTouchingPlanet()){
+				characterController.stopJumping();
+			}
+			UpdateAI ();
 		}
-		if(getIsTouchingPlanet()){
-			characterController.stopJumping();
-		}
-		UpdateAI ();
 	}
 
 	public void freeze(float timeFrozen){
@@ -305,6 +310,7 @@ public class IAController : MonoBehaviour {
 			//onDeathEffect.transform.position = GetComponent<Rigidbody>().worldCenterOfMass;
 			yield return null;
 		}
+		GameManager.iaManager.removeIA(this);
 		Destroy(gameObject);
 	}
 
@@ -366,6 +372,16 @@ public class IAController : MonoBehaviour {
 		} else {
 			return false;
 		}
+	}
+
+	public void deactivate(){
+		enabled = false;
+		StopMoving ();
+		interruptAttack ();
+	}
+
+	public void activate(){
+		enabled = true;
 	}
 
 

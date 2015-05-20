@@ -142,11 +142,11 @@ public class KameAttack : Attack,AnimationSubscriber {
 			timer+=Time.deltaTime;
 			float ratio = (1f - ((timer) / (chargeTime))) * startChargeScale;
 			kameCore.transform.localScale = new Vector3 (ratio, ratio, ratio);
-			kameCore.transform.position = GameManager.lightGemObject.transform.position;
-			kameCore.transform.position = GameManager.lightGemObject.transform.position;
-			elementalParticleOnCharge.transform.position = GameManager.lightGemObject.transform.position;
-			
-			kameEffect.transform.position = GameManager.lightGemObject.transform.position;
+			kameCore.transform.position = GameManager.playerController.lightGemObject.transform.position;
+			kameCore.transform.position = GameManager.playerController.lightGemObject.transform.position;
+			elementalParticleOnCharge.transform.position = GameManager.playerController.lightGemObject.transform.position;
+
+			kameEffect.transform.position = GameManager.playerController.lightGemObject.transform.position;
 			elementalParticleSystem.transform.position = kameEffect.transform.position;
 			yield return null;
 		}
@@ -157,7 +157,7 @@ public class KameAttack : Attack,AnimationSubscriber {
 		//CHARGE THE KAME END
 
 		//THROW THE KAME START
-		kameEffect.transform.position = GameManager.lightGemObject.transform.position - (kameEffect.transform.forward * distance * Time.deltaTime * 2f);
+		kameEffect.transform.position = GameManager.playerController.lightGemObject.transform.position - (kameEffect.transform.forward * distance * Time.deltaTime * 2f);
 		kameCore.GetComponent<ParticleSystem>().Stop();
 		if(!elementAttack.Equals(ElementType.None)){
 			elementalParticleSystem.SetActive(true);

@@ -30,6 +30,8 @@ public class InputController : MonoBehaviour {
 
 	public AttackType onAirAttack;
 
+	private bool isEnabled = true;
+
 	void Start () {
 		timeJumpPressed = 0;
 		character = GetComponent<PlayerController>();
@@ -39,7 +41,8 @@ public class InputController : MonoBehaviour {
 	}
 
 	void Update() {
-		if(!GameManager.gameState.isGameEnded){
+
+		if(!GameManager.gameState.isGameEnded && isEnabled){
 			if (Input.GetKey(KeyCode.Escape)) { Application.Quit(); }
 
 			//MOVEMENT BUTTON
@@ -241,6 +244,15 @@ public class InputController : MonoBehaviour {
 		isSpaceJumpCharging = false;
 		isSpaceJumpCharged = false;
 		timeJumpPressed = 0;
+	}
+
+	public void disableInputController(){
+		character.StopMove ();
+		isEnabled = false;
+	}
+
+	public void enableInputController(){
+		isEnabled = true;
 	}
 
 }

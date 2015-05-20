@@ -470,6 +470,45 @@ Transform:
   - {fileID: 761985695}
   m_Father: {fileID: 2050195544}
   m_RootOrder: 1
+--- !u!1 &50702208
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 50702209}
+  - 114: {fileID: 50702210}
+  m_Layer: 0
+  m_Name: IAManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &50702209
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 50702208}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 955999563}
+  m_RootOrder: 10
+--- !u!114 &50702210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 50702208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c92f54240e70c8744bd188c57e21d60f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &52794093
 GameObject:
   m_ObjectHideFlags: 0
@@ -3643,6 +3682,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   asteroidAttackPrefab: {fileID: 100000, guid: 60ac1d1f8296a8b4cb02a8e86ba74a50, type: 2}
+  playerGravityBody: {fileID: 0}
+  quickTimeEventTimer: 0
+  quickTimeEventActualCooldown: 0
 --- !u!4 &255246147
 Transform:
   m_ObjectHideFlags: 0
@@ -6173,7 +6215,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 422012066}
-  m_LocalRotation: {x: .00565740466, y: .705257773, z: .708897591, w: .00661943201}
+  m_LocalRotation: {x: .0056574042, y: .705257714, z: .708897531, w: .00661941478}
   m_LocalPosition: {x: -.0299999993, y: -1.05999994, z: -.209999993}
   m_LocalScale: {x: .181682199, y: .181682199, z: .181682214}
   m_Children:
@@ -8881,6 +8923,7 @@ GameObject:
   - 135: {fileID: 578384438}
   - 114: {fileID: 578384442}
   - 114: {fileID: 578384443}
+  - 114: {fileID: 578384444}
   m_Layer: 0
   m_Name: First Planet Reloaded
   m_TagString: Untagged
@@ -9015,6 +9058,17 @@ MonoBehaviour:
   yMax: 36
   speed: 3.5
   particlesOnPurificationSpeed: 5
+--- !u!114 &578384444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 578384436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6219b76d882b6d043822e9cd6d010af3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &580311929
 GameObject:
   m_ObjectHideFlags: 0
@@ -10879,7 +10933,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 812195800}
-  m_LocalRotation: {x: .00565740466, y: .705257773, z: .708897591, w: .00661943201}
+  m_LocalRotation: {x: .0056574042, y: .705257714, z: .708897531, w: .00661941478}
   m_LocalPosition: {x: -.0299999993, y: 1.03400004, z: .268999994}
   m_LocalScale: {x: .128048003, y: .128048003, z: .128048018}
   m_Children:
@@ -12249,6 +12303,7 @@ Transform:
   - {fileID: 2048034219}
   - {fileID: 1139036673}
   - {fileID: 1996025891}
+  - {fileID: 50702209}
   m_Father: {fileID: 0}
   m_RootOrder: 6
 --- !u!114 &955999564
@@ -12289,7 +12344,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blackTexture: {fileID: 2800000, guid: e3a6b3ca62d095f4bacc604fb127aace, type: 3}
   getHurtTexture: {fileID: 2800000, guid: e1a2f695c199d454c992cb16485af445, type: 3}
-  backgroundTexture: {fileID: 2800000, guid: 9a13e5c4f9a29c64cb83c40bb1dd6a48, type: 3}
   getHurtStartAlpha: 1
   drawDepth: -1000
 --- !u!114 &955999566
@@ -14984,7 +15038,7 @@ Transform:
   m_PrefabParentObject: {fileID: 400084, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1266112418}
-  m_LocalRotation: {x: .171056792, y: .533247709, z: .6157341, w: .554308534}
+  m_LocalRotation: {x: .171056807, y: .533247769, z: .61573416, w: .554308593}
   m_LocalPosition: {x: -0, y: .843851984, z: 1.1920929e-07}
   m_LocalScale: {x: .99999994, y: 1, z: .999999821}
   m_Children:
@@ -15368,7 +15422,7 @@ GameObject:
   - 23: {fileID: 1291275635}
   - 114: {fileID: 1291275634}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: LightGemEvent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15403,6 +15457,7 @@ MonoBehaviour:
   collisionMask:
     serializedVersion: 2
     m_Bits: 4294967295
+  planetEventsManagerGO: {fileID: 578384436}
 --- !u!23 &1291275635
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -15559,6 +15614,9 @@ MonoBehaviour:
   particleSystemJumpCharge: {fileID: 89850112}
   animationBigPappada: {fileID: 1624591128}
   breathingBubble: {fileID: 1442927830}
+  lightGemObject: {fileID: 1295623986}
+  playerTongueObject: {fileID: 1756767494}
+  playerNeckObject: {fileID: 2113356953}
   timeBetweenDamageWhenNotBreathing: .5
   damageWhenNotBreathing: 1
   minimumBreathingBubbleScale: 3
@@ -15758,7 +15816,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1295623987}
-  - 114: {fileID: 1295623988}
   m_Layer: 9
   m_Name: Hand_R
   m_TagString: Untagged
@@ -15782,17 +15839,6 @@ Transform:
   - {fileID: 497472342}
   m_Father: {fileID: 1706710123}
   m_RootOrder: 0
---- !u!114 &1295623988
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1295623986}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60bbd61fa868da84bb1b784aa0dd6352, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1296120815
 GameObject:
   m_ObjectHideFlags: 0
@@ -24066,7 +24112,7 @@ Transform:
   m_PrefabParentObject: {fileID: 400062, guid: 5870a6cebdf50fe4f8629caa8f757a7d, type: 3}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1963657076}
-  m_LocalRotation: {x: .750564814, y: -.215632901, z: -.34135282, w: .523099482}
+  m_LocalRotation: {x: .750564933, y: -.21563293, z: -.34135285, w: .523099542}
   m_LocalPosition: {x: -.978397965, y: -.523514986, z: .464260906}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -25510,7 +25556,6 @@ MonoBehaviour:
   lerpMultiplyierXAngle: .5
   lerpMultiplyierUp: 4.5
   lerpMultiplyierPos: 5
-  objective: {fileID: 0}
 --- !u!114 &2094894435
 MonoBehaviour:
   m_ObjectHideFlags: 0

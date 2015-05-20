@@ -69,7 +69,7 @@ public class TrackingMissilesAttack : Attack,AnimationSubscriber {
 	IEnumerator doTrackingMissilesAttack(){
 		enemiesHit = new List<GameObject> (0);
 		attackCharge.SetActive (true);
-		attackCharge.transform.position = GameManager.lightGemObject.transform.position ;
+		attackCharge.transform.position = GameManager.playerController.lightGemObject.transform.position ;
 		timer = 0f;
 		if (!elementAttack.Equals (ElementType.None)) {
 			elementalParticlesOnCharge.SetActive(true);
@@ -84,9 +84,9 @@ public class TrackingMissilesAttack : Attack,AnimationSubscriber {
 			timer+=Time.deltaTime;
 			float ratio = (1f - ((timer) / (timeToChargeAttack))) * startChargeScale;
 			attackCharge.transform.localScale = new Vector3 (ratio, ratio, ratio);
-			attackCharge.transform.position = GameManager.lightGemObject.transform.position;
-			elementalParticlesOnCharge.transform.position = GameManager.lightGemObject.transform.position;
-			attackCharge.transform.position = GameManager.lightGemObject.transform.position ;
+			attackCharge.transform.position = GameManager.playerController.lightGemObject.transform.position;
+			elementalParticlesOnCharge.transform.position = GameManager.playerController.lightGemObject.transform.position;
+			attackCharge.transform.position = GameManager.playerController.lightGemObject.transform.position ;
 			yield return null;
 		}
 		attackCharge.SetActive (false);

@@ -205,12 +205,16 @@ public class GUIManager : MonoBehaviour {
 		}
 	}
 
-	public static void activatePlayingGUI(){
+	public static void activatePlayingGUIWithFadeIn(){
 		playingGUIO.SetActive (true);
+		fadeManager.fadeInCoroutine (playingGUIO,null,2f);
 	}
 
 	public static void deactivatePlayingGUI(){
 		playingGUIO.SetActive (false);
+	}
+	public static void deactivatePlayingGUIWithFadeOut(){
+		fadeManager.fadeOutCoroutine(playingGUIO,deactivatePlayingGUI,2f);
 	}
 
 	public static void activateSpaceJumpGUI(){

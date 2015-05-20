@@ -2,10 +2,7 @@
 using System.Collections;
 
 public class TongueController : MonoBehaviour {
-
-	void Awake(){
-		GameManager.registerPlayerTongue (gameObject);
-	}
+	
 	// Use this for initialization
 	void Start () {
 		

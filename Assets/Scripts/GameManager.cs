@@ -6,9 +6,9 @@ public static class GameManager{
 
 	public static GameObject player;
 	public static Animator playerAnimator;
-	public static GameObject lightGemObject;
-	public static GameObject playerTongueObject;
-	public static GameObject playerNeckObject;
+	public static PlayerController playerController;
+	public static SpaceGravityBody playerSpaceBody;
+	public static InputController inputController;
 	public static SceneManager actualSceneManager;
 	public static GameState gameState = new GameState ();
 	public static GameObject mainCamera;
@@ -21,10 +21,11 @@ public static class GameManager{
 	public static LightGemSoulsManager lightGemSoulsManager;
 	public static ComboManager comboManager;
 	public static DialogueManager dialogueManager;
-	public static GameObject gemCounter;
 	public static List<ProcedurallyGeneratedObject> proceduralGrass = new List<ProcedurallyGeneratedObject>(0);
 	public static PlanetSpawnerManager actualPlanetSpawnerManager;
 	public static GrassManager grassManager;
+	public static IAManager iaManager;
+
 
 	private static Color originalAmbientLight;
 
@@ -45,16 +46,6 @@ public static class GameManager{
 	}
 
 	public static void rebuildGameFromGameState(){
-		/*originalAmbientLight = RenderSettings.ambientLight;
-		Light[] lights = GameObject.FindObjectsOfType<Light>() as Light[];
-		directionalLights = new List<Light> (0);
-		foreach(Light light in lights){
-			if(light.type == LightType.Directional){
-				directionalLights.Add(light);
-			}
-		}*/
-
-
 		//We put the player in the last checkpoint
 		CheckpointStub lastCheckpoint = checkPointManager.getLastCheckpoint();
 		if(lastCheckpoint!=null){
@@ -115,13 +106,16 @@ public static class GameManager{
 	public static void startGame(){
 		gameState.isGameEnded = false;
 		//minimapCamera.SetActive (true);
-		GUIManager.activatePlayingGUI ();
+		GUIManager.activatePlayingGUIWithFadeIn ();
 	}
 
 	//Registering functions
 	public static void registerPlayer(GameObject playerGO){
 		player = playerGO;
 		playerAnimator = player.GetComponent<PlayerController> ().getAnimator ();
+		playerController = player.GetComponent<PlayerController> ();
+		playerSpaceBody = player.GetComponent<SpaceGravityBody> ();
+		inputController = player.GetComponent<InputController> ();
 	}
 
 	public static void registerCheckpointManager(GameObject checkPointManagerGO){
@@ -148,10 +142,6 @@ public static class GameManager{
 		enemyAttackManager = enemyAttackManagerGO.GetComponent<EnemyAttackManager> ();
 	}
 
-	public static void registerLightGemObject(GameObject lightGemGO){
-		lightGemObject = lightGemGO;
-	}
-
 	public static void registerLightGemEnergyManager(GameObject lightGemEnergyManagerGO){
 		lightGemEnergyManager = lightGemEnergyManagerGO.GetComponent<LightGemEnergyManager> ();
 	}
@@ -168,19 +158,15 @@ public static class GameManager{
 		comboManager = comboManagerGO.GetComponent<ComboManager> ();
 	}
 
-	public static void registerPlayerTongue(GameObject playerTongueGO){
-		playerTongueObject = playerTongueGO;
-	}
-
-	public static void registerPlayerNeck(GameObject playerNeckGO){
-		playerNeckObject = playerNeckGO;
-	}
-
 	public static void registerDialogueManager(DialogueManager dialogueM){
 		dialogueManager = dialogueM;
 	}
 
 	public static void registerGrassManager(GrassManager gM){
 		grassManager = gM;
+	}
+
+	public static void registerIAManager(IAManager iaM){
+		iaManager = iaM;
 	}
 }

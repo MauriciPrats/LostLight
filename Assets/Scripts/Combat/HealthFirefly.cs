@@ -31,9 +31,9 @@ public class HealthFirefly : MonoBehaviour,AnimationSubscriber {
 	IEnumerator disappear(){
 		//GetComponent<Renderer> ().enabled = false;
 		yield return new WaitForSeconds (timeToWaitToDisappear);
-		transform.position = GameManager.playerTongueObject.transform.position;
-		GameManager.playerNeckObject.GetComponent<NeckController> ().stopRotating ();
-		GameManager.playerNeckObject.GetComponent<NeckController>().UnlockAngle();
+		transform.position = GameManager.playerController.playerTongueObject.transform.position;
+		GameManager.playerController.playerNeckObject.GetComponent<NeckController> ().stopRotating ();
+		GameManager.playerController.playerNeckObject.GetComponent<NeckController>().UnlockAngle();
 		Destroy (gameObject);
 		GameManager.playerAnimator.ResetTrigger("isGrabbingHealth");
 	}
@@ -58,10 +58,10 @@ public class HealthFirefly : MonoBehaviour,AnimationSubscriber {
 		timer += Time.deltaTime;
 		transform.up = (transform.position - closestPlanetCenter).normalized;
 		if(stuckInTongue){
-			transform.position = GameManager.playerTongueObject.transform.position;
+			transform.position = GameManager.playerController.playerTongueObject.transform.position;
 		}else{
 			if(disappearing){
-				GameManager.playerNeckObject.GetComponent<NeckController>().setObjectivePosition(transform.position);
+				GameManager.playerController.playerNeckObject.GetComponent<NeckController>().setObjectivePosition(transform.position);
 			}
 			transform.RotateAround(closestPlanetCenter,Vector3.forward,Time.deltaTime*rotationSpeed);
 			Vector3 sinusoidalIncrease = new Vector3(Mathf.Sin(timer),Mathf.Sin (timer),0f) * sinusoidalAmmount;
@@ -78,7 +78,7 @@ public class HealthFirefly : MonoBehaviour,AnimationSubscriber {
 		case "Stick": 
 			if(disappearing){
 				stuckInTongue = true;
-				GameManager.playerNeckObject.GetComponent<NeckController>().LockAngle();
+				GameManager.playerController.playerNeckObject.GetComponent<NeckController>().LockAngle();
 			}
 			break;
 		default: 

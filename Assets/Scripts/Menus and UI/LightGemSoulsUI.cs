@@ -13,10 +13,6 @@ public class LightGemSoulsUI : MonoBehaviour {
 	float beatTime = 0.1f;
 	float extraScale = 1f;
 
-	void Awake(){
-		GameManager.gemCounter = gameObject;
-	}
-
 	// Use this for initialization
 	void Start () {
 		originalScale = transform.localScale;
