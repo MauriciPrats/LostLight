@@ -19,6 +19,7 @@ public class PlanetCorruption : MonoBehaviour {
 
 	private List<Material> materials;
 	private Vector4 originPosition;
+	private bool spawningEnabled;
 	// Use this for initialization
 	void Awake () {
 		yValue = yMin;
@@ -38,7 +39,6 @@ public class PlanetCorruption : MonoBehaviour {
 
 	public void initialize(){
 		materials = new List<Material> (0);
-
 		foreach(Renderer renderer in GetComponentsInChildren<Renderer>()){
 			if(renderer.enabled && renderer.gameObject.activeSelf){
 				foreach(Material material in renderer.materials){
@@ -51,6 +51,26 @@ public class PlanetCorruption : MonoBehaviour {
 
 	}
 
+	//It instantly sets the planet to it's clean state
+	public void setCorruptionToClean(){
+		yValue = yMax;
+		direction = 1f;
+		spawningEnabled = false;
+		GUIManager.deactivateCorruptionBarC ();
+	}
+
+	public void corrupt(){
+		direction = -1f;
+	}
+
+	public void activateSpawning(){
+		spawningEnabled = true;
+		GUIManager.activateCorruptionBar ();
+		GetComponent<PlanetSpawnerManager> ().activate ();
+	}
+
+
+	//It plays the effect of corruption being cleansed
 	public void cleanCorruption(){
 		if(!cleaningCorruption){
 			cleaningCorruption = true;
@@ -80,10 +100,6 @@ public class PlanetCorruption : MonoBehaviour {
 		cleaningCorruption = false;
 		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().returnOriginalZ ();
 		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().resetObjective ();
-	}
-
-	public void corrupt(){
-		direction=-1f;
 	}
 	// Update is called once per frame
 	void Update () {
@@ -117,6 +133,9 @@ public class PlanetCorruption : MonoBehaviour {
 				material.SetVector("_OriginCorruption",originPosition);
 			}
 		}
+	}
 
+	public bool getSpawningEnabled(){
+		return spawningEnabled;
 	}
 }

@@ -59,7 +59,6 @@ public class CharacterController : MonoBehaviour {
 	}
 
 	public void Jump(float jumpSpeed){
-		GameManager.player.GetComponent<BigPSoundEffectsControler>().PlayJump();
 		GetComponent<Rigidbody> ().velocity = transform.up * jumpSpeed;
 		isJumping = true;
 		isGoingUp = true;

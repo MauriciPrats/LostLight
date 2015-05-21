@@ -57,16 +57,6 @@ public static class GameManager{
 		player.GetComponent<PlayerController>().reset();
 		player.GetComponent<SpaceGravityBody>().attract();
 
-		//We check if we have to activate the the corruption bar once we respawn Big Pappada in the planet it respawned
-		PlanetSpawnerManager psm = player.GetComponent<SpaceGravityBody> ().getClosestGravityAttractor ().GetComponent<PlanetSpawnerManager> ();
-		if(psm!=null){
-			actualPlanetSpawnerManager = psm;
-			psm.activate();
-			if(psm.isActive){
-				GUIManager.activateCorruptionBar();
-			}
-		}
-
 		mainCamera.GetComponent<CameraFollowingPlayer>().resetPosition();
 		//minimapCamera.SetActive(false);
 		GUIManager.deactivatePlayingGUI ();
@@ -105,6 +95,7 @@ public static class GameManager{
 
 	public static void startGame(){
 		gameState.isGameEnded = false;
+		GameManager.playerSpaceBody.getClosestGravityAttractor ().GetComponent<PlanetEventsManager> ().startButtonPressed ();
 		//minimapCamera.SetActive (true);
 		GUIManager.activatePlayingGUIWithFadeIn ();
 	}

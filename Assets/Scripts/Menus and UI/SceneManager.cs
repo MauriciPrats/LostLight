@@ -16,7 +16,6 @@ public class SceneManager : MonoBehaviour {
 					  onPauseMenuPrefab,
 					  playingGUIPrefab,
 					  spaceJumpGUIPrefab;
-	bool hasUpdated = false;
 
 	void Awake(){
 		GameManager.registerActualSceneManager (gameObject);
@@ -41,14 +40,7 @@ public class SceneManager : MonoBehaviour {
 	}
 
 	void Update () {
-		if(!hasUpdated){
-			if(startingMenu == Menu.MainMenu){
-				GameManager.rebuildGameFromGameState ();
-			}
-			GUIManager.activateMenu(startingMenu);
-			GUIManager.fadeAllIn();
-			hasUpdated = true;
-		}
+
 	}
 
 	private void QuitScene(){

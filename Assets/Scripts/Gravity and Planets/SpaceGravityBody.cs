@@ -11,7 +11,7 @@ public class SpaceGravityBody : GravityBody {
 	public float dragMultiplyierOnCloseOrbit = 5f;
 	public float massOnJump;
 	private float originalMass;
-
+	private bool isStatic = false;
 	private GameObject closestPlanet;
 
 
@@ -57,48 +57,58 @@ public class SpaceGravityBody : GravityBody {
 	}
 
 	public override void attract(){
-		
-		transform.parent = null;
-		int closePlanets = 0;
-		minimumPlanetDistance = float.MaxValue;
-		foreach (GameObject planet in planets) {
-			GravityAttractor gravityAttractor = planet.GetComponent<GravityAttractor> ();
-			float distance = 0f;
-			if(gravityAttractor.Attract (transform,out distance)){
-				closePlanets++;
+
+		if(!isStatic){
+			transform.parent = null;
+			int closePlanets = 0;
+			minimumPlanetDistance = float.MaxValue;
+			foreach (GameObject planet in planets) {
+				GravityAttractor gravityAttractor = planet.GetComponent<GravityAttractor> ();
+				float distance = 0f;
+				if(gravityAttractor.Attract (transform,out distance)){
+					closePlanets++;
+				}
+				if(distance<minimumPlanetDistance){
+					minimumPlanetDistance = distance;
+					closestPlanet = planet;
+				}
 			}
-			if(distance<minimumPlanetDistance){
-				minimumPlanetDistance = distance;
-				closestPlanet = planet;
-			}
-		}
-		
-		if (closePlanets == 0) 
-		{
-			closestPlanet = null;
-			usesSpaceGravity = true;
-			isOutsideAthmosphere = true;
-			GetComponent<Rigidbody>().drag = 0f;
-			isGettingOutOfOrbit = false;
-			setIsOrbitingAroundPlanet(false);
-		} 
-		else 
-		{
-			isOutsideAthmosphere = false;
-			if(isGettingOutOfOrbit){
+			
+			if (closePlanets == 0) 
+			{
+				closestPlanet = null;
+				usesSpaceGravity = true;
+				isOutsideAthmosphere = true;
 				GetComponent<Rigidbody>().drag = 0f;
-			}else if(usesSpaceGravity){
-				float dragProportion = minimumPlanetDistance / closestPlanet.GetComponent<GravityAttractor>().gravityDistance;
-				float invertDragProportion = 1f - dragProportion;
-				if(invertDragProportion>1f){invertDragProportion = 1f;}
-				else if(invertDragProportion<Constants.PERCENTAGE_DRAG_ATHMOSPHERE){invertDragProportion = 0.0f;}
-				invertDragProportion*=dragMultiplyierOnCloseOrbit;
-				GetComponent<Rigidbody>().drag = invertDragProportion * Constants.GRAVITY_DRAG_OF_ATHMOSPHERE;
-			}else{
-				GetComponent<Rigidbody>().drag = drag;
+				isGettingOutOfOrbit = false;
+				setIsOrbitingAroundPlanet(false);
+			} 
+			else 
+			{
+				isOutsideAthmosphere = false;
+				if(isGettingOutOfOrbit){
+					GetComponent<Rigidbody>().drag = 0f;
+				}else if(usesSpaceGravity){
+					float dragProportion = minimumPlanetDistance / closestPlanet.GetComponent<GravityAttractor>().gravityDistance;
+					float invertDragProportion = 1f - dragProportion;
+					if(invertDragProportion>1f){invertDragProportion = 1f;}
+					else if(invertDragProportion<Constants.PERCENTAGE_DRAG_ATHMOSPHERE){invertDragProportion = 0.0f;}
+					invertDragProportion*=dragMultiplyierOnCloseOrbit;
+					GetComponent<Rigidbody>().drag = invertDragProportion * Constants.GRAVITY_DRAG_OF_ATHMOSPHERE;
+				}else{
+					GetComponent<Rigidbody>().drag = drag;
+				}
 			}
 		}
-		
+	}
+
+	//Sets the character to the closest planet (Without need to touch it)
+	public void bindToClosestPlanet(){
+		GameManager.actualPlanetSpawnerManager = closestPlanet.GetComponent<PlanetSpawnerManager>();
+		if(GameManager.actualPlanetSpawnerManager!=null){
+			GameManager.actualPlanetSpawnerManager.activate();
+		}
+		usesSpaceGravity = false;
 	}
 
 	public override bool isSpaceGravityBody(){
@@ -146,5 +156,10 @@ public class SpaceGravityBody : GravityBody {
 
 	public GameObject getClosestGravityAttractor(){
 		return closestPlanet;
+	}
+
+	//If it is static, it won't move, nor be attracted by the planet
+	public void setStatic(bool st){
+		isStatic = st;
 	}
 }

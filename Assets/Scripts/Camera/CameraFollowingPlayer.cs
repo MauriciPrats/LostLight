@@ -91,9 +91,8 @@ public class CameraFollowingPlayer : MonoBehaviour {
 		//Modifying objective up
 		if (!GameManager.player.GetComponent<PlayerController> ().getIsSpaceJumping () && !GameManager.playerAnimator.GetBool ("isChargingSpaceJumping") && !GameManager.gameState.isInsidePlanet) {
 			if(Vector3.Distance(objectiveUp,transform.up)<=minimumUpDistanceOnStartLerpingXAngle){
-
-			Vector3 objectiveUpRotated = (Quaternion.AngleAxis (xAngle, rightWithoutZ) * objectiveUp);
-			timer+=Time.deltaTime;
+				Vector3 objectiveUpRotated = (Quaternion.AngleAxis (xAngle, rightWithoutZ) * objectiveUp);
+				timer+=Time.deltaTime;
 				objectiveUp = Vector3.Lerp(objectiveUp,objectiveUpRotated,timer * lerpMultiplyierXAngle);
 			}
 			objectivePosition += objective.transform.up*upMultiplyierWithAngle;
@@ -170,6 +169,14 @@ public class CameraFollowingPlayer : MonoBehaviour {
 
 	public void followObjective(GameObject objectiveGO,float newAngleX,float newLerpMultiplyierPos){
 		followObjective (objectiveGO,newAngleX,originalMultiplyierUp,newLerpMultiplyierPos,originalMultiplyierZ);
+	}
+
+	public void setNewXAngle(float newXAngle){
+		xAngle = newXAngle;
+	}
+
+	public void resetXAngle(){
+		xAngle = originalAngleX;
 	}
 
 

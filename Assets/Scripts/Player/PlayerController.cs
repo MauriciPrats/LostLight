@@ -68,9 +68,7 @@ public class PlayerController : MonoBehaviour {
 		characterController = GetComponent<CharacterController> ();
 		attackController = GetComponent<CharacterAttackController> ();
 		GameObject attack = GameObject.Find("skillAttack");
-		transform.forward = new Vector3(1f,0f,0f);
-		//OLD ATTACK
-		//cAttackController = GetComponent<CharacterAttackController>();
+		initializePlayerRotation ();
 		bpAnimator = animationBigPappada.GetComponent<Animator>();
 		pappadaC = pappada.GetComponent<PappadaController> ();
 		flyParticles = flyingParticles.GetComponent<ParticleSystem> ();
@@ -78,6 +76,10 @@ public class PlayerController : MonoBehaviour {
 		initializeVariables ();
 		StartCoroutine ("resetWeaponTrail");
 
+	}
+
+	public void initializePlayerRotation(){
+		transform.forward = new Vector3(1f,0f,0f);
 	}
 
 	IEnumerator resetWeaponTrail(){
@@ -216,7 +218,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void Jump() {
-
+		GameManager.player.GetComponent<BigPSoundEffectsControler>().PlayJump();
 		ParticleSystem particles = particleSystemJumpCharge.GetComponent<ParticleSystem> ();
 		particles.Stop ();
 		bpAnimator.SetBool("isChargingSpaceJumping",false);

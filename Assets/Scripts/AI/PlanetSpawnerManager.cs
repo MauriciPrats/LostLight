@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[RequireComponent (typeof (PlanetCorruption))]
 public class PlanetSpawnerManager : MonoBehaviour {
 
 	public GameObject[] spawners;
@@ -17,6 +18,7 @@ public class PlanetSpawnerManager : MonoBehaviour {
 	private int accumulatedPoints = 0;
 
 	public List<EnemyTypeAmmount> enemiesAmmount = new List<EnemyTypeAmmount> (0);
+	private PlanetCorruption planetCorruption;
 	
 	
 	private int lastLevelShintoActivated = 0;
@@ -31,12 +33,13 @@ public class PlanetSpawnerManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		planetCorruption = GetComponent<PlanetCorruption> ();
 		//shinto = shintoDoor.GetComponent<ShintoDoor> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if(!GameManager.gameState.isGameEnded && isActive){
+		if(!GameManager.gameState.isGameEnded && isActive && planetCorruption.getSpawningEnabled()){
 			timerSpawn += Time.deltaTime;
 			if(ammountOfActualPointsSpawned< maxPointsSpawnedAtSameTime && timerSpawn > timeBetweenSpawns){
 				timerSpawn = 0f;
@@ -135,7 +138,6 @@ public class PlanetSpawnerManager : MonoBehaviour {
 	public void activate(){
 		if(accumulatedPoints<pointsUntilSealShintoDoor){
 			isActive = true;
-			GUIManager.activateCorruptionBar();
 			GUIManager.setPercentageCorruption ((float)accumulatedPoints / (float)pointsUntilSealShintoDoor);
 		}
 	}
