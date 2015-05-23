@@ -35,11 +35,7 @@ public class Dash : MonoBehaviour {
 		originalMovement = GameManager.player.GetComponent<CharacterController>().getMoveAmout ();
 		GameManager.playerAnimator.SetTrigger("isDashing");
 		Vector3 newMove;
-		if(GameManager.player.GetComponent<PlayerController>().getIsLookingRight()){
-			newMove = (dashSpeed) * -GameManager.player.transform.right;
-		}else{
-			newMove = (dashSpeed) * GameManager.player.transform.right;
-		}
+		newMove = (dashSpeed) * GameManager.player.transform.forward;
 		GameManager.player.GetComponent<CharacterController> ().setMoveAmount (newMove);
 
 		float distance = dashSpeed * dashTime;

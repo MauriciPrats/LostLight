@@ -57,7 +57,6 @@ public class SpaceGravityBody : GravityBody {
 	}
 
 	public override void attract(){
-
 		if(!isStatic){
 			transform.parent = null;
 			int closePlanets = 0;

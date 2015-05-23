@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void initializePlayerRotation(){
-		transform.forward = new Vector3(1f,0f,0f);
+		characterController.setOriginalOrientation ();
 	}
 
 	IEnumerator resetWeaponTrail(){

@@ -3,7 +3,7 @@ using System.Collections;
 
 abstract public class PlanetEventsManager : MonoBehaviour {
 
-	protected bool isEnabled;
+	public bool isEnabled;
 	private bool initialized = false;
 	public abstract void informEventActivated (CutsceneIdentifyier identifyier);
 	public abstract void initialize ();

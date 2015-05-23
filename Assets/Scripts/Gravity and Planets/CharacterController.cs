@@ -14,7 +14,7 @@ public class CharacterController : MonoBehaviour {
 	Vector3 moveAmount;
 
 	void FixedUpdate(){
-		Vector3 movement = transform.TransformDirection (moveAmount) * Time.fixedDeltaTime;
+		Vector3 movement = moveAmount * Time.fixedDeltaTime;
 		this.transform.position = new Vector3(this.transform.position.x + movement.x,this.transform.position.y + movement.y,this.transform.position.z);
 
 		if (isJumping) {
@@ -34,8 +34,9 @@ public class CharacterController : MonoBehaviour {
 	 */
 	public void Move(float amount) {
 		isMoving = true;
-		moveAmount = (speed * amount) * -this.transform.right;
 		LookLeftOrRight (amount);
+		Debug.Log (transform.forward);
+		moveAmount = (speed * Mathf.Abs (amount)) * this.transform.forward;
 	}
 	/*
 	 * It makes the character change the orientation depending on the moveAmount (-1 left, 1 right)
@@ -54,8 +55,14 @@ public class CharacterController : MonoBehaviour {
 		}
 	}
 
+	public void setOriginalOrientation(){
+		transform.forward = new Vector3(1f,0f,0f);
+		isLookingRight = true;
+	}
+
 	public void StopMoving(){
 		moveAmount = new Vector3 (0f, 0f, 0f);
+
 	}
 
 	public void Jump(float jumpSpeed){
