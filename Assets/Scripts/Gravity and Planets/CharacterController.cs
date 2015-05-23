@@ -35,7 +35,6 @@ public class CharacterController : MonoBehaviour {
 	public void Move(float amount) {
 		isMoving = true;
 		LookLeftOrRight (amount);
-		Debug.Log (transform.forward);
 		moveAmount = (speed * Mathf.Abs (amount)) * this.transform.forward;
 	}
 	/*

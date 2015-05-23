@@ -2,8 +2,9 @@
 using System.Collections;
 
 abstract public class PlanetEventsManager : MonoBehaviour {
-
+	
 	public bool isEnabled;
+	private bool active;
 	private bool initialized = false;
 	public abstract void informEventActivated (CutsceneIdentifyier identifyier);
 	public abstract void initialize ();
@@ -17,11 +18,11 @@ abstract public class PlanetEventsManager : MonoBehaviour {
 	}
 
 	public void activate(){
-		isEnabled = true;
+		active = true;
 		isActivated ();
 	}
 
 	public void deactivate(){
-		isEnabled = false;
+		active = false;
 	}
 }
