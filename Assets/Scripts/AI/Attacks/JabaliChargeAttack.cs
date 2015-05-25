@@ -54,7 +54,7 @@ public class JabaliChargeAttack : Attack {
 	}
 	
 	public override void startAttack(){
-		bool isRight = parent.GetComponent<IAController>().getIsLookingRight();
+		bool isRight = parent.GetComponent<CharacterController>().getIsLookingRight();
 		if(isRight){
 			direction = 1f;
 		}else{

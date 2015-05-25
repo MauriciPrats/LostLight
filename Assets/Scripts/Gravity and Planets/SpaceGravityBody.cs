@@ -56,7 +56,7 @@ public class SpaceGravityBody : GravityBody {
 		GetComponent<Rigidbody>().mass = massOnJump;
 	}
 
-	public override void attract(){
+	public override void attract(bool applyForce){
 		if(!isStatic){
 			transform.parent = null;
 			int closePlanets = 0;
@@ -64,7 +64,7 @@ public class SpaceGravityBody : GravityBody {
 			foreach (GameObject planet in planets) {
 				GravityAttractor gravityAttractor = planet.GetComponent<GravityAttractor> ();
 				float distance = 0f;
-				if(gravityAttractor.Attract (transform,out distance)){
+				if(gravityAttractor.Attract (transform,out distance,applyForce)){
 					closePlanets++;
 				}
 				if(distance<minimumPlanetDistance){
@@ -103,6 +103,8 @@ public class SpaceGravityBody : GravityBody {
 
 	//Sets the character to the closest planet (Without need to touch it)
 	public void bindToClosestPlanet(){
+		//attract ();
+		attract (false);
 		GameManager.actualPlanetSpawnerManager = closestPlanet.GetComponent<PlanetSpawnerManager>();
 		if(GameManager.actualPlanetSpawnerManager!=null){
 			GameManager.actualPlanetSpawnerManager.activate();

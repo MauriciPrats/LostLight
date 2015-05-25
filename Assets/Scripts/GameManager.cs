@@ -55,7 +55,7 @@ public static class GameManager{
 		}	
 
 		player.GetComponent<PlayerController>().reset();
-		player.GetComponent<SpaceGravityBody>().attract();
+		player.GetComponent<SpaceGravityBody> ().bindToClosestPlanet ();
 
 		mainCamera.GetComponent<CameraFollowingPlayer>().resetPosition();
 		//minimapCamera.SetActive(false);

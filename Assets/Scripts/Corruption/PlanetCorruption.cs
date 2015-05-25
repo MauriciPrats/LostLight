@@ -5,6 +5,7 @@ public class PlanetCorruption : MonoBehaviour {
 
 	public GameObject shintoDoor;
 	public GameObject corruptionOrigin;
+	public GameObject corruptionParticles;
 	private ShintoDoor shinto;
 	public Material material;
 	public float yMin = -3f;
@@ -60,6 +61,7 @@ public class PlanetCorruption : MonoBehaviour {
 	}
 
 	public void corrupt(){
+		corruptionParticles.GetComponent<ParticleSystem> ().Play ();
 		direction = -1f;
 	}
 
@@ -72,6 +74,7 @@ public class PlanetCorruption : MonoBehaviour {
 
 	//It plays the effect of corruption being cleansed
 	public void cleanCorruption(){
+		corruptionParticles.GetComponent<ParticleSystem> ().Stop();
 		if(!cleaningCorruption){
 			cleaningCorruption = true;
 			GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().setObjectiveZCameraCleansePlanet ();

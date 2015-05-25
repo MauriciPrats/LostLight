@@ -60,11 +60,11 @@ public class GravityBody : MonoBehaviour {
 		}
 	}
 
-	void FixedUpdate() {
-		attract ();
+	void LateUpdate() {
+		attract (true);
 	}
 
-	public virtual void attract(){
+	public virtual void attract(bool applyForce){
 
 		transform.parent = null;
 		int closePlanets = 0;
@@ -72,7 +72,7 @@ public class GravityBody : MonoBehaviour {
 		foreach (GameObject planet in planets) {
 			GravityAttractor gravityAttractor = planet.GetComponent<GravityAttractor> ();
 			float distance = 0f;
-			if(gravityAttractor.Attract (transform,out distance)){
+			if(gravityAttractor.Attract (transform,out distance,applyForce)){
 				closePlanets++;
 			}
 			if(distance<minimumPlanetDistance){

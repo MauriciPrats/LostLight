@@ -93,6 +93,7 @@ ModelImporter:
     7400004: IdleLittleG
     7400006: TalkingLittleG
     7400008: WalkingLittleG
+    7400010: StandingUp
     9500000: //RootNode
     13700000: Cube.001
   materials:
@@ -223,7 +224,7 @@ ModelImporter:
       name: FallingLittleG
       takeName: LittleGHopperArmature|LittleGHopperArmatureAction
       firstFrame: 56
-      lastFrame: 109
+      lastFrame: 89
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -554,6 +555,114 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Cube.001
+        weight: 1
+      - path: LittleGHopperArmature
+        weight: 1
+      - path: LittleGHopperArmature/Spine
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Hip_L
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Hip_L/Leg_L
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Hip_L/Leg_L/Leg_L.001
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Hip_L/Leg_L/Leg_L.001/Feet_R
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Hip_L/Leg_L/Leg_L.001/Heel_L
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Hip_L.001
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Hip_R
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Hip_R/Leg_R
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Hip_R/Leg_R/Leg_R.001
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Hip_R/Leg_R/Leg_R.001/Foot_R
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Hip_R/Leg_R/Leg_R.001/Heel_R
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Hip_R.001
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Spine.001
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Spine.001/Spine.002
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Spine.001/Spine.002/Shoulder_L
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Spine.001/Spine.002/Shoulder_L/Arm_L
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Spine.001/Spine.002/Shoulder_L/Arm_L/Arm_L.001
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Spine.001/Spine.002/Shoulder_R
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Spine.001/Spine.002/Shoulder_R/Arm_R
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Spine.001/Spine.002/Shoulder_R/Arm_R/Arm_R.001
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Spine.001/Spine.002/Spine.003
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Spine.001/Spine.002/Spine.003/Head
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Spine.001/Spine.002/Spine.003/Head/Eyebrow_L.001
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Spine.001/Spine.002/Spine.003/Head/Eyebrow_L.001/Eyebrow_L.002
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Spine.001/Spine.002/Spine.003/Head/Eyebrow_L.001/Eyebrow_L.002/Eyebrow_L.003
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Spine.001/Spine.002/Spine.003/Head/Eyebrow_L.001/Eyebrow_L.002/Eyebrow_L.003/Eyebrow_L.004
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Spine.001/Spine.002/Spine.003/Head/Eyebrow_L.001/Eyebrow_L.002/Eyebrow_L.003/Eyebrow_L.004/Eyebrow_L.005
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Spine.001/Spine.002/Spine.003/Head/Eyebrow_L.001/Eyebrow_L.002/Eyebrow_L.003/Eyebrow_L.004/Eyebrow_L.005/Eyebrow_L.006
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Spine.001/Spine.002/Spine.003/Head/Eyebrow_L.001/Eyebrow_L.002/Eyebrow_L.003/Eyebrow_L.004/Eyebrow_L.005/Eyebrow_L.006/Eyebrow_L.007
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Spine.001/Spine.002/Spine.003/Head/Eyebrow_R.001
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Spine.001/Spine.002/Spine.003/Head/Eyebrow_R.001/Eyebrow_R.002
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Spine.001/Spine.002/Spine.003/Head/Eyebrow_R.001/Eyebrow_R.002/Eyebrow_R.003
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Spine.001/Spine.002/Spine.003/Head/Eyebrow_R.001/Eyebrow_R.002/Eyebrow_R.003/Eyebrow_R.004
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Spine.001/Spine.002/Spine.003/Head/Eyebrow_R.001/Eyebrow_R.002/Eyebrow_R.003/Eyebrow_R.004/Eyebrow_R.005
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Spine.001/Spine.002/Spine.003/Head/Eyebrow_R.001/Eyebrow_R.002/Eyebrow_R.003/Eyebrow_R.004/Eyebrow_R.005/Eyebrow_R.006
+        weight: 1
+      - path: LittleGHopperArmature/Spine/Spine.001/Spine.002/Spine.003/Head/Eyebrow_R.001/Eyebrow_R.002/Eyebrow_R.003/Eyebrow_R.004/Eyebrow_R.005/Eyebrow_R.006/Eyebrow_R.007
+        weight: 1
+      - path: LittleGHopperArmature/Spine.004
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: StandingUp
+      takeName: LittleGHopperArmature|LittleGHopperArmatureAction
+      firstFrame: 88
+      lastFrame: 109
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0

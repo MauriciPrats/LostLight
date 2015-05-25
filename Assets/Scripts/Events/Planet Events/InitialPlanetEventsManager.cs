@@ -4,23 +4,63 @@ using System.Collections;
 public class InitialPlanetEventsManager : PlanetEventsManager {
 
 	public GameObject bigPappadaInitialPosition;
-	public GameObject littleGInitialPosition;
 	public GameObject littleGHopper;
+
+	public GameObject boarHuntingGO;
+	public GameObject shintoDoorGO;
 
 	public override void isActivated(){
 		GameManager.player.transform.position = new Vector3(bigPappadaInitialPosition.transform.position.x,bigPappadaInitialPosition.transform.position.y,0f);
 		if(isEnabled){
 			//First event is putting Big P in the initial position
 			GameManager.player.transform.position = bigPappadaInitialPosition.transform.position;
-			GameManager.playerSpaceBody.setStatic (true);
 			GameManager.player.transform.rotation = Quaternion.LookRotation (Vector3.forward*-1f, bigPappadaInitialPosition.transform.up*-1f);
-			//GameManager.playerAnimator.SetBool ("isChargingSpaceJumping", true);
+			GameManager.mainCamera.GetComponent<CameraFollowingPlayer>().resetPosition();
 			GameManager.playerSpaceBody.bindToClosestPlanet ();
+			GameManager.playerSpaceBody.setStatic (true);
+			GameManager.player.GetComponent<CharacterController> ().StopMoving ();
+			GameManager.player.GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);
 			GameManager.inputController.disableInputController ();
-			littleGHopper.GetComponent<SpaceGravityBody> ().setStatic (true);
 			littleGHopper.GetComponent<SpaceGravityBody> ().bindToClosestPlanet ();
+			littleGHopper.GetComponent<SpaceGravityBody> ().setStatic (true);
 			littleGHopper.GetComponent<CharacterController> ().StopMoving ();
 			littleGHopper.GetComponent<Rigidbody> ().velocity = new Vector3 (0f, 0f, 0f);
+		}
+		boarHuntingGO.GetComponent<Cutscene>().isActive = false;
+		boarHuntingGO.GetComponent<Cutscene> ().Initialize ();
+		//boarHuntingGO.SetActive (false);
+	}
+
+	IEnumerator secondCinematic(){
+		if(isEnabled){
+			GameManager.inputController.disableInputController ();
+			GameManager.player.GetComponent<PlayerController>().StopMove();
+			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Un Jabali!", 2f, false, false);
+			yield return new WaitForSeconds(0.5f);
+			GameManager.inputController.enableInputController ();
+		}
+	}
+
+	IEnumerator thirdCinematic(){
+		if(isEnabled){
+			shintoDoorGO.GetComponent<Cutscene>().isActive = false;
+			boarHuntingGO.GetComponent<Cutscene>().isActive = false;
+			boarHuntingGO.GetComponent<FirstPlanetBoarHunting>().boar.SetActive(false);
+			GameManager.inputController.disableInputController ();
+			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Que raro... ", 1.5f, false, false);
+			yield return new WaitForSeconds(1.5f);
+			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Nunca habia visto \n los sellos brillar de esta forma", 4f, false, false);
+			yield return new WaitForSeconds(4f);
+			GetComponent<PlanetCorruption>().corrupt();
+			GetComponent<PlanetCorruption>().activateSpawning();
+			yield return new WaitForSeconds(2f);
+			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Waaah!!!", 1f, true, false);
+			yield return new WaitForSeconds(1f);
+			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¡¿Que es estoo?!", 1f, true, false);
+			yield return new WaitForSeconds(1f);
+			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("El templo!! Little G.!", 2f, true, false);
+			yield return new WaitForSeconds(2f);
+			GameManager.inputController.enableInputController ();
 		}
 	}
 
@@ -28,8 +68,8 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 		if(isEnabled){
 			float timer = 0f;
 			float time = 0.2f;
-
-			littleGHopper.GetComponentInChildren<Animator>().SetTrigger("isFallingDown");
+			littleGHopper.GetComponent<DialogueController> ().createNewDialogue ("AAaaah..", 4f, true, false);
+			littleGHopper.GetComponentInChildren<Animator>().SetBool("isFallingDown",true);
 			yield return new WaitForSeconds (1f);
 			littleGHopper.GetComponent<SpaceGravityBody> ().setStatic (false);
 			float originalZ = littleGHopper.transform.position.z;
@@ -40,14 +80,10 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 				yield return null;
 			}
 			yield return new WaitForSeconds (0.7f);
-			//littleGHopper.transform.forward = new Vector3(-1f,0f,0f);
 			littleGHopper.GetComponent<CharacterController> ().setOriginalOrientation ();
 			littleGHopper.GetComponent<CharacterController> ().LookLeftOrRight (1f);
 			yield return new WaitForSeconds (1.3f);
 			GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().resetXAngle();
-			//GameManager.playerAnimator.SetBool ("isChargingSpaceJumping", false);
-			//GameManager.playerAnimator.SetBool ("isGoingUp", false);
-			//GameManager.playerAnimator.SetBool ("isSpaceJumping", false);
 			GameManager.playerAnimator.SetBool ("isJumping", true);
 			GameManager.player.GetComponent<CharacterController>().StopMoving();
 			GameManager.playerSpaceBody.setStatic (false);
@@ -63,16 +99,26 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 				GameManager.player.transform.position = new Vector3(GameManager.player.transform.position.x,GameManager.player.transform.position.y,originalZ*(1f-ratio));
 				yield return null;
 			}
-			yield return new WaitForSeconds (1.5f);
-			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Debes concentrarte Little G. ! ", 3f, false, false);
+			yield return new WaitForSeconds (1f);
+			littleGHopper.GetComponentInChildren<Animator>().SetBool("isFallingDown",false);
+			yield return new WaitForSeconds (1f);
+			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Debes concentrar \n tu energia Little G.", 4f, false, false);
+			yield return new WaitForSeconds (4f);
+			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("El equilibrio no está en el cuerpo,\n está en la mente. ", 4f, false, false);
+			yield return new WaitForSeconds (4f);
+			littleGHopper.GetComponent<DialogueController> ().createNewDialogue ("Si, maestro ", 3f, false, false);
 			yield return new WaitForSeconds (3f);
-			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Me voy a cazar jabalies! ", 2f, false, false);
-			yield return new WaitForSeconds (2f);
+			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Ya es suficiente entrenamiento \n por hoy. ", 4f, false, false);
+			yield return new WaitForSeconds (4f);
+			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Ve al templo,\n Yo ire a cazar algo para cenar ", 4f, false, false);
+			yield return new WaitForSeconds (4f);
 			littleGHopper.GetComponent<CharacterController> ().Move (-1f);
 			littleGHopper.GetComponentInChildren<Animator> ().SetBool ("isWalking", true);
 			GameManager.inputController.enableInputController ();
 
-			littleGHopper.GetComponent<DialogueController> ().createNewDialogue ("Que te jodan! ", 3f, false, false);
+			boarHuntingGO.SetActive (true);
+			boarHuntingGO.GetComponent<Cutscene>().isActive = true;
+
 			yield return new WaitForSeconds (7f);
 			littleGHopper.GetComponent<CharacterController> ().StopMoving ();
 			littleGHopper.GetComponentInChildren<Animator> ().SetBool ("isWalking", false);
@@ -92,6 +138,10 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			if(identifyier.Equals(CutsceneIdentifyier.SanctuaryLightGem)){
 				GetComponent<PlanetCorruption>().corrupt();
 				GetComponent<PlanetCorruption>().activateSpawning();
+			}else if(identifyier.Equals(CutsceneIdentifyier.FirstPlanetBoarHunting)){
+				StartCoroutine("secondCinematic");
+			}else if(identifyier.Equals(CutsceneIdentifyier.FirstPlanetShintoDoor)){
+				StartCoroutine("thirdCinematic");
 			}
 		}
 	}
