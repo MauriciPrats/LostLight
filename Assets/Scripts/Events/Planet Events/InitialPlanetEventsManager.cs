@@ -8,6 +8,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 
 	public GameObject boarHuntingGO;
 	public GameObject shintoDoorGO;
+	public GameObject bridgeFallGO;
 
 	//Is called when the class is activated by the GameTimelineManager
 	public override void isActivated(){
@@ -126,6 +127,25 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 		}
 	}
 
+	IEnumerator fourthCinematic(){
+		if(isEnabled){
+			Debug.Log ("Me Caigo!!");
+			GameManager.inputController.disableInputController ();
+			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Eeh. ¿Que esta pasando?", 1.5f, false, false);
+			yield return new WaitForSeconds(1.5f);
+			bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().bridge.SetActive (false);
+			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¡AAAHH!", 1.5f, false, false);
+			yield return new WaitForSeconds(1.5f);
+			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¿Donde estoy? ¿Que es este lugar?", 1.5f, false, false);
+			yield return new WaitForSeconds(1.5f);
+			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("...", 1.5f, false, false);
+			yield return new WaitForSeconds(1.5f);
+			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Parece que no tengo otra alternativa que seguir adelante...", 1.5f, false, false);
+			yield return new WaitForSeconds(1.5f);
+			GameManager.inputController.enableInputController();
+		}
+	}
+
 	public override void startButtonPressed(){
 		if(isEnabled){
 			StartCoroutine("firstCinematic");
@@ -143,6 +163,8 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 				StartCoroutine("secondCinematic");
 			}else if(identifyier.Equals(CutsceneIdentifyier.FirstPlanetShintoDoor)){
 				StartCoroutine("thirdCinematic");
+			}else if(identifyier.Equals(CutsceneIdentifyier.FirstPlanetFallingFromTheBridge)){
+				StartCoroutine("fourthCinematic");
 			}
 		}
 	}
