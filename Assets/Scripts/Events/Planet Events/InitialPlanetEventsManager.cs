@@ -9,6 +9,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 	public GameObject boarHuntingGO;
 	public GameObject shintoDoorGO;
 
+	//Is called when the class is activated by the GameTimelineManager
 	public override void isActivated(){
 		GameManager.player.transform.position = new Vector3(bigPappadaInitialPosition.transform.position.x,bigPappadaInitialPosition.transform.position.y,0f);
 		if(isEnabled){
@@ -28,42 +29,9 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 		}
 		boarHuntingGO.GetComponent<Cutscene>().isActive = false;
 		boarHuntingGO.GetComponent<Cutscene> ().Initialize ();
-		//boarHuntingGO.SetActive (false);
 	}
 
-	IEnumerator secondCinematic(){
-		if(isEnabled){
-			GameManager.inputController.disableInputController ();
-			GameManager.player.GetComponent<PlayerController>().StopMove();
-			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Un Jabali!", 2f, false, false);
-			yield return new WaitForSeconds(0.5f);
-			GameManager.inputController.enableInputController ();
-		}
-	}
-
-	IEnumerator thirdCinematic(){
-		if(isEnabled){
-			shintoDoorGO.GetComponent<Cutscene>().isActive = false;
-			boarHuntingGO.GetComponent<Cutscene>().isActive = false;
-			boarHuntingGO.GetComponent<FirstPlanetBoarHunting>().boar.SetActive(false);
-			GameManager.inputController.disableInputController ();
-			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Que raro... ", 1.5f, false, false);
-			yield return new WaitForSeconds(1.5f);
-			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Nunca habia visto \n los sellos brillar de esta forma", 4f, false, false);
-			yield return new WaitForSeconds(4f);
-			GetComponent<PlanetCorruption>().corrupt();
-			GetComponent<PlanetCorruption>().activateSpawning();
-			yield return new WaitForSeconds(2f);
-			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Waaah!!!", 1f, true, false);
-			yield return new WaitForSeconds(1f);
-			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¡¿Que es estoo?!", 1f, true, false);
-			yield return new WaitForSeconds(1f);
-			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("El templo!! Little G.!", 2f, true, false);
-			yield return new WaitForSeconds(2f);
-			GameManager.inputController.enableInputController ();
-		}
-	}
-
+	//This cinematic corresponds to the first cinematic that will play when the play button is pressed
 	IEnumerator firstCinematic(){
 		if(isEnabled){
 			float timer = 0f;
@@ -90,7 +58,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			GameManager.player.GetComponent<CharacterController>().Jump(12f);
 			GameManager.playerController.initializePlayerRotation();
 			GameManager.player.GetComponent<CharacterController>().LookLeftOrRight(-1f);
-
+			
 			timer = 0f;
 			originalZ = GameManager.player.transform.position.z;
 			while(timer<time){
@@ -115,13 +83,49 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			littleGHopper.GetComponent<CharacterController> ().Move (-1f);
 			littleGHopper.GetComponentInChildren<Animator> ().SetBool ("isWalking", true);
 			GameManager.inputController.enableInputController ();
-
+			
 			boarHuntingGO.SetActive (true);
 			boarHuntingGO.GetComponent<Cutscene>().isActive = true;
-
+			
 			yield return new WaitForSeconds (7f);
 			littleGHopper.GetComponent<CharacterController> ().StopMoving ();
 			littleGHopper.GetComponentInChildren<Animator> ().SetBool ("isWalking", false);
+		}
+	}
+
+	//Cinematic that corresponds to the boar hunting event
+	IEnumerator secondCinematic(){
+		if(isEnabled){
+			boarHuntingGO.GetComponent<FirstPlanetBoarHunting>().makeBoarGoAway();
+			GameManager.inputController.disableInputController ();
+			GameManager.player.GetComponent<PlayerController>().StopMove();
+			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Un Jabali!", 2f, false, false);
+			yield return new WaitForSeconds(0.5f);
+			GameManager.inputController.enableInputController ();
+		}
+	}
+
+	//Cinematic that corresponds to the third cinematic
+	IEnumerator thirdCinematic(){
+		if(isEnabled){
+			shintoDoorGO.GetComponent<Cutscene>().isActive = false;
+			boarHuntingGO.GetComponent<Cutscene>().isActive = false;
+			boarHuntingGO.GetComponent<FirstPlanetBoarHunting>().boar.SetActive(false);
+			GameManager.inputController.disableInputController ();
+			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Que raro... ", 1.5f, false, false);
+			yield return new WaitForSeconds(1.5f);
+			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Nunca habia visto \n los sellos brillar de esta forma", 4f, false, false);
+			yield return new WaitForSeconds(4f);
+			GetComponent<PlanetCorruption>().corrupt();
+			GetComponent<PlanetCorruption>().activateSpawning();
+			yield return new WaitForSeconds(2f);
+			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Waaah!!!", 1f, true, false);
+			yield return new WaitForSeconds(1f);
+			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¡¿Que es estoo?!", 1f, true, false);
+			yield return new WaitForSeconds(1f);
+			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("El templo!! Little G.!", 2f, true, false);
+			yield return new WaitForSeconds(2f);
+			GameManager.inputController.enableInputController ();
 		}
 	}
 

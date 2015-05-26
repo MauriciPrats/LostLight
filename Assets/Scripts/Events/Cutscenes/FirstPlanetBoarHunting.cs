@@ -14,17 +14,21 @@ public class FirstPlanetBoarHunting : Cutscene {
 		(boar.GetComponent<CharacterAttackController> ().getAttack (AttackType.JabaliChargeAttack) as JabaliChargeAttack).chargeSpeed = 5f;
 		(boar.GetComponent<CharacterAttackController> ().getAttack (AttackType.JabaliChargeAttack) as JabaliChargeAttack).chargeParticles.GetComponent<ParticleSystem> ().Stop ();
 	}
-	
-	public override void ActivateTrigger() {
 
+	public void makeBoarGoAway (){
 		StartCoroutine("boarHunting");
 	}
 
 	private IEnumerator boarHunting(){
-
+		
 		boar.GetComponent<CharacterController> ().LookLeftOrRight(1f);
 		boar.GetComponent<IAController> ().Move (1f);
 		yield return new WaitForSeconds(4f);
 		boar.SetActive (false);
 	}
+	
+	public override void ActivateTrigger() {
+	}
+
+
 }
