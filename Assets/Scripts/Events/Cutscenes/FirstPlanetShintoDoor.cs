@@ -3,7 +3,7 @@ using System.Collections;
 
 public class FirstPlanetShintoDoor : Cutscene {
 
-	GameObject shintoDoor;
+	public GameObject shintoDoor;
 
 	public override void Initialize() {
 		identifyier = CutsceneIdentifyier.FirstPlanetShintoDoor;

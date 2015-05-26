@@ -97,7 +97,6 @@ public static class GameManager{
 		gameState.isGameEnded = false;
 		GameManager.playerSpaceBody.getClosestGravityAttractor ().GetComponent<PlanetEventsManager> ().startButtonPressed ();
 		//minimapCamera.SetActive (true);
-		GUIManager.activatePlayingGUIWithFadeIn ();
 	}
 
 	//Registering functions

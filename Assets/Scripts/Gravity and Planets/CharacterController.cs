@@ -12,6 +12,8 @@ public class CharacterController : MonoBehaviour {
 	private bool isGoingUp = false;
 	private float amount;
 
+	private float oldSpeed;
+
 	Vector3 moveAmount;
 
 	void FixedUpdate(){
@@ -81,9 +83,14 @@ public class CharacterController : MonoBehaviour {
 		return moveAmount;
 	}
 
-	public void setMoveAmount(Vector3 newMoveAmount){
-		amount = newMoveAmount.magnitude;
-		moveAmount = newMoveAmount;
+	public void setSpeed(float newSpeed){
+		amount = 1f;
+		oldSpeed = speed;
+		speed = newSpeed;
+	}
+
+	public void resetSpeed(){
+		speed = oldSpeed;
 	}
 
 	public void stopJumping(){

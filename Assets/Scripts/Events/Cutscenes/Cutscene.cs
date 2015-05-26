@@ -47,7 +47,7 @@ abstract public class Cutscene: MonoBehaviour  {
 	void StartCutscene() {
 		//Stop all player input. 
 		if (endMode == EndMode.ByTime) {
-			GameManager.inputController.disableInputController();
+			//GameManager.inputController.disableInputController();
 		}
 	}
 

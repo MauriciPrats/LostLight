@@ -50,7 +50,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			yield return new WaitForSeconds (0.7f);
 			littleGHopper.GetComponent<CharacterController> ().setOriginalOrientation ();
 			littleGHopper.GetComponent<CharacterController> ().LookLeftOrRight (1f);
-			yield return new WaitForSeconds (1.3f);
+			yield return new WaitForSeconds (0.7f);
 			GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().resetXAngle();
 			GameManager.playerAnimator.SetBool ("isJumping", true);
 			GameManager.player.GetComponent<CharacterController>().StopMoving();
@@ -97,11 +97,8 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 	IEnumerator secondCinematic(){
 		if(isEnabled){
 			boarHuntingGO.GetComponent<FirstPlanetBoarHunting>().makeBoarGoAway();
-			GameManager.inputController.disableInputController ();
-			GameManager.player.GetComponent<PlayerController>().StopMove();
 			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Un Jabali!", 2f, false, false);
-			yield return new WaitForSeconds(0.5f);
-			GameManager.inputController.enableInputController ();
+			yield return null;
 		}
 	}
 
@@ -117,12 +114,12 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Nunca habia visto \n los sellos brillar de esta forma", 4f, false, false);
 			yield return new WaitForSeconds(4f);
 			GetComponent<PlanetCorruption>().corrupt();
-			GetComponent<PlanetCorruption>().activateSpawning();
+			shintoDoorGO.GetComponent<FirstPlanetShintoDoor>().shintoDoor.GetComponent<ShintoDoor>().disableKanjis();
 			yield return new WaitForSeconds(2f);
 			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Waaah!!!", 1f, true, false);
 			yield return new WaitForSeconds(1f);
 			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¡¿Que es estoo?!", 1f, true, false);
-			yield return new WaitForSeconds(1f);
+			yield return new WaitForSeconds(5f);
 			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("El templo!! Little G.!", 2f, true, false);
 			yield return new WaitForSeconds(2f);
 			GameManager.inputController.enableInputController ();

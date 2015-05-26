@@ -69,13 +69,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e0437293b05646498d0bff700a52ead, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashSpeed: 13
+  dashSpeed: 12
   dashTime: .200000003
   dashStartParticles: {fileID: 135620}
   layerToDash:
     serializedVersion: 2
     m_Bits: 256
-  dashCooldown: .200000003
+  dashCooldown: .5
   maskToCollide:
     serializedVersion: 2
     m_Bits: 4352
