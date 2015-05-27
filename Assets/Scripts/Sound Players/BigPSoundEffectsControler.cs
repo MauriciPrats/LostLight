@@ -42,6 +42,9 @@ public class BigPSoundEffectsControler : MonoBehaviour {
 		PlaySound(jumpCroak);
 	}
 	
+	
+
+	
 	private void PlaySound (AudioClip playMe )
 	{
 		source.pitch = Random.Range (lowPitchRange,highPitchRange);
