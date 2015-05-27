@@ -14,7 +14,8 @@ public enum Menu{None,
 				StartingSplashScreen,
 				CraftingMenu,
 				InteractuablePopup,
-				OnPauseMenu
+				OnPauseMenu,
+				BlackMenu
 			    };
 
 public class GUIManager : MonoBehaviour {
@@ -38,8 +39,10 @@ public class GUIManager : MonoBehaviour {
 	private static GameObject onPauseMenuO;
 	private static GameObject playingGUIO;
 	private static GameObject spaceJumpGUIO;
+	private static GameObject blackMenuO;
 
 	private static GameObject corruptionBar;
+	private static GameObject minimapGUI;
 
 	private static Menu nextMenu;
 
@@ -112,6 +115,8 @@ public class GUIManager : MonoBehaviour {
 			return interactuablePopupO;
 		}else if(menu.Equals(Menu.OnPauseMenu)){
 			return onPauseMenuO;
+		}else if(menu.Equals(Menu.BlackMenu)){
+			return blackMenuO;
 		}
 		return null;
 	}
@@ -185,6 +190,13 @@ public class GUIManager : MonoBehaviour {
 		}
 	}
 
+	public static void registerBlackMenu(GameObject blackMenuGO){
+		if(blackMenuGO!=null && blackMenuO == null){
+			blackMenuO = GameObject.Instantiate (blackMenuGO) as GameObject;
+			blackMenuO.SetActive (false);
+		}
+	}
+
 	public static void registerFadeManager(GameObject fadeManagerGO){
 		fadeManager = fadeManagerGO.GetComponent<FadeManager> ();
 	}
@@ -193,6 +205,7 @@ public class GUIManager : MonoBehaviour {
 		if(playingGUIGO!=null && playingGUIO == null){
 			playingGUIO = GameObject.Instantiate (playingGUIGO) as GameObject;
 			corruptionBar = playingGUIO.GetComponentInChildren<CorruptionProgress>().gameObject;
+			minimapGUI = playingGUIO.GetComponentInChildren<MinimapGUI>().gameObject;
 			corruptionBar.SetActive(false);
 			playingGUIO.SetActive (false);
 		}
@@ -213,6 +226,16 @@ public class GUIManager : MonoBehaviour {
 	public static void deactivatePlayingGUI(){
 		playingGUIO.SetActive (false);
 	}
+
+	
+	public static void activateMinimapGUI(){
+		minimapGUI.SetActive (true);
+	}
+
+	public static void deactivateMinimapGUI(){
+		minimapGUI.SetActive (false);
+	}
+
 	public static void deactivatePlayingGUIWithFadeOut(){
 		fadeManager.fadeOutCoroutine(playingGUIO,deactivatePlayingGUI,2f);
 	}
@@ -237,7 +260,6 @@ public class GUIManager : MonoBehaviour {
 	public static void activateMenu(Menu newMenu){
 		deactivateMenus ();
 		GameObject newMenuGO = getMenu (newMenu);
-
 		if(newMenuGO!=null){
 			getMenu (newMenu).SetActive (true);
 		}

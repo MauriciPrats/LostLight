@@ -52,7 +52,7 @@ public class InputController : MonoBehaviour {
 						character.MoveArrow(Input.GetAxisRaw ("Horizontal"),Input.GetAxis ("Vertical"));
 					}else if(isCharacterAllowedToMove()){
 						ResetJumping ();
-						character.Move ();
+						character.Move (Input.GetAxisRaw("Horizontal"));
 
 					}else{
 						character.StopMove ();

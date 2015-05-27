@@ -227,10 +227,10 @@ public class PlayerController : MonoBehaviour {
 		body.applySpaceBodyChangesOnJump ();
 	}
 
-	public void Move() {
+	public void Move(float amount) {
 			bpAnimator.SetBool("isWalking",true);
 			if (!body.getUsesSpaceGravity()) {
-				characterController.Move(Input.GetAxisRaw("Horizontal"));
+				characterController.Move(amount);
 			}
 	}
 

@@ -6,9 +6,9 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Material
+  m_Name: LittleGMaterial
   m_Shader: {fileID: 4800000, guid: 76374158b4c4e5744b394e9290aae693, type: 3}
-  m_ShaderKeywords: _COLOR_ON _OUTL_ON _TEX_ON
+  m_ShaderKeywords: _COLOR_ON _OUTL_ON
   m_LightmapFlags: 5
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -144,7 +144,7 @@ Material:
       data:
         first:
           name: _DetailTex
-        second: 1
+        second: 0
       data:
         first:
           name: _Cull
@@ -168,7 +168,7 @@ Material:
       data:
         first:
           name: _Outline
-        second: 5
+        second: 3
       data:
         first:
           name: _Asym
@@ -189,7 +189,7 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: .502595127, g: .610294104, b: .610294104, a: .80392158}
+        second: {r: .933823526, g: .288386673, b: .288386673, a: 1}
       data:
         first:
           name: _OutlineColor

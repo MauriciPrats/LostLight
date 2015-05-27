@@ -1,13 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SanctuaryLightGem : Cutscene {
+public class FirstPlanetToTheBridge : Cutscene {
 
-	public GameObject rocksGO;
 	public override void Initialize() {
-		identifyier = CutsceneIdentifyier.SanctuaryLightGem;
+		identifyier = CutsceneIdentifyier.FirstPlanetToTheBridge;
 	}
-
+	
 	public override void ActivateTrigger() {
 	}
 }
