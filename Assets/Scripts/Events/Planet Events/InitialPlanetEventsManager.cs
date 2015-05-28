@@ -174,7 +174,8 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¡Little G!!", 1f, false, false);
 			yield return StartCoroutine(WaitInterruptable (1f,bigPappadaDialogue));
 			GameManager.inputController.disableInputController ();
-			bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().bridge.SetActive (false);
+			//bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().bridge.GetComponent<Collider>().enabled = false;
+			bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().bridge.GetComponent<RotateAndMoveOverTime>().changeOverTime(1f);
 			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¡Aaaaah!!", 1.5f, false, false);
 			GameManager.playerAnimator.SetTrigger("isHurt");
 			GUIManager.fadeIn(Menu.BlackMenu);
@@ -202,7 +203,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Me pregunto que hace aqui...", 3f, false, false);
 			yield return StartCoroutine(WaitInterruptable (3f,bigPappadaDialogue));
 			GameManager.player.GetComponent<PlayerController>().Move(-1f);
-			yield return new WaitForSeconds(0.2f);
+			yield return new WaitForSeconds(0.25f);
 			GameManager.player.GetComponent<PlayerController>().StopMove();
 			float timer = 0f;
 			float time = 3f;
@@ -223,9 +224,13 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			GameManager.playerAnimator.SetBool("isDoingMissiles",false);
 			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Quizas puedo utilizar \n esto para salir de aqui!", 3f, true, false);
 			yield return StartCoroutine(WaitInterruptable (3f,bigPappadaDialogue));
+			foreach(Collider collider in bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().fallenRocks.GetComponentsInChildren<Collider>()){
+				collider.enabled = false;
+			}
+			foreach(Collider collider in lightGemGO.GetComponent<SanctuaryLightGem>().rocksGO.GetComponentsInChildren<Collider>()){
+				collider.enabled = false;
+			}
 
-			lightGemGO.GetComponent<SanctuaryLightGem>().rocksGO.SetActive(false);
-			bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().fallenRocks.SetActive(false);
 			bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().hideOutsidePlane.SetActive(false);
 			GameManager.playerAnimator.SetBool("isChargingSpaceJumping",true);
 			yield return new WaitForSeconds(2f);
@@ -234,8 +239,14 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			GameManager.player.GetComponent<PlayerController>().SpaceJump(GameManager.player.transform.up);
 			GUIManager.deactivateSpaceJumpGUI();
 			GameManager.player.GetComponent<PlayerController>().spaceJumpForce = originalForce;
+			bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().fallenRocks.GetComponentInChildren<ParticleSystem>().Play();
+			lightGemGO.GetComponent<SanctuaryLightGem>().rocksGO.GetComponentInChildren<ParticleSystem>().Play();
 			yield return new WaitForSeconds(1f);
 			GameManager.player.GetComponent<CharacterController>().Move(1f);
+			bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().fallenRocks.SetActive(false);
+			bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().fallenRocksAfter.SetActive(true);
+			lightGemGO.GetComponent<SanctuaryLightGem>().rocksGO.SetActive(false);
+			lightGemGO.GetComponent<SanctuaryLightGem>().rocksGOAfter.SetActive(true);
 			yield return new WaitForSeconds(1f);
 			GameManager.player.GetComponent<PlayerController>().StopMove();
 			yield return new WaitForSeconds(2f);
@@ -249,7 +260,6 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			yield return StartCoroutine(WaitInterruptable (4f,bigPappadaDialogue));
 			GetComponent<PlanetCorruption>().activateSpawning();
 			GameManager.inputController.enableInputController();
-			lightGemGO.GetComponent<SanctuaryLightGem>().rocksGO.SetActive(true);
 		}
 	}
 

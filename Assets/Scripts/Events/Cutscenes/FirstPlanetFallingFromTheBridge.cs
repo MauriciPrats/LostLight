@@ -5,6 +5,7 @@ public class FirstPlanetFallingFromTheBridge : Cutscene {
 
 	public GameObject bridge; 
 	public GameObject fallenRocks;
+	public GameObject fallenRocksAfter;
 	public GameObject hideOutsidePlane;
 	public GameObject planetGettingCorrupted;
 
