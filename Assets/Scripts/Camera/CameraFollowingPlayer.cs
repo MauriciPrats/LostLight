@@ -58,7 +58,7 @@ public class CameraFollowingPlayer : MonoBehaviour {
 		Vector3 objectivePosition;
 		Vector3 objectiveVectorZ;
 		//If we are changing objectives we calculate the appropiate rotation around the planet
-		if(isChangingObjective){
+		if(isChangingObjective && GameManager.playerSpaceBody.getClosestGravityAttractor()!=null){
 			timerChangingObjective +=Time.deltaTime;
 			if(timerChangingObjective<timeItTakesToChangeObjective){
 				float ratio = timerChangingObjective/timeItTakesToChangeObjective;

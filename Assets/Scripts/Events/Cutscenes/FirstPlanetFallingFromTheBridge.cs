@@ -6,6 +6,7 @@ public class FirstPlanetFallingFromTheBridge : Cutscene {
 	public GameObject bridge; 
 	public GameObject fallenRocks;
 	public GameObject hideOutsidePlane;
+	public GameObject planetGettingCorrupted;
 
 	public override void Initialize() {
 		identifyier = CutsceneIdentifyier.FirstPlanetFallingFromTheBridge;

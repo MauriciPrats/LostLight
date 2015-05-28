@@ -10,6 +10,9 @@ abstract public class PlanetEventsManager : MonoBehaviour {
 	public abstract void initialize ();
 	public abstract void isActivated ();
 	public abstract void startButtonPressed ();
+
+	private bool isInterrupted = false;
+
 	void Start(){
 		if(!initialized){
 			initialized = true;
@@ -24,5 +27,26 @@ abstract public class PlanetEventsManager : MonoBehaviour {
 
 	public void deactivate(){
 		active = false;
+	}
+
+	public void interrupt(){
+		isInterrupted = true;
+	}
+	protected IEnumerator WaitInterruptable(float timeToWait){
+		yield return StartCoroutine(WaitInterruptable(timeToWait));
+	}
+	protected IEnumerator WaitInterruptable(float timeToWait,GameObject dialogue){
+		float timer = 0f;
+		while(timer<timeToWait){
+			timer+=Time.deltaTime;
+			if(isInterrupted){
+				isInterrupted = false; 
+				if(dialogue!=null && dialogue.activeSelf){
+					dialogue.GetComponent<SpeechBubble>().deactivate(); 
+				}
+				break;
+			}
+			yield return null;
+		}
 	}
 }
