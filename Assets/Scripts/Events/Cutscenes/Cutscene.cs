@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum CutsceneIdentifyier {SanctuaryLightGem};
+public enum CutsceneIdentifyier {SanctuaryLightGem,FirstPlanetBoarHunting,FirstPlanetShintoDoor,FirstPlanetFallingFromTheBridge};
 
 abstract public class Cutscene: MonoBehaviour  {
 
@@ -22,13 +22,18 @@ abstract public class Cutscene: MonoBehaviour  {
 
 	void Start(){
 		planetEventsManager = planetEventsManagerGO.GetComponent<PlanetEventsManager> ();
+		Initialize ();
 	}
 
 	void OnTriggerEnter(Collider other) {
+		OnTriggerActivated (other);
+	}
+
+	public void OnTriggerActivated(Collider other){
 		if (isActive && !running){
-			planetEventsManager.informEventActivated(identifyier);
-			running = true;
 			if(other.gameObject.layer == LayerMask.NameToLayer("Player")) {
+				running = true;
+				planetEventsManager.informEventActivated(identifyier);
 				StartCutscene ();
 				if (endMode == EndMode.ByTime) {
 					StartCoroutine ("checkTime");
@@ -42,12 +47,12 @@ abstract public class Cutscene: MonoBehaviour  {
 	void StartCutscene() {
 		//Stop all player input. 
 		if (endMode == EndMode.ByTime) {
-			GameManager.inputController.disableInputController();
+			//GameManager.inputController.disableInputController();
 		}
 	}
 
 	void EndCutScene(){
-		GameManager.inputController.enableInputController();
+		//GameManager.inputController.enableInputController();
 	}
 
 	IEnumerator checkTime() {

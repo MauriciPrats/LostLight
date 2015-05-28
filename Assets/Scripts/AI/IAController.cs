@@ -57,7 +57,7 @@ public class IAController : MonoBehaviour {
 
 	private bool despawned = false;
 
-	private bool enabled = true;
+	private bool isEnabled = true;
 
 
 	// Use this for initialization
@@ -127,6 +127,10 @@ public class IAController : MonoBehaviour {
 		return closestThingInFront;
 	}
 
+	public void init(){
+		hasBeenInitialized = true;
+		initialize ();
+	}
 	//Functions to override
 	protected virtual void initialize(){
 	}
@@ -234,14 +238,13 @@ public class IAController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if(enabled){
-			if(!hasBeenInitialized){
-				initialize();
-				hasBeenInitialized = true;
-			}
-			if(getIsTouchingPlanet()){
-				characterController.stopJumping();
-			}
+		if(!hasBeenInitialized){
+			init();
+		}
+		if(getIsTouchingPlanet()){
+			characterController.stopJumping();
+		}
+		if(isEnabled){
 			UpdateAI ();
 		}
 	}
@@ -375,13 +378,13 @@ public class IAController : MonoBehaviour {
 	}
 
 	public void deactivate(){
-		enabled = false;
+		isEnabled = false;
 		StopMoving ();
 		interruptAttack ();
 	}
 
 	public void activate(){
-		enabled = true;
+		isEnabled = true;
 	}
 
 

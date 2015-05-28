@@ -248,11 +248,13 @@ public class InputController : MonoBehaviour {
 
 	public void disableInputController(){
 		character.StopMove ();
+		GUIManager.deactivatePlayingGUI ();
 		isEnabled = false;
 	}
 
 	public void enableInputController(){
 		isEnabled = true;
+		GUIManager.activatePlayingGUIWithFadeIn ();
 	}
 
 }

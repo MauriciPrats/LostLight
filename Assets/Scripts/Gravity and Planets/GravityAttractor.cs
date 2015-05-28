@@ -51,7 +51,7 @@ public class GravityAttractor : MonoBehaviour {
 		}
 	}
 
-	private bool attract(Transform objectToAttract,out float distance){
+	private bool attract(Transform objectToAttract,out float distance,bool applyForce){
 		//Only attract the body to the planet if it is close enough.
 		distance = Vector3.Distance (transform.position, objectToAttract.position);
 		GravityBody body = objectToAttract.GetComponent<GravityBody> ();
@@ -66,13 +66,15 @@ public class GravityAttractor : MonoBehaviour {
 			
 			objectToAttract.rotation = Quaternion.FromToRotation (objectUp, targetDir) * objectToAttract.rotation;
 			float forceToAdd = -Constants.GRAVITY_FORCE_OF_PLANETS;
-			objectToAttract.GetComponent<Rigidbody>().AddForce (targetDir * forceToAdd ,ForceMode.Acceleration);
+			if(applyForce){
+				objectToAttract.GetComponent<Rigidbody>().AddForce (targetDir * forceToAdd ,ForceMode.Acceleration);
+			}
 			return true;
 		}
 		return false;
 	}
 
-	private bool spaceAttract(Transform objectToAttract,out float distance){
+	private bool spaceAttract(Transform objectToAttract,out float distance,bool applyForce){
 		//Only attract the body to the planet if it is close enough.
 		distance = Vector3.Distance (transform.position, objectToAttract.position);
 		SpaceGravityBody body = objectToAttract.GetComponent<SpaceGravityBody> ();
@@ -153,7 +155,7 @@ public class GravityAttractor : MonoBehaviour {
 				forceToAdd *=Constants.GRAVITY_MULTIPLYIER_ON_SPACE_JUMPS * ratio;
 
 			}
-			if(hasToAddForce){
+			if(hasToAddForce && applyForce){
 				objectToAttract.GetComponent<Rigidbody>().AddForce (targetDir * forceToAdd ,ForceMode.Acceleration);
 			}
 			body.GetComponent<Rigidbody>().velocity = body.GetComponent<Rigidbody>().velocity.normalized* Mathf.Abs(forceMagnitude);
@@ -167,12 +169,12 @@ public class GravityAttractor : MonoBehaviour {
 		return false;
 	}
 
-	public bool Attract (Transform objectToAttract,out float distance){
+	public bool Attract (Transform objectToAttract,out float distance,bool applyForce){
 
 		if(objectToAttract.GetComponent<GravityBody>().isSpaceGravityBody()){
-			return spaceAttract(objectToAttract,out distance);
+			return spaceAttract(objectToAttract,out distance,applyForce);
 		}else{
-			return attract(objectToAttract,out distance);
+			return attract(objectToAttract,out distance,applyForce);
 		}
 
 	}

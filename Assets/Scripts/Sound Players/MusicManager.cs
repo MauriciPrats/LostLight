@@ -18,5 +18,17 @@ public static class MusicManager {
 	}
 	
 
+	public static void PlaySong(AudioClip music) {
+	
+		if (myPlayer != null) {
+			if (myPlayer.isPlaying) {
+				//myPlayer.Stop(); //TODO: Fade out
+				//myPlayer.SetScheduledEndTime(Time.time + 3f);
+			}
+			
+			
+		}
+	}
+
 
 }

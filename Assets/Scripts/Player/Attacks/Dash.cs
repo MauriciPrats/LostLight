@@ -36,7 +36,7 @@ public class Dash : MonoBehaviour {
 		GameManager.playerAnimator.SetTrigger("isDashing");
 		Vector3 newMove;
 		newMove = (dashSpeed) * GameManager.player.transform.forward;
-		GameManager.player.GetComponent<CharacterController> ().setMoveAmount (newMove);
+		GameManager.player.GetComponent<CharacterController> ().setSpeed (dashSpeed);
 
 		float distance = dashSpeed * dashTime;
 		float dashTimeR = dashTime;
@@ -57,7 +57,7 @@ public class Dash : MonoBehaviour {
 		isDoingDash = false;
 		Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"),LayerMask.NameToLayer("Enemy"),false);
 		Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"),LayerMask.NameToLayer("Dashing"),false);
-		GameManager.player.GetComponent<CharacterController> ().setMoveAmount (originalMovement);
+		GameManager.player.GetComponent<CharacterController> ().resetSpeed ();
 		GameManager.playerAnimator.SetBool("isWalking",false);
 		yield return new WaitForSeconds(dashCooldown);
 		dashStartParticles.SetActive (false);

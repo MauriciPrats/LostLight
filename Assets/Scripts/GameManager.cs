@@ -25,7 +25,7 @@ public static class GameManager{
 	public static PlanetSpawnerManager actualPlanetSpawnerManager;
 	public static GrassManager grassManager;
 	public static IAManager iaManager;
-
+	public static AudioManager audioManager;
 
 	private static Color originalAmbientLight;
 
@@ -55,7 +55,7 @@ public static class GameManager{
 		}	
 
 		player.GetComponent<PlayerController>().reset();
-		player.GetComponent<SpaceGravityBody>().attract();
+		player.GetComponent<SpaceGravityBody> ().bindToClosestPlanet ();
 
 		mainCamera.GetComponent<CameraFollowingPlayer>().resetPosition();
 		//minimapCamera.SetActive(false);
@@ -97,7 +97,6 @@ public static class GameManager{
 		gameState.isGameEnded = false;
 		GameManager.playerSpaceBody.getClosestGravityAttractor ().GetComponent<PlanetEventsManager> ().startButtonPressed ();
 		//minimapCamera.SetActive (true);
-		GUIManager.activatePlayingGUIWithFadeIn ();
 	}
 
 	//Registering functions
@@ -108,6 +107,12 @@ public static class GameManager{
 		playerSpaceBody = player.GetComponent<SpaceGravityBody> ();
 		inputController = player.GetComponent<InputController> ();
 	}
+	
+	
+	public static void RegisterAudioManager(AudioManager registerMe) {
+		audioManager = registerMe;
+	}
+	
 
 	public static void registerCheckpointManager(GameObject checkPointManagerGO){
 		checkPointManager = checkPointManagerGO.GetComponent<CheckpointManager> ();

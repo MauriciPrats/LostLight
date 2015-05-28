@@ -27,12 +27,15 @@ public class ShintoDoor : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		KanjiLevel1.SetActive (false);
-		KanjiLevel2.SetActive (false);
-		KanjiLevel3.SetActive (false);
 
 		centerOfPlanet = transform.parent.position;
 
+	}
+
+	public void disableKanjis(){
+		KanjiLevel1.SetActive (false);
+		KanjiLevel2.SetActive (false);
+		KanjiLevel3.SetActive (false);
 	}
 	
 	// Update is called once per frame
