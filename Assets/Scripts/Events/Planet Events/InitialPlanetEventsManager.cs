@@ -51,6 +51,9 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 				firstCinematicPlayed = true;
 				float timer = 0f;
 				float time = 0.2f;
+				
+				yield return new WaitForSeconds (1f);
+				GameManager.audioManager.PlayStableSound(1);
 				littleGHopper.GetComponent<DialogueController> ().createNewDialogue ("AAaaah..", 2.5f, true, false);
 				littleGHopper.GetComponentInChildren<Animator>().SetBool("isFallingDown",true);
 				yield return new WaitForSeconds (1f);
