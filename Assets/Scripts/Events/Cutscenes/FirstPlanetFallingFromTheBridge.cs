@@ -4,6 +4,8 @@ using System.Collections;
 public class FirstPlanetFallingFromTheBridge : Cutscene {
 
 	public GameObject bridge; 
+	public GameObject fallenRocks;
+	public GameObject hideOutsidePlane;
 
 	public override void Initialize() {
 		identifyier = CutsceneIdentifyier.FirstPlanetFallingFromTheBridge;

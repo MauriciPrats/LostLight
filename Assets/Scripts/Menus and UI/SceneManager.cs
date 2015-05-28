@@ -15,7 +15,8 @@ public class SceneManager : MonoBehaviour {
 					  interactuablePopupPrefab,
 					  onPauseMenuPrefab,
 					  playingGUIPrefab,
-					  spaceJumpGUIPrefab;
+					  spaceJumpGUIPrefab,
+					  blackMenuGUIPrefab;
 
 	void Awake(){
 		GameManager.registerActualSceneManager (gameObject);
@@ -30,6 +31,7 @@ public class SceneManager : MonoBehaviour {
 		GUIManager.registerOnPauseMenu (onPauseMenuPrefab);
 		GUIManager.registerPlayingGUI (playingGUIPrefab);
 		GUIManager.registerSpaceJumpGUI (spaceJumpGUIPrefab);
+		GUIManager.registerBlackMenu (blackMenuGUIPrefab);
 
 		Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Dashing"),LayerMask.NameToLayer("Enemy"),true);
 		Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Dashing"),LayerMask.NameToLayer("Dashing"),true);

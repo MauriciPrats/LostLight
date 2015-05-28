@@ -22,6 +22,7 @@ public class SpaceGravityBody : GravityBody {
 	public override void checkTouchEnter(GameObject obj){
 		if (obj.tag == "Planet" || obj.tag == "Enemy") {
 			collidingObjects.Add (obj);
+			GUIManager.deactivateSpaceJumpGUI();
 			if(usesSpaceGravity){
 				//Just landed from spaceJump
 				GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);
@@ -29,7 +30,6 @@ public class SpaceGravityBody : GravityBody {
 				if(GameManager.actualPlanetSpawnerManager!=null){
 					GameManager.actualPlanetSpawnerManager.activate();
 				}
-				GUIManager.deactivateSpaceJumpGUI();
 			}
 			objectsTouching++;
 			isTouchingPlanet = true;

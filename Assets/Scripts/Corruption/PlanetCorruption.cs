@@ -58,6 +58,7 @@ public class PlanetCorruption : MonoBehaviour {
 		direction = 1f;
 		spawningEnabled = false;
 		GUIManager.deactivateCorruptionBarC ();
+		GUIManager.activateMinimapGUI();
 	}
 
 	public void corrupt(){
@@ -103,6 +104,7 @@ public class PlanetCorruption : MonoBehaviour {
 		cleaningCorruption = false;
 		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().returnOriginalZ ();
 		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().resetObjective ();
+		GUIManager.activateMinimapGUI();
 	}
 	// Update is called once per frame
 	void Update () {
