@@ -112,6 +112,16 @@ public class CameraFollowingPlayer : MonoBehaviour {
 		transform.rotation = Quaternion.LookRotation(newForward,newUp);
 		transform.position = Vector3.Lerp (transform.position, objectivePosition, Time.deltaTime * lerpMultiplyierPos);
 
+// Camera shake
+	/*	float heightScale = 0.2F;
+		float xScale = 5F;
+		
+		float height = heightScale * Mathf.PerlinNoise(Time.time * xScale, 0.0F);
+		Vector3 pos = transform.localPosition;
+		pos.y += height;
+		transform.localPosition = pos;*/
+
+
 		float zProportion = Mathf.Abs (transform.position.z - originalZ) / Mathf.Abs (distanceCameraOnSpaceJump - originalZ);
 		GameManager.setGrassPorcentualLevel (zProportion);
 	}

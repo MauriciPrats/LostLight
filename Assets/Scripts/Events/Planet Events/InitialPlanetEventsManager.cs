@@ -131,8 +131,11 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Que raro... ", 1.5f, false, false);
 			yield return new WaitForSeconds(1.5f);
 			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Nunca habia visto \n los sellos brillar de esta forma", 4f, false, false);
+			
 			yield return new WaitForSeconds(4f);
 			GetComponent<PlanetCorruption>().corrupt();
+			GameManager.audioManager.playSong(2);
+			
 			shintoDoorGO.GetComponent<FirstPlanetShintoDoor>().shintoDoor.GetComponent<ShintoDoor>().disableKanjis();
 			yield return new WaitForSeconds(2f);
 			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Waaah!!!", 1f, true, false);
@@ -177,6 +180,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().fallenRocks.SetActive(true);
 			bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().hideOutsidePlane.SetActive(true);
 			GUIManager.fadeOut(null);
+			GameManager.audioManager.playSong(3);
 			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¿Donde estoy? ¿Que es este lugar?", 1.5f, false, false);
 			yield return new WaitForSeconds(1.5f);
 			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("...", 1.5f, false, false);
@@ -198,6 +202,8 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			GameManager.player.GetComponent<PlayerController>().Move(-1f);
 			yield return new WaitForSeconds(0.2f);
 			GameManager.player.GetComponent<PlayerController>().StopMove();
+			
+			GameManager.audioManager.playSong(4);
 			GameManager.player.GetComponent<PlayerController>().ChargeJump();
 			lightGemGO.GetComponent<SanctuaryLightGem>().rocksGO.SetActive(false);
 			bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().fallenRocks.SetActive(false);
@@ -215,6 +221,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			yield return new WaitForSeconds(3f);
 			GetComponent<PlanetCorruption>().activateSpawning();
 			GameManager.inputController.enableInputController();
+			
 		}
 	}
 

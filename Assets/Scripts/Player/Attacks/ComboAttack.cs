@@ -13,14 +13,12 @@ public class ComboAttack : Attack, AnimationSubscriber {
 	private List<GameObject> enemiesHit;
 	private bool hasHitEnemy;
 
-	private BigPSoundEffectsControler soundManager;
 
 	public override void initialize() {
 		attackType = AttackType.Combo;
 		eventHandler = GameManager.playerAnimator.gameObject.GetComponent<AnimationEventBroadcast>();
 		eventHandler.subscribe(this);
 		
-		soundManager = GameManager.player.GetComponent<BigPSoundEffectsControler>();
 		stick = GameManager.player.GetComponent<PlayerController>().weapon.GetComponentInChildren<Collider>();
 		attackCollider = GameManager.player.GetComponent<PlayerController>().weapon.GetComponentInChildren<AttackCollider>();
 		weaponEffects = GameManager.player.GetComponent<PlayerController>().weapon.GetComponentInChildren<Xft.XWeaponTrail>();
@@ -69,7 +67,9 @@ public class ComboAttack : Attack, AnimationSubscriber {
 
 	public void enableHitbox() {
 		if(!isFinished){
-			soundManager.PlayWeaponSwing();
+			
+			GameManager.audioManager.PlaySound(3);
+			
 			stick.enabled = true;
 			enemiesHit = new List<GameObject>(0);
 			hasHitEnemy = false;

@@ -1494,7 +1494,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: .699999988
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -7380,15 +7380,21 @@ MonoBehaviour:
   music:
   - {fileID: 8300000, guid: e04369c0cb868464bad85a95a84b32ba, type: 3}
   - {fileID: 8300000, guid: e97f237efb65bc04a9650a08c5280c4a, type: 3}
+  - {fileID: 8300000, guid: cff7b79d1af96d04ea48b072302778ad, type: 3}
+  - {fileID: 8300000, guid: f03debd6e725ad043afaab6d0a5a668f, type: 3}
+  - {fileID: 8300000, guid: b2b8cfc49f2ab4f4187a7e6a94e0e0b5, type: 3}
+  - {fileID: 8300000, guid: f4033ccdd17a49b42ab243bfd0f8c4ca, type: 3}
   sfx:
   - {fileID: 8300000, guid: 1087a45a88b193f4d8201e29dafb56de, type: 3}
   - {fileID: 8300000, guid: 999393f69a2d1b242934b9261df31800, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 20d078c66238b544bbbd7e1b5ee4a2f2, type: 3}
+  - {fileID: 8300000, guid: f245b871f8cb6d44cb4d6cebb01f8b7f, type: 3}
+  - {fileID: 8300000, guid: 24490adbc379b6a41ad1d92269b4a800, type: 3}
+  - {fileID: 8300000, guid: 7cc4c59d1c3beb2438edf81260525d37, type: 3}
+  - {fileID: 8300000, guid: 16a7679e16d3a174f9310e125d6bd549, type: 3}
+  - {fileID: 8300000, guid: e4f23cbd074457741a4387a13a292dca, type: 3}
+  - {fileID: 8300000, guid: a933bf25625f3d34e8aa763f055839fe, type: 3}
+  - {fileID: 8300000, guid: ac67dfd3421411b40b4c6f13419836f0, type: 3}
 --- !u!81 &398706164
 AudioListener:
   m_ObjectHideFlags: 0
@@ -7747,7 +7753,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 422012066}
-  m_LocalRotation: {x: .00565740466, y: .705257773, z: .708897591, w: .00661927136}
+  m_LocalRotation: {x: .00565740466, y: .705257773, z: .708897591, w: .0066192681}
   m_LocalPosition: {x: -.0299999993, y: -1.05999994, z: -.209999993}
   m_LocalScale: {x: .181682199, y: .181682199, z: .181682214}
   m_Children: []
@@ -12087,7 +12093,7 @@ Transform:
   m_PrefabParentObject: {fileID: 400002, guid: f92a6b1e907e705489a5b21134895bc7, type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 732346007}
-  m_LocalRotation: {x: .00565740466, y: .705257773, z: .708897591, w: .00661987951}
+  m_LocalRotation: {x: .00565740466, y: .705257773, z: .708897591, w: .00661987625}
   m_LocalPosition: {x: -.0299999993, y: .643999994, z: -.829999983}
   m_LocalScale: {x: .00655176397, y: .00655176491, z: .00655176584}
   m_Children: []
@@ -12542,7 +12548,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 812195800}
-  m_LocalRotation: {x: .00565740466, y: .705257773, z: .708897591, w: .00661927136}
+  m_LocalRotation: {x: .00565740466, y: .705257773, z: .708897591, w: .0066192681}
   m_LocalPosition: {x: -.0299999993, y: 1.03400004, z: .268999994}
   m_LocalScale: {x: .128048003, y: .128048003, z: .128048018}
   m_Children: []
@@ -19904,9 +19910,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 570b15c28f2e79946b78a397586be04a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponSwing: {fileID: 8300000, guid: f245b871f8cb6d44cb4d6cebb01f8b7f, type: 3}
-  kame: {fileID: 8300000, guid: 20d078c66238b544bbbd7e1b5ee4a2f2, type: 3}
-  jumpCroak: {fileID: 8300000, guid: 24490adbc379b6a41ad1d92269b4a800, type: 3}
 --- !u!1 &1295623986
 GameObject:
   m_ObjectHideFlags: 0
