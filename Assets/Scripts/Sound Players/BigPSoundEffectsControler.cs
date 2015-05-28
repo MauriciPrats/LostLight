@@ -2,16 +2,6 @@
 using System.Collections;
 
 public class BigPSoundEffectsControler : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 	
 	public AudioClip weaponSwing;
 	public AudioClip kame;
@@ -41,6 +31,9 @@ public class BigPSoundEffectsControler : MonoBehaviour {
 	public void PlayJump() {
 		PlaySound(jumpCroak);
 	}
+	
+	
+
 	
 	private void PlaySound (AudioClip playMe )
 	{

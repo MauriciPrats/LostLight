@@ -13,21 +13,31 @@ public class MenuManager : MonoBehaviour {
 	}
 
 	public void GoToControlsMenu(){
+		GameManager.audioManager.PlayStableSound(0);
 		GUIManager.fadeOutChangeMenuFadeIn (Menu.ControlsMenu);
 	}
 	
 	public void GoToCreditsMenu(){
 		//GUIManager.fadeOutChangeMenuFadeIn (Menu.CreditsMenu);
+		GameManager.audioManager.PlayStableSound(0);
 		GUIManager.fadeOutChangeMenuFadeIn (Menu.CreditsMenu);
+		
 	}
 	
 	public void StopGame(){
+		GameManager.audioManager.PlayStableSound(0);
 		GameManager.actualSceneManager.CloseApplication ();
 	}
 	
 	public void StartGame(){
 		GameManager.startGame ();
 		GUIManager.fadeOutChangeMenuFadeIn (Menu.None);
+		//TODO: should know what part of the level is loading. 
+		GameManager.audioManager.PlayStableSound(0);
+		
+		GameManager.audioManager.playSong(1);
+		
+		
 	}
 
 	public void GoToMainMenu(){

@@ -25,7 +25,7 @@ public static class GameManager{
 	public static PlanetSpawnerManager actualPlanetSpawnerManager;
 	public static GrassManager grassManager;
 	public static IAManager iaManager;
-
+	public static AudioManager audioManager;
 
 	private static Color originalAmbientLight;
 
@@ -107,6 +107,12 @@ public static class GameManager{
 		playerSpaceBody = player.GetComponent<SpaceGravityBody> ();
 		inputController = player.GetComponent<InputController> ();
 	}
+	
+	
+	public static void RegisterAudioManager(AudioManager registerMe) {
+		audioManager = registerMe;
+	}
+	
 
 	public static void registerCheckpointManager(GameObject checkPointManagerGO){
 		checkPointManager = checkPointManagerGO.GetComponent<CheckpointManager> ();

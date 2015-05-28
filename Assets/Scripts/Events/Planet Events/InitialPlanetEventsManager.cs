@@ -54,9 +54,9 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 				firstCinematicPlayed = true;
 				float timer = 0f;
 				float time = 0.2f;
-
 				littleGHopper.GetComponentInChildren<Animator>().SetBool("isFallingDown",true);
 				yield return new WaitForSeconds (1f);
+				GameManager.audioManager.PlayStableSound(1);
 				littleGHopper.GetComponent<SpaceGravityBody> ().setStatic (false);
 				float originalZ = littleGHopper.transform.position.z;
 
