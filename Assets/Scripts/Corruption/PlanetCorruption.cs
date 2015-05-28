@@ -101,12 +101,14 @@ public class PlanetCorruption : MonoBehaviour {
 
 	public void isFinishedCleaning(){
 		GameManager.inputController.enableInputController ();
-		GameManager.audioManager.playSong(1);
+		
 		GUIManager.activatePlayingGUIWithFadeIn ();
 		cleaningCorruption = false;
 		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().returnOriginalZ ();
 		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().resetObjective ();
 		GUIManager.activateMinimapGUI();
+		
+		GameManager.audioManager.playSong(1);
 	}
 	// Update is called once per frame
 	void Update () {

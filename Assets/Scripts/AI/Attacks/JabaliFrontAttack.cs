@@ -61,6 +61,7 @@ public class JabaliFrontAttack : Attack {
 			isChargingAttack = false;
 			isDoingAttack = true;
 			iaAnimator.SetTrigger ("isDoingHeadbutt");
+			GameManager.audioManager.PlaySound(5);
 			particlesAttack.GetComponent<ParticleSystem>().Play();
 		}
 	}

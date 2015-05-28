@@ -30,6 +30,7 @@ public class ComboAttack : Attack, AnimationSubscriber {
 			enemiesHit.Add(enemy);
 			enemy.GetComponent<IAController>().getHurt(1,(enemy.transform.position));
 			GameManager.comboManager.addCombo ();
+			GameManager.audioManager.PlayStableSound(10);
 			//Pruebas de que lanze al enemigo por los aires)
 			//Vector3 direction = enemy.GetComponent<Rigidbody>().worldCenterOfMass - GameManager.player.transform.position;
 			//enemy.GetComponent<Rigidbody>().velocity+=(direction*4f);
