@@ -217,6 +217,11 @@ public class PlayerController : MonoBehaviour {
 		GUIManager.deactivateCorruptionBar ();
 	}
 
+	public void SpaceJump(Vector3 direction){
+		lineJumpDirection = direction;
+		SpaceJump ();
+	}
+
 	public void Jump() {
 		GameManager.audioManager.PlaySound(4);
 		ParticleSystem particles = particleSystemJumpCharge.GetComponent<ParticleSystem> ();

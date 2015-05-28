@@ -17,6 +17,7 @@ public abstract class SpeechBubble : MonoBehaviour {
 	Vector3 cornerToCenter;
 	private bool firstFrameSkipped = false;
 	private bool calculatedVariablesAfterFirstFrame = false;
+	private Vector3 originalScale;
 	
 	public virtual void initialize(string text,GameObject goToFollow,float timeItLasts,bool bouncingIn,bool fadeOut){
 		this.fadeOut = fadeOut;
@@ -49,7 +50,7 @@ public abstract class SpeechBubble : MonoBehaviour {
 		float beatTime = 0.15f;
 		float extraScale = 0.2f;
 		Vector3 extraScaleV = new Vector3 (extraScale, extraScale, extraScale);
-		Vector3 originalScale = transform.localScale;
+		originalScale = transform.localScale;
 		
 		
 		while(timer<beatTime){
@@ -83,10 +84,10 @@ public abstract class SpeechBubble : MonoBehaviour {
 		transform.parent = gameObjectToFollow.transform;
 		transform.localPosition = offsetFromObject;
 		transform.parent = null;
-		//float originalZ = transform.position.z;
-		//float zDifference = zPosition - originalZ;
-		//Vector3 directionCamera = GameManager.mainCamera.transform.position - transform.position;
-		//transform.position -= (directionCamera*zDifference);
+		float originalZ = transform.position.z;
+		float zDifference = zPosition - originalZ;
+		Vector3 directionCamera = GameManager.mainCamera.transform.position - transform.position;
+		transform.position -= (directionCamera*zDifference);
 		transform.position += cornerToCenter;
 	}
 	
@@ -112,6 +113,8 @@ public abstract class SpeechBubble : MonoBehaviour {
 	protected abstract void onFinish();
 
 	public void deactivate(){
+		onFinish ();
+		transform.localScale = originalScale;
 		isActive = false;
 	}
 

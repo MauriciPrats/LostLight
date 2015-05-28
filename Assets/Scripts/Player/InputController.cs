@@ -166,6 +166,14 @@ public class InputController : MonoBehaviour {
 					}
 				}
 			}
+		}else if(!isEnabled){
+			if (Input.GetButtonUp("Jump")){
+				//If it's not enabled, interrupt any ongoing cinematic 
+				GameObject actualPlanet = GameManager.playerSpaceBody.getClosestGravityAttractor();
+				if(actualPlanet!=null){
+					actualPlanet.GetComponent<PlanetEventsManager>().interrupt();
+				}
+			}
 		}
 	}
 
