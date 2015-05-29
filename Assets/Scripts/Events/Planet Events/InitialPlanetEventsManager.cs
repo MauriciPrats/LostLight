@@ -21,6 +21,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 	//Is called when the class is activated by the GameTimelineManager
 	public override void isActivated(){
 		if(!hasBeenActivated){
+			GUIManager.deactivatePlayingGUI();
 			GameManager.player.transform.position = new Vector3(bigPappadaInitialPosition.transform.position.x,bigPappadaInitialPosition.transform.position.y,0f);
 			if(isEnabled){
 				hasBeenActivated = true;

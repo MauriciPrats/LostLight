@@ -59,8 +59,8 @@ public static class GameManager{
 
 		mainCamera.GetComponent<CameraFollowingPlayer>().resetPosition();
 		//minimapCamera.SetActive(false);
-		GUIManager.deactivatePlayingGUI ();
-
+		//
+		GUIManager.activatePlayingGUIWithFadeIn();
 
 		//Despawn all the enemies
 		EnemySpawned[] enemies = (EnemySpawned[])GameObject.FindObjectsOfType (typeof(EnemySpawned));

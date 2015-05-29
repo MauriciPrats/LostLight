@@ -65,9 +65,9 @@ public class GravityAttractor : MonoBehaviour {
 			Vector3 objectUp = objectToAttract.up;
 			
 			objectToAttract.rotation = Quaternion.FromToRotation (objectUp, targetDir) * objectToAttract.rotation;
-			float forceToAdd = -Constants.GRAVITY_FORCE_OF_PLANETS;
+			float forceToAdd = -Constants.GRAVITY_FORCE_OF_PLANETS * Time.deltaTime;
 			if(applyForce){
-				objectToAttract.GetComponent<Rigidbody>().AddForce (targetDir * forceToAdd ,ForceMode.Acceleration);
+				objectToAttract.GetComponent<Rigidbody>().AddForce (targetDir * forceToAdd ,ForceMode.VelocityChange);
 			}
 			return true;
 		}
@@ -89,7 +89,7 @@ public class GravityAttractor : MonoBehaviour {
 			Vector3 objectUp = objectToAttract.up;
 			
 			objectToAttract.rotation = Quaternion.FromToRotation (objectUp, targetDir) * objectToAttract.rotation;
-			float forceToAdd = -Constants.GRAVITY_FORCE_OF_PLANETS;
+			float forceToAdd = -Constants.GRAVITY_FORCE_OF_PLANETS * Time.deltaTime;
 			
 			bool hasToAddForce = true;
 
@@ -156,7 +156,7 @@ public class GravityAttractor : MonoBehaviour {
 
 			}
 			if(hasToAddForce && applyForce){
-				objectToAttract.GetComponent<Rigidbody>().AddForce (targetDir * forceToAdd ,ForceMode.Acceleration);
+				objectToAttract.GetComponent<Rigidbody>().AddForce (targetDir * forceToAdd ,ForceMode.VelocityChange);
 			}
 			body.GetComponent<Rigidbody>().velocity = body.GetComponent<Rigidbody>().velocity.normalized* Mathf.Abs(forceMagnitude);
 			//We only put the body in the hierarchy if it has touched a planet after doing "Space travel".
