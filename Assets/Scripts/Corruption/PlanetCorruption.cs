@@ -80,7 +80,7 @@ public class PlanetCorruption : MonoBehaviour {
 			cleaningCorruption = true;
 			GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().setObjectiveZCameraCleansePlanet ();
 			GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().followObjective(corruptionOrigin,13f,2.5f);
-
+			GameManager.audioManager.playSong(5);
 			StartCoroutine("startCleaningWithDelay");
 		}
 	}
@@ -96,15 +96,19 @@ public class PlanetCorruption : MonoBehaviour {
 		direction=1f;
 		shinto.activateKanjis ();
 		corruptionOrigin.GetComponent<ParticleSystem> ().Play ();
+		
 	}
 
 	public void isFinishedCleaning(){
 		GameManager.inputController.enableInputController ();
+		
 		GUIManager.activatePlayingGUIWithFadeIn ();
 		cleaningCorruption = false;
 		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().returnOriginalZ ();
 		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().resetObjective ();
 		GUIManager.activateMinimapGUI();
+		
+		GameManager.audioManager.playSong(1);
 	}
 	// Update is called once per frame
 	void Update () {

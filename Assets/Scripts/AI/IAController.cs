@@ -289,6 +289,7 @@ public class IAController : MonoBehaviour {
 			}
 			gameObject.layer = LayerMask.NameToLayer("OnlyFloor");
 			StopMoving();
+			GameManager.audioManager.PlaySound(6);
 			StartCoroutine("disappearOnDeath");
 			if(corruptionEffect!=null){
 				corruptionEffect.GetComponent<ParticleSystem>().Stop();

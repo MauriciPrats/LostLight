@@ -55,6 +55,7 @@ public class IAControllerJabali : IAController {
 		if(!canSeePlayer()){
 			actualBehaviour = ActualBehaviour.Patroling;
 		}else{
+			
 			if(getPlayerDistance()>=maxDistancePlayer){
 				actualBehaviour = ActualBehaviour.Patroling;
 			}

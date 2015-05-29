@@ -21,7 +21,6 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 	//Is called when the class is activated by the GameTimelineManager
 	public override void isActivated(){
 		if(!hasBeenActivated){
-			GUIManager.deactivatePlayingGUI();
 			GameManager.player.transform.position = new Vector3(bigPappadaInitialPosition.transform.position.x,bigPappadaInitialPosition.transform.position.y,0f);
 			if(isEnabled){
 				hasBeenActivated = true;
@@ -132,10 +131,18 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			boarHuntingGO.GetComponent<Cutscene>().isActive = false;
 			boarHuntingGO.GetComponent<FirstPlanetBoarHunting>().boar.SetActive(false);
 			GameManager.inputController.disableInputController ();
+<<<<<<< HEAD
+			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Que raro... ", 1.5f, false, false);
+			yield return new WaitForSeconds(1.5f);
+			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Nunca habia visto \n los sellos brillar de esta forma", 4f, false, false);
+			
+			yield return new WaitForSeconds(4f);
+=======
 			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Que raro... ", 1.5f, false, false);
 			yield return StartCoroutine(WaitInterruptable (1.5f,bigPappadaDialogue));
 			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Nunca habia visto \n los sellos brillar de esta forma", 4f, false, false);
 			yield return StartCoroutine(WaitInterruptable (4f,bigPappadaDialogue));
+>>>>>>> 887f5f971fb1455e8de12663e3e702d6a785e950
 			GetComponent<PlanetCorruption>().corrupt();
 			GameManager.audioManager.playSong(2);
 			
@@ -188,11 +195,20 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			littleGHopper.SetActive(false);
 			bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().fallenRocks.SetActive(true);
 			GUIManager.fadeOut(null);
+<<<<<<< HEAD
 			GameManager.audioManager.playSong(3);
+			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¿Donde estoy? ¿Que es este lugar?", 1.5f, false, false);
+			yield return new WaitForSeconds(1.5f);
+			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("...", 1.5f, false, false);
+			yield return new WaitForSeconds(1.5f);
+			GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Parece que no tengo otra alternativa que seguir adelante...", 1.5f, false, false);
+			yield return new WaitForSeconds(1.5f);
+=======
 			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¿Donde estoy? \n ¿Que es este lugar?", 3f, false, false);
 			yield return StartCoroutine(WaitInterruptable (3f,bigPappadaDialogue));
 			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Parece que no tengo \n otra alternativa que \n seguir adelante...", 3f, false, false);
 			yield return StartCoroutine(WaitInterruptable (3f,bigPappadaDialogue));
+>>>>>>> 887f5f971fb1455e8de12663e3e702d6a785e950
 			GameManager.inputController.enableInputController();
 		}
 	}
@@ -207,10 +223,15 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Me pregunto que hace aqui...", 3f, false, false);
 			yield return StartCoroutine(WaitInterruptable (3f,bigPappadaDialogue));
 			GameManager.player.GetComponent<PlayerController>().Move(-1f);
-			
 			yield return new WaitForSeconds(0.25f);
 			GameManager.player.GetComponent<PlayerController>().StopMove();
-
+<<<<<<< HEAD
+			
+			GameManager.audioManager.playSong(4);
+			GameManager.player.GetComponent<PlayerController>().ChargeJump();
+			lightGemGO.GetComponent<SanctuaryLightGem>().rocksGO.SetActive(false);
+			bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().fallenRocks.SetActive(false);
+=======
 			float timer = 0f;
 			float time = 3f;
 			Vector3 lightGemOriginalPosition = lightGemGO.GetComponent<SanctuaryLightGem>().lightGemGO.transform.position;
@@ -230,7 +251,6 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			GameManager.playerAnimator.SetBool("isDoingMissiles",false);
 			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Quizas puedo utilizar \n esto para salir de aqui!", 3f, true, false);
 			yield return StartCoroutine(WaitInterruptable (3f,bigPappadaDialogue));
-			GameManager.audioManager.playSong(4);
 			foreach(Collider collider in bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().fallenRocks.GetComponentsInChildren<Collider>()){
 				collider.enabled = false;
 			}
@@ -238,6 +258,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 				collider.enabled = false;
 			}
 
+>>>>>>> 887f5f971fb1455e8de12663e3e702d6a785e950
 			bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().hideOutsidePlane.SetActive(false);
 			GameManager.playerAnimator.SetBool("isChargingSpaceJumping",true);
 			yield return new WaitForSeconds(2f);

@@ -223,7 +223,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void Jump() {
-		GameManager.player.GetComponent<BigPSoundEffectsControler>().PlayJump();
+		GameManager.audioManager.PlaySound(4);
 		ParticleSystem particles = particleSystemJumpCharge.GetComponent<ParticleSystem> ();
 		particles.Stop ();
 		bpAnimator.SetBool("isChargingSpaceJumping",false);
@@ -269,10 +269,13 @@ public class PlayerController : MonoBehaviour {
 		if (!isInvulnerable && !attackController.isDoingBlock ()) {
 			GameManager.playerAnimator.SetTrigger("isHurt");
 			GetComponent<DialogueController>().createNewExpression("Ouch!",0.5f,true,true);
+			GameManager.audioManager.PlayStableSound(8);
 			GUIManager.getHurtEffect ();
 			killable.TakeDamage (hitPointsToSubstract);
 			pappadaC.newProportionOfLife (killable.proportionHP ());
 			if (killable.HP <= 0 && !GameManager.gameState.isGameEnded) {
+				GameManager.audioManager.StopSong();
+				GameManager.audioManager.PlayStableSound(9);
 				GameManager.loseGame ();
 			}
 		}

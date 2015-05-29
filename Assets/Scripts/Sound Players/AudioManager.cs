@@ -48,6 +48,11 @@ public class AudioManager : MonoBehaviour {
 		}
 	}
 	
+	public void StopSong() {
+	
+		musicplayer.Stop();
+	}
+	
 	public void PlaySound(int i) {
 		if (0 <= i && i < sfx.Length) 
 		{

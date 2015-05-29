@@ -28,6 +28,7 @@ public class OnAirAttack : Attack {
 	private IEnumerator airAttack(){
 		triggerBox.transform.position = GameManager.player.GetComponent<Rigidbody> ().worldCenterOfMass + GameManager.player.transform.forward.normalized * positionInFrontPlayer;
 		triggerBox.SetActive (true);
+		GameManager.audioManager.PlaySound (3);
 		triggerBox.transform.parent = GameManager.player.transform;
 		triggerBox.transform.rotation = GameManager.player.transform.rotation;
 		yield return true;
