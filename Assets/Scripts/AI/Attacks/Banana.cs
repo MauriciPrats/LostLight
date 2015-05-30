@@ -27,6 +27,7 @@ public class Banana : MonoBehaviour {
 		}
 	}
 
+	//Sets the information for the banana's trajectory
 	public void setParameters(Vector3 direction,Vector3 gravityDirection,Attack parentAttack){
 		this.gravityDirection = gravityDirection;
 		this.parentAttack = parentAttack;
@@ -35,6 +36,7 @@ public class Banana : MonoBehaviour {
 
 	void Update(){
 		if(direction!=null){
+			//Moves the banana
 			direction+=(gravityDirection*Time.deltaTime);
 			transform.position+=(direction*Time.deltaTime);
 		}

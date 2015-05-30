@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class IAManager : MonoBehaviour {
 
+	//List of the actual IA's
 	List<IAController> actualIAs;
 
 	void Awake(){
@@ -38,5 +39,9 @@ public class IAManager : MonoBehaviour {
 		foreach(IAController iaController in actualIAs){
 			iaController.activate();
 		}
+	}
+
+	public List<IAController> getActualAIs(){
+		return actualIAs;
 	}
 }

@@ -26,10 +26,6 @@ public class SpaceGravityBody : GravityBody {
 			if(usesSpaceGravity){
 				//Just landed from spaceJump
 				GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);
-				GameManager.actualPlanetSpawnerManager = closestPlanet.GetComponent<PlanetSpawnerManager>();
-				if(GameManager.actualPlanetSpawnerManager!=null){
-					GameManager.actualPlanetSpawnerManager.activate();
-				}
 			}
 			objectsTouching++;
 			isTouchingPlanet = true;
@@ -69,21 +65,19 @@ public class SpaceGravityBody : GravityBody {
 				}
 				if(distance<minimumPlanetDistance){
 					minimumPlanetDistance = distance;
-					closestPlanet = planet;
+					setClosestPlanet(planet);
 				}
 			}
 			
 			if (closePlanets == 0) 
 			{
-				closestPlanet = null;
+				setClosestPlanet(null);
 				usesSpaceGravity = true;
 				isOutsideAthmosphere = true;
 				GetComponent<Rigidbody>().drag = 0f;
 				isGettingOutOfOrbit = false;
 				setIsOrbitingAroundPlanet(false);
-			} 
-			else 
-			{
+			}else{
 				isOutsideAthmosphere = false;
 				if(isGettingOutOfOrbit){
 					GetComponent<Rigidbody>().drag = 0f;
@@ -103,12 +97,7 @@ public class SpaceGravityBody : GravityBody {
 
 	//Sets the character to the closest planet (Without need to touch it)
 	public void bindToClosestPlanet(){
-		//attract ();
 		attract (false);
-		GameManager.actualPlanetSpawnerManager = closestPlanet.GetComponent<PlanetSpawnerManager>();
-		if(GameManager.actualPlanetSpawnerManager!=null){
-			GameManager.actualPlanetSpawnerManager.activate();
-		}
 		usesSpaceGravity = false;
 	}
 
@@ -155,8 +144,26 @@ public class SpaceGravityBody : GravityBody {
 		return isFallingIntoPlanet;
 	}
 
-	public GameObject getClosestGravityAttractor(){
-		return closestPlanet;
+	public Planet getClosestPlanet(){
+		if (closestPlanet != null) {
+			return closestPlanet.GetComponent<Planet>();
+		}else{
+			return null;
+		}
+	}
+
+	//Sets the gameObject as the closest planet, and activates or deactivates the planets accordingly
+	private void setClosestPlanet(GameObject closestPlanet){
+		if(closestPlanet!=null){
+			if(this.closestPlanet!=null){
+				this.closestPlanet.GetComponent<Planet> ().deactivate();
+			}
+			this.closestPlanet = closestPlanet;
+			this.closestPlanet.GetComponent<Planet> ().activate ();
+		}else{
+			this.closestPlanet.GetComponent<Planet> ().deactivate();
+			this.closestPlanet = closestPlanet;
+		}
 	}
 
 	//If it is static, it won't move, nor be attracted by the planet

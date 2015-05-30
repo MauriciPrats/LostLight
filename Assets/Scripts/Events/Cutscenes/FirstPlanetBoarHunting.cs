@@ -10,9 +10,9 @@ public class FirstPlanetBoarHunting : Cutscene {
 		boar.GetComponent<IAController> ().init ();
 		boar.GetComponent<IAController> ().deactivate ();
 		boar.GetComponent<CharacterController> ().LookLeftOrRight (-1f);
-		(boar.GetComponent<CharacterAttackController> ().getAttack (AttackType.JabaliChargeAttack) as JabaliChargeAttack).timeBeforeCharge = 0f;
-		(boar.GetComponent<CharacterAttackController> ().getAttack (AttackType.JabaliChargeAttack) as JabaliChargeAttack).chargeSpeed = 5f;
-		(boar.GetComponent<CharacterAttackController> ().getAttack (AttackType.JabaliChargeAttack) as JabaliChargeAttack).chargeParticles.GetComponent<ParticleSystem> ().Stop ();
+		(boar.GetComponent<CharacterAttackController> ().getAttack (AttackType.BoarChargeAttack) as BoarChargeAttack).timeBeforeCharge = 0f;
+		(boar.GetComponent<CharacterAttackController> ().getAttack (AttackType.BoarChargeAttack) as BoarChargeAttack).chargeSpeed = 5f;
+		(boar.GetComponent<CharacterAttackController> ().getAttack (AttackType.BoarChargeAttack) as BoarChargeAttack).chargeParticles.GetComponent<ParticleSystem> ().Stop ();
 	}
 
 	public void makeBoarGoAway (){

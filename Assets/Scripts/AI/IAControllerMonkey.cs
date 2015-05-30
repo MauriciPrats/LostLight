@@ -3,7 +3,7 @@ using System.Collections;
 
 public class IAControllerMonkey : IAController {
 
-
+	//IA NOT TESTED WITH FINAL MODEL
 	private enum ActualBehaviour{Patroling,RangedAttack,Escape,ChasePlayer,JumpingAround};
 
 	public AttackType rangedAttack;
@@ -37,6 +37,7 @@ public class IAControllerMonkey : IAController {
 		doActualBehaviour ();
 	}
 
+	//Changes the behaviour of the enemy depending on the state of it's surroundings
 	private void changeBehaviour(){
 		if (!attackController.isDoingAnyAttack()) {
 			//We check if we have to reset the melee and charging attack timers
@@ -62,9 +63,9 @@ public class IAControllerMonkey : IAController {
 			actualBehaviour = ActualBehaviour.Patroling;
 		}
 	}
-	
+
+	//Does the action that corresponds to the actual behaviour unless it is dead
 	private void doActualBehaviour(){
-		//Does the action that corresponds to the actual behaviour unless it is dead
 		if(!isDead && !attackController.isDoingAnyAttack()){
 			if(actualBehaviour.Equals(ActualBehaviour.ChasePlayer)){
 				moveAndAvoid (getPlayerDirection());
@@ -85,6 +86,7 @@ public class IAControllerMonkey : IAController {
 		}
 	}
 
+	//Moves and if there is something close in front it jumps
 	private void moveAndAvoid(float direction){
 		if(closestThingInFrontDistance()<=minimumDistanceInFront ){
 			if(getIsTouchingPlanet()){
@@ -96,7 +98,8 @@ public class IAControllerMonkey : IAController {
 			Move (direction);
 		}
 	}
-	
+
+	//Walks to one side and to another alternatively
 	private void Patrol(){
 		//Patrols around
 		patrolTime += Time.deltaTime;

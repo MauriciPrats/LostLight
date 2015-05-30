@@ -112,7 +112,7 @@ public class PlanetSpawnerManager : MonoBehaviour {
 			GUIManager.deactivateCorruptionBar();
 			GetComponent<PlanetCorruption>().cleanCorruption();
 			//We clean all the enemies of the planet
-			foreach(IAController iaController in FindObjectsOfType<IAController>()){
+			foreach(IAController iaController in GameManager.iaManager.getActualAIs()){
 				iaController.die(true);
 			}
 		}
@@ -140,5 +140,9 @@ public class PlanetSpawnerManager : MonoBehaviour {
 			isActive = true;
 			GUIManager.setPercentageCorruption ((float)accumulatedPoints / (float)pointsUntilSealShintoDoor);
 		}
+	}
+
+	public void deactivate(){
+		isActive = false;
 	}
 }

@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour {
 	public float centerToExtremesDistance = 0f;
 	public float extraSafeDistanceFromEnemies = 0.3f;
 	public bool isInvulnerable = false;
+	public bool isInsidePlanet = false;
 
 	public GameObject pappada;
 
@@ -44,10 +45,9 @@ public class PlayerController : MonoBehaviour {
 	private CharacterAttackController attackController;
 	private Animator bpAnimator;
 	private SpaceGravityBody body;
-
 	private Vector3 smoothMoveVelocity;
-
 	private bool isSpaceJumping = false;
+	private bool isChargingSpaceJump = false;
 	private bool gotHit = false;
 	private bool isOutsideAthmosphere;
 	private float timeHasBeenInSpace = 0f;
@@ -100,7 +100,6 @@ public class PlayerController : MonoBehaviour {
 		centerToExtremesDistance = (animationBigPappada.GetComponent<Collider>().bounds.size.z /2f)+extraSafeDistanceFromEnemies;
 		isInvulnerable = false;
 		GetComponent<Rigidbody>().velocity = new Vector3 (0f, 0f, 0f);
-		isFinishedSpaceJump = false;
 
 		lineRenderer = GetComponent<LineRenderer> ();
 
@@ -113,7 +112,12 @@ public class PlayerController : MonoBehaviour {
 			bpAnimator.SetBool("isWalking",false);
 		}
 
-		FinishSpaceJump ();
+		isSpaceJumping = false;
+		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().returnOriginalZ();
+		HideArrow();
+		isFinishedSpaceJump = true;
+		flyParticles.Stop();
+		body.setIsGettingOutOfOrbit (false);
 	}
 
 
@@ -183,7 +187,8 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void FinishSpaceJump(){
-		GUIManager.showMinimap ();
+		body.setIsGettingOutOfOrbit (false);
+		GUIManager.activatePlayingGUIWithFadeIn ();
 		bpAnimator.SetBool("isSpaceJumping",false);
 		isSpaceJumping = false;
 		flyParticles.Stop();
@@ -207,6 +212,7 @@ public class PlayerController : MonoBehaviour {
 		particles.Stop ();
 		bpAnimator.SetBool("isSpaceJumping",true);
 		bpAnimator.SetBool("isChargingSpaceJumping",false);
+		isChargingSpaceJump = false;
 		isSpaceJumping = true;
 		HideArrow ();
 		flyParticles.Clear();
@@ -227,6 +233,7 @@ public class PlayerController : MonoBehaviour {
 		ParticleSystem particles = particleSystemJumpCharge.GetComponent<ParticleSystem> ();
 		particles.Stop ();
 		bpAnimator.SetBool("isChargingSpaceJumping",false);
+		isChargingSpaceJump = false;
 		bpAnimator.SetBool("isJumping",true);
 		characterController.Jump (normalJumpForce);
 		body.applySpaceBodyChangesOnJump ();
@@ -241,11 +248,12 @@ public class PlayerController : MonoBehaviour {
 
 
 	public void CancelChargingSpaceJump(){
-		GUIManager.showMinimap ();
+		GUIManager.activatePlayingGUIWithFadeIn ();
 		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().returnOriginalZ();
 		ParticleSystem particles = particleSystemJumpCharge.GetComponent<ParticleSystem> ();
 		particles.Stop ();
 		bpAnimator.SetBool("isChargingSpaceJumping",false);
+		isChargingSpaceJump = false;
 		HideArrow ();
 	}
 
@@ -256,8 +264,9 @@ public class PlayerController : MonoBehaviour {
 
 
 	public void ChargeJump() {
-		GUIManager.hideMinimap ();
+		GUIManager.deactivatePlayingGUI ();
 		bpAnimator.SetBool("isChargingSpaceJumping",true);
+		isChargingSpaceJump = true;
 		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().setObjectiveZCameraOnSpaceJump ();
 		ParticleSystem particles = particleSystemJumpCharge.GetComponent<ParticleSystem> ();
 		particles.Play ();
@@ -356,6 +365,10 @@ public class PlayerController : MonoBehaviour {
 			bpAnimator = animationBigPappada.GetComponent<Animator>();
 		}
 		return bpAnimator;
+	}
+
+	public bool getIsChargingSpaceJump(){
+		return isChargingSpaceJump;
 	}
 
 }

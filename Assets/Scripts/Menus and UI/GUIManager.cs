@@ -384,13 +384,13 @@ public class GUIManager : MonoBehaviour {
 		fadeManager.getHurtEffect ();
 	}
 
-	public static void hideMinimap(){
+	/*public static void hideMinimap(){
 		playingGUIO.SetActive (false);
 	}
 
 	public static void showMinimap(){
 		playingGUIO.SetActive (true);
-	}
+	}*/
 
 
 

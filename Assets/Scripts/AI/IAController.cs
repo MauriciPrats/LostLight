@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-public enum EnemyType{Jabali,BigJabali,Rat,Monkey,Penguin,Crane,None}
+public enum EnemyType{Boar,Rat,Monkey,Penguin,Crane,None}
 
 [RequireComponent (typeof (WalkOnMultiplePaths))]
 public class IAController : MonoBehaviour {
@@ -87,6 +87,7 @@ public class IAController : MonoBehaviour {
 		}
 	}
 
+	//Gets the distance of the closest thing that the enemy has in front (path, enemy or player)
 	protected float closestThingInFrontDistance(){
 		lastTimeCheckedClosestThingInFront += Time.deltaTime;
 		if(lastTimeCheckedClosestThingInFront>cooldownRaycastingClosestThingInFront){
@@ -127,6 +128,7 @@ public class IAController : MonoBehaviour {
 		return closestThingInFront;
 	}
 
+	//Initializes the variables
 	public void init(){
 		hasBeenInitialized = true;
 		initialize ();
@@ -155,6 +157,7 @@ public class IAController : MonoBehaviour {
 		characterController.Jump (jumpStrength);
 	}
 
+	//Returns is the feet collider is touching the planet
 	protected bool getIsTouchingPlanet(){
 		return GetComponent<GravityBody> ().getIsTouchingPlanet ();
 	}
@@ -179,11 +182,13 @@ public class IAController : MonoBehaviour {
 		return false;
 	}
 
+	//Gets the distance to the player
 	protected float getPlayerDistance(){
 		PlayerController chaCon = player.GetComponent<PlayerController>();
 		return Vector3.Distance (player.GetComponent<Rigidbody>().worldCenterOfMass, transform.position) - (walkOnMultiplePaths.centerToExtremesDistance + chaCon.centerToExtremesDistance);
 	}
 
+	//Gets the direction on which is the player (Corresponding to planet rotation) -1f is left and 1f is right
 	public float getPlayerDirection(){
 		if(isElementLeft(player)){
 			return -1f;
@@ -192,10 +197,12 @@ public class IAController : MonoBehaviour {
 		}
 	}
 
+	//Returns the list of the enemies that are close to this enemy
 	protected List<GameObject> getListCloseAllies(){
 		return walkOnMultiplePaths.getListCloseAllies();
 	}
 
+	//Returns if there is something in front closer than the minimum distance
 	protected bool getIsBlockedBySomethingInFront(){
 		if(closestThingInFrontDistance()<minimumDistanceFront){
 			return true;
@@ -204,6 +211,7 @@ public class IAController : MonoBehaviour {
 		}
 	}
 
+	//Gets the direction at which is looking (-1f left, 1f right)
 	protected float getLookingDirection(){
 		if(getIsLookingRight()){
 			return 1f;
@@ -212,16 +220,19 @@ public class IAController : MonoBehaviour {
 		}
 	}
 
+	//Looks at the direction in the parameter (-1f is left, 1f is right)
 	protected void lookAtDirection(float direction){
 		characterController.LookLeftOrRight (direction);
 	}
-	
+
+	//Returns if it's looking right
 	public bool getIsLookingRight(){
 		return characterController.getIsLookingRight();
 	}
 
 
 	//BASE AI FUNCTIONS
+	//Returns if an element is left of the enemy
 	public bool isElementLeft(GameObject element){
 		if(Util.getPlanetaryAngleFromAToB(gameObject,element)>0f){
 			return false;
@@ -249,21 +260,22 @@ public class IAController : MonoBehaviour {
 		}
 	}
 
+	//Freezes the movement
 	public void freeze(float timeFrozen){
 		frozenTimer = 0f;
 		frozenTime = timeFrozen;
 		isFrozen = true;
 	}
 
+	//Makes the enemy unavailable to attack or move
 	public void stun(float timeStunned){
 		stunnedTimer = 0f;
 		stunnedTime = timeStunned;
 		isStunned = true;
 	}
 
+	//Method to receive damage (Play particles, sounds effects, etc)
 	public void getHurt(int hurtAmmount,Vector3 hitPosition){
-		//Play hurt effects
-		//Particles
 		if(!isDead){
 			foreach (GameObject particles in hitParticles) {
 				particles.GetComponent<ParticleSystem>().Play();
@@ -278,6 +290,7 @@ public class IAController : MonoBehaviour {
 		}
 	}
 
+	//Method called upon the enemy's death
 	public void die(bool despawn){
 		//A despawned enemy will not give points (spawn light)
 		despawned = despawn;
@@ -290,7 +303,9 @@ public class IAController : MonoBehaviour {
 			gameObject.layer = LayerMask.NameToLayer("OnlyFloor");
 			StopMoving();
 			GameManager.audioManager.PlaySound(6);
-			StartCoroutine("disappearOnDeath");
+			if(isActiveAndEnabled){
+				StartCoroutine("disappearOnDeath");
+			}
 			if(corruptionEffect!=null){
 				corruptionEffect.GetComponent<ParticleSystem>().Stop();
 			}
@@ -298,6 +313,8 @@ public class IAController : MonoBehaviour {
 		iaAnimator.SetBool("isWalking",false);
 		isDead = true;
 	}
+
+	//Coroutine called when the enemy is dying
 	IEnumerator disappearOnDeath(){
 		bool deathLightBallsSpawned = false;
 		float timeHasBeenDead = 0f;
@@ -318,27 +335,25 @@ public class IAController : MonoBehaviour {
 		Destroy(gameObject);
 	}
 
+	//Method to call after the enemy dies (To make it disappear)
 	private void onDeath(){
 		Vector3 center = GetComponent<Rigidbody> ().worldCenterOfMass;
-		//int numberLights = numberOfLightsAvg;
-		//for(int i = 0;i<numberLights;i++){
-			GameObject newLight = GameObject.Instantiate(onDeathLight) as GameObject;
-			newLight.transform.position = (center);
-			newLight.GetComponent<LightOnDeath>().setVectorUp(transform.up);
-			newLight.GetComponent<LightOnDeath>().pointsToAddPerLight = GetComponent<EnemySpawned>().pointsCost;
-			int randRGB = UnityEngine.Random.Range(0,3);
-			Color color = new Color(1f,1f,1f);
-			float complementary = 1f;
-			float mainColor = 0.85f;
-			if(randRGB==0){
-				color = new Color(mainColor,complementary,complementary);
-			}else if(randRGB==1){
-				color = new Color(complementary,mainColor,complementary);
-			}else{
-				color = new Color(complementary,complementary,mainColor);
-			}
-			newLight.GetComponent<TrailRenderer>().material.color = color;
-		//}
+		GameObject newLight = GameObject.Instantiate(onDeathLight) as GameObject;
+		newLight.transform.position = (center);
+		newLight.GetComponent<LightOnDeath>().setVectorUp(transform.up);
+		newLight.GetComponent<LightOnDeath>().pointsToAddPerLight = GetComponent<EnemySpawned>().pointsCost;
+		int randRGB = UnityEngine.Random.Range(0,3);
+		Color color = new Color(1f,1f,1f);
+		float complementary = 1f;
+		float mainColor = 0.85f;
+		if(randRGB==0){
+			color = new Color(mainColor,complementary,complementary);
+		}else if(randRGB==1){
+			color = new Color(complementary,mainColor,complementary);
+		}else{
+			color = new Color(complementary,complementary,mainColor);
+		}
+		newLight.GetComponent<TrailRenderer>().material.color = color;
 	}
 
 	public void interruptAttack(){

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class IAControllerJabali : IAController {
+public class IAControllerBoar : IAController {
 
 	private enum ActualBehaviour{Patroling,MeleeAttack,ChargeAttack,ChasePlayer,OffensiveIdle};
 

@@ -3,8 +3,8 @@ using System.Collections;
 
 public class IAControllerCrane : IAController {
 
-	
-	
+	//IA NOT IMPLEMENTED YET
+
 	private enum ActualBehaviour{Patroling,ChasePlayer,Sliding,WhirlwindAttack};
 	
 	public AttackType meleeAttack;
@@ -37,7 +37,8 @@ public class IAControllerCrane : IAController {
 		changeBehaviour();
 		doActualBehaviour ();
 	}
-	
+
+
 	private void changeBehaviour(){
 
 	}

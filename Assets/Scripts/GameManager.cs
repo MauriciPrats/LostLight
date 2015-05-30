@@ -22,7 +22,6 @@ public static class GameManager{
 	public static ComboManager comboManager;
 	public static DialogueManager dialogueManager;
 	public static List<ProcedurallyGeneratedObject> proceduralGrass = new List<ProcedurallyGeneratedObject>(0);
-	public static PlanetSpawnerManager actualPlanetSpawnerManager;
 	public static GrassManager grassManager;
 	public static IAManager iaManager;
 	public static AudioManager audioManager;
@@ -59,8 +58,6 @@ public static class GameManager{
 
 		mainCamera.GetComponent<CameraFollowingPlayer>().resetPosition();
 		//minimapCamera.SetActive(false);
-		//
-		GUIManager.activatePlayingGUIWithFadeIn();
 
 		//Despawn all the enemies
 		EnemySpawned[] enemies = (EnemySpawned[])GameObject.FindObjectsOfType (typeof(EnemySpawned));
@@ -82,11 +79,11 @@ public static class GameManager{
 
 	//Game functions
 	public static void loseGame(){
+		GUIManager.deactivatePlayingGUI ();
 		GameManager.gameState.isGameEnded = true;
 		GUIManager.fadeInWithAction(rebuildGameFromGameState,Menu.YouLostMenu);
 	}
 
-	//Game functions
 	public static void winGame(){
 		GameManager.gameState.isGameEnded = true;
 		GameManager.player.GetComponent<PlayerController> ().isInvulnerable = true;
@@ -95,9 +92,23 @@ public static class GameManager{
 
 	public static void startGame(){
 		gameState.isGameEnded = false;
-		GameManager.playerSpaceBody.getClosestGravityAttractor ().GetComponent<PlanetEventsManager> ().startButtonPressed ();
-		//minimapCamera.SetActive (true);
+		if(GameManager.playerSpaceBody.getClosestPlanet()!=null){
+			if(GameManager.playerSpaceBody.getClosestPlanet().isPlanetCorrupted()){
+				(GameManager.playerSpaceBody.getClosestPlanet() as PlanetCorrupted).getPlanetEventsManager().startButtonPressed();
+			}else{
+				GUIManager.activatePlayingGUIWithFadeIn();
+			}
+		}
+
+		GameManager.audioManager.PlayStableSound(0);
+		GameManager.audioManager.playSong(1);
 	}
+
+	public static void restartGame(){
+		gameState.isGameEnded = false;
+		GUIManager.activatePlayingGUIWithFadeIn();
+	}
+
 
 	//Registering functions
 	public static void registerPlayer(GameObject playerGO){
@@ -106,6 +117,14 @@ public static class GameManager{
 		playerController = player.GetComponent<PlayerController> ();
 		playerSpaceBody = player.GetComponent<SpaceGravityBody> ();
 		inputController = player.GetComponent<InputController> ();
+	}
+
+	public static bool getIsInsidePlanet(){
+		Planet closestPlanet = playerSpaceBody.getClosestPlanet ();
+		if(closestPlanet!=null && closestPlanet.getHasInsidePlanet() && closestPlanet.getHideFrontPlanetFaceOnEnter().getIsInsidePlanet()){
+			return true;
+		}
+		return false;
 	}
 	
 	

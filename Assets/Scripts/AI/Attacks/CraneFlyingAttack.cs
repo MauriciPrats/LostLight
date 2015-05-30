@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CraneFlyingAttack : Attack {
 
-	//NOT IMPLEMENTED
+	//NOT IMPLEMENTED YET!
 	
 	//Private variables
 	private GameObject parent;

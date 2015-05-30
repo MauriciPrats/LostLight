@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class JabaliFrontAttack : Attack {
+public class BoarFrontAttack : Attack {
 	
 	public float timeToChargeAttack = 0.5f;
 	public float attackDuration = 0.1f;
@@ -21,7 +21,7 @@ public class JabaliFrontAttack : Attack {
 
 
 	public override void initialize(){
-		attackType = AttackType.JabaliFrontAttack;
+		attackType = AttackType.BoarFrontAttack;
 	}
 
 	void OnTriggerEnter(Collider col) {

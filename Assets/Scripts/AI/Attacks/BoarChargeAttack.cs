@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class JabaliChargeAttack : Attack {
+public class BoarChargeAttack : Attack {
 
 
 	public float timeItLastsCharge = 6f;
@@ -26,7 +26,8 @@ public class JabaliChargeAttack : Attack {
 	private bool isPlayerInsideAttack = false;
 
 	public override void initialize(){
-		attackType = AttackType.JabaliChargeAttack;
+		//Called when the game starts it sets the starting parameters
+		attackType = AttackType.BoarChargeAttack;
 		whileChargingParticles.SetActive (true);
 		whileChargingParticles.GetComponent<ParticleSystem> ().Stop ();
 	}
@@ -52,7 +53,8 @@ public class JabaliChargeAttack : Attack {
 			}
 		}
 	}
-	
+
+	//Called when the attack is started
 	public override void startAttack(){
 		bool isRight = parent.GetComponent<CharacterController>().getIsLookingRight();
 		if(isRight){
@@ -64,8 +66,8 @@ public class JabaliChargeAttack : Attack {
 		StartCoroutine ("attack");
 	}
 
+	//Coroutine that makes the boar move straight
 	private IEnumerator moveStraight(){
-
 		parent.layer = LayerMask.NameToLayer ("Dashing");
 		attackTimer = 0f;
 		while(attackTimer<=timeItLastsCharge){

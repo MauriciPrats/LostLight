@@ -40,10 +40,10 @@ public class LightOnDeath : MonoBehaviour {
 			if(!hasArrived){
 				hasArrived = true;
 				timerWhenArrived = 0f;
-				//transform.parent = objective.transform;
-				//GameManager.lightGemSoulsManager.addPoints(pointsToAddPerLight);
-				if(GameManager.actualPlanetSpawnerManager!=null){
-					GameManager.actualPlanetSpawnerManager.incrementAccumulatedPoints(pointsToAddPerLight);
+
+				//If there is any close planet that is corrupted we increment the accumulated points when the light arrives to the bar.
+				if(GameManager.playerSpaceBody.getClosestPlanet()!=null && GameManager.playerSpaceBody.getClosestPlanet().isPlanetCorrupted()){
+					(GameManager.playerSpaceBody.getClosestPlanet() as PlanetCorrupted).getPlanetSpawnerManager().incrementAccumulatedPoints(pointsToAddPerLight);
 				}
 			}
 			timerWhenArrived+=Time.deltaTime;

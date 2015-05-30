@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public enum AttackType{Missiles,Kame,Shockwave,GuardBreaker,CounterAttack,OnAir,Combo,JabaliFrontAttack,JabaliChargeAttack,MonkeyBananaAttack,BurrowAttack,PenguinWhirlwindAttack,PenguinSlideMove,CraneFlyingAttack,CraneMeleeAttack};
+public enum AttackType{Missiles,Kame,Shockwave,GuardBreaker,CounterAttack,OnAir,Combo,BoarFrontAttack,BoarChargeAttack,MonkeyBananaAttack,BurrowAttack,PenguinWhirlwindAttack,PenguinSlideMove,CraneFlyingAttack,CraneMeleeAttack};
 
 public class CharacterAttackController : MonoBehaviour {
 

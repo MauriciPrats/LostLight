@@ -111,7 +111,7 @@ public class InputController : MonoBehaviour {
 					if (timeJumpPressed >= startChargeSpaceJump && !isSpaceJumpCharging) {isSpaceJumpCharging = true; }
 					if (timeJumpPressed >= timeIsSpaceJumpCharged && !isSpaceJumpCharged) {isSpaceJumpCharged = true; character.ChargeJump(); }
 				}
-			} else if(Input.GetButtonDown("Jump") && isCharacterAllowedToJump()) {
+			}else if(Input.GetButtonDown("Jump") && isCharacterAllowedToJump()) {
 				character.Jump(); 
 			}else {
 				ResetJumping();
@@ -169,9 +169,9 @@ public class InputController : MonoBehaviour {
 		}else if(!isEnabled){
 			if (Input.GetButtonUp("Jump")){
 				//If it's not enabled, interrupt any ongoing cinematic 
-				GameObject actualPlanet = GameManager.playerSpaceBody.getClosestGravityAttractor();
-				if(actualPlanet!=null){
-					actualPlanet.GetComponent<PlanetEventsManager>().interrupt();
+				Planet actualPlanet = GameManager.playerSpaceBody.getClosestPlanet();
+				if(actualPlanet!=null && actualPlanet.isPlanetCorrupted()){
+					(actualPlanet as PlanetCorrupted).getPlanetEventsManager().interrupt();
 				}
 			}
 		}
@@ -192,7 +192,11 @@ public class InputController : MonoBehaviour {
 			return false;
 		}else if(character.getIsJumping()){
 			return false;
-		}else if(GameManager.actualPlanetSpawnerManager!=null && GameManager.actualPlanetSpawnerManager.isActive){
+		}else if(GameManager.playerSpaceBody.getClosestPlanet()!=null && GameManager.playerSpaceBody.getClosestPlanet().isPlanetCorrupted()){
+			if((GameManager.playerSpaceBody.getClosestPlanet() as PlanetCorrupted).getPlanetSpawnerManager().isActive){
+				return false;
+			}
+		}else if(GameManager.getIsInsidePlanet()){
 			return false;
 		}
 		return true;
@@ -251,7 +255,7 @@ public class InputController : MonoBehaviour {
 	void ResetJumping () {
 		isSpaceJumpCharging = false;
 		isSpaceJumpCharged = false;
-		timeJumpPressed = 0;
+		timeJumpPressed = 0f;
 	}
 
 	public void disableInputController(){

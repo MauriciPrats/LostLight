@@ -101,7 +101,6 @@ public class PlanetCorruption : MonoBehaviour {
 
 	public void isFinishedCleaning(){
 		GameManager.inputController.enableInputController ();
-		
 		GUIManager.activatePlayingGUIWithFadeIn ();
 		cleaningCorruption = false;
 		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().returnOriginalZ ();

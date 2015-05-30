@@ -9,6 +9,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 	public GameObject boarHuntingGO;
 	public GameObject shintoDoorGO;
 	public GameObject toTheBridgeGO;
+	public GameObject toTheBridge2GO;
 	public GameObject bridgeFallGO;
 	public GameObject lightGemGO;
 
@@ -21,9 +22,9 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 	//Is called when the class is activated by the GameTimelineManager
 	public override void isActivated(){
 		if(!hasBeenActivated){
-			GUIManager.deactivatePlayingGUI();
-			GameManager.player.transform.position = new Vector3(bigPappadaInitialPosition.transform.position.x,bigPappadaInitialPosition.transform.position.y,0f);
 			if(isEnabled){
+				littleGHopper.SetActive(true);
+				GameManager.player.transform.position = new Vector3(bigPappadaInitialPosition.transform.position.x,bigPappadaInitialPosition.transform.position.y,0f);
 				hasBeenActivated = true;
 				//First event is putting Big P in the initial position
 				GameManager.player.transform.position = bigPappadaInitialPosition.transform.position;
@@ -40,16 +41,21 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 				littleGHopper.GetComponent<Rigidbody> ().velocity = new Vector3 (0f, 0f, 0f);
 
 				toTheBridgeGO.GetComponent<Cutscene>().isActive = false;
+				toTheBridge2GO.GetComponent<Cutscene>().isActive = false;
 				bridgeFallGO.GetComponent<Cutscene>().isActive = false;
 				GUIManager.deactivateMinimapGUI();
+				boarHuntingGO.GetComponent<Cutscene>().isActive = false;
+				boarHuntingGO.GetComponent<Cutscene> ().Initialize ();
+			}else{
+				boarHuntingGO.GetComponent<FirstPlanetBoarHunting>().boar.SetActive(false);
+				boarHuntingGO.SetActive(false);
+				littleGHopper.SetActive(false);
 			}
-			boarHuntingGO.GetComponent<Cutscene>().isActive = false;
-			boarHuntingGO.GetComponent<Cutscene> ().Initialize ();
 		}
 	}
 
 	//This cinematic corresponds to the first cinematic that will play when the play button is pressed
-	IEnumerator firstCinematic(){
+	IEnumerator initialCinematic(){
 		if(!firstCinematicPlayed){
 			if(isEnabled){
 				firstCinematicPlayed = true;
@@ -108,16 +114,17 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 				
 				boarHuntingGO.SetActive (true);
 				boarHuntingGO.GetComponent<Cutscene>().isActive = true;
-				
+				shintoDoorGO.GetComponent<FirstPlanetShintoDoor>().isActive = true;
 				yield return new WaitForSeconds (7f);
 				littleGHopper.GetComponent<CharacterController> ().StopMoving ();
 				littleGHopper.GetComponentInChildren<Animator> ().SetBool ("isWalking", false);
+
 			}
 		}
 	}
 
 	//Cinematic that corresponds to the boar hunting event
-	IEnumerator secondCinematic(){
+	IEnumerator boarHuntingCinematic(){
 		if(isEnabled){
 			boarHuntingGO.GetComponent<FirstPlanetBoarHunting>().makeBoarGoAway();
 			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Un Jabali!", 2f, false, false);
@@ -126,7 +133,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 	}
 
 	//Cinematic that corresponds to the third cinematic
-	IEnumerator thirdCinematic(){
+	IEnumerator shintoDoorCinematic(){
 		if(isEnabled){
 			shintoDoorGO.GetComponent<Cutscene>().isActive = false;
 			boarHuntingGO.GetComponent<Cutscene>().isActive = false;
@@ -157,23 +164,34 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 
 		}
 	}
-	IEnumerator fourthCinematic(){
+	IEnumerator toTheBridgeCinematic(){
 		if (isEnabled) {
 			littleGHopper.GetComponentInChildren<ParticleSystem>().Play();
 			GameManager.player.GetComponent<PlayerController>().Jump();
 			GameManager.player.GetComponent<PlayerController>().Move(1f);
 			toTheBridgeGO.GetComponent<Cutscene>().isActive = false;
+			toTheBridge2GO.GetComponent<Cutscene>().isActive = true;
+			yield return null;
+		}
+	}
+
+	IEnumerator toTheBridge2Cinematic(){
+		if (isEnabled) {
+			littleGHopper.GetComponentInChildren<ParticleSystem>().Play();
+			GameManager.player.GetComponent<PlayerController>().Jump();
+			GameManager.player.GetComponent<PlayerController>().Move(1f);
+			toTheBridge2GO.GetComponent<Cutscene>().isActive = false;
 			bridgeFallGO.GetComponent<Cutscene>().isActive = true;
 			yield return null;
 		}
 	}
-	IEnumerator fifthCinematic(){
+	IEnumerator fallFromBridgeCinematic(){
 		if(isEnabled){
 			bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().isActive = false;
 			GameManager.player.GetComponent<PlayerController>().StopMove();
 			littleGDialogue = littleGHopper.GetComponent<DialogueController> ().createNewDialogue ("Aaahhh!!\n MAESTROO!!", 1.5f, true, false);
 			yield return StartCoroutine(WaitInterruptable (1f,littleGDialogue));
-			littleGHopper.GetComponent<CharacterController>().Jump(35f);
+			littleGHopper.GetComponent<CharacterController>().Jump(25f);
 			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¡Little G!!", 1f, false, false);
 			yield return StartCoroutine(WaitInterruptable (1f,bigPappadaDialogue));
 			GameManager.inputController.disableInputController ();
@@ -198,7 +216,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 	}
 
 
-	IEnumerator sixthCinematic(){
+	IEnumerator lightgemCinematic(){
 		if(isEnabled){
 			GameManager.inputController.disableInputController ();
 			lightGemGO.GetComponent<SanctuaryLightGem>().isActive = false;
@@ -213,7 +231,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 
 			float timer = 0f;
 			float time = 3f;
-			Vector3 lightGemOriginalPosition = lightGemGO.GetComponent<SanctuaryLightGem>().lightGemGO.transform.position;
+			Vector3 lightGemOriginalPosition = GameManager.player.GetComponent<Rigidbody>().worldCenterOfMass;
 
 			while(timer<time){
 				timer+=Time.deltaTime;
@@ -224,10 +242,8 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			foreach(ParticleSystem particles in lightGemGO.GetComponentsInChildren<ParticleSystem>()){
 				particles.Stop();
 			}
-			GameManager.playerAnimator.SetBool("isDoingMissiles",true);
 			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Fuaaah!!! Que poder!", 2f, true, false);
 			yield return StartCoroutine(WaitInterruptable (2f,bigPappadaDialogue));
-			GameManager.playerAnimator.SetBool("isDoingMissiles",false);
 			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Quizas puedo utilizar \n esto para salir de aqui!", 3f, true, false);
 			yield return StartCoroutine(WaitInterruptable (3f,bigPappadaDialogue));
 			GameManager.audioManager.playSong(4);
@@ -274,8 +290,9 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 
 	public override void startButtonPressed(){
 		if(isEnabled){
-			StartCoroutine("firstCinematic");
+			StartCoroutine("initialCinematic");
 		}else{
+			GUIManager.activatePlayingGUIWithFadeIn();
 			GetComponent<PlanetCorruption>().activateSpawning();
 		}
 	}
@@ -283,15 +300,17 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 	public override void informEventActivated (CutsceneIdentifyier identifyier){
 		if(isEnabled){
 			if(identifyier.Equals(CutsceneIdentifyier.FirstPlanetBoarHunting)){
-				StartCoroutine("secondCinematic");
+				StartCoroutine("boarHuntingCinematic");
 			}else if(identifyier.Equals(CutsceneIdentifyier.FirstPlanetShintoDoor)){
-				StartCoroutine("thirdCinematic");
+				StartCoroutine("shintoDoorCinematic");
 			}else if(identifyier.Equals(CutsceneIdentifyier.FirstPlanetToTheBridge)){
-				StartCoroutine("fourthCinematic");
+				StartCoroutine("toTheBridgeCinematic");
+			}else if(identifyier.Equals(CutsceneIdentifyier.FirstPlanetToTheBridge2)){
+				StartCoroutine("toTheBridge2Cinematic");
 			}else if(identifyier.Equals(CutsceneIdentifyier.FirstPlanetFallingFromTheBridge)){
-				StartCoroutine("fifthCinematic");
+				StartCoroutine("fallFromBridgeCinematic");
 			}else if(identifyier.Equals(CutsceneIdentifyier.SanctuaryLightGem)){
-				StartCoroutine("sixthCinematic");
+				StartCoroutine("lightgemCinematic");
 			}
 		}
 	}

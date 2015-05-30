@@ -21,7 +21,7 @@ GameObject:
   - 114: {fileID: 11471412}
   - 114: {fileID: 11491190}
   m_Layer: 10
-  m_Name: Jabali
+  m_Name: Boar
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

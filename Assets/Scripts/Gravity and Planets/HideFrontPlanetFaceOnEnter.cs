@@ -2,7 +2,8 @@
 using System.Collections;
 
 public class HideFrontPlanetFaceOnEnter : MonoBehaviour {
-	
+
+	private bool isInsidePlanet = false;
 	// Use this for initialization
 	void Start () {
 		
@@ -17,7 +18,6 @@ public class HideFrontPlanetFaceOnEnter : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		SphereCollider sphereCollider = (SphereCollider)GetComponent<Collider>();
-		//Debug.Log (sphereCollider.radius);
 
 		float sphereRadius = sphereCollider.transform.lossyScale.x * sphereCollider.radius;
 
@@ -26,13 +26,17 @@ public class HideFrontPlanetFaceOnEnter : MonoBehaviour {
 				GetComponent<Renderer>().enabled = false;
 			}
 			enableAll(false);
-			GameManager.gameState.setIsInsidePlanet(true);
+			isInsidePlanet = true;
 		}else{
 			if(GetComponent<Renderer>()!=null){
 				GetComponent<Renderer>().enabled = true;
 			}
 			enableAll(true);
-			GameManager.gameState.setIsInsidePlanet(false);
+			isInsidePlanet = false;
 		}
+	}
+
+	public bool getIsInsidePlanet(){
+		return isInsidePlanet;
 	}
 }

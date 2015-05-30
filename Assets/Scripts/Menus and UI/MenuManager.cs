@@ -32,12 +32,11 @@ public class MenuManager : MonoBehaviour {
 	public void StartGame(){
 		GameManager.startGame ();
 		GUIManager.fadeOutChangeMenuFadeIn (Menu.None);
-		//TODO: should know what part of the level is loading. 
-		GameManager.audioManager.PlayStableSound(0);
-		
-		GameManager.audioManager.playSong(1);
-		
-		
+	}
+
+	public void RestartGame(){
+		GameManager.restartGame ();
+		GUIManager.fadeOutChangeMenuFadeIn (Menu.None);
 	}
 
 	public void GoToMainMenu(){

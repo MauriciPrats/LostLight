@@ -3,7 +3,7 @@ using System.Collections;
 
 public class IAControllerPenguin : IAController {
 	
-	
+	//IA NOT TESTED WITH FINAL MODEL
 	private enum ActualBehaviour{Patroling,ChasePlayer,Sliding,WhirlwindAttack};
 	
 	public AttackType meleeAttack;
@@ -44,7 +44,8 @@ public class IAControllerPenguin : IAController {
 		slideTimer += Time.deltaTime;
 		doActualBehaviour ();
 	}
-	
+
+	//Changes the behaviour of the enemy depending on the state of it's surroundings
 	private void changeBehaviour(){
 		if (!attackController.isDoingAnyAttack()) {
 			//We check if we have to reset the melee and charging attack timers
@@ -78,9 +79,9 @@ public class IAControllerPenguin : IAController {
 			}
 		}
 	}
-	
+
+	//Does the action that corresponds to the actual behaviour unless it is dead
 	private void doActualBehaviour(){
-		//Does the action that corresponds to the actual behaviour unless it is dead
 		if(!isDead && !attackController.isDoingAnyAttack()){
 			if(actualBehaviour.Equals(ActualBehaviour.ChasePlayer)){
 				if(closestThingInFrontDistance()>minDistanceMeleeAttack){
@@ -107,7 +108,8 @@ public class IAControllerPenguin : IAController {
 			}
 		}
 	}
-	
+
+	//Walks to one side and to another alternatively
 	private void Patrol(){
 		//Patrols around
 		patrolTime += Time.deltaTime;
