@@ -36,6 +36,7 @@ abstract public class PlanetEventsManager : MonoBehaviour {
 		yield return StartCoroutine(WaitInterruptable(timeToWait));
 	}
 	protected IEnumerator WaitInterruptable(float timeToWait,GameObject dialogue){
+		isInterrupted = false;
 		float timer = 0f;
 		while(timer<timeToWait){
 			timer+=Time.deltaTime;

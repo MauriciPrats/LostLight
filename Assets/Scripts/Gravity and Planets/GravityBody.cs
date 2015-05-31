@@ -14,6 +14,7 @@ public class GravityBody : MonoBehaviour {
 
 	protected List<GameObject> collidingObjects = new List<GameObject>(0);
 	protected int objectsTouching = 0;
+	protected bool hasToApplyForce = true;
 
 
 	void Start() {
@@ -61,7 +62,7 @@ public class GravityBody : MonoBehaviour {
 	}
 
 	void LateUpdate() {
-		attract (true);
+		attract (hasToApplyForce);
 	}
 
 	public virtual void attract(bool applyForce){
@@ -94,4 +95,7 @@ public class GravityBody : MonoBehaviour {
 		return minimumPlanetDistance;
 	}
 
+	public void setHasToApplyForce(bool apply){
+		hasToApplyForce = apply;
+	}
 }

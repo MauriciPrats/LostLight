@@ -35,30 +35,49 @@ public class Dash : MonoBehaviour {
 		originalMovement = GameManager.player.GetComponent<CharacterController>().getMoveAmout ();
 		GameManager.playerAnimator.SetTrigger("isDashing");
 		Vector3 newMove;
+		GameManager.playerSpaceBody.setHasToApplyForce (false);
 		newMove = (dashSpeed) * GameManager.player.transform.forward;
 		GameManager.player.GetComponent<CharacterController> ().setSpeed (dashSpeed);
 
 		float distance = dashSpeed * dashTime;
-		float dashTimeR = dashTime;
 		//Raycast 
 		RaycastHit hit;
 
-		Vector3 velocity = GameManager.player.GetComponent<Rigidbody> ().velocity;
-		Vector3 forward = GameManager.player.transform.forward;
-		Vector3 direction = (velocity + (forward * dashSpeed)).normalized;
-		Vector3 position = GameManager.player.GetComponent<Rigidbody> ().worldCenterOfMass;
+		
+		float shortestDistance = GameManager.playerController.centerToExtremesDistance;
 
-		if (Physics.Raycast (position,direction, out hit, distance, layerToDash)) {
-			dashTimeR = ((hit.distance/distance)*dashTime);
+		float dashTimer = 0f;
+		bool collision = false;
+		while (dashTimer<dashTime) {
+			dashTimer+=Time.deltaTime;
+
+			Vector3 velocity = GameManager.player.GetComponent<Rigidbody> ().velocity;
+			Vector3 forward = GameManager.player.transform.forward;
+			Vector3 direction = (velocity + (forward * dashSpeed));
+			Vector3 bodyPosition = GameManager.player.GetComponent<Rigidbody> ().worldCenterOfMass;
+			//Vector3 feetPosition = GameManager.player.transform.position + (GameManager.player.transform.up *0.01f);
+
+			if (Physics.Raycast (bodyPosition, direction, out hit, shortestDistance + 0.1f, layerToDash)) {
+				collision = true;
+				break;
+			}
+
+			/*if (Physics.Raycast (feetPosition, direction, out hit, shortestDistance + 0.1f, layerToDash)) {
+				collision = true;
+				break;
+			}*/
+			yield return null;
 		}
-		dashTimeR = dashTimeR - 0.05f;
-
-		yield return new WaitForSeconds(dashTimeR);
+		
 		isDoingDash = false;
 		Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"),LayerMask.NameToLayer("Enemy"),false);
 		Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"),LayerMask.NameToLayer("Dashing"),false);
 		GameManager.player.GetComponent<CharacterController> ().resetSpeed ();
+		if(collision){
+			GameManager.player.GetComponent<CharacterController> ().setAmount(0f);
+		}
 		GameManager.playerAnimator.SetBool("isWalking",false);
+		GameManager.playerSpaceBody.setHasToApplyForce (true);
 		yield return new WaitForSeconds(dashCooldown);
 		dashStartParticles.SetActive (false);
 		cooldownFinished = true;

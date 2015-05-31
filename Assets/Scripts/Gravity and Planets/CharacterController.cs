@@ -13,7 +13,6 @@ public class CharacterController : MonoBehaviour {
 	private float amount;
 
 	private float oldSpeed;
-
 	Vector3 moveAmount;
 
 	void FixedUpdate(){
@@ -87,6 +86,10 @@ public class CharacterController : MonoBehaviour {
 		amount = 1f;
 		oldSpeed = speed;
 		speed = newSpeed;
+	}
+
+	public void setAmount(float newAmount){
+		amount = newAmount;
 	}
 
 	public void resetSpeed(){
