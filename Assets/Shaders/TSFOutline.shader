@@ -18,13 +18,14 @@ Shader "TSF/BaseOutline1"
 		_Asymmetry ("OutlineAsymmetry", Vector) = (0.0,0.25,0.5,0.0)     			//13
 		[MaterialToggle(_TRANSP_ON)] _Trans ("Enable Transparency", Float) = 0   	//14
 		[Enum(TRANS_OPTIONS)] _TrOp ("Transparency mode", Float) = 0                //15
-		_Cutoff ("Alpha cutoff", Range(0,1)) = 0.5                                  //16
+		_Cutoff ("Alpha cutoff", Range(0,1)) = 0.5   
+		_Ramp ("Toon Ramp (RGB)", 2D) = "gray" {}                                //16
     }
  
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
-		LOD 250 
+        Tags { "RenderType"="Opaque" "LightMode" = "ForwardBase" }
+		LOD 200 
         Lighting Off
         Fog { Mode Off }
         
@@ -73,6 +74,7 @@ Shader "TSF/BaseOutline1"
             
             ENDCG
         }
+        UsePass "Toon/LitG/FORWARD"
     }
     Fallback "Diffuse"
 }

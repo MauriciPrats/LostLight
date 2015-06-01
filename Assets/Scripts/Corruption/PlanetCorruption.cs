@@ -122,10 +122,7 @@ public class PlanetCorruption : MonoBehaviour {
 		if(yValue<yMin){
 			yValue = yMin;
 		}
-
-		if(Input.GetKeyUp(KeyCode.C)){
-			cleanCorruption();
-		}
+		
 			foreach(Material material in materials){
 				if(material.HasProperty("_YCutOut")){
 					material.SetFloat("_YCutOut",yValue);

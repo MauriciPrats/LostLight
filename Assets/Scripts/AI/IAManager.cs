@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -13,12 +13,7 @@ public class IAManager : MonoBehaviour {
 	}
 
 	void Update(){
-		if(Input.GetKeyUp(KeyCode.V)){
-			disableIAs();
-		}
-		if(Input.GetKeyUp(KeyCode.B)){
-			enableIAs();
-		}
+
 	}
 
 	public void registerIA(IAController iaC){

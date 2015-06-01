@@ -32,9 +32,6 @@ public class DialogueController : MonoBehaviour {
 	}
 
 	void Update(){
-		if(Input.GetKeyUp(KeyCode.V)){
-
-		}
 	}
 
 }
