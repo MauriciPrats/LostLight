@@ -7,10 +7,15 @@ public class FadeInOut : MonoBehaviour {
 	float alpha = 0f;
 	int dir = 1;
 
+	public float max  = 1f;
+	public float min = 0f;
+	public float speed = 1f;
+
 	CanvasGroup group;
 
 	// Use this for initialization
 	void Start () {
+		alpha = min;
 		group = GetComponent<CanvasGroup> ();
 	}
 	
@@ -20,12 +25,12 @@ public class FadeInOut : MonoBehaviour {
 		if (fixedTime) {
 			time = Time.fixedDeltaTime;
 		}
-		alpha += dir * Constants.FADE_SPEED * time * 2f;
-		alpha = Mathf.Clamp01 (alpha); 
-		if(alpha >= 1f || alpha <= 0f){
+		alpha += dir * speed * time;
+
+		if(alpha >= max || alpha <= min){
 			dir*=-1;
 		}
-
+		alpha = Mathf.Clamp01 (alpha); 
 		group.alpha = alpha;
 
 	}

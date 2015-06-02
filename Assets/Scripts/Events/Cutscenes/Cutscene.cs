@@ -1,7 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum CutsceneIdentifyier {SanctuaryLightGem,FirstPlanetBoarHunting,FirstPlanetShintoDoor,FirstPlanetFallingFromTheBridge,FirstPlanetToTheBridge,FirstPlanetToTheBridge2};
+public enum CutsceneIdentifyier {
+	SanctuaryLightGem,
+	FirstPlanetBoarHunting,
+	FirstPlanetShintoDoor,
+	FirstPlanetFallingFromTheBridge,
+	FirstPlanetToTheBridge,
+	FirstPlanetToTheBridge2,
+	FirstPlanetPathBlockedStones,
+	FirstPlanetCorruptionSeeping};
 
 abstract public class Cutscene: MonoBehaviour  {
 

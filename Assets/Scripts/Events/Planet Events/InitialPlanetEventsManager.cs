@@ -12,6 +12,8 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 	public GameObject toTheBridge2GO;
 	public GameObject bridgeFallGO;
 	public GameObject lightGemGO;
+	public GameObject rocksBlockingPathGO;
+	public GameObject corruptionSeepingGO;
 
 	bool firstCinematicPlayed = false;
 	bool hasBeenActivated = false;
@@ -46,6 +48,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 				GUIManager.deactivateMinimapGUI();
 				boarHuntingGO.GetComponent<Cutscene>().isActive = false;
 				boarHuntingGO.GetComponent<Cutscene> ().Initialize ();
+				rocksBlockingPathGO.GetComponent<FirstPlanetBlockPathRocks>().rocks.SetActive(false);
 			}else{
 				boarHuntingGO.GetComponent<FirstPlanetBoarHunting>().boar.SetActive(false);
 				boarHuntingGO.SetActive(false);
@@ -115,10 +118,14 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 				boarHuntingGO.SetActive (true);
 				boarHuntingGO.GetComponent<Cutscene>().isActive = true;
 				shintoDoorGO.GetComponent<FirstPlanetShintoDoor>().isActive = true;
-				yield return new WaitForSeconds (7f);
+
+				GUIManager.setTutorialText("Muevete con 'Espacio','A' y 'D'");
+				GUIManager.activateTutorialText();
+				yield return new WaitForSeconds (5f);
+				GUIManager.deactivateTutorialText();
+				yield return new WaitForSeconds (2f);
 				littleGHopper.GetComponent<CharacterController> ().StopMoving ();
 				littleGHopper.GetComponentInChildren<Animator> ().SetBool ("isWalking", false);
-
 			}
 		}
 	}
@@ -126,8 +133,45 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 	//Cinematic that corresponds to the boar hunting event
 	IEnumerator boarHuntingCinematic(){
 		if(isEnabled){
+			GUIManager.deactivateTutorialText();
 			boarHuntingGO.GetComponent<FirstPlanetBoarHunting>().makeBoarGoAway();
 			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Un Jabali!", 2f, false, false);
+			yield return null;
+		}
+	}
+
+	//Cinematic that corresponds to the boar hunting event
+	IEnumerator rocksBlockingPathCinematic(){
+		if(isEnabled){
+			GameManager.inputController.disableInputController ();
+			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Mh...", 1f, false, false);
+			yield return StartCoroutine(WaitInterruptable (1f,bigPappadaDialogue));
+			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Estas piedras \n bloquean el camino", 3f, false, false);
+			yield return StartCoroutine(WaitInterruptable (3f,bigPappadaDialogue));
+			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Tendre que encontrar \n una forma de romperlas! ", 3f, false, false);
+			yield return StartCoroutine(WaitInterruptable (3f,bigPappadaDialogue));
+			rocksBlockingPathGO.GetComponent<FirstPlanetBlockPathRocks>().isActive = false;
+			GameManager.inputController.enableInputController ();
+			GUIManager.setTutorialText("Pulsa 'Izquierda' para realizar ataques \n y romper las rocas!");
+			GUIManager.activateTutorialText();
+		}
+	}
+
+	IEnumerator corruptionSeepingCinematic(){
+		if(isEnabled){
+			GameManager.inputController.disableInputController ();
+			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Argh", 1f, true, false);
+			yield return StartCoroutine(WaitInterruptable (1f,bigPappadaDialogue));
+			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("La corrupcion ha \n llegado hasta aqui!", 3f, true, false);
+			yield return StartCoroutine(WaitInterruptable (3f,bigPappadaDialogue));
+			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Quizas si paso rapido \n no me afectara! ", 3f, false, false);
+			yield return StartCoroutine(WaitInterruptable (3f,bigPappadaDialogue));
+			GameManager.inputController.enableInputController ();
+			GUIManager.setTutorialText("Pulsa 'Derecha' para realizar un dash \n y atravesar la corrupcion!");
+			GUIManager.activateTutorialText();
+			corruptionSeepingGO.GetComponent<FirstPlanetCorruptionSeeping>().isActive = false;
+			yield return new WaitForSeconds (4f);
+			GUIManager.deactivateTutorialText();
 			yield return null;
 		}
 	}
@@ -206,6 +250,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			littleGHopper.SetActive(false);
 			bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().fallenRocks.SetActive(true);
 			GUIManager.fadeOut(null);
+			rocksBlockingPathGO.GetComponent<FirstPlanetBlockPathRocks>().rocks.SetActive(true);
 			GameManager.audioManager.playSong(3);
 			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¿Donde estoy? \n ¿Que es este lugar?", 3f, false, false);
 			yield return StartCoroutine(WaitInterruptable (3f,bigPappadaDialogue));
@@ -297,6 +342,12 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 		}
 	}
 
+	public override void planetCleansed(){
+		if(isEnabled){
+			corruptionSeepingGO.GetComponent<FirstPlanetCorruptionSeeping>().corruptionSeeping.SetActive(false);
+		}
+	}
+
 	public override void informEventActivated (CutsceneIdentifyier identifyier){
 		if(isEnabled){
 			if(identifyier.Equals(CutsceneIdentifyier.FirstPlanetBoarHunting)){
@@ -309,6 +360,10 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 				StartCoroutine("toTheBridge2Cinematic");
 			}else if(identifyier.Equals(CutsceneIdentifyier.FirstPlanetFallingFromTheBridge)){
 				StartCoroutine("fallFromBridgeCinematic");
+			}else if(identifyier.Equals(CutsceneIdentifyier.FirstPlanetPathBlockedStones)){
+				StartCoroutine("rocksBlockingPathCinematic");
+			}else if(identifyier.Equals(CutsceneIdentifyier.FirstPlanetCorruptionSeeping)){
+				StartCoroutine("corruptionSeepingCinematic");
 			}else if(identifyier.Equals(CutsceneIdentifyier.SanctuaryLightGem)){
 				StartCoroutine("lightgemCinematic");
 			}

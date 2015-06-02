@@ -10,6 +10,7 @@ public class SpaceGravityBody : GravityBody {
 	protected bool isFallingIntoPlanet = false;
 	public float dragMultiplyierOnCloseOrbit = 5f;
 	public float massOnJump;
+	public bool isPlayer = false;
 	private float originalMass;
 	private bool isStatic = false;
 	private GameObject closestPlanet;
@@ -22,7 +23,9 @@ public class SpaceGravityBody : GravityBody {
 	public override void checkTouchEnter(GameObject obj){
 		if (obj.tag == "Planet" || obj.tag == "Enemy") {
 			collidingObjects.Add (obj);
-			GUIManager.deactivateSpaceJumpGUI();
+			if(isPlayer){
+				GUIManager.deactivateSpaceJumpGUI();
+			}
 			if(usesSpaceGravity){
 				//Just landed from spaceJump
 				GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);
@@ -65,13 +68,17 @@ public class SpaceGravityBody : GravityBody {
 				}
 				if(distance<minimumPlanetDistance){
 					minimumPlanetDistance = distance;
-					setClosestPlanet(planet);
+					if(isPlayer){
+						setClosestPlanet(planet);
+					}
 				}
 			}
 			
 			if (closePlanets == 0) 
 			{
-				setClosestPlanet(null);
+				if(isPlayer){
+					setClosestPlanet(null);
+				}
 				usesSpaceGravity = true;
 				isOutsideAthmosphere = true;
 				GetComponent<Rigidbody>().drag = 0f;
@@ -120,7 +127,9 @@ public class SpaceGravityBody : GravityBody {
 	public void setIsOrbitingAroundPlanet(bool orbiting){
 		isOrbitingAroundPlanet = orbiting;
 		if (!orbiting) {
-			GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().unfollowObjective();
+			if(isPlayer){
+				GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().unfollowObjective();
+			}
 		}
 	}
 	

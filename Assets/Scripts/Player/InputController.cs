@@ -175,6 +175,7 @@ public class InputController : MonoBehaviour {
 				}
 			}
 		}
+
 	}
 
 	bool isCharacterAllowedToJump(){

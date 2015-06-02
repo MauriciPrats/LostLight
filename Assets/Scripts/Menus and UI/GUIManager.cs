@@ -15,7 +15,8 @@ public enum Menu{None,
 				CraftingMenu,
 				InteractuablePopup,
 				OnPauseMenu,
-				BlackMenu
+				BlackMenu,
+				TutorialMenu
 			    };
 
 public class GUIManager : MonoBehaviour {
@@ -40,6 +41,9 @@ public class GUIManager : MonoBehaviour {
 	private static GameObject playingGUIO;
 	private static GameObject spaceJumpGUIO;
 	private static GameObject blackMenuO;
+	private static GameObject tutorialMenuO;
+
+	private static Text tutorialText;
 
 	private static GameObject corruptionBar;
 	private static GameObject minimapGUI;
@@ -218,6 +222,15 @@ public class GUIManager : MonoBehaviour {
 		}
 	}
 
+	public static void registerTutorialMenu(GameObject tutorialMenuGO){
+		if(tutorialMenuGO!=null && tutorialMenuO == null){
+			tutorialMenuO = GameObject.Instantiate (tutorialMenuGO) as GameObject;
+			tutorialText = tutorialMenuO.GetComponentInChildren<Text>();
+			tutorialMenuO.SetActive (false);
+		}
+	}
+
+
 	public static void activatePlayingGUIWithFadeIn(){
 		playingGUIO.SetActive (true);
 		fadeManager.fadeInCoroutine (playingGUIO,null,2f);
@@ -225,6 +238,18 @@ public class GUIManager : MonoBehaviour {
 
 	public static void deactivatePlayingGUI(){
 		playingGUIO.SetActive (false);
+	}
+
+	public static void activateTutorialText(){
+		tutorialMenuO.SetActive (true);
+	}
+
+	public static void deactivateTutorialText(){
+		tutorialMenuO.SetActive (false);
+	}
+
+	public static void setTutorialText(string text){
+		tutorialText.text = text;
 	}
 
 	

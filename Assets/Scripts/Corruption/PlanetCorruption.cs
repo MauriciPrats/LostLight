@@ -59,6 +59,13 @@ public class PlanetCorruption : MonoBehaviour {
 		spawningEnabled = false;
 		GUIManager.deactivateCorruptionBarC ();
 		GUIManager.activateMinimapGUI();
+
+		if(GameManager.playerSpaceBody.getClosestPlanet()!=null){
+			if(GameManager.playerSpaceBody.getClosestPlanet().isPlanetCorrupted()){
+				(GameManager.playerSpaceBody.getClosestPlanet() as PlanetCorrupted).getPlanetEventsManager().planetCleansed();
+			}
+		}
+
 	}
 
 	public void corrupt(){
@@ -106,7 +113,9 @@ public class PlanetCorruption : MonoBehaviour {
 		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().returnOriginalZ ();
 		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().resetObjective ();
 		GUIManager.activateMinimapGUI();
-		
+		if(GameManager.playerSpaceBody.getClosestPlanet().isPlanetCorrupted()){
+			(GameManager.playerSpaceBody.getClosestPlanet() as PlanetCorrupted).getPlanetEventsManager().planetCleansed();
+		}
 		GameManager.audioManager.playSong(1);
 	}
 	// Update is called once per frame

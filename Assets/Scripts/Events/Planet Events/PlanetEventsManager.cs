@@ -10,6 +10,7 @@ abstract public class PlanetEventsManager : MonoBehaviour {
 	public abstract void initialize ();
 	public abstract void isActivated ();
 	public abstract void startButtonPressed ();
+	public abstract void planetCleansed ();
 
 	private bool isInterrupted = false;
 
