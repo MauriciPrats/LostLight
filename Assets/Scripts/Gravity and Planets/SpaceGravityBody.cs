@@ -60,6 +60,7 @@ public class SpaceGravityBody : GravityBody {
 			transform.parent = null;
 			int closePlanets = 0;
 			minimumPlanetDistance = float.MaxValue;
+			GameObject closestTMP = null;
 			foreach (GameObject planet in planets) {
 				GravityAttractor gravityAttractor = planet.GetComponent<GravityAttractor> ();
 				float distance = 0f;
@@ -68,9 +69,7 @@ public class SpaceGravityBody : GravityBody {
 				}
 				if(distance<minimumPlanetDistance){
 					minimumPlanetDistance = distance;
-					if(isPlayer){
-						setClosestPlanet(planet);
-					}
+					closestTMP = planet;
 				}
 			}
 			
@@ -86,6 +85,9 @@ public class SpaceGravityBody : GravityBody {
 				setIsOrbitingAroundPlanet(false);
 			}else{
 				isOutsideAthmosphere = false;
+				if(isPlayer){
+					setClosestPlanet(closestTMP);
+				}
 				if(isGettingOutOfOrbit){
 					GetComponent<Rigidbody>().drag = 0f;
 				}else if(usesSpaceGravity){
@@ -163,13 +165,13 @@ public class SpaceGravityBody : GravityBody {
 
 	//Sets the gameObject as the closest planet, and activates or deactivates the planets accordingly
 	private void setClosestPlanet(GameObject closestPlanet){
-		if(closestPlanet!=null){
+		if(closestPlanet!=null && closestPlanet!=this.closestPlanet){
 			if(this.closestPlanet!=null){
 				this.closestPlanet.GetComponent<Planet> ().deactivate();
 			}
 			this.closestPlanet = closestPlanet;
 			this.closestPlanet.GetComponent<Planet> ().activate ();
-		}else{
+		}else if(closestPlanet!=this.closestPlanet){
 			this.closestPlanet.GetComponent<Planet> ().deactivate();
 			this.closestPlanet = closestPlanet;
 		}

@@ -10,6 +10,7 @@ public class PlanetCorruption : MonoBehaviour {
 	public Material material;
 	public float yMin = -3f;
 	public float yMax = 30f;
+	public bool startCorrupted = true;
 
 	public float speed = 5f;
 	public float particlesOnPurificationSpeed = 5f;
@@ -35,6 +36,10 @@ public class PlanetCorruption : MonoBehaviour {
 		if(particlesOnDescorrupt!=null){
 			particlesOnDescorrupt.startSpeed = particlesOnPurificationSpeed;
 			particlesOnDescorrupt.startLifetime = ((float)(yMax-yMin))/Mathf.Abs (particlesOnPurificationSpeed);
+		}
+		if(!startCorrupted){
+			setCorruptionToClean();
+			GetComponent<PlanetSpawnerManager> ().deactivate();
 		}
 	}
 
@@ -116,6 +121,7 @@ public class PlanetCorruption : MonoBehaviour {
 		if(GameManager.playerSpaceBody.getClosestPlanet().isPlanetCorrupted()){
 			(GameManager.playerSpaceBody.getClosestPlanet() as PlanetCorrupted).getPlanetEventsManager().planetCleansed();
 		}
+		GameManager.gameState.canPlayerSpaceJump = true;
 		GameManager.audioManager.playSong(1);
 	}
 	// Update is called once per frame
@@ -151,5 +157,12 @@ public class PlanetCorruption : MonoBehaviour {
 
 	public bool getSpawningEnabled(){
 		return spawningEnabled;
+	}
+	public bool isCorrupted(){
+		if(direction>=1f){
+			return false;
+		}else{
+			return true;
+		}
 	}
 }

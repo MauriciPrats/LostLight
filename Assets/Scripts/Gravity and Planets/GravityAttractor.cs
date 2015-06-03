@@ -146,14 +146,14 @@ public class GravityAttractor : MonoBehaviour {
 					}
 					objectToAttract.parent = transform;
 				}
-				
-				if(body.getIsGettingOutOfOrbit()){
-					hasToAddForce = false;
-				}
+
 				
 				float ratio = 1f-(distance / gravityDistance);
 				forceToAdd *=Constants.GRAVITY_MULTIPLYIER_ON_SPACE_JUMPS * ratio;
 
+			}
+			if(body.getIsGettingOutOfOrbit()){
+				hasToAddForce = false;
 			}
 			if(hasToAddForce && applyForce){
 				objectToAttract.GetComponent<Rigidbody>().AddForce (targetDir * forceToAdd ,ForceMode.VelocityChange);

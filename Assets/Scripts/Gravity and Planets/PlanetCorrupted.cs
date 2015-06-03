@@ -20,7 +20,9 @@ public class PlanetCorrupted : Planet {
 	}
 
 	protected override void virtualActivate(){
-		planetSpawnerManager.activate ();
+		if(planetCorruption.isCorrupted()){
+			planetCorruption.activateSpawning();
+		}
 	}
 
 	protected override void virtualDeactivate(){

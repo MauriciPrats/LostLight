@@ -49,6 +49,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 				boarHuntingGO.GetComponent<Cutscene>().isActive = false;
 				boarHuntingGO.GetComponent<Cutscene> ().Initialize ();
 				rocksBlockingPathGO.GetComponent<FirstPlanetBlockPathRocks>().rocks.SetActive(false);
+				GameManager.gameState.canPlayerSpaceJump = false;
 			}else{
 				boarHuntingGO.GetComponent<FirstPlanetBoarHunting>().boar.SetActive(false);
 				boarHuntingGO.SetActive(false);
@@ -133,7 +134,6 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 	//Cinematic that corresponds to the boar hunting event
 	IEnumerator boarHuntingCinematic(){
 		if(isEnabled){
-			GUIManager.deactivateTutorialText();
 			boarHuntingGO.GetComponent<FirstPlanetBoarHunting>().makeBoarGoAway();
 			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Un Jabali!", 2f, false, false);
 			yield return null;
@@ -303,13 +303,15 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			GameManager.playerAnimator.SetBool("isChargingSpaceJumping",true);
 			yield return new WaitForSeconds(2f);
 			float originalForce = GameManager.player.GetComponent<PlayerController>().spaceJumpForce;
-			GameManager.player.GetComponent<PlayerController>().spaceJumpForce = 25f;
-			GameManager.player.GetComponent<PlayerController>().SpaceJump(GameManager.player.transform.up);
+			GameManager.player.GetComponent<PlayerController>().spaceJumpForce = 30f;
+			Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"),LayerMask.NameToLayer("Planets"),true);
+			GameManager.player.GetComponent<PlayerController>().SpaceJump(GameManager.player.transform.up,false);
 			GUIManager.deactivateSpaceJumpGUI();
 			GameManager.player.GetComponent<PlayerController>().spaceJumpForce = originalForce;
 			bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().fallenRocks.GetComponentInChildren<ParticleSystem>().Play();
 			lightGemGO.GetComponent<SanctuaryLightGem>().rocksGO.GetComponentInChildren<ParticleSystem>().Play();
 			yield return new WaitForSeconds(1f);
+			Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"),LayerMask.NameToLayer("Planets"),false);
 			GameManager.player.GetComponent<CharacterController>().Move(1f);
 			bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().fallenRocks.SetActive(false);
 			bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().fallenRocksAfter.SetActive(true);
@@ -338,7 +340,6 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			StartCoroutine("initialCinematic");
 		}else{
 			GUIManager.activatePlayingGUIWithFadeIn();
-			GetComponent<PlanetCorruption>().activateSpawning();
 		}
 	}
 

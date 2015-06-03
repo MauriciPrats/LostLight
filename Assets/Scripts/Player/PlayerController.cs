@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour {
 	private Killable killable;
 	private float timeHasNotBeenBreathing;
 	private PappadaController pappadaC;
+	private bool canDrownInSpace = true;
 
 
 
@@ -118,6 +119,7 @@ public class PlayerController : MonoBehaviour {
 		isFinishedSpaceJump = true;
 		flyParticles.Stop();
 		body.setIsGettingOutOfOrbit (false);
+		canDrownInSpace = true;
 	}
 
 
@@ -144,7 +146,7 @@ public class PlayerController : MonoBehaviour {
 		}
 
 
-		if(body.getIsOutsideAthmosphere()){
+		if(body.getIsOutsideAthmosphere() && canDrownInSpace){
 			//breathingBubble.SetActive(true);
 			//GUIManager.activateSpaceJumpGUI();
 			//rigidbody.velocity = rigidbody.velocity.normalized * (Constants.GRAVITY_FORCE_OF_PLANETS/1.5f);
@@ -223,9 +225,10 @@ public class PlayerController : MonoBehaviour {
 		GUIManager.deactivateCorruptionBar ();
 	}
 
-	public void SpaceJump(Vector3 direction){
+	public void SpaceJump(Vector3 direction,bool isGettingOut){
 		lineJumpDirection = direction;
 		SpaceJump ();
+		body.setIsGettingOutOfOrbit (isGettingOut);
 	}
 
 	public void Jump() {
@@ -371,4 +374,7 @@ public class PlayerController : MonoBehaviour {
 		return isChargingSpaceJump;
 	}
 
+	public void setCanDrownInSpace(bool cdis){
+		canDrownInSpace = cdis;
+	}
 }

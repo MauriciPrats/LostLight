@@ -13,12 +13,15 @@ public class GameState{
 
 	public bool arePlanetsMoving;
 
+	public bool canPlayerSpaceJump;
+
 	private void initializeGameState(){
 		playerLastCheckpoint = 0;
 		isGameEnded = true;
 		isCameraLockedToPlayer = true;
 		isGamePaused = false;
 		arePlanetsMoving = true;
+		canPlayerSpaceJump = true;
 	}
 
 	public GameState(){
