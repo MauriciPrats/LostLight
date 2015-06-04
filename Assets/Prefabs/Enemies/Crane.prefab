@@ -3157,6 +3157,12 @@ MonoBehaviour:
   patrolTimeToTurn: 1.5
   maxDistancePlayer: 20
   minDistanceMeleeAttack: .200000003
+  timeBetweenGroundRaycast: .100000001
+  preferredHeight: 3
+  upSpeed: 2
+  planetsMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &11422310
 MonoBehaviour:
   m_ObjectHideFlags: 1

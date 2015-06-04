@@ -143,6 +143,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 	//Cinematic that corresponds to the boar hunting event
 	IEnumerator rocksBlockingPathCinematic(){
 		if(isEnabled){
+			rocksBlockingPathGO.GetComponent<FirstPlanetBlockPathRocks>().isActive = false;
 			GameManager.inputController.disableInputController ();
 			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Mh...", 1f, false, false);
 			yield return StartCoroutine(WaitInterruptable (1f,bigPappadaDialogue));
@@ -150,7 +151,6 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			yield return StartCoroutine(WaitInterruptable (3f,bigPappadaDialogue));
 			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Tendre que encontrar \n una forma de romperlas! ", 3f, false, false);
 			yield return StartCoroutine(WaitInterruptable (3f,bigPappadaDialogue));
-			rocksBlockingPathGO.GetComponent<FirstPlanetBlockPathRocks>().isActive = false;
 			GameManager.inputController.enableInputController ();
 			GUIManager.setTutorialText("Pulsa 'Izquierda' para realizar ataques \n y romper las rocas!");
 			GUIManager.activateTutorialText();
@@ -159,6 +159,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 
 	IEnumerator corruptionSeepingCinematic(){
 		if(isEnabled){
+			corruptionSeepingGO.GetComponent<FirstPlanetCorruptionSeeping>().isActive = false;
 			GameManager.inputController.disableInputController ();
 			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Argh", 1f, true, false);
 			yield return StartCoroutine(WaitInterruptable (1f,bigPappadaDialogue));
@@ -169,7 +170,6 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			GameManager.inputController.enableInputController ();
 			GUIManager.setTutorialText("Pulsa 'Derecha' para realizar un dash \n y atravesar la corrupcion!");
 			GUIManager.activateTutorialText();
-			corruptionSeepingGO.GetComponent<FirstPlanetCorruptionSeeping>().isActive = false;
 			yield return new WaitForSeconds (4f);
 			GUIManager.deactivateTutorialText();
 			yield return null;
