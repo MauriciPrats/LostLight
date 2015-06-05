@@ -284,10 +284,27 @@ public class IAController : MonoBehaviour {
 			
 			GetComponent<Killable> ().TakeDamage (hurtAmmount);
 			iaAnimator.SetTrigger("isHurt");
+			StartCoroutine(hurtAnimationReset());
 			if(GetComponent<Killable>().isDead()){
 				die(false);
 			}
 		}
+		virtualGetHurt();
+	}
+
+	private IEnumerator hurtAnimationReset(){
+		yield return 0.5f;
+		iaAnimator.ResetTrigger("isHurt");
+	}
+
+	void OnCollisionEnter(Collision collision){
+		virtualOnCollisionEnter (collision);
+	}
+	protected virtual void virtualOnCollisionEnter(Collision collision){
+
+	}
+	protected virtual void virtualGetHurt(){
+
 	}
 
 	//Method called upon the enemy's death

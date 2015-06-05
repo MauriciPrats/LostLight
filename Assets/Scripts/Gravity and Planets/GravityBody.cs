@@ -98,4 +98,8 @@ public class GravityBody : MonoBehaviour {
 	public void setHasToApplyForce(bool apply){
 		hasToApplyForce = apply;
 	}
+
+	public bool getHasToApplyForce(){
+		return hasToApplyForce;
+	}
 }

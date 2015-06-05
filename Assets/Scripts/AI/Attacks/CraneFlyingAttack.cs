@@ -9,15 +9,28 @@ public class CraneFlyingAttack : Attack {
 	private GameObject parent;
 	private Animator iaAnimator;
 	private OutlineChanging outlineChanger;
-	
+	private bool isActive = false;
+	public float timeToChargeAttack = 1f;
+
 	private Vector3 playerOriginalPosition;
 	
 	public override void initialize(){
 		attackType = AttackType.CraneFlyingAttack;
 	}
 	
-	public override void enemyCollisionEnter(GameObject enemy){
-		GameManager.player.GetComponent<PlayerController> ().getHurt (damage);
+	public override void otherCollisionEnter(GameObject enemy){
+		if(isActive && enemy.tag.Equals("Player") && !isFinished){
+			isActive = false;
+			GameManager.player.GetComponent<PlayerController> ().getHurt (damage);
+		}
+	}
+
+	public void onHitGround(){
+		parent.GetComponent<IAControllerCrane> ().resetActionToCallOnTouchGround ();
+		outlineChanger.setOutlineColor (Color.black);
+		iaAnimator.SetBool ("isFlyingAttacking", false);
+		isFinished = true;
+		parent.GetComponent<IAControllerCrane> ().resetOriginalPreferredHeight ();
 	}
 	
 	public override void startAttack(){
@@ -26,7 +39,20 @@ public class CraneFlyingAttack : Attack {
 	}
 	
 	private IEnumerator doAttack(){
-		yield return null;
+
+		iaAnimator.SetBool ("isFlyingAttacking", true);
+		parent.GetComponent<IAControllerCrane> ().preferredHeight = 0f;
+		parent.GetComponent<IAControllerCrane> ().upSpeed = 2f;
+
+		float timer = 0f;
+		while(timer<timeToChargeAttack){
+			timer+=Time.deltaTime;
+			float ratio = timer/timeToChargeAttack;
+			outlineChanger.setOutlineColor(Color.Lerp(Color.black,Color.red,ratio));
+			yield return null;
+		}
+		parent.GetComponent<IAControllerCrane> ().setActionToCallOnTouchGround (onHitGround);
+		isActive = true;
 	}
 	
 	
