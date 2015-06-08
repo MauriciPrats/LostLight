@@ -85,8 +85,16 @@ public class InputController : MonoBehaviour {
 			}
 
 			//SPECIAL ATTACK BUTTON
-			if (Input.GetButton("Special Attack") && isCharacterAllowedToDoSpecialAttack()) {
-				if(Mathf.Abs(Input.GetAxisRaw("Vertical"))>Mathf.Abs(Input.GetAxisRaw("Horizontal"))){
+			if (isCharacterAllowedToDoSpecialAttack()) {
+				Attack kameDir = attackController.getAttack(sidesSpecialAttack);
+				if(Input.GetButtonDown("Special Attack")){
+					attackController.doAttack(sidesSpecialAttack,true);
+				}else if(Input.GetButtonUp("Special Attack")){
+					kameDir.buttonReleased();
+				}else if(kameDir.canReceiveInputDirections()){
+					kameDir.receiveInputDirections(Input.GetAxis("Vertical"),Input.GetAxis("Horizontal"));
+				}
+				/*if(Mathf.Abs(Input.GetAxisRaw("Vertical"))>Mathf.Abs(Input.GetAxisRaw("Horizontal"))){
 					if(Input.GetAxis("Vertical")>0.5f){
 						attackController.doAttack(upSpecialAttack,true);
 					}else if(Input.GetAxis("Vertical")<-0.5f){
@@ -94,7 +102,8 @@ public class InputController : MonoBehaviour {
 					}
 				}else{
 					attackController.doAttack(sidesSpecialAttack,true);
-				}
+				}*/
+
 			}
 
 			//JUMP BUTTON
@@ -125,15 +134,6 @@ public class InputController : MonoBehaviour {
 					}
 				}
 			}
-
-
-
-			//BLOCK BUTTON
-			/*if(Input.GetButton("Block") && isSpaceJumpCharged){
-				CancelChargingSpaceJump();
-			}else if(Input.GetButton("Block") && isCharacterAllowedToDash()){
-				attackController.doDash();
-			}*/
 
 			if (Input.GetButton("Block")) {
 				Interactuable entity = EntityManager.getClosestInteractuable();
@@ -167,6 +167,7 @@ public class InputController : MonoBehaviour {
 				}
 			}
 		}else if(!isEnabled){
+			attackController.interruptActualAttacks();
 			if (Input.GetButtonUp("Jump")){
 				//If it's not enabled, interrupt any ongoing cinematic 
 				Planet actualPlanet = GameManager.playerSpaceBody.getClosestPlanet();
@@ -175,7 +176,6 @@ public class InputController : MonoBehaviour {
 				}
 			}
 		}
-
 	}
 
 	bool isCharacterAllowedToJump(){
@@ -206,6 +206,8 @@ public class InputController : MonoBehaviour {
 	bool isCharacterAllowedToMove(){
 		if(GetComponent<CharacterAttackController>().isDoingAnyAttack() && !character.getIsJumping()){
 			return false;
+		}else if(attackController.isMovementLocked()){
+			return false;
 		}
 		return true;
 	}
@@ -220,14 +222,14 @@ public class InputController : MonoBehaviour {
 	}
 
 	bool isCharacterAllowedToDoNormalAttack(){
-		if(GetComponent<CharacterAttackController>().isDoingAnyAttack()){
+		if(!GetComponent<CharacterAttackController>().canDoAttack()){
 			return false;
 		}
 		return true;
 	}
 
 	bool isCharacterAllowedToDash(){
-		if(attackController.isDoingAnyAttack()){
+		if(!attackController.canDoAttack()){
 			return false;
 		}else if(attackController.isDoingDash() || attackController.isDashOnCooldown()){
 			return false;

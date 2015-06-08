@@ -116,10 +116,12 @@ public class BoarChargeAttack : Attack {
 
 	
 	public override void interruptAttack(){
-		chargeParticles.GetComponent<ParticleSystem> ().Stop ();
-		whileChargingParticles.GetComponent<ParticleSystem> ().Stop ();
-		outlineChanger.setOutlineColor (Color.black);
-		GetComponent<Collider> ().enabled = false;
+		if(parent!=null){
+			chargeParticles.GetComponent<ParticleSystem> ().Stop ();
+			whileChargingParticles.GetComponent<ParticleSystem> ().Stop ();
+			outlineChanger.setOutlineColor (Color.black);
+			GetComponent<Collider> ().enabled = false;
+		}
 	}
 
 	public override void informParent(GameObject parentObject){

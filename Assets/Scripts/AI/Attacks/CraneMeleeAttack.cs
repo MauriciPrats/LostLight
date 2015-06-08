@@ -11,6 +11,7 @@ public class CraneMeleeAttack : Attack {
 	private OutlineChanging outlineChanger;
 	public float timeToChargeAttack = 1f;
 	private bool isPlayerInRange = false;
+	private bool interrupted = false;
 	
 	private Vector3 playerOriginalPosition;
 	
@@ -41,19 +42,24 @@ public class CraneMeleeAttack : Attack {
 	}
 	
 	private IEnumerator doAttack(){
+		interrupted = false;
 		iaAnimator.SetTrigger ("isDoingMeleeAttack");
 		float timer = 0f;
-		while(timer<timeToChargeAttack){
+		while(timer<timeToChargeAttack && !interrupted){
 			timer+=Time.deltaTime;
 			float ratio = timer/timeToChargeAttack;
 			outlineChanger.setOutlineColor(Color.Lerp(Color.black,Color.red,ratio));
 			yield return null;
 		}
-		if(isPlayerInRange){
+		if(isPlayerInRange && !interrupted){
 			doDamage();
 		}
 		outlineChanger.setOutlineColor (Color.black);
 		isFinished = true;
+	}
+
+	public override void interruptAttack(){
+		interrupted = true;
 	}
 	
 	

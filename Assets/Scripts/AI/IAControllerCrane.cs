@@ -77,6 +77,7 @@ public class IAControllerCrane : IAController {
 	}
 
 	protected override void virtualGetHurt(){
+		attackController.interruptActualAttacks ();
 		actualBehaviour = ActualBehaviour.FlyingFalling;
 		iaAnimator.SetBool ("isFlying",false);
 		GetComponent<GravityBody> ().setHasToApplyForce (true);
@@ -91,7 +92,7 @@ public class IAControllerCrane : IAController {
 	}
 
 	protected override void virtualOnCollisionEnter(Collision collision){
-		if(collision.gameObject.layer.Equals(LayerMask.NameToLayer("Planets"))){
+		if(collision.gameObject.layer.Equals(LayerMask.NameToLayer("Planets")) || collision.gameObject.layer.Equals(LayerMask.NameToLayer("Enemy"))){
 			if(actionToCallOnTouchGround!=null){
 				actionToCallOnTouchGround();
 			}else if(!attackController.isDoingAnyAttack() && GetComponent<GravityBody> ().getHasToApplyForce()){

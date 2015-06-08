@@ -1494,6 +1494,7 @@ MonoBehaviour:
   - {fileID: 198698}
   - {fileID: 117406}
   onDeathLight: {fileID: 190320, guid: 1b14ff513f64b5c47a24d2bcf4e709e7, type: 2}
+  corruptionEffect: {fileID: 0}
   minimumDistanceSeePlayer: 50
   layersToFindCollision:
     serializedVersion: 2
@@ -1506,11 +1507,10 @@ MonoBehaviour:
   meleeRange: 1
   attackChoosingCooldown: 1
   attackChance: .200000003
-  numberOfLightsAvg: 1
   timeToChangeBehaviour: .100000001
   timeToDie: 2
   isDead: 0
-  rangedAttack: 9
+  rangedAttack: 10
   minimumDistanceInFront: .800000012
   patrolTimeToTurn: 1.5
   maxDistancePlayer: 20

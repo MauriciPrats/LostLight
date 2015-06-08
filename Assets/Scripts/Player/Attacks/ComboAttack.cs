@@ -98,7 +98,7 @@ public class ComboAttack : Attack, AnimationSubscriber {
 	}
 	
 	public override bool isAttackFinished(){
-		return isFinished || isComboable;
+		return isFinished;
 	}
 
 	public override bool canDoNextAttack()
@@ -107,7 +107,6 @@ public class ComboAttack : Attack, AnimationSubscriber {
 	}
 
 	public override void interruptAttack(){
-		Debug.Log ("aa");
 		endCombo ();
 	}
 

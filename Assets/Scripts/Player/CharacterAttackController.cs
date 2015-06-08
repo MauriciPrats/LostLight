@@ -2,7 +2,22 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public enum AttackType{Missiles,Kame,Shockwave,GuardBreaker,CounterAttack,OnAir,Combo,BoarFrontAttack,BoarChargeAttack,MonkeyBananaAttack,BurrowAttack,PenguinWhirlwindAttack,PenguinSlideMove,CraneFlyingAttack,CraneMeleeAttack};
+public enum AttackType{Missiles,
+					   Kame,
+					   KameDirectional,
+					   Shockwave,
+		               GuardBreaker,
+	                   CounterAttack,
+	                   OnAir,
+	                   Combo,
+	                   BoarFrontAttack,
+	                   BoarChargeAttack,
+	                   MonkeyBananaAttack,
+					   BurrowAttack,
+					   PenguinWhirlwindAttack,
+					   PenguinSlideMove,
+					   CraneFlyingAttack,
+					   CraneMeleeAttack};
 
 public class CharacterAttackController : MonoBehaviour {
 
@@ -87,6 +102,15 @@ public class CharacterAttackController : MonoBehaviour {
 		return false;
 	}
 
+	public bool isMovementLocked(){
+		foreach(Attack attack in attacksInCharacter){
+			if(attack.lockMovement()){
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public void doBlock() {
 		block.StartBlock();
 	}
@@ -97,6 +121,14 @@ public class CharacterAttackController : MonoBehaviour {
 		}
 
 		return false;
+	}
+
+	public bool canDoAttack(){
+		foreach(Attack attack in attacksInCharacter){
+			if(!attack.canDoNextAttack()){return false;}
+		}
+		
+		return true;
 	}
 
 	public void interruptActualAttacks(){

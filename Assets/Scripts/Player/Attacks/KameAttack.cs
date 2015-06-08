@@ -221,12 +221,13 @@ public class KameAttack : Attack,AnimationSubscriber {
 	void AnimationSubscriber.handleEvent(string idEvent) {
 		switch (idEvent) {
 		case "chargeStart": 
-			StartCoroutine("doKame");
+			if(!isFinished){
+				StartCoroutine("doKame");
+			}
 			break;
 		case "chargeEnd":
 			break;
 		default: 
-			
 			break;
 		}
 	}

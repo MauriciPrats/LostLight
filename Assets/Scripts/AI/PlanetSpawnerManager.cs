@@ -56,8 +56,8 @@ public class PlanetSpawnerManager : MonoBehaviour {
 				if(inRangeSpawners.Count>0){
 					Spawner randomSpawner = inRangeSpawners[Random.Range(0,inRangeSpawners.Count)];
 					EnemyType type;
-
-					ammountOfActualPointsSpawned+= randomSpawner.spawnRandomEnemy(onEnemyDead,onEnemyDespawned,out type,enemiesAmmount);
+					int ammountLeft = pointsUntilSealShintoDoor -(ammountOfActualPointsSpawned + accumulatedPoints);
+					ammountOfActualPointsSpawned+= randomSpawner.spawnRandomEnemy(onEnemyDead,onEnemyDespawned,out type,enemiesAmmount,ammountLeft);
 					if(!type.Equals(EnemyType.None)){
 						addEnemyType(type);
 					}
@@ -123,10 +123,8 @@ public class PlanetSpawnerManager : MonoBehaviour {
 		//It has despawned because it's superfar away
 		ammountOfActualPointsSpawned-=enemySpawned.pointsCost;
 		substractEnemyType (enemySpawned.enemyType);
-		//We despawn the enemy
-		Destroy(enemy);
-
 	}
+
 
 	/*public void shintoDoorEffect(int level){
 		if(level>lastLevelShintoActivated){

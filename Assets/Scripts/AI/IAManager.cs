@@ -22,6 +22,8 @@ public class IAManager : MonoBehaviour {
 
 	public void removeIA(IAController iaC){
 		actualIAs.Remove (iaC);
+		iaC.gameObject.SetActive (false);
+		Destroy (iaC.gameObject);
 	}
 
 	public void disableIAs(){

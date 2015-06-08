@@ -16,7 +16,7 @@ public class CharacterController : MonoBehaviour {
 	Vector3 moveAmount;
 
 	void FixedUpdate(){
-		Vector3 movement = moveAmount * Time.fixedDeltaTime;
+		Vector3 movement = moveAmount * Time.deltaTime;
 		moveAmount = (speed * Mathf.Abs (amount)) * this.transform.forward;
 
 		this.transform.position = new Vector3(this.transform.position.x + movement.x,this.transform.position.y + movement.y,this.transform.position.z);
