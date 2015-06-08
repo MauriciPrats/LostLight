@@ -213,23 +213,27 @@ public class InputController : MonoBehaviour {
 	}
 
 	bool isCharacterAllowedToDoSpecialAttack(){
-		/*if(character.getIsJumping()){
+		if(character.getIsSpaceJumping()){
 			return false;
-		}else */if(GetComponent<CharacterAttackController>().isDoingAnyAttack()){
+		}else if(GetComponent<CharacterAttackController>().isDoingAnyAttack()){
 			return false;
 		}
 		return true;
 	}
 
 	bool isCharacterAllowedToDoNormalAttack(){
-		if(!GetComponent<CharacterAttackController>().canDoAttack()){
+		if(character.getIsSpaceJumping()){
+			return false;
+		}else if(!GetComponent<CharacterAttackController>().canDoAttack()){
 			return false;
 		}
 		return true;
 	}
 
 	bool isCharacterAllowedToDash(){
-		if(!attackController.canDoAttack()){
+		if(character.getIsSpaceJumping()){
+			return false;
+		}else if(!attackController.canDoAttack()){
 			return false;
 		}else if(attackController.isDoingDash() || attackController.isDashOnCooldown()){
 			return false;
@@ -240,7 +244,9 @@ public class InputController : MonoBehaviour {
 	}
 
 	bool isCharacterAllowedToBlock(){
-		if (attackController.isDoingAnyAttack ()) {
+		if(character.getIsSpaceJumping()){
+			return false;
+		}else if (attackController.isDoingAnyAttack ()) {
 			return false;
 		}else if (attackController.isDoingBlock () || attackController.isBlockOnCooldown ()) {
 			return false;

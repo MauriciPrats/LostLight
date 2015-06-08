@@ -165,12 +165,16 @@ public class KameAttack : Attack,AnimationSubscriber {
 		}
 		StartCoroutine ("resetTrails");
 		timer = 0f;
-		while(timer<totalTimeLasts){
+		
+		
+		while(timer<totalTimeLasts) {
 			timer+=Time.deltaTime;
 			float ratio = (timer)/totalTimeLasts;
 			float magnitude = ratio * distance;
 			
-			Vector3 newPostion = kameEffect.transform.position + (kameEffect.transform.forward * distance * Time.deltaTime) ;
+			Vector3 newPostion = kameEffect.transform.position + (kameEffect.transform.forward * distance * Time.deltaTime);
+			
+			
 			kameEffect.transform.position = newPostion;
 			
 			//We rotate the object
@@ -183,6 +187,8 @@ public class KameAttack : Attack,AnimationSubscriber {
 			
 			yield return null;
 		}
+		
+		//end test
 		elementalParticleOnCharge.SetActive(false);
 		//THROW THE KAME END
 
@@ -202,6 +208,20 @@ public class KameAttack : Attack,AnimationSubscriber {
 			canDoNext = true;
 		}
 		//CLEAN THE KAME END
+	}
+
+	private Vector3 movecircle(float t) {
+		Vector3 move = new Vector3();
+		
+		if (t < 0.2f) {
+			move.x += distance*Time.deltaTime;
+		} else {
+			move.x += 1f* Mathf.Cos(t*10);
+			move.y += 1f* Mathf.Sin(t*10);
+			
+		}
+		
+		return move;
 	}
 
 	public override void startAttack(){

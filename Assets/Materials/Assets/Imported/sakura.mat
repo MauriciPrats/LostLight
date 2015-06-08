@@ -8,7 +8,7 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: sakura
   m_Shader: {fileID: 4800000, guid: af6e577fac5e6ba4c9e69f6a27e649c0, type: 3}
-  m_ShaderKeywords: _CORR_ON _OUTL_ON _TEX_ON
+  m_ShaderKeywords: _CORR_ON _DISS_ON _OUTL_ON _TEX_ON
   m_LightmapFlags: 5
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -128,12 +128,16 @@ Material:
         second: 111
       data:
         first:
+          name: _Dissolution
+        second: 1
+      data:
+        first:
           name: _BurningWidth
         second: 0
       data:
         first:
           name: _TileSize
-        second: .150000006
+        second: .140000001
       data:
         first:
           name: _Parallax
@@ -222,6 +226,34 @@ Material:
         first:
           name: _Corruption
         second: 1
+      data:
+        first:
+          name: _DissolveThreshold
+        second: 1
+      data:
+        first:
+          name: _InvFade
+        second: 1
+      data:
+        first:
+          name: _CenX
+        second: .5
+      data:
+        first:
+          name: _CenY
+        second: .5
+      data:
+        first:
+          name: _SDist
+        second: .00999999978
+      data:
+        first:
+          name: _Int
+        second: 1
+      data:
+        first:
+          name: _RInt
+        second: 1
     m_Colors:
       data:
         first:
@@ -231,6 +263,10 @@ Material:
         first:
           name: _Color
         second: {r: .360799998, g: .529399991, b: .250999987, a: 1}
+      data:
+        first:
+          name: _TintColor
+        second: {r: .5, g: .5, b: .5, a: .5}
       data:
         first:
           name: _OutlineColor
@@ -251,6 +287,14 @@ Material:
         first:
           name: _CorruptionColor
         second: {r: 0, g: 0, b: 0, a: .576470613}
+      data:
+        first:
+          name: _OriginalColor
+        second: {r: .5, g: .5, b: .5, a: .5}
+      data:
+        first:
+          name: _CorruptedColor
+        second: {r: .5, g: .5, b: .5, a: .5}
       data:
         first:
           name: _OriginCorruption
