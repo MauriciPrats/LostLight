@@ -3151,8 +3151,8 @@ MonoBehaviour:
   timeToChangeBehaviour: .100000001
   timeToDie: 2
   isDead: 0
-  meleeAttack: 14
-  flyingAttack: 13
+  meleeAttack: 15
+  flyingAttack: 14
   minimumDistanceInFront: .800000012
   patrolTimeToTurn: 1.5
   maxDistancePlayer: 20

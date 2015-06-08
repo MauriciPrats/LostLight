@@ -3,6 +3,11 @@ using System.Collections;
 
 public static class Util{
 
+	private static float originalTimeScale;
+	private static float originalFixedDeltaTime;
+	private static bool originalTimeScaleInitialized = false;
+
+
 	//Clockwise
 	public static float getPlanetaryAngleFromAToB(GameObject a,GameObject b){
 		if(a!=null && b!=null){
@@ -25,5 +30,14 @@ public static class Util{
 		}
 	}
 
+	public static void changeTime(float newTimeProportion){
+		if(!originalTimeScaleInitialized){
+			originalTimeScale = Time.timeScale;
+			originalFixedDeltaTime = Time.fixedDeltaTime;
+			originalTimeScaleInitialized = true;
+		}
+		Time.timeScale = newTimeProportion;
+		Time.fixedDeltaTime = newTimeProportion * originalFixedDeltaTime;
+	}
 
 }

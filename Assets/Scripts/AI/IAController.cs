@@ -349,7 +349,7 @@ public class IAController : MonoBehaviour {
 			yield return null;
 		}
 		GameManager.iaManager.removeIA(this);
-		Destroy(gameObject);
+		//Destroy(gameObject);
 	}
 
 	//Method to call after the enemy dies (To make it disappear)

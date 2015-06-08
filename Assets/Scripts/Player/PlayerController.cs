@@ -9,14 +9,14 @@ public class PlayerController : MonoBehaviour {
 	public float spaceJumpForce = 100f;
 	public GameObject particleSystemJumpCharge;
 	public GameObject animationBigPappada;
-	public GameObject breathingBubble;
+	//public GameObject breathingBubble;
 	public GameObject lightGemObject;
 	public GameObject playerTongueObject;
 	public GameObject playerNeckObject;
 	public float timeBetweenDamageWhenNotBreathing = 0.5f;
 	public int damageWhenNotBreathing = 1;
-	public float minimumBreathingBubbleScale = 6f;
-	public float maximumBreathingBubbleScale = 1f;
+	//public float minimumBreathingBubbleScale = 6f;
+	//public float maximumBreathingBubbleScale = 1f;
 
 
 	public float timeToDieInSpace = 4f;
@@ -84,13 +84,14 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	IEnumerator resetWeaponTrail(){
+		Xft.XWeaponTrail weaponTrail = weapon.GetComponentInChildren<Xft.XWeaponTrail> ();
 		//weapon.GetComponentInChildren<Xft.XWeaponTrail> ().Deactivate ();
 		//We reset the weapon trail because otherwise it will come out of big P original position in space
-		Color color = weapon.GetComponentInChildren<Xft.XWeaponTrail> ().MyColor ;
-		weapon.GetComponentInChildren<Xft.XWeaponTrail> ().MyColor = new Color (0f, 0f, 0f, 0f);
+		Color color = weaponTrail.MyColor ;
+		weaponTrail.MyColor = new Color (0f, 0f, 0f, 0f);
 		yield return new WaitForSeconds(1f);
-		weapon.GetComponentInChildren<Xft.XWeaponTrail> ().MyColor = color;
-		weapon.GetComponentInChildren<Xft.XWeaponTrail> ().Deactivate ();
+		weaponTrail.MyColor = color;
+		weaponTrail.Deactivate ();
 	}
 
 	private void initializeVariables(){
@@ -167,7 +168,7 @@ public class PlayerController : MonoBehaviour {
 				}else{
 					timeHasBeenInSpace += Time.deltaTime;
 					float ratio = 1f - (timeHasBeenInSpace/timeToDieInSpace);
-					float newScale = ((maximumBreathingBubbleScale - minimumBreathingBubbleScale) * ratio)+minimumBreathingBubbleScale;
+					//float newScale = ((maximumBreathingBubbleScale - minimumBreathingBubbleScale) * ratio)+minimumBreathingBubbleScale;
 					//breathingBubble.transform.localScale = new Vector3(newScale,newScale,newScale);
 				}
 			}

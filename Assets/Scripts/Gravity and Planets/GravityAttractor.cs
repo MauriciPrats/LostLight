@@ -179,6 +179,10 @@ public class GravityAttractor : MonoBehaviour {
 
 	}
 
+	public float getSphereRadius(){
+		return sphereRadius;
+	}
+
 	private Vector3 OrbiteAroundPoint(Vector3 point, Vector3 pivot, Quaternion angle) {
 		return angle * ( point - pivot) + pivot;
 	}

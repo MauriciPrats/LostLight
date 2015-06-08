@@ -553,7 +553,7 @@ ModelImporter:
       name: FlyAttack
       takeName: CraneArmature|CraneArmatureAction
       firstFrame: 241
-      lastFrame: 289
+      lastFrame: 285
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

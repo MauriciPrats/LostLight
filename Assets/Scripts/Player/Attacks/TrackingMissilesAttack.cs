@@ -160,7 +160,9 @@ public class TrackingMissilesAttack : Attack,AnimationSubscriber {
 	void AnimationSubscriber.handleEvent(string idEvent) {
 		switch (idEvent) {
 		case "start": 
-			StartCoroutine ("doTrackingMissilesAttack");
+			if(!isFinished){
+				StartCoroutine ("doTrackingMissilesAttack");
+			}
 			break;
 		case "end":
 			break;

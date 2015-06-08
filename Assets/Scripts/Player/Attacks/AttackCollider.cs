@@ -31,6 +31,7 @@ public class AttackCollider : MonoBehaviour {
 				attack.GetComponent<Attack>().enemyCollisionEnter(other.gameObject);
 			}else{
 				attack.GetComponent<Attack>().otherCollisionEnter(other.gameObject);
+				attack.GetComponent<Attack>().otherCollisionEnter(other);
 			}
 		}
 	}

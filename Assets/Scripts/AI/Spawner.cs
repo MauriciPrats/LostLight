@@ -20,25 +20,27 @@ public class Spawner : MonoBehaviour {
 
 	}
 
-	public int spawnRandomEnemy(Action<GameObject> actionToCallOnEnemyDead,Action<GameObject> actionToCallOnEnemyDespawned,out EnemyType enemyTypeSpawned,List<EnemyTypeAmmount> ammounts){
+	public int spawnRandomEnemy(Action<GameObject> actionToCallOnEnemyDead,Action<GameObject> actionToCallOnEnemyDespawned,out EnemyType enemyTypeSpawned,List<EnemyTypeAmmount> ammounts,int ammountLeft){
 		//Spawns a random enemy and returns the weight it has
 		List<GameObject> enemiesCanBeSpawned = new List<GameObject> (0);
 		foreach(GameObject enemyPrefab in enemyPrefabsCanSpawn){
 			EnemyType type = enemyPrefab.GetComponent<EnemySpawned>().enemyType;
 			bool found = false;
-			if(enemyPrefab.GetComponent<EnemySpawned>().maximumEnemiesInPlanet==0){
-				enemiesCanBeSpawned.Add(enemyPrefab);
-			}else{
-				foreach(EnemyTypeAmmount eta in ammounts){
-					if(eta.type.Equals(type)){
-						if(eta.ammount<enemyPrefab.GetComponent<EnemySpawned>().maximumEnemiesInPlanet){
-							enemiesCanBeSpawned.Add(enemyPrefab);
+			if(enemyPrefab.GetComponent<EnemySpawned>().pointsCost<=(ammountLeft+1)){
+				if(enemyPrefab.GetComponent<EnemySpawned>().maximumEnemiesInPlanet==0){
+					enemiesCanBeSpawned.Add(enemyPrefab);
+				}else{
+					foreach(EnemyTypeAmmount eta in ammounts){
+						if(eta.type.Equals(type)){
+							if(eta.ammount<enemyPrefab.GetComponent<EnemySpawned>().maximumEnemiesInPlanet){
+								enemiesCanBeSpawned.Add(enemyPrefab);
+							}
+							found = true;
+							break;
 						}
-						found = true;
-						break;
 					}
+					if(!found){enemiesCanBeSpawned.Add(enemyPrefab);}
 				}
-				if(!found){enemiesCanBeSpawned.Add(enemyPrefab);}
 			}
 		}
 

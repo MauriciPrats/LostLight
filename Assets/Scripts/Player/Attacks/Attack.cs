@@ -40,6 +40,9 @@ Se llaman los initialize de cada ataque
 	public virtual void otherCollisionEnter(GameObject enemy){
 	}
 
+	public virtual void otherCollisionEnter(Collision collision){
+	}
+
 	public virtual void informParent(GameObject parentObject){
 
 	}
@@ -59,6 +62,22 @@ Se llaman los initialize de cada ataque
 
 	public virtual bool canDoNextAttack(){
 		return isFinished;
+	}
+
+	public virtual void receiveInputDirections(float inputVertical,float inputHorizontal){
+
+	}
+
+	public virtual bool canReceiveInputDirections(){
+		return true;
+	}
+
+	public virtual bool lockMovement(){
+		return false;
+	}
+
+	public virtual void buttonReleased(){
+		
 	}
 
 	public bool canPayAttackCost(){
