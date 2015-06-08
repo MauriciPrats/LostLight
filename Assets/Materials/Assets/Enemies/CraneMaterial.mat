@@ -7,8 +7,8 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: CraneMaterial
-  m_Shader: {fileID: 4800000, guid: af6e577fac5e6ba4c9e69f6a27e649c0, type: 3}
-  m_ShaderKeywords: _CORR_ON _OUTL_ON _TEX_ON
+  m_Shader: {fileID: 4800000, guid: a021b6bfcab3cc44fbf4bc8ded279bae, type: 3}
+  m_ShaderKeywords: _CORR_ON _DISS_ON _OUTL_ON _TEX_ON
   m_LightmapFlags: 5
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -19,8 +19,8 @@ Material:
           name: _MainTex
         second:
           m_Texture: {fileID: 2800000, guid: d49bc9750b0d0e24cac7cb4c49872eb1, type: 3}
-          m_Scale: {x: 2, y: 1}
-          m_Offset: {x: .200000003, y: .100000001}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: .100000001}
       data:
         first:
           name: _BumpMap
@@ -98,6 +98,13 @@ Material:
           m_Texture: {fileID: 2800000, guid: c012cd004cede244c96a82228fed4480, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Ramp
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
@@ -121,8 +128,12 @@ Material:
         second: 1000
       data:
         first:
+          name: _Dissolution
+        second: 1
+      data:
+        first:
           name: _BurningWidth
-        second: 0
+        second: .0500000007
       data:
         first:
           name: _TileSize
@@ -198,7 +209,7 @@ Material:
       data:
         first:
           name: _Outline
-        second: 2
+        second: 30
       data:
         first:
           name: _Asym
@@ -214,6 +225,10 @@ Material:
       data:
         first:
           name: _Corruption
+        second: 1
+      data:
+        first:
+          name: _DissolveThreshold
         second: 1
     m_Colors:
       data:
@@ -231,7 +246,7 @@ Material:
       data:
         first:
           name: _BurningColor
-        second: {r: 1, g: 1, b: 1, a: 1}
+        second: {r: 1, g: .889655232, b: 0, a: 1}
       data:
         first:
           name: _EmissionColorUI
@@ -244,3 +259,7 @@ Material:
         first:
           name: _CorruptionColor
         second: {r: .5, g: .5, b: .5, a: .300000012}
+      data:
+        first:
+          name: _OriginCorruption
+        second: {r: 0, g: 0, b: 0, a: 0}

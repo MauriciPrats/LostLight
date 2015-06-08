@@ -9,6 +9,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 456070}
   - 114: {fileID: 11493558}
+  - 65: {fileID: 6526012}
+  - 114: {fileID: 11498404}
   m_Layer: 0
   m_Name: CraneFlyingAttack
   m_TagString: Untagged
@@ -28,6 +30,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!65 &6526012
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 188322}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: .349657685, y: .533949554, z: .546406746}
+  m_Center: {x: -.0033993721, y: -.195207596, z: .506224751}
 --- !u!114 &11493558
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -42,6 +56,19 @@ MonoBehaviour:
   damage: 1
   cost: 0
   elementAttack: 0
+  timeToChargeAttack: .5
+--- !u!114 &11498404
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 188322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e8874a04a67ba546a97ca90f391376e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attack: {fileID: 188322}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

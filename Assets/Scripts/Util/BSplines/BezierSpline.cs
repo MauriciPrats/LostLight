@@ -12,6 +12,15 @@ public class BezierSpline : MonoBehaviour {
 	[SerializeField]
 	private bool loop;
 
+	private float[] lengths;
+	private int subdivisionsForLength = 50;
+	private float totalLength;
+
+
+	void Start(){
+		findLengths ();
+	}
+
 	public bool Loop {
 		get {
 			return loop;
@@ -158,6 +167,10 @@ public class BezierSpline : MonoBehaviour {
 		}
 		return transform.TransformPoint(Bezier.GetFirstDerivative(points[i], points[i + 1], points[i + 2], points[i + 3], t)) - transform.position;
 	}
+
+	private Vector3 GetPoint(int i,float t){
+		return transform.TransformPoint(Bezier.GetPoint(points[i], points[i + 1], points[i + 2], points[i + 3], t));
+	}
 	
 	public Vector3 GetDirection (float t) {
 		return GetVelocity(t).normalized;
@@ -195,6 +208,40 @@ public class BezierSpline : MonoBehaviour {
 			BezierControlPointMode.Free,
 			BezierControlPointMode.Free
 		};
+	}
+
+	private void findLengths(){
+		lengths = new float[(points.Length/3)];
+		for(int i = 0;i<=points.Length-4;i+=3){
+			Vector3 lastPoint = GetPoint (i,0f);
+			lengths[i/3] = 0f;
+			for(int j=0;j<subdivisionsForLength;j++){
+				float ratio = (((float)(j+1)) / (float)subdivisionsForLength);
+				Vector3 newPoint = GetPoint (i,ratio);
+				lengths[i/3]+=Vector3.Distance(newPoint,lastPoint);
+				lastPoint = newPoint;
+			}
+		}
+		for(int i = 0;i<lengths.Length;i++){
+			totalLength+=lengths[i];
+		}
+	}
+
+	public float getTByLength(float t){
+		float objectiveLength = t * totalLength;
+		float accumulatedLength = 0f;
+		float newT = 0f;
+		bool finished = false;
+		for(int i = 0;i<lengths.Length;i++){
+			if((accumulatedLength+lengths[i])>objectiveLength){
+				newT = (((float)i)/((float)lengths.Length));
+				float extraT = ((objectiveLength - accumulatedLength)/lengths[i])/lengths.Length;
+				return newT+ extraT;
+			}else{
+				accumulatedLength+=lengths[i];
+			}
+		}
+		return 1f;
 	}
 
 	public Vector3 getLastDirection(){

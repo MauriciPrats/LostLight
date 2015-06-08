@@ -9,6 +9,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 403824}
   - 114: {fileID: 11428968}
+  - 65: {fileID: 6585110}
+  - 114: {fileID: 11483256}
   m_Layer: 0
   m_Name: CraneMeleeAttack
   m_TagString: Untagged
@@ -28,6 +30,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!65 &6585110
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 120876}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: .376438081, y: 1, z: .444462776}
+  m_Center: {x: .0367622375, y: 0, z: .335850596}
 --- !u!114 &11428968
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -42,6 +56,19 @@ MonoBehaviour:
   damage: 1
   cost: 0
   elementAttack: 0
+  timeToChargeAttack: 1.20000005
+--- !u!114 &11483256
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 120876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e8874a04a67ba546a97ca90f391376e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attack: {fileID: 120876}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

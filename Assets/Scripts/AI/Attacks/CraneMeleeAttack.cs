@@ -9,15 +9,30 @@ public class CraneMeleeAttack : Attack {
 	private GameObject parent;
 	private Animator iaAnimator;
 	private OutlineChanging outlineChanger;
+	public float timeToChargeAttack = 1f;
+	private bool isPlayerInRange = false;
 	
 	private Vector3 playerOriginalPosition;
 	
 	public override void initialize(){
 		attackType = AttackType.CraneMeleeAttack;
 	}
-	
-	public override void enemyCollisionEnter(GameObject enemy){
-		GameManager.player.GetComponent<PlayerController> ().getHurt (damage);
+
+
+	private void doDamage(){
+		GameManager.playerController.getHurt (damage);
+	}
+
+	public override void otherCollisionEnter(GameObject element){
+		if( element.tag.Equals("Player")){
+			isPlayerInRange = true;
+		}
+	}
+
+	public override void otherCollisionExit(GameObject element){
+		if( element.tag.Equals("Player")){
+			isPlayerInRange = false;
+		}
 	}
 	
 	public override void startAttack(){
@@ -26,7 +41,19 @@ public class CraneMeleeAttack : Attack {
 	}
 	
 	private IEnumerator doAttack(){
-		yield return null;
+		iaAnimator.SetTrigger ("isDoingMeleeAttack");
+		float timer = 0f;
+		while(timer<timeToChargeAttack){
+			timer+=Time.deltaTime;
+			float ratio = timer/timeToChargeAttack;
+			outlineChanger.setOutlineColor(Color.Lerp(Color.black,Color.red,ratio));
+			yield return null;
+		}
+		if(isPlayerInRange){
+			doDamage();
+		}
+		outlineChanger.setOutlineColor (Color.black);
+		isFinished = true;
 	}
 	
 	

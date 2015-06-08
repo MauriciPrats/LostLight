@@ -2972,7 +2972,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 3e7dc199ae8606e4bbadc8d2851a1367, type: 2}
+  - {fileID: 2100000, guid: 022273ef35be1f948b08ede2804b2b46, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -3152,11 +3152,24 @@ MonoBehaviour:
   timeToDie: 2
   isDead: 0
   meleeAttack: 14
-  FlyingAttack: 13
+  flyingAttack: 13
   minimumDistanceInFront: .800000012
   patrolTimeToTurn: 1.5
   maxDistancePlayer: 20
   minDistanceMeleeAttack: .200000003
+  meleeAttackCooldown: .5
+  flyingAttackCooldown: 1.5
+  meleeAttackChance: 1
+  flyingAttackChance: .100000001
+  timeBetweenGroundRaycast: .100000001
+  preferredHeight: 3
+  upSpeed: 2
+  planetsMask:
+    serializedVersion: 2
+    m_Bits: 256
+  closestDistanceAttack: 3.5
+  farthestDistanceAttack: 4
+  maxDistanceChangeDirection: 7
 --- !u!114 &11422310
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3186,7 +3199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointsCost: 4
   maximumEnemiesInPlanet: 0
-  enemyType: 5
+  enemyType: 4
 --- !u!114 &11434042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3540,7 +3553,7 @@ SkinnedMeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 3e7dc199ae8606e4bbadc8d2851a1367, type: 2}
+  - {fileID: 2100000, guid: 022273ef35be1f948b08ede2804b2b46, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1

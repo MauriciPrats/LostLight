@@ -418,8 +418,8 @@ ModelImporter:
     - serializedVersion: 16
       name: Flying
       takeName: CraneArmature|CraneArmatureAction
-      firstFrame: 201
-      lastFrame: 224
+      firstFrame: 198
+      lastFrame: 218
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
