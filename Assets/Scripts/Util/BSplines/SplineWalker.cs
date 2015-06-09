@@ -12,28 +12,18 @@ public class SplineWalker : MonoBehaviour {
 
 	private float progress = 0f;
 	private bool goingForward = true;
+	private bool invertDirection = false;
 
 	private void Update () {
 		if (goingForward) {
 			progress += Time.deltaTime / duration;
 			if (progress > 1f) {
-				if (mode == SplineWalkerMode.Once) {
-					progress = 1f;
-				}
-				else if (mode == SplineWalkerMode.Loop) {
-					progress -= 1f;
-				}
-				else {
-					progress = 2f - progress;
-					goingForward = false;
-				}
+				progress = 1f;
 			}
-		}
-		else {
+		}else{
 			progress -= Time.deltaTime / duration;
 			if (progress < 0f) {
-				progress = -progress;
-				goingForward = true;
+				progress = 0f;
 			}
 		}
 
@@ -45,8 +35,12 @@ public class SplineWalker : MonoBehaviour {
 	}
 
 	public bool isFinished(){
-		if(mode == SplineWalkerMode.Once){
+		if(!invertDirection){
 			if(progress >= 1f){
+				return true;
+			}
+		}else if(invertDirection){
+			if(progress <= 0f){
 				return true;
 			}
 		}
@@ -54,6 +48,18 @@ public class SplineWalker : MonoBehaviour {
 	}
 
 	public void restart(){
+		progress = 0f;
+		goingForward = true;
+	}
+
+	public void setInvert(){
+		invertDirection = true;
+		progress = 1f;
+		goingForward = false;
+	}
+
+	public void setNonInvert(){
+		invertDirection = false;
 		progress = 0f;
 		goingForward = true;
 	}
