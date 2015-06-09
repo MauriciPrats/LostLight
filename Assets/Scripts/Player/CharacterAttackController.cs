@@ -26,6 +26,8 @@ public class CharacterAttackController : MonoBehaviour {
 
 	private List<Attack> attacksInCharacter;
 
+	public Attack currentAttack;
+
 	public GameObject blockGO;
 	public GameObject dashGO;
 
@@ -87,6 +89,7 @@ public class CharacterAttackController : MonoBehaviour {
 				if(attackToDo.canPayAttackCost() && attackToDo.canDoNextAttack()){
 					GameManager.lightGemEnergyManager.substractPoints(attackToDo.cost);
 					attackToDo.startAttack ();
+					currentAttack = attackToDo;
 					return true;
 				}
 			}else{
