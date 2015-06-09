@@ -79,7 +79,7 @@ public class Dash : MonoBehaviour {
 		GameManager.playerAnimator.SetBool("isWalking",false);
 		GameManager.playerSpaceBody.setHasToApplyForce (true);
 		yield return new WaitForSeconds(dashCooldown);
-		dashStartParticles.SetActive (false);
+		dashStartParticles.GetComponent<ParticleSystem> ().Stop ();
 		cooldownFinished = true;
 		GameManager.playerAnimator.ResetTrigger("isDashing");
 	}

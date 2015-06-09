@@ -31,13 +31,16 @@ public class InputController : MonoBehaviour {
 	public AttackType onAirAttack;
 
 	private bool isEnabled = true;
-
+	
 	void Start () {
 		timeJumpPressed = 0;
 		character = GetComponent<PlayerController>();
 		characterGravityBody = character.GetComponent<SpaceGravityBody> ();
 		attackController = GetComponent<CharacterAttackController> ();
 		WeaponManager wpm = WeaponManager.Instance;
+		
+		
+		
 	}
 
 	void Update() {
@@ -85,10 +88,17 @@ public class InputController : MonoBehaviour {
 			}
 
 			//SPECIAL ATTACK BUTTON
+			KameAttackDirectionable kameDir = attackController.getAttack(sidesSpecialAttack) as KameAttackDirectionable;
 			if (isCharacterAllowedToDoSpecialAttack()) {
-				Attack kameDir = attackController.getAttack(sidesSpecialAttack);
 				if(Input.GetButtonDown("Special Attack")){
-					attackController.doAttack(sidesSpecialAttack,true);
+					
+					if (kameDir.isAttackFinished()) {
+						attackController.doAttack(sidesSpecialAttack,true);
+					} 
+	
+					kameDir.Detonate();
+					
+				
 				}else if(Input.GetButtonUp("Special Attack")){
 					kameDir.buttonReleased();
 				}else if(kameDir.canReceiveInputDirections()){
@@ -104,7 +114,7 @@ public class InputController : MonoBehaviour {
 					attackController.doAttack(sidesSpecialAttack,true);
 				}*/
 
-			}
+			} 
 
 			//JUMP BUTTON
 

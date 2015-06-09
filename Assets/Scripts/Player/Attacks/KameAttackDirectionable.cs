@@ -15,6 +15,7 @@ public class KameAttackDirectionable : Attack,AnimationSubscriber {
 	
 	//Public Variables
 	public float totalTimeLasts = 0.9f;
+	public float explosionTime = 0.6f;
 	public float timeToDisappear = 0.2f;
 	public float chargeTime = 0.6f;
 	public float speed = 5f;
@@ -44,8 +45,15 @@ public class KameAttackDirectionable : Attack,AnimationSubscriber {
 	private bool hasHitGround = false;
 	private Vector3 originalScale;
 
+	private static float extraScaleExplosion = 0.07f;
+	private Vector3 explosionScale =  new Vector3(extraScaleExplosion,extraScaleExplosion,extraScaleExplosion);
+	
+
+
 	//Variables that need to be initialized at the beginning
 	public override void initialize(){
+		
+	
 		originalScale = kameEffect.transform.localScale;
 		attackType = AttackType.KameDirectional;
 		eventHandler = GameManager.playerAnimator.gameObject.GetComponent<AnimationEventBroadcast>();
@@ -58,7 +66,13 @@ public class KameAttackDirectionable : Attack,AnimationSubscriber {
 		}
 		tr.material.color = trailsColor;
 	}
-
+	
+	private bool detonate = false;
+	
+	public void Detonate() {
+		detonate = true;
+	}
+	
 	//When it hits an enemy
 	public override void enemyCollisionEnter(GameObject enemy){
 		if(!enemiesHit.Contains(enemy) && !enemy.GetComponent<IAController>().isDead){
@@ -180,20 +194,19 @@ public class KameAttackDirectionable : Attack,AnimationSubscriber {
 		StartCoroutine ("resetTrails");
 		timer = 0f;
 		kameEffect.transform.forward = arrowDirection;
+		
+		detonate = false;
 		//Kame flying
 		while(timer<totalTimeLasts && !isCharging){
+			if (detonate || (hasHitGround && explodes)) {break;}
 			timer+=Time.deltaTime;
 			float ratio = (timer)/totalTimeLasts;
 
 			//Calculate the kame's new position
 			Vector3 newPostion = kameEffect.transform.position + (kameEffect.transform.forward.normalized * speed * Time.deltaTime) ;
-			if(!hasHitGround || !explodes){
-				kameEffect.transform.position = newPostion;
-			}else{
-				float extraScaleExplosion = 0.07f;
-				kameEffect.transform.localScale = new Vector3(kameEffect.transform.localScale.x+extraScaleExplosion,kameEffect.transform.localScale.y+extraScaleExplosion,kameEffect.transform.localScale.z+extraScaleExplosion);
-			}
-			
+
+			kameEffect.transform.position = newPostion;
+						
 			elementalParticleSystem.transform.position = kameEffect.transform.position;
 			Vector3 planetDirection = kameEffect.transform.position - closestPlanet.transform.position;
 			planetDirection.z = 0f;
@@ -206,9 +219,23 @@ public class KameAttackDirectionable : Attack,AnimationSubscriber {
 		}
 		elementalParticleOnCharge.SetActive(false);
 		//THROW THE KAME END
+		timer = 0;
+		enemiesHit = new List<GameObject> (0);
+		//Kame Explosion
+		while (timer < explosionTime) {
+			timer+=Time.deltaTime;
+			kameEffect.transform.localScale += explosionScale;
+			yield return null;
+		}
+		//End explosion
 		
 		//CLEAN THE KAME START
 		started = false;
+		while (kameEffect.transform.localScale.x > 0f) {
+		kameEffect.transform.localScale -= 3.5f*explosionScale;
+			yield return null;
+		}
+		
 		kameCore.GetComponent<ParticleSystem>().Stop();
 		if(!elementAttack.Equals(ElementType.None)){
 			elementalParticleSystem.GetComponent<ParticleSystem>().Stop();
@@ -216,13 +243,13 @@ public class KameAttackDirectionable : Attack,AnimationSubscriber {
 		}
 		//StartCoroutine ("cleanKameTrail");
 		yield return new WaitForSeconds (timeToDisappear);
-		if(isFinished){
-			kameEffect.SetActive (false);
-			kameCore.SetActive (false);
-			
-			elementalParticleSystem.SetActive(false);
-			canDoNext = true;
-		}
+		kameCore.SetActive (false);
+		//	elementalParticleSystem.SetActive(false);
+		canDoNext = true;
+		
+		yield return new WaitForSeconds (0.5f);
+		kameEffect.SetActive (false);
+		
 		//CLEAN THE KAME END
 	}
 

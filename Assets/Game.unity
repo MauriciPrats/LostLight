@@ -37408,6 +37408,7 @@ MonoBehaviour:
   - {fileID: 107160, guid: 68d4de2056c78114a927b185fd06c13a, type: 2}
   - {fileID: 108746, guid: e76d15d659543584ea1be9379b301ba7, type: 2}
   - {fileID: 197252, guid: e71d8e8483f2686418b3b244aa345278, type: 2}
+  currentAttack: {fileID: 0}
   blockGO: {fileID: 164580, guid: 1a9c03b514fb9274eb4ff95fde96889d, type: 2}
   dashGO: {fileID: 195346, guid: 799bc3aad3ac1c44f82cb2951d09e130, type: 2}
 --- !u!114 &1294720935
@@ -53597,6 +53598,7 @@ MonoBehaviour:
   attacksGO:
   - {fileID: 190550, guid: ea5a3024666e04f41916b1c3588cea2e, type: 2}
   - {fileID: 139322, guid: e6250a45e53901e449bb36357907560d, type: 2}
+  currentAttack: {fileID: 0}
   blockGO: {fileID: 0}
   dashGO: {fileID: 0}
 --- !u!114 &1741573227
