@@ -14,7 +14,7 @@ public class SpaceGravityBody : GravityBody {
 	private float originalMass;
 	private bool isStatic = false;
 	private GameObject closestPlanet;
-
+	private bool canEnterSpaceSlide = true;
 
 	protected override void onStart(){
 		originalMass = GetComponent<Rigidbody>().mass;
@@ -84,6 +84,7 @@ public class SpaceGravityBody : GravityBody {
 				isGettingOutOfOrbit = false;
 				setIsOrbitingAroundPlanet(false);
 			}else{
+				canEnterSpaceSlide = true;
 				isOutsideAthmosphere = false;
 				if(isPlayer){
 					setClosestPlanet(closestTMP);
@@ -180,5 +181,14 @@ public class SpaceGravityBody : GravityBody {
 	//If it is static, it won't move, nor be attracted by the planet
 	public void setStatic(bool st){
 		isStatic = st;
+	}
+
+	
+	public void setCanEnterDragonSlide(bool canEnter){
+		canEnterSpaceSlide = canEnter;
+	}
+	
+	public bool getCanEnterDragonSlide(){
+		return canEnterSpaceSlide;
 	}
 }

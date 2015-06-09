@@ -15,6 +15,8 @@ public class BezierSpline : MonoBehaviour {
 	private float[] lengths;
 	private int subdivisionsForLength = 50;
 	private float totalLength;
+	private Vector3 lastDirection;
+	private Vector3 firstDirection;
 
 
 	void Start(){
@@ -219,6 +221,12 @@ public class BezierSpline : MonoBehaviour {
 				float ratio = (((float)(j+1)) / (float)subdivisionsForLength);
 				Vector3 newPoint = GetPoint (i,ratio);
 				lengths[i/3]+=Vector3.Distance(newPoint,lastPoint);
+				if((j == 1) && i == (0)){
+					firstDirection = lastPoint - newPoint;
+				}
+				if((j == subdivisionsForLength-1) && i == (points.Length-4)){
+					lastDirection = newPoint - lastPoint;
+				}
 				lastPoint = newPoint;
 			}
 		}
@@ -245,10 +253,10 @@ public class BezierSpline : MonoBehaviour {
 	}
 
 	public Vector3 getLastDirection(){
-		if(points.Length>=2){
-			return points[points.Length-1] - points[points.Length-2];
-		}else{
-			return new Vector3(0f,0f,0f);
-		}
+		return lastDirection;
+	}
+
+	public Vector3 getFirstDirection(){
+		return firstDirection;
 	}
 }
