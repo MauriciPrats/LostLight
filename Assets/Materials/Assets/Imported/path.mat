@@ -18,7 +18,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 2800000, guid: 3fa19815861ca8a44a84a33ee3a4dc85, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -230,7 +230,7 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: .911764681, g: .649701655, b: .181012109, a: 1}
+        second: {r: .91911763, g: .698566675, b: .304119825, a: 1}
       data:
         first:
           name: _OutlineColor
@@ -250,7 +250,7 @@ Material:
       data:
         first:
           name: _CorruptionColor
-        second: {r: .117647052, g: .117647052, b: .117647052, a: .525490224}
+        second: {r: .117647052, g: .117647052, b: .117647052, a: .117647059}
       data:
         first:
           name: _OriginCorruption

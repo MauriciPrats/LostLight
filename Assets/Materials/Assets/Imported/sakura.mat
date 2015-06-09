@@ -125,7 +125,7 @@ Material:
       data:
         first:
           name: _YCutOut
-        second: 111
+        second: 0
       data:
         first:
           name: _Dissolution
@@ -286,7 +286,7 @@ Material:
       data:
         first:
           name: _CorruptionColor
-        second: {r: 0, g: 0, b: 0, a: .576470613}
+        second: {r: 0, g: 0, b: 0, a: .701960802}
       data:
         first:
           name: _OriginalColor

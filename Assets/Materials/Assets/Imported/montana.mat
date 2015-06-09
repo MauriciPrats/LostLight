@@ -140,10 +140,6 @@ Material:
         second: .150000006
       data:
         first:
-          name: _DissolveThreshold
-        second: 1
-      data:
-        first:
           name: _Parallax
         second: .0199999996
       data:
@@ -230,6 +226,10 @@ Material:
         first:
           name: _Corruption
         second: 1
+      data:
+        first:
+          name: _DissolveThreshold
+        second: 1
     m_Colors:
       data:
         first:
@@ -241,16 +241,16 @@ Material:
         second: {r: .382352948, g: .382352948, b: .382352948, a: 1}
       data:
         first:
+          name: _TintColor
+        second: {r: .5, g: .5, b: .5, a: .5}
+      data:
+        first:
           name: _OutlineColor
         second: {r: 0, g: 0, b: 0, a: 1}
       data:
         first:
           name: _BurningColor
         second: {r: 1, g: 1, b: 1, a: 1}
-      data:
-        first:
-          name: _TintColor
-        second: {r: .5, g: .5, b: .5, a: .5}
       data:
         first:
           name: _EmissionColorUI
@@ -262,7 +262,7 @@ Material:
       data:
         first:
           name: _CorruptionColor
-        second: {r: 0, g: 0, b: 0, a: .647058845}
+        second: {r: 0, g: 0, b: 0, a: .737254918}
       data:
         first:
           name: _OriginCorruption
