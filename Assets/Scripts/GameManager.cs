@@ -29,7 +29,26 @@ public static class GameManager{
 	private static Color originalAmbientLight;
 
 	public static void changeDirectionalLights(bool enabled){
+		if(directionalLights==null){
+			originalAmbientLight = RenderSettings.ambientLight;
+			directionalLights = new List<Light>(0);
+			Light[] lights = GameObject.FindObjectsOfType<Light>();
+			foreach(Light light in lights){
+				if(light.type.Equals(LightType.Directional)){
+					directionalLights.Add(light);
+				}
+			}
 
+		}
+		
+		foreach(Light light in directionalLights){
+			light.enabled = enabled;
+		}
+		if(!enabled){
+			RenderSettings.ambientLight = new Color (0f, 0f, 0f,0f);
+		}else{
+			RenderSettings.ambientLight = originalAmbientLight;
+		}
 	}
 
 
@@ -68,13 +87,19 @@ public static class GameManager{
 	}
 
 	public static void pauseGame(){
-		Time.timeScale = 0f;
+		GameManager.inputController.disableInputController ();
+		iaManager.disableIAs ();
 		gameState.isGamePaused = true;
 	}
 
 	public static void unPauseGame(){
-		Time.timeScale = 1f;
+		GameManager.inputController.enableInputController ();
+		iaManager.enableIAs ();
 		gameState.isGamePaused = false;
+	}
+
+	public static bool isGamePaused(){
+		return gameState.isGamePaused;
 	}
 
 	//Game functions
@@ -92,6 +117,7 @@ public static class GameManager{
 
 	public static void startGame(){
 		gameState.isGameEnded = false;
+		GameManager.inputController.enableInputController ();
 		if(GameManager.playerSpaceBody.getClosestPlanet()!=null){
 			if(GameManager.playerSpaceBody.getClosestPlanet().isPlanetCorrupted()){
 				(GameManager.playerSpaceBody.getClosestPlanet() as PlanetCorrupted).getPlanetEventsManager().startButtonPressed();

@@ -95,7 +95,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &155062
 GameObject:
   m_ObjectHideFlags: 1
@@ -801,7 +801,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   cost: 0
-  elementAttack: 1
+  elementAttack: 2
   kameEffect: {fileID: 154724}
   kameCore: {fileID: 159632}
   elementalParticleSystem: {fileID: 131674}
@@ -4151,7 +4151,7 @@ ParticleSystem:
   InitialModule:
     enabled: 1
     startLifetime:
-      scalar: .699999988
+      scalar: .5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -4311,7 +4311,7 @@ ParticleSystem:
         rgba: 4294967295
       minMaxState: 0
     startSize:
-      scalar: .300000012
+      scalar: .699999988
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -4326,7 +4326,7 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - time: 0
-          value: .666666627
+          value: .571428597
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -4368,7 +4368,7 @@ ParticleSystem:
       minMaxState: 0
     gravityModifier: 0
     inheritVelocity: 0
-    maxNumParticles: 1000
+    maxNumParticles: 300
   ShapeModule:
     serializedVersion: 2
     enabled: 1
@@ -4387,7 +4387,7 @@ ParticleSystem:
     enabled: 1
     m_Type: 0
     rate:
-      scalar: 100
+      scalar: 200
       maxCurve:
         serializedVersion: 2
         m_Curve:

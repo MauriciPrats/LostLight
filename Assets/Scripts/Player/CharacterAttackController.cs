@@ -120,7 +120,7 @@ public class CharacterAttackController : MonoBehaviour {
 
 	public bool isDoingAnyAttack(){
 		foreach(Attack attack in attacksInCharacter){
-			if(!attack.isAttackFinished()){ Debug.Log(attack);return true;}
+			if(!attack.isAttackFinished()){return true;}
 		}
 
 		return false;

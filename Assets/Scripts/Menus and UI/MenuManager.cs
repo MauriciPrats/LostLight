@@ -7,6 +7,8 @@ public class MenuManager : MonoBehaviour {
 
 	public GameObject firstButtonFocus;
 
+	public bool menuWithLeaves = false;
+
 	public void ChangeMenu(Menu newMenu){
 		GUIManager.activateMenu (newMenu);
 		//GameManager.actualSceneManager.ChangeScene (newMenu);
@@ -16,12 +18,51 @@ public class MenuManager : MonoBehaviour {
 		GameManager.audioManager.PlayStableSound(0);
 		GUIManager.fadeOutChangeMenuFadeIn (Menu.ControlsMenu);
 	}
+
+	public void GoToOptionsMenu(){
+		GameManager.audioManager.PlayStableSound(0);
+		GUIManager.fadeOutChangeMenuFadeIn (Menu.OptionsMenu);
+	}
 	
 	public void GoToCreditsMenu(){
-		//GUIManager.fadeOutChangeMenuFadeIn (Menu.CreditsMenu);
 		GameManager.audioManager.PlayStableSound(0);
 		GUIManager.fadeOutChangeMenuFadeIn (Menu.CreditsMenu);
-		
+	}
+
+	public void GoToPauseMenu(){
+		GameManager.audioManager.PlayStableSound(0);
+		GUIManager.fadeOutChangeMenuFadeIn (Menu.OnPauseMenu);
+	}
+
+	public void BackOptionsMenu(){
+		GameManager.audioManager.PlayStableSound(0);
+		if(GameManager.isGamePaused()){
+			GUIManager.fadeOutChangeMenuFadeIn (Menu.OnPauseMenu);
+		}else{
+			GUIManager.fadeOutChangeMenuFadeIn (Menu.MainMenu);
+		}
+	}
+
+	private void unPause(){
+		GameManager.unPauseGame ();
+	}
+
+	public void ResumeGame(){
+		GUIManager.fadeOut (unPause);
+	}
+
+	private void restartGameAndFadeInMainMenu(){
+		GameManager.rebuildGameFromGameState ();
+		GUIManager.fadeIn (Menu.MainMenu);
+		GUIManager.fadeAllIn ();
+	}
+
+	public void SaveAndQuit(){
+		GUIManager.fadeAllOut (restartGameAndFadeInMainMenu);
+		GameManager.unPauseGame ();
+		GameManager.inputController.disableInputController ();
+		GameManager.gameState.isGameEnded = true;
+		//Application.LoadLevel(Application.loadedLevel);
 	}
 	
 	public void StopGame(){
@@ -40,6 +81,7 @@ public class MenuManager : MonoBehaviour {
 	}
 
 	public void GoToMainMenu(){
+		GameManager.audioManager.PlayStableSound(0);
 		GUIManager.fadeOutChangeMenuFadeIn (Menu.MainMenu);
 	}
 

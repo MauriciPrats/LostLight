@@ -27,6 +27,7 @@ public class IAController : MonoBehaviour {
 	public float attackChance = 0.2f;
 	public float timeToChangeBehaviour = 0.1f;
 	public float timeToDie = 0.5f;
+	public bool isForCinematic = false;
 
 	//Private Variables
 	private float frozenTime;
@@ -62,7 +63,9 @@ public class IAController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		GameManager.iaManager.registerIA (this);
+		if(!isForCinematic){
+			GameManager.iaManager.registerIA (this);
+		}
 		despawned = false;
 		attackController = GetComponent<CharacterAttackController> ();
 		isOnGuard = false;

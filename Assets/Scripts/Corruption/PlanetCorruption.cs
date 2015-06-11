@@ -45,14 +45,12 @@ public class PlanetCorruption : MonoBehaviour {
 
 	public void initialize(){
 		materials = new List<Material> (0);
-		foreach(Renderer renderer in GetComponentsInChildren<Renderer>()){
-			if(renderer.enabled && renderer.gameObject.activeSelf){
+		foreach(Renderer renderer in GetComponentsInChildren<Renderer>(true)){
 				foreach(Material material in renderer.materials){
 					if(material.HasProperty("_YCutOut")){
 						materials.Add(material);
 					}
 				}
-			}
 		}
 
 	}

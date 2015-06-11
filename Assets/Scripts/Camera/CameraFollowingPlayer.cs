@@ -28,6 +28,12 @@ public class CameraFollowingPlayer : MonoBehaviour {
 	private float originalMultiplyierUp;
 	private float originalMultiplyierPos;
 	private float originalMultiplyierZ;
+	private bool isShaking = false;
+	private bool isStoppingShaking = false;
+	//private Vector3 shakeDisplacement;
+	//private Vector3 displacementDirection;
+	private float shake_intensity = 0f;
+	private float shake_decay = 0f;
 
 	float timer = 0f;
 	float timerZPosition = 0f;
@@ -112,18 +118,39 @@ public class CameraFollowingPlayer : MonoBehaviour {
 		transform.rotation = Quaternion.LookRotation(newForward,newUp);
 		transform.position = Vector3.Lerp (transform.position, objectivePosition, Time.deltaTime * lerpMultiplyierPos);
 
-// Camera shake
-	/*	float heightScale = 0.2F;
-		float xScale = 5F;
-		
-		float height = heightScale * Mathf.PerlinNoise(Time.time * xScale, 0.0F);
-		Vector3 pos = transform.localPosition;
-		pos.y += height;
-		transform.localPosition = pos;*/
-
+		if(isShaking){
+			if(shake_intensity > 0){
+				Vector3 displacement = Random.insideUnitSphere * shake_intensity;
+				displacement.z = 0f;
+				transform.position = transform.position + displacement;
+				/*transform.rotation =  new Quaternion(
+					transform.rotation.x,
+					transform.rotation.y,
+					transform.rotation.z + Random.Range(-shake_intensity,shake_intensity)*0.1f,
+					transform.rotation.w);*/
+				if(isStoppingShaking){
+					shake_intensity -= shake_decay;
+				}
+			}else{
+				isShaking = false;
+			}
+		}
 
 		float zProportion = Mathf.Abs (transform.position.z - originalZ) / Mathf.Abs (distanceCameraOnSpaceJump - originalZ);
 		GameManager.setGrassPorcentualLevel (zProportion);
+
+
+
+	}
+
+	public void setCameraShaking(){
+		isShaking = true;
+		shake_decay = 0.002f;
+		shake_intensity = 0.05f;
+		isStoppingShaking = false;
+	}
+	public void stopCameraShaking(){
+		isStoppingShaking = true;
 	}
 
 	public void returnOriginalZ(){

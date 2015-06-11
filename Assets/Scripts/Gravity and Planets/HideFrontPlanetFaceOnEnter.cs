@@ -26,6 +26,7 @@ public class HideFrontPlanetFaceOnEnter : MonoBehaviour {
 				GetComponent<Renderer>().enabled = false;
 			}
 			enableAll(false);
+
 			isInsidePlanet = true;
 		}else{
 			if(GetComponent<Renderer>()!=null){

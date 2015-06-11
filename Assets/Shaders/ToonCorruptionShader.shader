@@ -312,9 +312,9 @@
 
 				  // call surface function
 				  surf (IN, o);
-				  if(isCorrupted(IN)){
-				  	return fixed4(o.Albedo.r,o.Albedo.g,o.Albedo.b,o.Alpha);
-				  }
+				  //if(isCorrupted(IN)){
+				  //	return fixed4(o.Albedo.r,o.Albedo.g,o.Albedo.b,o.Alpha);
+				  //}
 
 				  // compute lighting & shadowing factor
 				  UNITY_LIGHT_ATTENUATION(atten, IN, worldPos)

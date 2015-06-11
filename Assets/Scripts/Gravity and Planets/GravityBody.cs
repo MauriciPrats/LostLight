@@ -49,7 +49,7 @@ public class GravityBody : MonoBehaviour {
 	public void checkForDestroyedObjects(){
 		List<GameObject> newList = new List<GameObject> (0);
 		foreach(GameObject go in collidingObjects){
-			if(go!=null){
+			if(go!=null && go.activeInHierarchy){
 				newList.Add(go);
 			}else{
 				objectsTouching--;

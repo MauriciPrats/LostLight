@@ -63,7 +63,6 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Start () {
-
 		body = GetComponent<SpaceGravityBody> ();
 		killable = GetComponent<Killable> ();
 		characterController = GetComponent<CharacterController> ();
@@ -207,7 +206,6 @@ public class PlayerController : MonoBehaviour {
 
 	public void SpaceJump() {
 		GUIManager.activateSpaceJumpGUI();
-		//We jump with the 
 		characterController.Jump (spaceJumpForce);
 		GetComponent<Rigidbody> ().velocity = lineJumpDirection * spaceJumpForce;
 		//If we jump into the space, stop the particle system.
@@ -278,7 +276,6 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void getHurt(int hitPointsToSubstract){
-
 		if (!isInvulnerable && !attackController.isDoingBlock ()) {
 			GameManager.playerAnimator.SetTrigger("isHurt");
 			GetComponent<DialogueController>().createNewExpression("Ouch!",0.5f,true,true);

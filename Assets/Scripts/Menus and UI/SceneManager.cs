@@ -17,7 +17,8 @@ public class SceneManager : MonoBehaviour {
 					  playingGUIPrefab,
 					  spaceJumpGUIPrefab,
 					  blackMenuGUIPrefab,
-					  tutorialMenuPrefab;
+					  tutorialMenuPrefab,
+					  optionsMenuPrefab;
 
 	void Awake(){
 		GameManager.registerActualSceneManager (gameObject);
@@ -34,6 +35,7 @@ public class SceneManager : MonoBehaviour {
 		GUIManager.registerSpaceJumpGUI (spaceJumpGUIPrefab);
 		GUIManager.registerBlackMenu (blackMenuGUIPrefab);
 		GUIManager.registerTutorialMenu (tutorialMenuPrefab);
+		GUIManager.registerOptionsMenu (optionsMenuPrefab);
 
 		Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Dashing"),LayerMask.NameToLayer("Enemy"),true);
 		Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Dashing"),LayerMask.NameToLayer("Dashing"),true);
@@ -45,7 +47,11 @@ public class SceneManager : MonoBehaviour {
 	}
 
 	void Update () {
-
+		if(GameManager.getIsInsidePlanet()){
+			GameManager.changeDirectionalLights(false);
+		}else{
+			GameManager.changeDirectionalLights(true);
+		}
 	}
 
 	private void QuitScene(){

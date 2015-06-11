@@ -45,15 +45,15 @@ public class KameAttackDirectionable : Attack,AnimationSubscriber {
 	private bool hasHitGround = false;
 	private Vector3 originalScale;
 
-	private static float extraScaleExplosion = 0.07f;
-	private Vector3 explosionScale =  new Vector3(extraScaleExplosion,extraScaleExplosion,extraScaleExplosion);
+	public float extraScaleExplosion = 5f;
+	private Vector3 explosionScale;
 	
 
 
 	//Variables that need to be initialized at the beginning
 	public override void initialize(){
 		
-	
+		explosionScale =  new Vector3(extraScaleExplosion,extraScaleExplosion,extraScaleExplosion);
 		originalScale = kameEffect.transform.localScale;
 		attackType = AttackType.KameDirectional;
 		eventHandler = GameManager.playerAnimator.gameObject.GetComponent<AnimationEventBroadcast>();
@@ -148,7 +148,6 @@ public class KameAttackDirectionable : Attack,AnimationSubscriber {
 		}
 
 		//Initialize elements
-		kameEffect.transform.localScale = originalScale;
 		hasHitGround = false;
 		isFinished = false; 
 		kameEffect.SetActive (false);
@@ -177,6 +176,7 @@ public class KameAttackDirectionable : Attack,AnimationSubscriber {
 	}
 	
 	IEnumerator doKame(){
+		kameEffect.transform.localScale = originalScale;
 		//Throws the Kame
 		enemiesHit = new List<GameObject> (0);
 		isCharged = true;
@@ -219,36 +219,41 @@ public class KameAttackDirectionable : Attack,AnimationSubscriber {
 		}
 		elementalParticleOnCharge.SetActive(false);
 		//THROW THE KAME END
+		kameCore.GetComponent<ParticleSystem>().Stop();
+		kameEffect.GetComponent<ParticleSystem>().Stop();
 		timer = 0;
 		enemiesHit = new List<GameObject> (0);
 		//Kame Explosion
-		while (timer < explosionTime) {
-			timer+=Time.deltaTime;
-			kameEffect.transform.localScale += explosionScale;
-			yield return null;
+		if (detonate || (hasHitGround && explodes)){
+			while (timer < explosionTime) {
+				timer+=Time.deltaTime;
+				kameEffect.transform.localScale += (Time.deltaTime * explosionScale);
+				yield return null;
+			}
 		}
 		//End explosion
 		
 		//CLEAN THE KAME START
 		started = false;
-		while (kameEffect.transform.localScale.x > 0f) {
-		kameEffect.transform.localScale -= 3.5f*explosionScale;
+		if (detonate || (hasHitGround && explodes)){
+			while (kameEffect.transform.localScale.x > 0f) {
+			kameEffect.transform.localScale -= (Time.deltaTime * 5f*explosionScale);
 			yield return null;
+			}
 		}
-		
-		kameCore.GetComponent<ParticleSystem>().Stop();
+
 		if(!elementAttack.Equals(ElementType.None)){
 			elementalParticleSystem.GetComponent<ParticleSystem>().Stop();
 			elementalParticleSystem.SetActive(true);
 		}
 		//StartCoroutine ("cleanKameTrail");
-		yield return new WaitForSeconds (timeToDisappear);
 		kameCore.SetActive (false);
+		kameEffect.SetActive (false);
+		yield return new WaitForSeconds (timeToDisappear);
+
 		//	elementalParticleSystem.SetActive(false);
 		canDoNext = true;
-		
-		yield return new WaitForSeconds (0.5f);
-		kameEffect.SetActive (false);
+
 		
 		//CLEAN THE KAME END
 	}
@@ -290,6 +295,8 @@ public class KameAttackDirectionable : Attack,AnimationSubscriber {
 				GameManager.playerSpaceBody.setHasToApplyForce(false);
 				GameManager.player.GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);
 			}
+			directionalLine.GetComponent<LineRenderer> ().SetPosition (0, GameManager.player.GetComponent<Rigidbody>().worldCenterOfMass);
+			directionalLine.GetComponent<LineRenderer> ().SetPosition (1, GameManager.player.GetComponent<Rigidbody>().worldCenterOfMass + (lineLength * arrowDirection.normalized));
 			yield return null;
 		}
 		GameManager.playerSpaceBody.setHasToApplyForce(true);
@@ -324,8 +331,6 @@ public class KameAttackDirectionable : Attack,AnimationSubscriber {
 				Vector3 newArrow =  new Vector3 (inputHorizontal,inputVertical,0f);
 				float angle = Util.getAngleFromVectorAToB (Vector3.up,GameManager.player.transform.up);
 				arrowDirection =  Quaternion.Euler (new Vector3 (0f,0f,-angle)) * newArrow;
-				directionalLine.GetComponent<LineRenderer> ().SetPosition (0, GameManager.player.GetComponent<Rigidbody>().worldCenterOfMass);
-				directionalLine.GetComponent<LineRenderer> ().SetPosition (1, GameManager.player.GetComponent<Rigidbody>().worldCenterOfMass + (lineLength * arrowDirection.normalized));
 				GameManager.player.GetComponent<CharacterController>().LookLeftOrRight(inputHorizontal);
 			}
 		}

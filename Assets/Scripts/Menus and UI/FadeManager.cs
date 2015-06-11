@@ -19,7 +19,7 @@ public class FadeManager : MonoBehaviour {
 	bool isFinishedAll = true;
 
 	float fadeSpeed = Constants.FADE_SPEED;
-	private Action fadeInAction,fadeOutAction;
+	private Action fadeAllInAction,fadeAllOutAction,fadeInAction,fadeOutAction;
 
 	void Awake () {
 		GUIManager.registerFadeManager (gameObject);
@@ -73,7 +73,7 @@ public class FadeManager : MonoBehaviour {
 	public void fadeAllOut(Action fadeAction){
 		fadeDirAll = -1;
 		allAlpha = 1f;
-		fadeOutAction = fadeAction;
+		fadeAllOutAction = fadeAction;
 		isFinishedAll = false;
 	}
 	public void fadeAllIn(){
@@ -84,7 +84,7 @@ public class FadeManager : MonoBehaviour {
 		fadeDirAll = 1;
 		allAlpha = 0f;
 		isFinishedAll = false;
-		fadeInAction = fadeAction;
+		fadeAllInAction = fadeAction;
 
 	}
 	
@@ -121,12 +121,10 @@ public class FadeManager : MonoBehaviour {
 	}
 
 	void drawFadeOutCompleteTexture(){
-
 		if (!isFinishedAll) {
 			allAlpha += fadeDirAll * Constants.FADE_SPEED * Time.deltaTime;
 			allAlpha = Mathf.Clamp01 (allAlpha); 
-			
-			
+
 			GUI.color = new Color (GUI.color.r, GUI.color.g, GUI.color.b, 1f-allAlpha);
 			
 			GUI.depth = drawDepth;
@@ -134,8 +132,14 @@ public class FadeManager : MonoBehaviour {
 			
 			if (fadeDirAll == -1 && allAlpha == 0f) {
 				isFinishedAll = true;
+				if(fadeAllOutAction!=null){
+					fadeAllOutAction();
+				}
 			} else if (fadeDirAll == 1 && allAlpha == 1f) {
 				isFinishedAll = true;
+				if(fadeAllInAction!=null){
+					fadeAllInAction();
+				}
 			}
 		}
 	}

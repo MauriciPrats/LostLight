@@ -62,6 +62,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 	IEnumerator initialCinematic(){
 		if(!firstCinematicPlayed){
 			if(isEnabled){
+				GameManager.inputController.disableInputController();
 				firstCinematicPlayed = true;
 				float timer = 0f;
 				float time = 0.2f;
@@ -188,6 +189,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Nunca habia visto \n los sellos brillar de esta forma", 4f, false, false);
 			yield return StartCoroutine(WaitInterruptable (4f,bigPappadaDialogue));
 			GetComponent<PlanetCorruption>().corrupt();
+			GameManager.mainCamera.GetComponent<CameraFollowingPlayer>().setCameraShaking();
 			GameManager.audioManager.playSong(2);
 			
 			shintoDoorGO.GetComponent<FirstPlanetShintoDoor>().shintoDoor.GetComponent<ShintoDoor>().disableKanjis();
@@ -240,13 +242,16 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			yield return StartCoroutine(WaitInterruptable (1f,bigPappadaDialogue));
 			GameManager.inputController.disableInputController ();
 			//bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().bridge.GetComponent<Collider>().enabled = false;
-			bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().bridge.GetComponent<RotateAndMoveOverTime>().changeOverTime(1f);
+			bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().bridge.GetComponent<RotateAndMoveOverTime>().changeOverTime(2f);
 			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¡Aaaaah!!", 1.5f, false, false);
 			GameManager.playerAnimator.SetTrigger("isHurt");
 			GUIManager.fadeIn(Menu.BlackMenu);
-			yield return new WaitForSeconds(5f);
+			yield return new WaitForSeconds(2f);
+			bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().bridge.SetActive(false);
+			yield return new WaitForSeconds(3f);
 			bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().planetGettingCorrupted.SetActive(false);
 			bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().hideOutsidePlane.SetActive(true);
+			GameManager.mainCamera.GetComponent<CameraFollowingPlayer>().stopCameraShaking();
 			littleGHopper.SetActive(false);
 			bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().fallenRocks.SetActive(true);
 			GUIManager.fadeOut(null);
@@ -336,10 +341,8 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 
 
 	public override void startButtonPressed(){
-		if(isEnabled){
+		if(isEnabled && !firstCinematicPlayed){
 			StartCoroutine("initialCinematic");
-		}else{
-			GUIManager.activatePlayingGUIWithFadeIn();
 		}
 	}
 

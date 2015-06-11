@@ -102,7 +102,7 @@ public class InputController : MonoBehaviour {
 				}else if(Input.GetButtonUp("Special Attack")){
 					kameDir.buttonReleased();
 				}else if(kameDir.canReceiveInputDirections()){
-					kameDir.receiveInputDirections(Input.GetAxis("Vertical"),Input.GetAxis("Horizontal"));
+					kameDir.receiveInputDirections(Input.GetAxisRaw("Vertical"),Input.GetAxisRaw("Horizontal"));
 				}
 				/*if(Mathf.Abs(Input.GetAxisRaw("Vertical"))>Mathf.Abs(Input.GetAxisRaw("Horizontal"))){
 					if(Input.GetAxis("Vertical")>0.5f){
@@ -160,12 +160,7 @@ public class InputController : MonoBehaviour {
 				}
 			}
 
-			//OTHER BUTTONS
-			if(Input.GetKeyUp(KeyCode.Escape)){
-				GUIManager.closeCraftingMenu();
-			}
-
-			if(Input.GetKeyUp(KeyCode.P)){
+			if(Input.GetButtonUp("PauseMenu")){
 				if(!GameManager.gameState.isGameEnded){
 					if(!GameManager.gameState.isGamePaused){
 						GameManager.pauseGame();
