@@ -61,7 +61,7 @@ Material:
       data:
         first:
           name: _YCutOut
-        second: 36
+        second: 0
       data:
         first:
           name: _BurningWidth

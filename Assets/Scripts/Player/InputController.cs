@@ -209,9 +209,9 @@ public class InputController : MonoBehaviour {
 	}
 
 	bool isCharacterAllowedToMove(){
-		if(GetComponent<CharacterAttackController>().isDoingAnyAttack() && !character.getIsJumping()){
+		/*if(GetComponent<CharacterAttackController>().isDoingAnyAttack() && !character.getIsJumping()){
 			return false;
-		}else if(attackController.isMovementLocked()){
+		}else */if(attackController.isMovementLocked()){
 			return false;
 		}
 		return true;

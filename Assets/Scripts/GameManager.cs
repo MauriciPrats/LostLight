@@ -25,32 +25,7 @@ public static class GameManager{
 	public static GrassManager grassManager;
 	public static IAManager iaManager;
 	public static AudioManager audioManager;
-
-	private static Color originalAmbientLight;
-
-	public static void changeDirectionalLights(bool enabled){
-		if(directionalLights==null){
-			originalAmbientLight = RenderSettings.ambientLight;
-			directionalLights = new List<Light>(0);
-			Light[] lights = GameObject.FindObjectsOfType<Light>();
-			foreach(Light light in lights){
-				if(light.type.Equals(LightType.Directional)){
-					directionalLights.Add(light);
-				}
-			}
-
-		}
-		
-		foreach(Light light in directionalLights){
-			light.enabled = enabled;
-		}
-		if(!enabled){
-			RenderSettings.ambientLight = new Color (0f, 0f, 0f,0f);
-		}else{
-			RenderSettings.ambientLight = originalAmbientLight;
-		}
-	}
-
+	public static LightsManager lightsManager;
 
 	public static void setGrassPorcentualLevel(float percentage){
 		foreach(ProcedurallyGeneratedObject pgo in proceduralGrass){
@@ -209,5 +184,9 @@ public static class GameManager{
 
 	public static void registerIAManager(IAManager iaM){
 		iaManager = iaM;
+	}
+
+	public static void registerLightsManager(LightsManager lm){
+		lightsManager = lm;
 	}
 }

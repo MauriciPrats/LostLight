@@ -46,14 +46,6 @@ public class SceneManager : MonoBehaviour {
 		
 	}
 
-	void Update () {
-		if(GameManager.getIsInsidePlanet()){
-			GameManager.changeDirectionalLights(false);
-		}else{
-			GameManager.changeDirectionalLights(true);
-		}
-	}
-
 	private void QuitScene(){
 		Application.Quit();
 	}
