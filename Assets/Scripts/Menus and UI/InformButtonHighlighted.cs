@@ -10,7 +10,9 @@ public class InformButtonHighlighted : MonoBehaviour, IPointerEnterHandler,IPoin
 
 	void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData){
 		GUIManager.informHighlighted (gameObject);
-		GetComponent<Button> ().Select ();
+		if(GetComponent<Button> ()!=null){
+			GetComponent<Button> ().Select ();
+		}
 		pointer = true;
 	}
 
@@ -18,7 +20,9 @@ public class InformButtonHighlighted : MonoBehaviour, IPointerEnterHandler,IPoin
 		if(!selected){
 			GUIManager.informUnhighlighted(gameObject);
 		}
-		GetComponent<Button> ().Select ();
+		if(GetComponent<Button> ()!=null){
+			GetComponent<Button> ().Select ();
+		}
 		pointer = false;
 	}
 

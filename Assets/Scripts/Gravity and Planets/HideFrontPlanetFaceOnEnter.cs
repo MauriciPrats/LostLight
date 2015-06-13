@@ -18,7 +18,6 @@ public class HideFrontPlanetFaceOnEnter : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		SphereCollider sphereCollider = (SphereCollider)GetComponent<Collider>();
-
 		float sphereRadius = sphereCollider.transform.lossyScale.x * sphereCollider.radius;
 
 		if(Vector3.Distance(transform.position,GameManager.player.transform.position)<sphereRadius){

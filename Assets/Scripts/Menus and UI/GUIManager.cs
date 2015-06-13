@@ -90,6 +90,9 @@ public class GUIManager : MonoBehaviour {
 		if(onPauseMenuO!=null){
 			onPauseMenuO.SetActive(false);
 		}
+		if(optionsMenuO!=null){
+			optionsMenuO.SetActive(false);
+		}
 	}
 	
 	private static void changeMenuAndFadeIn(){

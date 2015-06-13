@@ -26,6 +26,7 @@ public static class GameManager{
 	public static IAManager iaManager;
 	public static AudioManager audioManager;
 	public static LightsManager lightsManager;
+	public static OptionsManager optionsManager;
 
 	public static void setGrassPorcentualLevel(float percentage){
 		foreach(ProcedurallyGeneratedObject pgo in proceduralGrass){
@@ -188,5 +189,9 @@ public static class GameManager{
 
 	public static void registerLightsManager(LightsManager lm){
 		lightsManager = lm;
+	}
+
+	public static void registerOptionsManager(OptionsManager om){
+		optionsManager = om;
 	}
 }

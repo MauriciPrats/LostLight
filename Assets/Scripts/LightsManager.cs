@@ -26,6 +26,7 @@ public class LightsManager : MonoBehaviour {
 		foreach(Light light in directionalLights){
 			light.enabled = enabled;
 		}
+
 		if(!enabled){
 			RenderSettings.ambientLight = colorAmbientInsidePlanet;
 		}else{

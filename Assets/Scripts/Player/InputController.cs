@@ -38,16 +38,10 @@ public class InputController : MonoBehaviour {
 		characterGravityBody = character.GetComponent<SpaceGravityBody> ();
 		attackController = GetComponent<CharacterAttackController> ();
 		WeaponManager wpm = WeaponManager.Instance;
-		
-		
-		
 	}
 
 	void Update() {
-
 		if(!GameManager.gameState.isGameEnded && isEnabled){
-			if (Input.GetKey(KeyCode.Escape)) { Application.Quit(); }
-
 			//MOVEMENT BUTTON
 			if(!attackController.isDoingDash()){
 				if (Input.GetAxis ("Horizontal")!=0f) {
@@ -161,7 +155,7 @@ public class InputController : MonoBehaviour {
 			}
 
 			if(Input.GetButtonUp("PauseMenu")){
-				if(!GameManager.gameState.isGameEnded){
+				if(!GameManager.gameState.isGameEnded && !GameManager.playerController.getIsSpaceJumping() && !GameManager.playerController.getIsChargingSpaceJump()){
 					if(!GameManager.gameState.isGamePaused){
 						GameManager.pauseGame();
 						GUIManager.activatePauseMenu();

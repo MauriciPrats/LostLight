@@ -85,6 +85,24 @@ public class MenuManager : MonoBehaviour {
 		GUIManager.fadeOutChangeMenuFadeIn (Menu.MainMenu);
 	}
 
+	public void OnQualityChanged(string newQuality){
+		Debug.Log ("newQuality: " + newQuality);
+		for(int i = 0;i<QualitySettings.names.Length;i++){
+			string name = QualitySettings.names[i];
+			if(name.Equals(newQuality)){
+				QualitySettings.SetQualityLevel(i,true);
+			}
+		}
+	}
+
+	public void OnMusicVolumeSliderChange(float newVolume){
+		Debug.Log ("Music Volume Changed To: " + newVolume);
+	}
+
+	public void OnFXVolumeSliderChange(float newVolume){
+		Debug.Log ("FX Volume Changed To: " + newVolume);
+	}
+
 	public void GoToScreen(string scene){
 		GameManager.actualSceneManager.ChangeScene (scene);
 	}
