@@ -78,7 +78,6 @@ public class PlanetCorruption : MonoBehaviour {
 
 	public void activateSpawning(){
 		spawningEnabled = true;
-		GUIManager.activateCorruptionBar ();
 		GetComponent<PlanetSpawnerManager> ().activate ();
 	}
 
