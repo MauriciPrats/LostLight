@@ -1,10 +1,10 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class IAControllerPenguin : IAController {
 	
 	//IA NOT TESTED WITH FINAL MODEL
-	private enum ActualBehaviour{Patroling,ChasePlayer,Sliding,WhirlwindAttack};
+	private enum ActualBehaviour{Idle,Sliding,WhirlwindAttack};
 	
 	public AttackType meleeAttack;
 	public AttackType slideMove;
@@ -51,30 +51,30 @@ public class IAControllerPenguin : IAController {
 			//We check if we have to reset the melee and charging attack timers
 			if(isDoingMeleeAttack){meleeAttackTimer = 0f; isDoingMeleeAttack=false;}
 			if(isSliding){slideTimer = 0f; isSliding = false;}
-		}
-		//Changes the behaviour depending on the conditions of the AI
-		if(getPlayerDistance()>maxDistancePlayer || !canSeePlayer ()){
-			actualBehaviour = ActualBehaviour.Patroling;
-		}else if(canSeePlayer ()){
-			if(slideTimer>slideCooldown && getPlayerDistance()>minDistanceMeleeAttack){
-				slideTimer = 0f;
-				if(Random.value<=chanceToSlide){
-					actualBehaviour = ActualBehaviour.Sliding;
-				}else{
-					actualBehaviour = ActualBehaviour.ChasePlayer;
-				}
+
+			if(getPlayerDistance()>maxDistancePlayer){
+				actualBehaviour = ActualBehaviour.Idle;
 			}else{
 				if(getPlayerDistance()>minDistanceMeleeAttack){
-					actualBehaviour = ActualBehaviour.ChasePlayer;
-				}else{
-					if(meleeAttackTimer>meleeAttackCooldown){
-						meleeAttackTimer = 0f;
-						if(Random.value<=chanceToMeleeAttack){
-							actualBehaviour = ActualBehaviour.WhirlwindAttack;
+					if(slideTimer>slideCooldown){
+						slideTimer = 0f;
+						if(Random.value<=chanceToSlide){
+							actualBehaviour = ActualBehaviour.Sliding;
 						}else{
-							actualBehaviour = ActualBehaviour.ChasePlayer;
+							actualBehaviour = ActualBehaviour.Idle;
 						}
+					}else{
+						actualBehaviour = ActualBehaviour.Idle;
 					}
+				}else if(meleeAttackTimer>meleeAttackCooldown){
+					meleeAttackTimer = 0f;
+					if(Random.value<=chanceToMeleeAttack){
+						actualBehaviour = ActualBehaviour.WhirlwindAttack;
+					}else{
+						actualBehaviour = ActualBehaviour.Idle;
+					}
+				}else{
+					actualBehaviour = ActualBehaviour.Idle;
 				}
 			}
 		}
@@ -83,28 +83,23 @@ public class IAControllerPenguin : IAController {
 	//Does the action that corresponds to the actual behaviour unless it is dead
 	private void doActualBehaviour(){
 		if(!isDead && !attackController.isDoingAnyAttack()){
-			if(actualBehaviour.Equals(ActualBehaviour.ChasePlayer)){
-				if(closestThingInFrontDistance()>minDistanceMeleeAttack){
-					Move (getPlayerDirection());
-				}else{
-					StopMoving();
-				}
-			}else if(actualBehaviour.Equals(ActualBehaviour.Patroling)){
-				Patrol ();
+			if(actualBehaviour.Equals(ActualBehaviour.Idle)){
+				lookAtDirection(getPlayerDirection());
+				StopMoving();
 			}else if(actualBehaviour.Equals(ActualBehaviour.Sliding)){
 				StopMoving();
-				if(getIsTouchingPlanet()){
-					if(attackController.doAttack(slideMove,false)){
-						isSliding = true;
-					}
+				lookAtDirection(getPlayerDirection());
+				if(attackController.doAttack(slideMove,false)){
+					isSliding = true;
 				}
+
 			}else if(actualBehaviour.Equals(ActualBehaviour.WhirlwindAttack)){
 				StopMoving();
-				if(getIsTouchingPlanet()){
-					if(attackController.doAttack(meleeAttack,false)){
-						isDoingMeleeAttack = true;
-					}
+				lookAtDirection(getPlayerDirection());
+				if(attackController.doAttack(meleeAttack,false)){
+					isDoingMeleeAttack = true;
 				}
+
 			}
 		}
 	}

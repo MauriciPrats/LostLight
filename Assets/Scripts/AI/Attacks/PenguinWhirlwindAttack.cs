@@ -8,35 +8,41 @@ public class PenguinWhirlwindAttack : Attack {
 	public float timeItLasts = 1f;
 	public float rotationSpeed = 360f;
 	public float speedToAddV = 4f;
-
-	public GameObject colliderO;
+	public float timeTillItDoesDamage = 0.2f;
+	public GameObject particlesWhirlwind;
 
 	//Private variables
 	private GameObject parent;
 	private Animator iaAnimator;
 	private OutlineChanging outlineChanger;
+	private bool hasHitPlayer = false;
+	private bool isAttackHurting = false;
 	
 	public override void initialize(){
 		attackType = AttackType.PenguinWhirlwindAttack;
-		colliderO.SetActive (false);
 	}
 
-	public override void otherCollisionEnter(GameObject enemy){
-		Debug.Log ("Attaack");
-		if(enemy.tag.Equals("Player")){
+	void OnTriggerStay(Collider enemy){
+		if(enemy.gameObject.tag.Equals("Player") && !isFinished && !hasHitPlayer && isAttackHurting && !parent.GetComponent<IAController>().isDead){
+			hasHitPlayer = true;
 			GameManager.player.GetComponent<PlayerController> ().getHurt (damage);
-			Vector3 speedToAdd = GameManager.player.GetComponent<Rigidbody>().worldCenterOfMass - parent.GetComponent<Rigidbody>().worldCenterOfMass;
+			Vector3 speedToAdd = GameManager.player.GetComponent<Rigidbody>().worldCenterOfMass - parent.transform.position;
 			GameManager.player.GetComponent<Rigidbody>().velocity +=(speedToAdd.normalized * speedToAddV);
 		}
 	}
 	
 	public override void startAttack(){
-		StartCoroutine("doAttack");
-		isFinished = false;
+		if(isFinished){
+			StartCoroutine("doAttack");
+			isFinished = false;
+			hasHitPlayer = true;
+			isAttackHurting = false;
+		}
 	}
 
 	IEnumerator doAttack(){
 		float timer = 0f;
+		iaAnimator.SetTrigger("isChargingWhirlwind");
 		while(timer<timeToCharge){
 			timer+=Time.deltaTime;
 			float ratio = timer/timeToCharge;
@@ -44,14 +50,28 @@ public class PenguinWhirlwindAttack : Attack {
 			yield return null;
 		}
 		timer = 0f;
-		colliderO.SetActive (true);
+		iaAnimator.SetBool("isDoingWhirlwind",true);
+		bool activatedHit = false;
 		while (timer<timeItLasts) {
 			timer+=Time.deltaTime;
-			transform.RotateAround(parent.GetComponent<Rigidbody>().worldCenterOfMass,parent.transform.up,rotationSpeed*Time.deltaTime);
+			if(timer>=timeTillItDoesDamage && !isAttackHurting && !activatedHit){
+				isAttackHurting = true;
+				hasHitPlayer = false;
+				activatedHit = true;
+				particlesWhirlwind.GetComponent<ParticleSystem>().Play();
+			}
+
+			if(timer>= (timeItLasts - timeTillItDoesDamage) && isAttackHurting){
+				isAttackHurting = false;
+				particlesWhirlwind.GetComponent<ParticleSystem>().Stop();
+				outlineChanger.setOutlineColor(Color.black);
+			}
+			transform.up = parent.transform.up;
+			//transform.RotateAround(parent.GetComponent<Rigidbody>().worldCenterOfMass,parent.transform.up,rotationSpeed*Time.deltaTime);
 			yield return null;
 		}
-		colliderO.SetActive (false);
-		outlineChanger.setOutlineColor(Color.black);
+		iaAnimator.SetBool("isDoingWhirlwind",false);
+
 		isFinished = true;
 	}
 	

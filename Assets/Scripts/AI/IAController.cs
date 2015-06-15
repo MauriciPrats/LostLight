@@ -186,7 +186,7 @@ public class IAController : MonoBehaviour {
 	}
 
 	//Gets the distance to the player
-	protected float getPlayerDistance(){
+	public float getPlayerDistance(){
 		PlayerController chaCon = player.GetComponent<PlayerController>();
 		return Vector3.Distance (player.GetComponent<Rigidbody>().worldCenterOfMass, transform.position) - (walkOnMultiplePaths.centerToExtremesDistance + chaCon.centerToExtremesDistance);
 	}

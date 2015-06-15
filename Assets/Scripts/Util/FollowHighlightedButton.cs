@@ -18,6 +18,8 @@ public class FollowHighlightedButton : MonoBehaviour {
 	void Start () {
 		GUIManager.registerHightlightFollower (gameObject);
 		originalScale = spline.transform.localScale;
+		transform.parent = GameManager.player.transform;
+
 	}
 
 	public void informHighlightedObject(GameObject highlightedObject){

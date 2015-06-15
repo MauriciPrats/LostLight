@@ -114,10 +114,6 @@ Material:
         second: .0500000007
       data:
         first:
-          name: _DissolveThreshold
-        second: 1
-      data:
-        first:
           name: _Parallax
         second: .0199999996
       data:
@@ -187,7 +183,7 @@ Material:
       data:
         first:
           name: _Outline
-        second: 3
+        second: 12
       data:
         first:
           name: _Asym
@@ -200,6 +196,10 @@ Material:
         first:
           name: _TrOp
         second: 0
+      data:
+        first:
+          name: _DissolveThreshold
+        second: 1
     m_Colors:
       data:
         first:
