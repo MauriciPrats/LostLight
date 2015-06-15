@@ -2553,7 +2553,7 @@ MonoBehaviour:
   minimumDistanceInFront: .800000012
   patrolTimeToTurn: 1.5
   maxDistancePlayer: 20
-  minDistanceMeleeAttack: .400000006
+  minDistanceMeleeAttack: .600000024
   chanceToMeleeAttack: 1
   chanceToSlide: 1
   meleeAttackCooldown: .200000003

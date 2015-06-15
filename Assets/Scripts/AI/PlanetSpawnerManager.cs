@@ -136,7 +136,10 @@ public class PlanetSpawnerManager : MonoBehaviour {
 	public void activate(){
 		if(accumulatedPoints<pointsUntilSealShintoDoor){
 			isActive = true;
-			GUIManager.setPercentageCorruption ((float)accumulatedPoints / (float)pointsUntilSealShintoDoor);
+			if(accumulatedPoints<pointsUntilSealShintoDoor){
+				GUIManager.activateCorruptionBar ();
+				GUIManager.setPercentageCorruption ((float)accumulatedPoints / (float)pointsUntilSealShintoDoor);
+			}
 		}
 	}
 
