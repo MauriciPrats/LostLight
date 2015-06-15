@@ -85,34 +85,22 @@ public class IAControllerPenguin : IAController {
 		if(!isDead && !attackController.isDoingAnyAttack()){
 			if(actualBehaviour.Equals(ActualBehaviour.Idle)){
 				lookAtDirection(getPlayerDirection());
-				StopMoving();
+				characterController.StopMoving();
 			}else if(actualBehaviour.Equals(ActualBehaviour.Sliding)){
-				StopMoving();
+				characterController.StopMoving();
 				lookAtDirection(getPlayerDirection());
 				if(attackController.doAttack(slideMove,false)){
 					isSliding = true;
 				}
 
 			}else if(actualBehaviour.Equals(ActualBehaviour.WhirlwindAttack)){
-				StopMoving();
+				characterController.StopMoving();
 				lookAtDirection(getPlayerDirection());
 				if(attackController.doAttack(meleeAttack,false)){
 					isDoingMeleeAttack = true;
 				}
 
 			}
-		}
-	}
-
-	//Walks to one side and to another alternatively
-	private void Patrol(){
-		//Patrols around
-		patrolTime += Time.deltaTime;
-		if(patrolTime>=patrolTimeToTurn){
-			patrolTime = 0f;
-			Move(getLookingDirection()*-1f);
-		}else{
-			Move(getLookingDirection());
 		}
 	}
 

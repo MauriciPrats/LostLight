@@ -55,7 +55,7 @@ public class PenguinSlideMove : Attack {
 		while(timer<timeItLasts && !isInOtherSideOfEnemy()){
 			timer+=Time.deltaTime;
 			float ratio = timer/timeItLasts;
-			parent.GetComponent<IAController>().Move(direction * speedMultiplyier);
+			parent.GetComponent<CharacterController>().Move(direction * speedMultiplyier);
 			yield return null;
 		}
 		parent.GetComponent<CharacterController> ().StopMoving ();
