@@ -41,9 +41,11 @@ public class PenguinSlideMove : Attack {
 	IEnumerator doAttack(){
 		iaAnimator.SetTrigger("isChargingSlide");
 		float timer = 0f;
+		//Charges the move
 		while(timer<timeToCharge){
 			timer+=Time.deltaTime;
 			float ratio = timer/timeToCharge;
+			outlineChanger.setOutlineColor(Color.Lerp(Color.black,Color.white,ratio));
 			yield return null;
 		}
 
@@ -52,6 +54,7 @@ public class PenguinSlideMove : Attack {
 		direction = parent.GetComponent<IAController> ().getPlayerDirection ();
 		parent.layer = LayerMask.NameToLayer("OnlyFloor");
 
+		//The penguin slides until it reaches the back of the player
 		while(timer<timeItLasts && !isInOtherSideOfEnemy()){
 			timer+=Time.deltaTime;
 			float ratio = timer/timeItLasts;
@@ -64,8 +67,11 @@ public class PenguinSlideMove : Attack {
 		timer = 0f;
 		while(timer<timeToStand){
 			timer+=Time.deltaTime;
+			float ratio = (timer/timeToStand);
+			outlineChanger.setOutlineColor(Color.Lerp(Color.white,Color.black,ratio));
 			yield return null;
 		}
+		outlineChanger.setOutlineColor (Color.black);
 
 		isFinished = true;
 		parent.layer = LayerMask.NameToLayer("Enemy");

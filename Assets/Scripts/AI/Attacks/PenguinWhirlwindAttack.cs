@@ -11,6 +11,7 @@ public class PenguinWhirlwindAttack : Attack {
 	public float timeTillItDoesDamage = 0.2f;
 	public GameObject particlesWhirlwind;
 
+
 	//Private variables
 	private GameObject parent;
 	private Animator iaAnimator;
@@ -43,6 +44,7 @@ public class PenguinWhirlwindAttack : Attack {
 	IEnumerator doAttack(){
 		float timer = 0f;
 		iaAnimator.SetTrigger("isChargingWhirlwind");
+		//Charge of the attack
 		while(timer<timeToCharge){
 			timer+=Time.deltaTime;
 			float ratio = timer/timeToCharge;
@@ -54,6 +56,7 @@ public class PenguinWhirlwindAttack : Attack {
 		bool activatedHit = false;
 		while (timer<timeItLasts) {
 			timer+=Time.deltaTime;
+			//We activate the particles and damage after a certain time defined by timeTillDoesDamage
 			if(timer>=timeTillItDoesDamage && !isAttackHurting && !activatedHit){
 				isAttackHurting = true;
 				hasHitPlayer = false;
@@ -61,6 +64,7 @@ public class PenguinWhirlwindAttack : Attack {
 				particlesWhirlwind.GetComponent<ParticleSystem>().Play();
 			}
 
+			//We deactivate the particles and damage of the whirlwind after timeitlasts - timeTillDoesDamage.
 			if(timer>= (timeItLasts - timeTillItDoesDamage) && isAttackHurting){
 				isAttackHurting = false;
 				particlesWhirlwind.GetComponent<ParticleSystem>().Stop();
