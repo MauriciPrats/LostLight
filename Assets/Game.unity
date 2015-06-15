@@ -9619,14 +9619,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 283120712}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52f359a16eff3e34d862b9e457e7ee25, type: 3}
+  m_Script: {fileID: 11500000, guid: 5e3e1ba2a9582ba4ebfea4cf30f2cf9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onAnyButtonChangeToMainMenu: 0
-  firstButtonFocus: {fileID: 0}
-  menuWithLeaves: 0
-  resolutions: {fileID: 0}
-  defaultToggleResolutionWindowed: {fileID: 0}
+  aspectRatioWidth: 16
+  aspectRatioHeight: 9
 --- !u!4 &283120714
 Transform:
   m_ObjectHideFlags: 0
@@ -20076,7 +20073,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 746513858}
-  m_LocalRotation: {x: .00565734459, y: .705257714, z: .708897531, w: .00661959173}
+  m_LocalRotation: {x: .00565734459, y: .705257714, z: .708897531, w: .00661959127}
   m_LocalPosition: {x: -.00229996722, y: .643498421, z: -.829999924}
   m_LocalScale: {x: .00655176956, y: .00655176677, z: .00655177049}
   m_Children:
@@ -58927,7 +58924,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2052176610}
-  m_LocalRotation: {x: -.00565738231, y: -.705257773, z: -.708897591, w: .00661955541}
+  m_LocalRotation: {x: -.00565738231, y: -.705257773, z: -.708897591, w: .00661955494}
   m_LocalPosition: {x: -38.3699989, y: 19.6900005, z: -2.80999994}
   m_LocalScale: {x: 152.630539, y: 152.630569, z: 152.630569}
   m_Children: []
