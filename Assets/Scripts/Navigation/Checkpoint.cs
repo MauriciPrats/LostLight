@@ -19,7 +19,7 @@ public class Checkpoint : MonoBehaviour {
 	void OnTriggerEnter (Collider col)
 	{
 		if(col.gameObject.tag == "Player"){
-			GameManager.gameState.playerLastCheckpoint = checkPointIndex;
+			GameManager.persistentData.playerLastCheckpoint = checkPointIndex;
 		}
 	}
 

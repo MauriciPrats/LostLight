@@ -321,7 +321,7 @@ public class IAController : MonoBehaviour {
 				onDeathEffect.GetComponent<ParticleSystem>().Play();
 			}
 			gameObject.layer = LayerMask.NameToLayer("OnlyFloor");
-			StopMoving();
+			characterController.StopMoving();
 			GameManager.audioManager.PlaySound(6);
 			if(isActiveAndEnabled){
 				StartCoroutine("disappearOnDeath");
@@ -330,7 +330,6 @@ public class IAController : MonoBehaviour {
 				corruptionEffect.GetComponent<ParticleSystem>().Stop();
 			}
 		}
-		iaAnimator.SetBool("isWalking",false);
 		isDead = true;
 	}
 

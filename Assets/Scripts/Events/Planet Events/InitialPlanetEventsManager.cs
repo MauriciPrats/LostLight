@@ -49,7 +49,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 				boarHuntingGO.GetComponent<Cutscene>().isActive = false;
 				boarHuntingGO.GetComponent<Cutscene> ().Initialize ();
 				rocksBlockingPathGO.GetComponent<FirstPlanetBlockPathRocks>().rocks.SetActive(false);
-				GameManager.gameState.canPlayerSpaceJump = false;
+				GameManager.persistentData.spaceJumpUnlocked = false;
 			}else{
 				boarHuntingGO.GetComponent<FirstPlanetBoarHunting>().boar.SetActive(false);
 				boarHuntingGO.SetActive(false);

@@ -10,7 +10,7 @@ public static class GameManager{
 	public static SpaceGravityBody playerSpaceBody;
 	public static InputController inputController;
 	public static SceneManager actualSceneManager;
-	public static GameState gameState = new GameState ();
+	public static PersistentData persistentData = new PersistentData ();
 	public static GameObject mainCamera;
 	public static GameObject minimapCamera;
 	public static List<Light> directionalLights;
@@ -28,6 +28,12 @@ public static class GameManager{
 	public static LightsManager lightsManager;
 	public static OptionsManager optionsManager;
 
+	public static bool isGameEnded = true;
+	public static bool isCameraLockedToPlayer = true;
+	public static bool isGamePaused = false;
+	public static bool arePlanetsMoving = true;
+
+
 	public static void setGrassPorcentualLevel(float percentage){
 		foreach(ProcedurallyGeneratedObject pgo in proceduralGrass){
 			pgo.setDetailPercentage(percentage);
@@ -35,8 +41,8 @@ public static class GameManager{
 	}
 
 	//Game state functions
-	public static void putLoadedGameState(GameState gameStateLoaded){
-		gameState = gameStateLoaded;
+	public static void putLoadedGameState(PersistentData persistentDataLoaded){
+		persistentData = persistentDataLoaded;
 	}
 
 	public static void rebuildGameFromGameState(){
@@ -65,34 +71,30 @@ public static class GameManager{
 	public static void pauseGame(){
 		GameManager.inputController.disableInputController ();
 		iaManager.disableIAs ();
-		gameState.isGamePaused = true;
+		isGamePaused = true;
 	}
 
 	public static void unPauseGame(){
 		GameManager.inputController.enableInputController ();
 		iaManager.enableIAs ();
-		gameState.isGamePaused = false;
-	}
-
-	public static bool isGamePaused(){
-		return gameState.isGamePaused;
+		isGamePaused = false;
 	}
 
 	//Game functions
 	public static void loseGame(){
 		GUIManager.deactivatePlayingGUI ();
-		GameManager.gameState.isGameEnded = true;
+		isGameEnded = true;
 		GUIManager.fadeInWithAction(rebuildGameFromGameState,Menu.YouLostMenu);
 	}
 
 	public static void winGame(){
-		GameManager.gameState.isGameEnded = true;
+		isGameEnded = true;
 		GameManager.player.GetComponent<PlayerController> ().isInvulnerable = true;
 		GUIManager.fadeInWithAction(rebuildGameFromGameState,Menu.YouWonMenu);
 	}
 
 	public static void startGame(){
-		gameState.isGameEnded = false;
+		isGameEnded = false;
 		GameManager.inputController.enableInputController ();
 		if(GameManager.playerSpaceBody.getClosestPlanet()!=null){
 			if(GameManager.playerSpaceBody.getClosestPlanet().isPlanetCorrupted()){
@@ -107,7 +109,7 @@ public static class GameManager{
 	}
 
 	public static void restartGame(){
-		gameState.isGameEnded = false;
+		isGameEnded = false;
 		GUIManager.activatePlayingGUIWithFadeIn();
 	}
 

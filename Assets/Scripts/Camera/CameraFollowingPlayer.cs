@@ -170,7 +170,7 @@ public class CameraFollowingPlayer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		if(GameManager.gameState.isCameraLockedToPlayer){
+		if(GameManager.isCameraLockedToPlayer){
 			updatePosition ();
 		}
 	}

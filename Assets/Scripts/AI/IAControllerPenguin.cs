@@ -55,6 +55,7 @@ public class IAControllerPenguin : IAController {
 			if(getPlayerDistance()>maxDistancePlayer){
 				actualBehaviour = ActualBehaviour.Idle;
 			}else{
+				//If it's far away it slides, if it's close it does the whirlwind attack
 				if(getPlayerDistance()>minDistanceMeleeAttack){
 					if(slideTimer>slideCooldown){
 						slideTimer = 0f;

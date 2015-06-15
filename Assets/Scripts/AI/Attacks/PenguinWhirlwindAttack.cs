@@ -11,12 +11,14 @@ public class PenguinWhirlwindAttack : Attack {
 	public float timeTillItDoesDamage = 0.2f;
 	public GameObject particlesWhirlwind;
 
+
 	//Private variables
 	private GameObject parent;
 	private Animator iaAnimator;
 	private OutlineChanging outlineChanger;
 	private bool hasHitPlayer = false;
 	private bool isAttackHurting = false;
+	private bool interrupted = false;
 	
 	public override void initialize(){
 		attackType = AttackType.PenguinWhirlwindAttack;
@@ -43,7 +45,8 @@ public class PenguinWhirlwindAttack : Attack {
 	IEnumerator doAttack(){
 		float timer = 0f;
 		iaAnimator.SetTrigger("isChargingWhirlwind");
-		while(timer<timeToCharge){
+		//Charge of the attack
+		while(timer<timeToCharge && !interrupted){
 			timer+=Time.deltaTime;
 			float ratio = timer/timeToCharge;
 			outlineChanger.setOutlineColor(Color.Lerp(Color.black,Color.red,ratio));
@@ -52,8 +55,9 @@ public class PenguinWhirlwindAttack : Attack {
 		timer = 0f;
 		iaAnimator.SetBool("isDoingWhirlwind",true);
 		bool activatedHit = false;
-		while (timer<timeItLasts) {
+		while (timer<timeItLasts && !interrupted) {
 			timer+=Time.deltaTime;
+			//We activate the particles and damage after a certain time defined by timeTillDoesDamage
 			if(timer>=timeTillItDoesDamage && !isAttackHurting && !activatedHit){
 				isAttackHurting = true;
 				hasHitPlayer = false;
@@ -61,6 +65,7 @@ public class PenguinWhirlwindAttack : Attack {
 				particlesWhirlwind.GetComponent<ParticleSystem>().Play();
 			}
 
+			//We deactivate the particles and damage of the whirlwind after timeitlasts - timeTillDoesDamage.
 			if(timer>= (timeItLasts - timeTillItDoesDamage) && isAttackHurting){
 				isAttackHurting = false;
 				particlesWhirlwind.GetComponent<ParticleSystem>().Stop();
@@ -71,8 +76,15 @@ public class PenguinWhirlwindAttack : Attack {
 			yield return null;
 		}
 		iaAnimator.SetBool("isDoingWhirlwind",false);
-
+		interrupted = false;
 		isFinished = true;
+	}
+
+	public override void interruptAttack(){
+		interrupted = true;
+		isAttackHurting = false;
+		particlesWhirlwind.GetComponent<ParticleSystem>().Stop();
+		outlineChanger.setOutlineColor(Color.black);
 	}
 	
 	public override void informParent(GameObject parentObject){

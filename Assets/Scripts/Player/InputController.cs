@@ -41,7 +41,7 @@ public class InputController : MonoBehaviour {
 	}
 
 	void Update() {
-		if(!GameManager.gameState.isGameEnded && isEnabled){
+		if(!GameManager.isGameEnded && isEnabled){
 			//MOVEMENT BUTTON
 			if(!attackController.isDoingDash()){
 				if (Input.GetAxis ("Horizontal")!=0f) {
@@ -62,21 +62,21 @@ public class InputController : MonoBehaviour {
 			//NORMAL ATTACK BUTTON
 
 			if(character.getIsJumping() && !character.getIsSpaceJumping()){
-				if (Input.GetButtonUp("Normal Attack")) {
+				if (Input.GetButtonDown("Normal Attack")) {
 					attackController.doAttack(onAirAttack,true);
 				}
 			}else if(Mathf.Abs(Input.GetAxisRaw("Vertical"))>Mathf.Abs(Input.GetAxisRaw("Horizontal"))){
-				if (Input.GetButtonUp("Normal Attack") && Input.GetAxis("Vertical")>0.5f) {
+				if (Input.GetButtonDown("Normal Attack") && Input.GetAxis("Vertical")>0.5f) {
 					if(isCharacterAllowedToDoNormalAttack()){
 						attackController.doAttack(upNormalAttack,true);
 					}
-				}else if(Input.GetButtonUp("Normal Attack") && Input.GetAxis("Vertical")<-0.5f){
+				}else if(Input.GetButtonDown("Normal Attack") && Input.GetAxis("Vertical")<-0.5f){
 					if(isCharacterAllowedToDoNormalAttack()){
 						attackController.doAttack(downNormalAttack,true);
 					}
 				}
 			}else{
-				if (Input.GetButtonUp("Normal Attack") && isCharacterAllowedToDoNormalAttack()) {
+				if (Input.GetButtonDown("Normal Attack") && isCharacterAllowedToDoNormalAttack()) {
 					attackController.doAttack(sidesNormalAttack,true);
 				}
 			}
@@ -155,8 +155,8 @@ public class InputController : MonoBehaviour {
 			}
 
 			if(Input.GetButtonUp("PauseMenu")){
-				if(!GameManager.gameState.isGameEnded && !GameManager.playerController.getIsSpaceJumping() && !GameManager.playerController.getIsChargingSpaceJump()){
-					if(!GameManager.gameState.isGamePaused){
+				if(!GameManager.isGameEnded && !GameManager.playerController.getIsSpaceJumping() && !GameManager.playerController.getIsChargingSpaceJump()){
+					if(!GameManager.isGamePaused){
 						GameManager.pauseGame();
 						GUIManager.activatePauseMenu();
 					}else{
@@ -196,7 +196,7 @@ public class InputController : MonoBehaviour {
 			return false;
 		}else if(GameManager.getIsInsidePlanet()){
 			return false;
-		}else if(!GameManager.gameState.canPlayerSpaceJump){
+		}else if(!GameManager.persistentData.spaceJumpUnlocked){
 			return false;
 		}
 		return true;
@@ -205,7 +205,8 @@ public class InputController : MonoBehaviour {
 	bool isCharacterAllowedToMove(){
 		/*if(GetComponent<CharacterAttackController>().isDoingAnyAttack() && !character.getIsJumping()){
 			return false;
-		}else */if(attackController.isMovementLocked()){
+		}else */
+		if(attackController.isMovementLocked()){
 			return false;
 		}
 		return true;

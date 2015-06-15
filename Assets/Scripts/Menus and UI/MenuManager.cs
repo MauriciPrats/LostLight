@@ -36,7 +36,7 @@ public class MenuManager : MonoBehaviour {
 
 	public void BackOptionsMenu(){
 		GameManager.audioManager.PlayStableSound(0);
-		if(GameManager.isGamePaused()){
+		if(GameManager.isGamePaused){
 			GUIManager.fadeOutChangeMenuFadeIn (Menu.OnPauseMenu);
 		}else{
 			GUIManager.fadeOutChangeMenuFadeIn (Menu.MainMenu);
@@ -61,7 +61,7 @@ public class MenuManager : MonoBehaviour {
 		GUIManager.fadeAllOut (restartGameAndFadeInMainMenu);
 		GameManager.unPauseGame ();
 		GameManager.inputController.disableInputController ();
-		GameManager.gameState.isGameEnded = true;
+		GameManager.isGameEnded = true;
 		//Application.LoadLevel(Application.loadedLevel);
 	}
 	

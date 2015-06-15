@@ -15,6 +15,7 @@ public class PenguinSlideMove : Attack {
 	private OutlineChanging outlineChanger;
 	private float direction;
 	private float originalPlayerDirection;
+	private bool interrupted = false;
 
 	public override void initialize(){
 		attackType = AttackType.PenguinSlideMove;
@@ -41,9 +42,11 @@ public class PenguinSlideMove : Attack {
 	IEnumerator doAttack(){
 		iaAnimator.SetTrigger("isChargingSlide");
 		float timer = 0f;
-		while(timer<timeToCharge){
+		//Charges the move
+		while(timer<timeToCharge && !interrupted){
 			timer+=Time.deltaTime;
 			float ratio = timer/timeToCharge;
+			outlineChanger.setOutlineColor(Color.Lerp(Color.black,Color.white,ratio));
 			yield return null;
 		}
 
@@ -52,7 +55,8 @@ public class PenguinSlideMove : Attack {
 		direction = parent.GetComponent<IAController> ().getPlayerDirection ();
 		parent.layer = LayerMask.NameToLayer("OnlyFloor");
 
-		while(timer<timeItLasts && !isInOtherSideOfEnemy()){
+		//The penguin slides until it reaches the back of the player
+		while(timer<timeItLasts && !isInOtherSideOfEnemy()  && !interrupted){
 			timer+=Time.deltaTime;
 			float ratio = timer/timeItLasts;
 			parent.GetComponent<CharacterController>().Move(direction * speedMultiplyier);
@@ -62,13 +66,21 @@ public class PenguinSlideMove : Attack {
 		iaAnimator.SetBool("isSliding",false);
 
 		timer = 0f;
-		while(timer<timeToStand){
+		while(timer<timeToStand  && !interrupted){
 			timer+=Time.deltaTime;
+			float ratio = (timer/timeToStand);
+			outlineChanger.setOutlineColor(Color.Lerp(Color.white,Color.black,ratio));
 			yield return null;
 		}
+		outlineChanger.setOutlineColor (Color.black);
 
 		isFinished = true;
 		parent.layer = LayerMask.NameToLayer("Enemy");
+	}
+
+	public override void interruptAttack(){
+		interrupted = true;
+		outlineChanger.setOutlineColor(Color.black);
 	}
 
 	public override void informParent(GameObject parentObject){

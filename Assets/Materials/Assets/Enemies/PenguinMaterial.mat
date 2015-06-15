@@ -183,7 +183,7 @@ Material:
       data:
         first:
           name: _Outline
-        second: 12
+        second: 16
       data:
         first:
           name: _Asym

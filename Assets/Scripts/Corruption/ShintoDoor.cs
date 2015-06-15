@@ -112,7 +112,7 @@ public class ShintoDoor : MonoBehaviour {
 			GameManager.mainCamera.transform.position = cameraOriginalPosition;
 			isMovingCameraToPlayer = false;
 			isActivatingKanji = false;
-			GameManager.gameState.isCameraLockedToPlayer = true;
+			GameManager.isCameraLockedToPlayer = true;
 			Time.timeScale = 1f;
 
 			//Temporal game ending
@@ -157,7 +157,7 @@ public class ShintoDoor : MonoBehaviour {
 		actualLevelChanging = level;
 		isMovingCameraToShinto = true;
 		isActivatingKanji = true;
-		GameManager.gameState.isCameraLockedToPlayer = false;
+		GameManager.isCameraLockedToPlayer = false;
 		Time.timeScale = 0f;
 
 		cameraOriginalRotation = GameManager.mainCamera.transform.eulerAngles;
