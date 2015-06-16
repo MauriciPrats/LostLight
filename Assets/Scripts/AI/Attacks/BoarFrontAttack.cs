@@ -16,7 +16,7 @@ public class BoarFrontAttack : Attack {
 	private GameObject parent;
 	private Animator iaAnimator;
 	private bool isPlayerInsideAttack = false;
-
+	private bool interrupted = false;
 	private OutlineChanging outlineChanger;
 
 
@@ -39,6 +39,7 @@ public class BoarFrontAttack : Attack {
 	public override void startAttack(){
 		isChargingAttack = true;
 		isFinished = false;
+		interrupted = false;
 		iaAnimator.SetTrigger ("isChargingHeadbutt");
 	}
 
@@ -56,19 +57,21 @@ public class BoarFrontAttack : Attack {
 		float ratio = chargeAttackTimer / timeToChargeAttack;
 		Color newColor = Color.Lerp (Color.black, Color.red, ratio);
 		outlineChanger.setOutlineColor (newColor);
-		if(chargeAttackTimer>=timeToChargeAttack){
+		if(chargeAttackTimer>=timeToChargeAttack || interrupted){
 			outlineChanger.setOutlineColor (Color.black);
 			isChargingAttack = false;
 			isDoingAttack = true;
 			iaAnimator.SetTrigger ("isDoingHeadbutt");
 			GameManager.audioManager.PlaySound(5);
-			particlesAttack.GetComponent<ParticleSystem>().Play();
+			if(!interrupted){
+				particlesAttack.GetComponent<ParticleSystem>().Play();
+			}
 		}
 	}
 	
 	private void attack(){
 		attackTimer+=Time.deltaTime;
-		if(attackTimer>=attackDuration){
+		if(attackTimer>=attackDuration || interrupted){
 			particlesAttack.GetComponent<ParticleSystem>().Stop();
 			isFinished = true;
 			isDoingAttack = false;
@@ -80,22 +83,13 @@ public class BoarFrontAttack : Attack {
 	}
 
 	private void attackEffect(){
-		if(isPlayerInsideAttack){
+		if(isPlayerInsideAttack && !interrupted){
 			GameManager.player.GetComponent<PlayerController>().getHurt(damage);
 		}
 	}
 
 	public override void interruptAttack(){
-		if(isInterruptable){
-			outlineChanger.setOutlineColor (Color.black);
-			iaAnimator.ResetTrigger ("isChargingHeadbutt");
-			isChargingAttack = false;
-			isFinished = true;
-			isDoingAttack = false;
-			chargeAttackTimer = 0f;
-			attackTimer = 0f;
-			isInterruptable = false;
-		}
+		interrupted = true;
 	}
 
 	public override void informParent(GameObject parentObject){

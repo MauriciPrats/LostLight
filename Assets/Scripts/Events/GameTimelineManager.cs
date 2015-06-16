@@ -7,15 +7,16 @@ public class GameTimelineManager : MonoBehaviour {
 	void Update () {
 
 		if(!hasUpdated){
-			gameStarts();
+			gameBegins();
 			hasUpdated = true;
 		}
 	}
 
-	void gameStarts(){
+	void gameBegins(){
 		//It's the start of the game
 		GameManager.rebuildGameFromGameState ();
 		GUIManager.deactivatePlayingGUI();
+		GameManager.inputController.disableInputController ();
 		GUIManager.activateMenu(Menu.MainMenu);
 		GUIManager.fadeAllIn();
 

@@ -198,7 +198,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			yield return StartCoroutine(WaitInterruptable (1f,bigPappadaDialogue));
 			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¡¿Que es estoo?!", 1f, true, false);
 			yield return StartCoroutine(WaitInterruptable (5f,bigPappadaDialogue));
-			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("El templo!! Little G.!", 2f, true, false);
+			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¡Little G.!", 2f, true, false);
 			yield return StartCoroutine(WaitInterruptable (2f,bigPappadaDialogue));
 			bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().planetGettingCorrupted.SetActive(true);
 			GameManager.player.GetComponent<PlayerController>().Move(1f);
@@ -238,7 +238,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			littleGDialogue = littleGHopper.GetComponent<DialogueController> ().createNewDialogue ("Aaahhh!!\n MAESTROO!!", 1.5f, true, false);
 			yield return StartCoroutine(WaitInterruptable (1f,littleGDialogue));
 			littleGHopper.GetComponent<CharacterController>().Jump(25f);
-			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¡Little G!!", 1f, false, false);
+			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¡Aguanta, ya voy!", 1f, false, false);
 			yield return StartCoroutine(WaitInterruptable (1f,bigPappadaDialogue));
 			GameManager.inputController.disableInputController ();
 			//bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().bridge.GetComponent<Collider>().enabled = false;

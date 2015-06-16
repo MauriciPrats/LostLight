@@ -26,7 +26,7 @@ public class Spawner : MonoBehaviour {
 		foreach(GameObject enemyPrefab in enemyPrefabsCanSpawn){
 			EnemyType type = enemyPrefab.GetComponent<EnemySpawned>().enemyType;
 			bool found = false;
-			if(enemyPrefab.GetComponent<EnemySpawned>().pointsCost<=(ammountLeft+1)){
+			if(enemyPrefab.GetComponent<EnemySpawned>().pointsCost<=(ammountLeft)){
 				if(enemyPrefab.GetComponent<EnemySpawned>().maximumEnemiesInPlanet==0){
 					enemiesCanBeSpawned.Add(enemyPrefab);
 				}else{
@@ -43,7 +43,6 @@ public class Spawner : MonoBehaviour {
 				}
 			}
 		}
-
 		if(enemiesCanBeSpawned.Count>0){
 			GameObject randomEnemyToSpawn = enemiesCanBeSpawned [UnityEngine.Random.Range (0, enemiesCanBeSpawned.Count)];
 			GameObject newEnemySpawned = GameObject.Instantiate (randomEnemyToSpawn) as GameObject;

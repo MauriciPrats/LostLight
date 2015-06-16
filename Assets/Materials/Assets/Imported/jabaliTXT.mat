@@ -37,6 +37,13 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
+          name: _DissolveNoise
+        second:
+          m_Texture: {fileID: 2800000, guid: 1ce9aa100f9466c43a9154bcf15b2594, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
           name: _ParallaxMap
         second:
           m_Texture: {fileID: 0}
@@ -93,13 +100,6 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _DissolveNoise
-        second:
-          m_Texture: {fileID: 2800000, guid: 1ce9aa100f9466c43a9154bcf15b2594, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
           name: _SliceGuide
         second:
           m_Texture: {fileID: 2800000, guid: 88a9d0d31cc41514998c4157a2e273cd, type: 3}
@@ -126,6 +126,14 @@ Material:
         first:
           name: _DstBlend
         second: 0
+      data:
+        first:
+          name: _Dissolution
+        second: 1
+      data:
+        first:
+          name: _BurningWidth
+        second: .0500000007
       data:
         first:
           name: _Parallax
@@ -216,16 +224,8 @@ Material:
         second: 1
       data:
         first:
-          name: _BurningWidth
-        second: .0500000007
-      data:
-        first:
           name: _SliceAmount
         second: 0
-      data:
-        first:
-          name: _Dissolution
-        second: 1
     m_Colors:
       data:
         first:
@@ -241,20 +241,20 @@ Material:
         second: {r: 0, g: 0, b: 0, a: 0}
       data:
         first:
-          name: _EmissionColorUI
-        second: {r: 1, g: 1, b: 1, a: 1}
-      data:
-        first:
           name: _OutlineColor
         second: {r: 0, g: 0, b: 0, a: 1}
       data:
         first:
-          name: _Asymmetry
-        second: {r: 0, g: .25, b: .5, a: 0}
-      data:
-        first:
           name: _BurningColor
         second: {r: 1, g: .972413778, b: 0, a: 1}
+      data:
+        first:
+          name: _EmissionColorUI
+        second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _Asymmetry
+        second: {r: 0, g: .25, b: .5, a: 0}
       data:
         first:
           name: _HueVariation

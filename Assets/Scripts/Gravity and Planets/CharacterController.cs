@@ -28,7 +28,7 @@ public class CharacterController : MonoBehaviour {
 
 	void Update(){
 		//Check if the gravity body is touching the ground or not
-		if(isJumping && GetComponent<GravityBody>().getIsTouchingPlanet() && !isGoingUp){
+		if(isJumping && GetComponent<GravityBody>().getIsTouchingPlanetOrCharacters() && !isGoingUp){
 			isJumping = false;
 		}
 	}

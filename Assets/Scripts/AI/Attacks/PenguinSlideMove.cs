@@ -29,6 +29,7 @@ public class PenguinSlideMove : Attack {
 		if(isFinished){
 			StartCoroutine("doAttack");
 			isFinished = false;
+			interrupted = false;
 			originalPlayerDirection = parent.GetComponent<IAController> ().getPlayerDirection ();
 		}
 	}
@@ -62,7 +63,7 @@ public class PenguinSlideMove : Attack {
 			parent.GetComponent<CharacterController>().Move(direction * speedMultiplyier);
 			yield return null;
 		}
-		parent.GetComponent<CharacterController> ().StopMoving ();
+		yield return null;
 		iaAnimator.SetBool("isSliding",false);
 
 		timer = 0f;
@@ -72,8 +73,10 @@ public class PenguinSlideMove : Attack {
 			outlineChanger.setOutlineColor(Color.Lerp(Color.white,Color.black,ratio));
 			yield return null;
 		}
+		parent.GetComponent<CharacterController> ().StopMoving ();
 		outlineChanger.setOutlineColor (Color.black);
 
+		interrupted = false;
 		isFinished = true;
 		parent.layer = LayerMask.NameToLayer("Enemy");
 	}

@@ -52,7 +52,6 @@ public class KameAttackDirectionable : Attack,AnimationSubscriber {
 
 	//Variables that need to be initialized at the beginning
 	public override void initialize(){
-		
 		explosionScale =  new Vector3(extraScaleExplosion,extraScaleExplosion,extraScaleExplosion);
 		originalScale = kameEffect.transform.localScale;
 		attackType = AttackType.KameDirectional;
@@ -80,13 +79,17 @@ public class KameAttackDirectionable : Attack,AnimationSubscriber {
 			//If it's an enemy we damage him
 			enemy.GetComponent<IAController>().getHurt(damage,(kameEffect.transform.position+enemy.transform.position)/2f);
 			//We find the radius of areaEffect
-			enemy.GetComponent<Rigidbody>().AddExplosionForce(forceExplosion,transform.position,1f);
+			//enemy.GetComponent<Rigidbody>().AddExplosionForce(forceExplosion,transform.position,1f);
 			GameObject newEffect = GameObject.Instantiate (enemyHitEffectPrefab) as GameObject;
 			newEffect.transform.position = enemy.GetComponent<Rigidbody> ().worldCenterOfMass - (kameEffect.transform.forward * 0.15f);
-			Vector3 direction = (enemy.transform.position - kameCore.transform.position).normalized + (enemy.transform.up * 2f);
+			Vector3 direction = (enemy.transform.position - kameEffect.transform.position).normalized + (enemy.transform.up * 1f);
 			//enemy.GetComponent<Rigidbody> ().AddForce (direction.normalized * forceExplosion,ForceMode.Impulse);
-			enemy.GetComponent<Rigidbody>().velocity += direction * forceExplosion;
-			
+			//enemy.GetComponent<Rigidbody>().velocity += direction * forceExplosion;
+			if(detonate || (hasHitGround && explodes)){
+				enemy.GetComponent<IAController>().sendFlying(direction.normalized*forceExplosion);
+			}else{
+				enemy.GetComponent<Rigidbody> ().AddForce (direction.normalized * forceExplosion,ForceMode.Impulse);
+			}
 			GameManager.comboManager.addCombo ();
 			if(!elementAttack.Equals(ElementType.None)){
 				AttackElementsManager.getElement(elementAttack).doEffect(enemy);

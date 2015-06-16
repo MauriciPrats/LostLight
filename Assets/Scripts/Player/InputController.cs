@@ -24,13 +24,14 @@ public class InputController : MonoBehaviour {
 	public AttackType sidesSpecialAttack;
 	public AttackType downSpecialAttack;
 
-	public AttackType upNormalAttack;
+	//public AttackType upNormalAttack;
 	public AttackType sidesNormalAttack;
-	public AttackType downNormalAttack;
+	//public AttackType downNormalAttack;
 
 	public AttackType onAirAttack;
 
 	private bool isEnabled = true;
+	private float timeSinceGameReenabled = 0f;
 	
 	void Start () {
 		timeJumpPressed = 0;
@@ -41,7 +42,13 @@ public class InputController : MonoBehaviour {
 	}
 
 	void Update() {
-		if(!GameManager.isGameEnded && isEnabled){
+		//We wait some time to avoid jumping when we select to start the game
+		timeSinceGameReenabled += Time.deltaTime;
+		if(GameManager.isGameEnded || GameManager.isGamePaused){
+			timeSinceGameReenabled = 0f;
+		}
+
+		if(!GameManager.isGameEnded && isEnabled && timeSinceGameReenabled>0.2f){
 			//MOVEMENT BUTTON
 			if(!attackController.isDoingDash()){
 				if (Input.GetAxis ("Horizontal")!=0f) {
@@ -64,16 +71,6 @@ public class InputController : MonoBehaviour {
 			if(character.getIsJumping() && !character.getIsSpaceJumping()){
 				if (Input.GetButtonDown("Normal Attack")) {
 					attackController.doAttack(onAirAttack,true);
-				}
-			}else if(Mathf.Abs(Input.GetAxisRaw("Vertical"))>Mathf.Abs(Input.GetAxisRaw("Horizontal"))){
-				if (Input.GetButtonDown("Normal Attack") && Input.GetAxis("Vertical")>0.5f) {
-					if(isCharacterAllowedToDoNormalAttack()){
-						attackController.doAttack(upNormalAttack,true);
-					}
-				}else if(Input.GetButtonDown("Normal Attack") && Input.GetAxis("Vertical")<-0.5f){
-					if(isCharacterAllowedToDoNormalAttack()){
-						attackController.doAttack(downNormalAttack,true);
-					}
 				}
 			}else{
 				if (Input.GetButtonDown("Normal Attack") && isCharacterAllowedToDoNormalAttack()) {
@@ -277,5 +274,4 @@ public class InputController : MonoBehaviour {
 		isEnabled = true;
 		GUIManager.activatePlayingGUIWithFadeIn ();
 	}
-
 }

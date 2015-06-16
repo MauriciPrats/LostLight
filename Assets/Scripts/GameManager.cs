@@ -99,8 +99,6 @@ public static class GameManager{
 		if(GameManager.playerSpaceBody.getClosestPlanet()!=null){
 			if(GameManager.playerSpaceBody.getClosestPlanet().isPlanetCorrupted()){
 				(GameManager.playerSpaceBody.getClosestPlanet() as PlanetCorrupted).getPlanetEventsManager().startButtonPressed();
-			}else{
-				GUIManager.activatePlayingGUIWithFadeIn();
 			}
 		}
 

@@ -29,6 +29,7 @@ public class ComboAttack : Attack, AnimationSubscriber {
 		if(!enemiesHit.Contains(enemy) && !enemy.GetComponent<IAController>().isDead){
 			enemiesHit.Add(enemy);
 			enemy.GetComponent<IAController>().getHurt(1,(enemy.transform.position));
+			enemy.GetComponent<IAController>().hitCanSendFlying();
 			GameManager.comboManager.addCombo ();
 			GameManager.audioManager.PlayStableSound(10);
 			//Pruebas de que lanze al enemigo por los aires)

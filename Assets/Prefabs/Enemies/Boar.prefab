@@ -1456,7 +1456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0ec1e9e6c11dfb44b6671bf6e22ab65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 5
+  HP: 8
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1476,6 +1476,7 @@ MonoBehaviour:
   - {fileID: 132546}
   onDeathLight: {fileID: 190320, guid: 1b14ff513f64b5c47a24d2bcf4e709e7, type: 2}
   corruptionEffect: {fileID: 193806}
+  flySmokeParticles: {fileID: 175594, guid: c66fe661caf10e34e88f148768b4cf3c, type: 2}
   minimumDistanceSeePlayer: 50
   layersToFindCollision:
     serializedVersion: 2
@@ -1490,6 +1491,8 @@ MonoBehaviour:
   attackChance: .200000003
   timeToChangeBehaviour: .100000001
   timeToDie: 2
+  isForCinematic: 0
+  hitResistance: 3
   isDead: 0
   frontAttack: 8
   chargeAttack: 9
@@ -1497,7 +1500,7 @@ MonoBehaviour:
   maxDistancePlayer: 20
   maxDistanceMeleeAttack: .100000001
   chanceToCharge: .25
-  chanceToAttackMelee: .5
+  chanceToAttackMelee: 1
   meleeAttackCooldown: .5
   chargeAttackCooldown: 2
   maxDistanceCharge: 8
@@ -1560,7 +1563,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1698e9ac60bf14c4eaf030f9aa71a7a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 4
 --- !u!114 &11425218
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1575,6 +1578,7 @@ MonoBehaviour:
   attacksGO:
   - {fileID: 190550, guid: ea5a3024666e04f41916b1c3588cea2e, type: 2}
   - {fileID: 139322, guid: e6250a45e53901e449bb36357907560d, type: 2}
+  currentAttack: {fileID: 0}
   blockGO: {fileID: 0}
   dashGO: {fileID: 0}
 --- !u!114 &11471412

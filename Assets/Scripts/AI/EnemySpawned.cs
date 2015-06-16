@@ -22,24 +22,25 @@ public class EnemySpawned : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(killable.isDead() && !isDespawned){
-			isDespawned = true;
 			OnEnemyDead();
 		}
 		timerCheckPlayerDistance += Time.deltaTime;
 
 		if(timerCheckPlayerDistance>Constants.TIME_BETWEEN_CHECK_PLAYER_DISTANCE_FOR_DESPAWN){
 			timerCheckPlayerDistance =  0f;
-			if(Vector3.Distance(GameManager.player.transform.position,transform.position)> Constants.SPAWNING_MAXIMUM_DISTANCE_OF_PLAYER){
+			if(Vector3.Distance(GameManager.player.transform.position,transform.position)> Constants.SPAWNING_MAXIMUM_DISTANCE_OF_PLAYER && !isDespawned){
 				OnDespawn();
 			}
 		}
 	}
 
 	public void OnEnemyDead(){
+		isDespawned = true;
 		actionToCallOnDie (gameObject);
 	}
 
 	public void OnDespawn(){
+		isDespawned = true;
 		actionToCallOnDespawn (gameObject);
 	}
 }
