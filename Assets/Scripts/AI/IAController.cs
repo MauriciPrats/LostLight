@@ -156,7 +156,7 @@ public class IAController : MonoBehaviour {
 		iaAnimator.SetBool("isWalking",false);
 	}
 
-	protected void Jump(){
+	public void Jump(){
 		characterController.Jump (jumpStrength);
 	}
 
