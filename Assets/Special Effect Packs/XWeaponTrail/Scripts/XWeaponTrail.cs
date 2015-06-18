@@ -49,8 +49,6 @@ namespace Xft
         public Material MyMaterial;
         #endregion
 
-
-
         #region protected members
         protected float mTrailWidth = 0f;
         protected Element mHeadElem = new Element();

@@ -28,7 +28,7 @@ public class ComboAttack : Attack, AnimationSubscriber {
 	public override void enemyCollisionEnter(GameObject enemy) {
 		if(!enemiesHit.Contains(enemy) && !enemy.GetComponent<IAController>().isDead){
 			enemiesHit.Add(enemy);
-			enemy.GetComponent<IAController>().getHurt(1,(enemy.transform.position));
+			enemy.GetComponent<IAController>().getHurt(1,stick.transform.position);
 			enemy.GetComponent<IAController>().hitCanSendFlying();
 			GameManager.comboManager.addCombo ();
 			GameManager.audioManager.PlayStableSound(10);

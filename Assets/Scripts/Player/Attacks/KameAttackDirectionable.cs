@@ -77,7 +77,8 @@ public class KameAttackDirectionable : Attack,AnimationSubscriber {
 		if(!enemiesHit.Contains(enemy) && !enemy.GetComponent<IAController>().isDead){
 			enemiesHit.Add(enemy);
 			//If it's an enemy we damage him
-			enemy.GetComponent<IAController>().getHurt(damage,(kameEffect.transform.position+enemy.transform.position)/2f);
+			enemy.GetComponent<IAController>().getHurt(damage,(kameEffect.transform.position));
+
 			//We find the radius of areaEffect
 			//enemy.GetComponent<Rigidbody>().AddExplosionForce(forceExplosion,transform.position,1f);
 			GameObject newEffect = GameObject.Instantiate (enemyHitEffectPrefab) as GameObject;
@@ -88,6 +89,7 @@ public class KameAttackDirectionable : Attack,AnimationSubscriber {
 			if(detonate || (hasHitGround && explodes)){
 				enemy.GetComponent<IAController>().sendFlying(direction.normalized*forceExplosion);
 			}else{
+				enemy.GetComponent<IAController>().hitInterruptsAndHitstone();
 				enemy.GetComponent<Rigidbody> ().AddForce (direction.normalized * forceExplosion,ForceMode.Impulse);
 			}
 			GameManager.comboManager.addCombo ();

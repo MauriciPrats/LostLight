@@ -18,6 +18,7 @@ public class FollowHighlightedButton : MonoBehaviour {
 	void Start () {
 		GUIManager.registerHightlightFollower (gameObject);
 		originalScale = spline.transform.localScale;
+		transform.parent = GameManager.mainCamera.transform;
 	}
 
 	public void informHighlightedObject(GameObject highlightedObject){
@@ -55,10 +56,6 @@ public class FollowHighlightedButton : MonoBehaviour {
 				}
 				isActive = false;
 			}
-
-		if (GameManager.playerSpaceBody.getClosestPlanet () != null) {
-			transform.parent = GameManager.playerSpaceBody.getClosestPlanet ().gameObject.transform;
-		}
 	}
 
 	IEnumerator grow(){

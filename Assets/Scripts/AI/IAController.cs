@@ -14,6 +14,7 @@ public class IAController : MonoBehaviour {
 	public GameObject onDeathLight;
 	public GameObject corruptionEffect;
 	public GameObject flySmokeParticles;
+	public GameObject onHitGroundParticles;
 
 	//Public Variables
 	public float minimumDistanceSeePlayer = 50f;
@@ -42,9 +43,9 @@ public class IAController : MonoBehaviour {
 	private float lastTimeCheckedClosestThingInFront = 0f;
 	private float cooldownRaycastingClosestThingInFront = 0.1f;
 	private GameObject[] hitParticles;
+	private GameObject hitGroundParticles;
 	private GameObject flyParticles;
 	private bool hasBeenInitialized = false;
-
 	//Protected Variables to be used by all the AI
 	protected CharacterController characterController;
 	protected Animator iaAnimator;
@@ -58,6 +59,7 @@ public class IAController : MonoBehaviour {
 	protected bool isOnGuard;
 	protected bool isFrozen;
 	protected bool isStunned;
+	private bool isBeingThrown = false;
 
 	private bool despawned = false;
 
@@ -90,6 +92,9 @@ public class IAController : MonoBehaviour {
 		flyParticles = GameObject.Instantiate (flySmokeParticles) as GameObject;
 		flyParticles.transform.parent = transform;
 		flyParticles.transform.position = GetComponent<Rigidbody> ().worldCenterOfMass;
+		hitGroundParticles = GameObject.Instantiate (onHitGroundParticles) as GameObject;
+		hitGroundParticles.transform.parent = transform;
+		hitGroundParticles.transform.position = GetComponent<Rigidbody> ().worldCenterOfMass;
 		
 		foreach (GameObject particles in hitParticles) {
 			particles.transform.parent = gameObject.transform;
@@ -295,13 +300,13 @@ public class IAController : MonoBehaviour {
 		//iaAnimator.enabled = false;
 		isEnabled = false;
 		float timer = 0f;
-		//Vector3 playerPosition = GameManager.player.transform.position;
+		Vector3 playerPosition = GameManager.player.transform.position;
 		Vector3 position = transform.position;
 		GetComponent<OutlineChanging> ().setMainColor (Color.black);
-		while(timer<0.1f){
+		while(timer<0.13f){
 			timer += Time.deltaTime;
 			transform.position = position;
-			//GameManager.player.transform.position = playerPosition;
+			GameManager.player.transform.position = playerPosition;
 			yield return null;
 		}
 
@@ -316,6 +321,7 @@ public class IAController : MonoBehaviour {
 
 	}
 
+	//Parabola
 	private IEnumerator sendFlyingCoroutine(Vector3 direction,float rotationDirection){
 
 		yield return StartCoroutine (hitStone ());
@@ -338,11 +344,16 @@ public class IAController : MonoBehaviour {
 		GetComponent<Rigidbody> ().AddForce (direction,ForceMode.VelocityChange);
 		float timer = 0f;
 		transform.position += transform.up * 0.5f;
+
+		//GetComponent<Collider> ().material = materialOnRebound;
 		//iaAnimator.SetBool ("isFlying", true);
 		yield return null;
-		while(timer<1.5f){
+		while(timer<2f){
 			timer += Time.deltaTime;
-			if(timer>=0.3f && GetComponent<GravityBody>().getIsTouchingPlanet()){
+			if(timer>=0.3f){
+				isBeingThrown = true;
+			}
+			if(isBeingThrown && GetComponent<GravityBody>().getIsTouchingPlanet()){
 				break;
 			}
 			transform.RotateAround(GetComponent<Rigidbody>().worldCenterOfMass,Vector3.forward,20f * rotationDirection);
@@ -353,6 +364,7 @@ public class IAController : MonoBehaviour {
 		/*foreach(Collider c in GetComponentsInChildren<Collider>()){
 			c.enabled = true;
 		}*/
+		isBeingThrown = false;
 		flyParticles.GetComponent<ParticleSystem> ().Stop();
 		//iaAnimator.SetBool ("isFlying", false);
 		// GetComponent<GravityBody> ().setHasToApplyForce (true);
@@ -367,7 +379,7 @@ public class IAController : MonoBehaviour {
 		timerConsecutiveHits = 0f;
 		if(consecutiveHits==hitResistance){
 			consecutiveHits = 0;
-			Vector3 direction = GetComponent<Rigidbody> ().worldCenterOfMass - GameManager.player.transform.position;
+			Vector3 direction = GetComponent<Rigidbody> ().worldCenterOfMass - GameManager.player.transform.position;//GetComponent<Rigidbody> ().worldCenterOfMass;
 			StartCoroutine (sendFlyingCoroutine(direction*15f,getPlayerDirection()));
 		}else if(consecutiveHits<hitResistance){
 			StartCoroutine (hitStone ());
@@ -375,14 +387,29 @@ public class IAController : MonoBehaviour {
 		}
 	}
 
+	public void hitInterruptsAndHitstone(){
+		interruptAttack ();
+		StartCoroutine (hitStone ());
+	}
+
 
 	//Method to receive damage (Play particles, sounds effects, etc)
 	public void getHurt(int hurtAmmount,Vector3 hitPosition){
 		if(!isDead){
+			Vector3 center = GetComponent<Rigidbody>().worldCenterOfMass;
+			Vector3 position = hitPosition;
+			Vector3 forwardDirection = center - GameManager.player.GetComponent<Rigidbody>().worldCenterOfMass;
+			RaycastHit hit;
+			if(GetComponent<Collider>().Raycast(new Ray(center,hitPosition - center),out hit,10f)){
+				position = hit.point;
+			}
+
 			foreach (GameObject particles in hitParticles) {
 				particles.GetComponent<ParticleSystem>().Play();
-				particles.transform.position = hitPosition + (transform.up * 0.2f);
+				particles.transform.position = position;
+				particles.transform.forward = forwardDirection;
 			}
+
 			
 			GetComponent<Killable> ().TakeDamage (hurtAmmount);
 			iaAnimator.SetTrigger("isHurt");
@@ -400,6 +427,14 @@ public class IAController : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision collision){
+		if (isBeingThrown && GetComponent<Rigidbody>().velocity.magnitude>2f) {
+			hitGroundParticles.transform.forward = collision.contacts[0].normal;
+			hitGroundParticles.transform.position = collision.contacts[0].point;
+			GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);
+			hitGroundParticles.GetComponent<ParticleSystem>().Play();
+		}
+
+
 		virtualOnCollisionEnter (collision);
 	}
 	protected virtual void virtualOnCollisionEnter(Collision collision){

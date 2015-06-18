@@ -1469,14 +1469,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onHitEffect: {fileID: 100000, guid: 12bcd11168a419d45b48549497198ad5, type: 2}
-  secondOnHitEffect: {fileID: 138160, guid: 3c32aaf1e6513274b96031f57271f274, type: 2}
-  thirdOnHitEffect: {fileID: 161062, guid: a1c5a491ff9fea147a1325163b3b21fb, type: 2}
+  secondOnHitEffect: {fileID: 181236, guid: 0f93f97fefeab5d46af3b913b7cbfeb3, type: 2}
+  thirdOnHitEffect: {fileID: 138160, guid: 3c32aaf1e6513274b96031f57271f274, type: 2}
   onDeathEffects:
   - {fileID: 183566}
   - {fileID: 132546}
   onDeathLight: {fileID: 190320, guid: 1b14ff513f64b5c47a24d2bcf4e709e7, type: 2}
   corruptionEffect: {fileID: 193806}
   flySmokeParticles: {fileID: 175594, guid: c66fe661caf10e34e88f148768b4cf3c, type: 2}
+  onHitGroundParticles: {fileID: 156840, guid: d9cc9b81695610444b7dda84df2fb501, type: 2}
   minimumDistanceSeePlayer: 50
   layersToFindCollision:
     serializedVersion: 2

@@ -20,7 +20,7 @@ public class OnAirAttack : Attack {
 	public override void enemyCollisionEnter(GameObject enemy){
 		if(!enemiesHit.Contains(enemy) && !enemy.GetComponent<IAController>().isDead){
 			enemiesHit.Add(enemy);
-			enemy.GetComponent<IAController>().getHurt(1,(enemy.transform.position));
+			enemy.GetComponent<IAController>().getHurt(1,GameManager.player.transform.position);
 			enemy.GetComponent<IAController>().hitCanSendFlying();
 			GameManager.audioManager.PlayStableSound(10);
 			if(!hasHitEnemy){

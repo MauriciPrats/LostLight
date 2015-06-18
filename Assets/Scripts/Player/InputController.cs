@@ -24,9 +24,9 @@ public class InputController : MonoBehaviour {
 	public AttackType sidesSpecialAttack;
 	public AttackType downSpecialAttack;
 
-	//public AttackType upNormalAttack;
+	public AttackType upNormalAttack;
 	public AttackType sidesNormalAttack;
-	//public AttackType downNormalAttack;
+	public AttackType downNormalAttack;
 
 	public AttackType onAirAttack;
 
@@ -48,7 +48,7 @@ public class InputController : MonoBehaviour {
 			timeSinceGameReenabled = 0f;
 		}
 
-		if(!GameManager.isGameEnded && isEnabled && timeSinceGameReenabled>0.2f){
+		if(!GameManager.isGameEnded && isEnabled && timeSinceGameReenabled>0.2f && !character.getIsFallingDown()){
 			//MOVEMENT BUTTON
 			if(!attackController.isDoingDash()){
 				if (Input.GetAxis ("Horizontal")!=0f) {
@@ -68,15 +68,15 @@ public class InputController : MonoBehaviour {
 
 			//NORMAL ATTACK BUTTON
 
-			if(character.getIsJumping() && !character.getIsSpaceJumping()){
+			/*if(character.getIsJumping() && !character.getIsSpaceJumping()){
 				if (Input.GetButtonDown("Normal Attack")) {
 					attackController.doAttack(onAirAttack,true);
 				}
-			}else{
+			}else{*/
 				if (Input.GetButtonDown("Normal Attack") && isCharacterAllowedToDoNormalAttack()) {
 					attackController.doAttack(sidesNormalAttack,true);
 				}
-			}
+			//}
 
 			//SPECIAL ATTACK BUTTON
 			KameAttackDirectionable kameDir = attackController.getAttack(sidesSpecialAttack) as KameAttackDirectionable;

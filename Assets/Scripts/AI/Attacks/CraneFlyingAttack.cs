@@ -33,31 +33,41 @@ public class CraneFlyingAttack : Attack {
 			iaAnimator.SetBool ("isFlyingAttacking", false);
 			isFinished = true;
 			parent.GetComponent<IAControllerCrane> ().resetOriginalPreferredHeight ();
+			parent.GetComponent<IAControllerCrane> ().resetOriginalUpSpeed ();
 		}
 	}
 	
 	public override void startAttack(){
-		isFinished = false;
-		StartCoroutine("doAttack");
+		if(isFinished){
+			isFinished = false;
+			StartCoroutine("doAttack");
+		}
 	}
 	
 	private IEnumerator doAttack(){
-		interrupted = false;
 		iaAnimator.SetBool ("isFlyingAttacking", true);
-		parent.GetComponent<IAControllerCrane> ().preferredHeight = 0f;
-		parent.GetComponent<IAControllerCrane> ().upSpeed = 2f;
-
+		
 		float timer = 0f;
-		while(timer<timeToChargeAttack && !interrupted){
+		while(timer<timeToChargeAttack/2f && !interrupted){
 			timer+=Time.deltaTime;
 			float ratio = timer/timeToChargeAttack;
 			outlineChanger.setOutlineColor(Color.Lerp(Color.black,Color.red,ratio));
 			yield return null;
 		}
+		parent.GetComponent<IAControllerCrane> ().preferredHeight = 0f;
+		parent.GetComponent<IAControllerCrane> ().setUpSpeed (4f);
+		timer = 0f;
+		while(timer<timeToChargeAttack/2f && !interrupted){
+			timer+=Time.deltaTime;
+			yield return null;
+		}
+
+
 		if(!interrupted){
 			parent.GetComponent<IAControllerCrane> ().setActionToCallOnTouchGround (onHitGround);
 			isActive = true;
 		}
+		interrupted = false;
 	}
 
 	public override void interruptAttack(){

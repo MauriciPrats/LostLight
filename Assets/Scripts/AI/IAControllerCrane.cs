@@ -92,7 +92,7 @@ public class IAControllerCrane : IAController {
 	}
 
 	protected override void virtualOnCollisionEnter(Collision collision){
-		if(collision.gameObject.layer.Equals(LayerMask.NameToLayer("Planets")) || collision.gameObject.layer.Equals(LayerMask.NameToLayer("Enemy"))){
+		if(collision.gameObject.layer.Equals(LayerMask.NameToLayer("Planets"))){
 			if(actionToCallOnTouchGround!=null){
 				actionToCallOnTouchGround();
 			}else if(!attackController.isDoingAnyAttack() && GetComponent<GravityBody> ().getHasToApplyForce()){
@@ -111,7 +111,7 @@ public class IAControllerCrane : IAController {
 				if (Physics.Raycast(GetComponent<Rigidbody>().worldCenterOfMass,transform.up*-1f, out hit, 20f,planetsMask)){
 					float distance = hit.distance;
 					missingDistancePreferredHeight = preferredHeight - distance;
-					upDirection = missingDistancePreferredHeight/upSpeed;
+					upDirection = missingDistancePreferredHeight;
 					upDirection = Mathf.Clamp(upDirection,-1f,1f);
 					if(!GetComponent<GravityBody>().getHasToApplyForce()){
 						GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity/4f;
@@ -206,6 +206,10 @@ public class IAControllerCrane : IAController {
 
 	public void resetOriginalUpSpeed(){
 		upSpeed = upSpeedOriginal;
+	}
+
+	public void setUpSpeed(float newSpeed){
+		upSpeed = newSpeed;
 	}
 
 	public void setActionToCallOnTouchGround(Action action){
