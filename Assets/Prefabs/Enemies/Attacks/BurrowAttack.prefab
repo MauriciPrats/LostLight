@@ -73,6 +73,7 @@ MonoBehaviour:
   cost: 0
   elementAttack: 0
   burrowParticles: {fileID: 142620}
+  timeUnderground: 1.5
 --- !u!198 &19802406
 ParticleSystem:
   m_ObjectHideFlags: 1

@@ -151,7 +151,7 @@ public class PlayerController : MonoBehaviour {
 			//GUIManager.activateSpaceJumpGUI();
 			//rigidbody.velocity = rigidbody.velocity.normalized * (Constants.GRAVITY_FORCE_OF_PLANETS/1.5f);
 
-			if(!GameManager.gameState.isGameEnded){
+			if(!GameManager.isGameEnded){
 				if(timeHasBeenInSpace>=timeToDieInSpace){
 					//breathingBubble.transform.localScale = new Vector3(0f,0f,0f);
 					timeHasNotBeenBreathing+=Time.deltaTime;
@@ -175,7 +175,7 @@ public class PlayerController : MonoBehaviour {
 		}else{
 
 
-			if(!GameManager.gameState.isGameEnded){
+			if(!GameManager.isGameEnded){
 				timeHasBeenInSpace = 0f;
 				//breathingBubble.SetActive(false);
 			}
@@ -283,7 +283,7 @@ public class PlayerController : MonoBehaviour {
 			GUIManager.getHurtEffect ();
 			killable.TakeDamage (hitPointsToSubstract);
 			pappadaC.newProportionOfLife (killable.proportionHP ());
-			if (killable.HP <= 0 && !GameManager.gameState.isGameEnded) {
+			if (killable.HP <= 0 && !GameManager.isGameEnded) {
 				GameManager.audioManager.StopSong();
 				GameManager.audioManager.PlayStableSound(9);
 				GameManager.loseGame ();

@@ -3,28 +3,42 @@ using System.Collections;
 
 public class IAControllerRat : IAController {
 
+	static int walkingState = Animator.StringToHash("Walking");
+	static int undergroundState = Animator.StringToHash("Underground");
+
 	//public AttackType poisonAttack;
-	//public AttackType jumpingAttack;
+	public AttackType jumpingAttack;
 	public AttackType burrowAttack;
+
 
 	public float patrolTimeToTurn = 1.5f;
 
 	private float timeWalkingDirectionIdle = 0f;
 	private float attackTimer = 0f;
 	private float patrolTime = 0f;
+	private float initialY; 
+
+	private GameObject burrowParticles;
+
+	private bool isBurried;
+	private bool isJumping;
 
 	protected override void initialize(){
 		Debug.Log ("initialize");
-		//Attack poisonAttackA = attackController.getAttack(poisonAttack);
+
 		Attack burrowAttackA = attackController.getAttack(burrowAttack);
-		//Attack jumpingAttackA = attackController.getAttack (jumpingAttack);
+		Attack jumpingAttackA = attackController.getAttack (jumpingAttack);
 		burrowAttackA.informParent (gameObject);
+		jumpingAttackA.informParent (gameObject);
 
+		burrowParticles = gameObject.transform.Find ("BurriedDust").gameObject;
 
-		//jumpingA
-		//poisonAttack.informParent(gameObject);
-		SetMeleeRange (1f);
-		SetVisionRange (40f);
+		SetMeleeRange (0.025f);
+		SetVisionRange (3f);
+		isBurried = false;
+		isJumping = false;
+
+		initialY = gameObject.transform.Find ("Model").gameObject.transform.position.y;
 	}
 
 	protected override void UpdateAI(){
@@ -37,38 +51,40 @@ public class IAControllerRat : IAController {
 		if(isAtVisionRange() && !attackController.isDoingAnyAttack()){
 			//I'm at melee range?
 			if(isAtMeleeRange()){
-				//Poison attack
-				//attackController.doAttack (poisonAttack,false);
+				Debug.Log ("Estoy a mele!");
+				if (isBurried) {
+					Debug.Log("Salgo!");
+					Emerge ();
+					gameObject.transform.Find ("Model").gameObject.transform.localPosition = new Vector3 (0.391f,0,-0.418f);
+				}
+				characterController.Move (0f);
+				Debug.Log ("Ataque veneno");
 			} else {
-				//70% chance to burrow. 30% chance to attack jumping. 
-				float randomNum = Random.Range (0,100);
-				if ( randomNum > 30 ) {
-					attackController.doAttack(burrowAttack,false);
-				} else {
-					Patrol ();
-					//attackController.doAttack(jumpingAttack,false);
+				Debug.Log ("Me voy debajo tierra. A ver si puedo llegar hasta el.");
+				if (!isBurried) {
+					Burrow ();				
+				}
+				if ( (isBurried && isUndergroundState())) {
+					gameObject.transform.Find ("Model").gameObject.transform.localPosition = new Vector3 (5000,5000,5000);
+					characterController.Move(getPlayerDirection ());
+				}
+				if (!isBurried && isWalkingState()){
+					characterController.Move(getPlayerDirection ());
 				}
 			}
+
 		//I can't see the player. Just Patrol or Burrow
-		}else if (!attackController.isDoingAnyAttack()) {
-			if (getIsTouchingPlanet ()) {		
-				float randomNum = Random.Range (0,100);
-				if ( randomNum > 30 ) {
-					//TODO: Enhance the patrolling system.
-					Patrol ();
-				}else {
-					attackController.doAttack(burrowAttack,false);
-				}
-			}
-		} else {
-			StopMoving ();
+		}else if (!attackController.isDoingAnyAttack() && !isJumping) {
+			Debug.Log ("Patrullo en la superficie"); 
+			characterController.Move (0f);
+			Emerge ();
+			//Patrol ();
 		}
-		//Burrow ();
-		//Patrol ();
 	}
 
 	private void Patrol(){
 		//Patrols around
+		//TODO: Check collisions, so it can turn around. 
 		patrolTime += Time.deltaTime;
 		if(patrolTime>=patrolTimeToTurn){
 			patrolTime = 0f;
@@ -78,10 +94,25 @@ public class IAControllerRat : IAController {
 		}
 	}
 
+	private void Emerge() {
+		burrowParticles.SetActive (false);
+		iaAnimator.SetBool ("isWalking", true);
+		isBurried = false;
+	}
+
 	private void Burrow() {
-		//TODO: play burrow Animation (not created yet).
-		gameObject.GetComponentInChildren<MeshRenderer> ().enabled = false;
-		attackController.doAttack(burrowAttack,false);
-		gameObject.GetComponentInChildren<MeshRenderer> ().enabled = true;
+		iaAnimator.SetBool ("isWalking", false);
+		burrowParticles.SetActive (true);
+		isBurried = true;	
+	}
+
+	private bool isWalkingState(){
+		bool value = iaAnimator.GetCurrentAnimatorStateInfo (0).IsName("Base.Walking");
+		return value;
+	}
+
+	private bool isUndergroundState() {
+		bool value = iaAnimator.GetCurrentAnimatorStateInfo (0).IsName("Base.Underground");
+		return value;
 	}
 }

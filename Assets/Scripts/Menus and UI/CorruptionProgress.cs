@@ -29,6 +29,7 @@ public class CorruptionProgress : MonoBehaviour {
 	void Start(){
 		originalScale = corruptionGroup.transform.localScale;
 		extraScaleV = new Vector3 (extraScale, extraScale, extraScale);
+		setPercentage (0f);
 	}
 
 	void Update(){

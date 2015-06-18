@@ -4,7 +4,7 @@ using System.Collections;
 public class BurrowAttack : Attack {
 
 	public GameObject burrowParticles;
-	public float timeUnderground = 4f;
+	public float timeUnderground = 1.5f;
 
 	private GameObject parent;
 	private float direction = 0f;
@@ -39,7 +39,7 @@ public class BurrowAttack : Attack {
 			}
 			yield return null;
 		}
-		burrowParticles.SetActive (false);
+		//burrowParticles.SetActive (false);
 		isFinished = true;
 		yield return null;
 

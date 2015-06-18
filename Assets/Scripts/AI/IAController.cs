@@ -156,7 +156,7 @@ public class IAController : MonoBehaviour {
 		iaAnimator.SetBool("isWalking",false);
 	}
 
-	protected void Jump(){
+	public void Jump(){
 		characterController.Jump (jumpStrength);
 	}
 
@@ -186,7 +186,7 @@ public class IAController : MonoBehaviour {
 	}
 
 	//Gets the distance to the player
-	protected float getPlayerDistance(){
+	public float getPlayerDistance(){
 		PlayerController chaCon = player.GetComponent<PlayerController>();
 		return Vector3.Distance (player.GetComponent<Rigidbody>().worldCenterOfMass, transform.position) - (walkOnMultiplePaths.centerToExtremesDistance + chaCon.centerToExtremesDistance);
 	}
@@ -321,7 +321,7 @@ public class IAController : MonoBehaviour {
 				onDeathEffect.GetComponent<ParticleSystem>().Play();
 			}
 			gameObject.layer = LayerMask.NameToLayer("OnlyFloor");
-			StopMoving();
+			characterController.StopMoving();
 			GameManager.audioManager.PlaySound(6);
 			if(isActiveAndEnabled){
 				StartCoroutine("disappearOnDeath");
@@ -330,7 +330,6 @@ public class IAController : MonoBehaviour {
 				corruptionEffect.GetComponent<ParticleSystem>().Stop();
 			}
 		}
-		iaAnimator.SetBool("isWalking",false);
 		isDead = true;
 	}
 

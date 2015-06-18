@@ -3,13 +3,19 @@ using System.Collections;
 
 public class PenguinSlideMove : Attack {
 
-	public float timeItLasts = 1f;
+	public float timeItLasts = 2f;
 	public float speedMultiplyier = 2f;
+	public float timeToCharge = 1f;
+	public float timeToStand = 0.5f;
+	public float distanceStandUpBehindEnemy = 0.3f;
+
 	//Private variables
 	private GameObject parent;
 	private Animator iaAnimator;
 	private OutlineChanging outlineChanger;
 	private float direction;
+	private float originalPlayerDirection;
+	private bool interrupted = false;
 
 	public override void initialize(){
 		attackType = AttackType.PenguinSlideMove;
@@ -20,25 +26,61 @@ public class PenguinSlideMove : Attack {
 	}
 	
 	public override void startAttack(){
-		Debug.Log("Penguin Slide Move");
-		StartCoroutine("doAttack");
-		isFinished = false;
+		if(isFinished){
+			StartCoroutine("doAttack");
+			isFinished = false;
+			originalPlayerDirection = parent.GetComponent<IAController> ().getPlayerDirection ();
+		}
 	}
 
+	private bool isInOtherSideOfEnemy(){
+		if(parent.GetComponent<IAController> ().getPlayerDirection () != originalPlayerDirection && parent.GetComponent<IAController> ().getPlayerDistance()>=distanceStandUpBehindEnemy){
+			return true;
+		}
+		return false;
+	}
 	IEnumerator doAttack(){
-		
+		iaAnimator.SetTrigger("isChargingSlide");
 		float timer = 0f;
-		direction = parent.GetComponent<IAController> ().getPlayerDirection ();
-		parent.layer = LayerMask.NameToLayer("OnlyFloor");
-		while(timer<timeItLasts){
+		//Charges the move
+		while(timer<timeToCharge && !interrupted){
 			timer+=Time.deltaTime;
-			float ratio = timer/timeItLasts;
-			parent.GetComponent<IAController>().Move(direction * speedMultiplyier);
+			float ratio = timer/timeToCharge;
+			outlineChanger.setOutlineColor(Color.Lerp(Color.black,Color.white,ratio));
 			yield return null;
 		}
-		outlineChanger.setOutlineColor(Color.black);
+
+		iaAnimator.SetBool("isSliding",true);
+		timer = 0f;
+		direction = parent.GetComponent<IAController> ().getPlayerDirection ();
+		parent.layer = LayerMask.NameToLayer("OnlyFloor");
+
+		//The penguin slides until it reaches the back of the player
+		while(timer<timeItLasts && !isInOtherSideOfEnemy()  && !interrupted){
+			timer+=Time.deltaTime;
+			float ratio = timer/timeItLasts;
+			parent.GetComponent<CharacterController>().Move(direction * speedMultiplyier);
+			yield return null;
+		}
+		parent.GetComponent<CharacterController> ().StopMoving ();
+		iaAnimator.SetBool("isSliding",false);
+
+		timer = 0f;
+		while(timer<timeToStand  && !interrupted){
+			timer+=Time.deltaTime;
+			float ratio = (timer/timeToStand);
+			outlineChanger.setOutlineColor(Color.Lerp(Color.white,Color.black,ratio));
+			yield return null;
+		}
+		outlineChanger.setOutlineColor (Color.black);
+
 		isFinished = true;
 		parent.layer = LayerMask.NameToLayer("Enemy");
+	}
+
+	public override void interruptAttack(){
+		interrupted = true;
+		outlineChanger.setOutlineColor(Color.black);
 	}
 
 	public override void informParent(GameObject parentObject){

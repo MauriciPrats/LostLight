@@ -78,7 +78,6 @@ public class PlanetCorruption : MonoBehaviour {
 
 	public void activateSpawning(){
 		spawningEnabled = true;
-		GUIManager.activateCorruptionBar ();
 		GetComponent<PlanetSpawnerManager> ().activate ();
 	}
 
@@ -119,7 +118,7 @@ public class PlanetCorruption : MonoBehaviour {
 		if(GameManager.playerSpaceBody.getClosestPlanet().isPlanetCorrupted()){
 			(GameManager.playerSpaceBody.getClosestPlanet() as PlanetCorrupted).getPlanetEventsManager().planetCleansed();
 		}
-		GameManager.gameState.canPlayerSpaceJump = true;
+		GameManager.persistentData.spaceJumpUnlocked = true;
 		GameManager.audioManager.playSong(1);
 	}
 	// Update is called once per frame

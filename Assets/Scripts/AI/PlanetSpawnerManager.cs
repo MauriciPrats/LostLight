@@ -39,7 +39,7 @@ public class PlanetSpawnerManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(!GameManager.gameState.isGameEnded && isActive && planetCorruption.getSpawningEnabled()){
+		if(!GameManager.isGameEnded && isActive && planetCorruption.getSpawningEnabled()){
 			timerSpawn += Time.deltaTime;
 			if(ammountOfActualPointsSpawned< maxPointsSpawnedAtSameTime && timerSpawn > timeBetweenSpawns){
 				timerSpawn = 0f;
@@ -136,7 +136,10 @@ public class PlanetSpawnerManager : MonoBehaviour {
 	public void activate(){
 		if(accumulatedPoints<pointsUntilSealShintoDoor){
 			isActive = true;
-			GUIManager.setPercentageCorruption ((float)accumulatedPoints / (float)pointsUntilSealShintoDoor);
+			if(accumulatedPoints<pointsUntilSealShintoDoor){
+				GUIManager.activateCorruptionBar ();
+				GUIManager.setPercentageCorruption ((float)accumulatedPoints / (float)pointsUntilSealShintoDoor);
+			}
 		}
 	}
 
