@@ -25,10 +25,10 @@ public class ComboAttack : Attack, AnimationSubscriber {
 		//weaponEffects.StopSmoothly(0.1f);
 	}
 	//Cuando se hace el combo 3 con el enemies hit  activo, los enemigos no son afectados por el tercer golpe. 
-	public override void enemyCollisionEnter(GameObject enemy) {
+	public override void enemyCollisionEnter(GameObject enemy,Vector3 point) {
 		if(!enemiesHit.Contains(enemy) && !enemy.GetComponent<IAController>().isDead){
 			enemiesHit.Add(enemy);
-			enemy.GetComponent<IAController>().getHurt(1,stick.transform.position);
+			enemy.GetComponent<IAController>().getHurt(1,point);
 			enemy.GetComponent<IAController>().hitCanSendFlying();
 			GameManager.comboManager.addCombo ();
 			GameManager.audioManager.PlayStableSound(10);

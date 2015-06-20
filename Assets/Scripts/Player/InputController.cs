@@ -6,10 +6,10 @@ using System.Collections.Generic;
 [RequireComponent (typeof (PlayerController))]
 
 public class InputController : MonoBehaviour {
+
 	public float startChargeSpaceJump;
 	public float timeIsSpaceJumpCharged;
 	public float maxDistanceToInteract;
-
 	
 	private bool isSpaceJumpCharging = false;
 	private bool isSpaceJumpCharged;
@@ -41,7 +41,7 @@ public class InputController : MonoBehaviour {
 		WeaponManager wpm = WeaponManager.Instance;
 	}
 
-	void Update() {
+	void LateUpdate() {
 		//We wait some time to avoid jumping when we select to start the game
 		timeSinceGameReenabled += Time.deltaTime;
 		if(GameManager.isGameEnded || GameManager.isGamePaused){
@@ -73,6 +73,9 @@ public class InputController : MonoBehaviour {
 					attackController.doAttack(onAirAttack,true);
 				}
 			}else{*/
+			if (Input.GetButtonDown("Normal Attack") && Input.GetAxisRaw("Vertical")>0f && isCharacterAllowedToDoNormalAttack()) {
+				attackController.doAttack(upNormalAttack,true);
+			}
 				if (Input.GetButtonDown("Normal Attack") && isCharacterAllowedToDoNormalAttack()) {
 					attackController.doAttack(sidesNormalAttack,true);
 				}
@@ -212,7 +215,7 @@ public class InputController : MonoBehaviour {
 	bool isCharacterAllowedToDoSpecialAttack(){
 		if(character.getIsSpaceJumping()){
 			return false;
-		}else if(GetComponent<CharacterAttackController>().isDoingAnyAttack()){
+		}else if(!GetComponent<CharacterAttackController>().canDoAttack()){
 			return false;
 		}
 		return true;
@@ -229,8 +232,6 @@ public class InputController : MonoBehaviour {
 
 	bool isCharacterAllowedToDash(){
 		if(character.getIsSpaceJumping()){
-			return false;
-		}else if(!attackController.canDoAttack()){
 			return false;
 		}else if(attackController.isDoingDash() || attackController.isDashOnCooldown()){
 			return false;

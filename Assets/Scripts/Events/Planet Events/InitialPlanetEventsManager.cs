@@ -343,6 +343,8 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 	public override void startButtonPressed(){
 		if(isEnabled && !firstCinematicPlayed){
 			StartCoroutine("initialCinematic");
+		}else{
+			GameManager.persistentData.spaceJumpUnlocked = true;
 		}
 	}
 

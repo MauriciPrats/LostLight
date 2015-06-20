@@ -279,7 +279,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void getHurt(int hitPointsToSubstract){
-		if (!isInvulnerable && !attackController.isDoingBlock ()) {
+		if (!isInvulnerable && !attackController.isDoingBlock () && !GameManager.isGameEnded && !GameManager.isGamePaused) {
 			if(!getIsSpaceJumping()){
 				//fallDown();
 			}

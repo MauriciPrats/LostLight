@@ -54275,7 +54275,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: .833333313
+  - time: 1
     functionName: informEvent
     data: ComboAttack:end
     objectReferenceParameter: {fileID: 0}

@@ -21,7 +21,7 @@ public class PenguinSlideMove : Attack {
 		attackType = AttackType.PenguinSlideMove;
 	}
 	
-	public override void enemyCollisionEnter(GameObject enemy){
+	public override void enemyCollisionEnter(GameObject enemy,Vector3 point){
 		//GameManager.player.GetComponent<PlayerController> ().getHurt (damage);
 	}
 	

@@ -22,7 +22,7 @@ public class ShockwaveAttack : Attack,AnimationSubscriber {
 	private AnimationEventBroadcast eventHandler;
 	private List<GameObject> enemiesHit;
 
-	public override void enemyCollisionEnter(GameObject enemy){
+	public override void enemyCollisionEnter(GameObject enemy,Vector3 point){
 		//If it's an enemy we damage him
 		if(!enemiesHit.Contains(enemy) && !enemy.GetComponent<IAController>().isDead){
 			enemiesHit.Add(enemy);

@@ -134,7 +134,7 @@ AnimatorController:
     m_DefaultWeight: 1
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - serializedVersion: 5
     m_Name: Attacks
     m_StateMachine: {fileID: 110754998}
@@ -146,7 +146,7 @@ AnimatorController:
     m_DefaultWeight: 1
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - serializedVersion: 5
     m_Name: GetHurt
     m_StateMachine: {fileID: 110708838}
@@ -155,10 +155,10 @@ AnimatorController:
     m_Behaviours: []
     m_BlendingMode: 1
     m_SyncedLayerIndex: -1
-    m_DefaultWeight: 1
+    m_DefaultWeight: .5
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - serializedVersion: 5
     m_Name: GrabHealth
     m_StateMachine: {fileID: 110740344}
@@ -170,7 +170,7 @@ AnimatorController:
     m_DefaultWeight: 1
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   m_MultiThreadedStateMachine: 1
 --- !u!206 &20600000
 BlendTree:
@@ -7255,8 +7255,8 @@ AnimatorState:
   m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: CounterAttack
-  m_Speed: 1
+  m_Name: ThrowAttack
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 110151482}
@@ -7265,7 +7265,7 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_Motion: {fileID: 7400044, guid: 572425adeeacb8544b3e2bbef7fd0dd6, type: 3}
+  m_Motion: {fileID: 7400000, guid: c469eb14450a6f5459334e2e3a85c9c2, type: 2}
   m_Tag: 
 --- !u!1102 &110269996
 AnimatorState:
@@ -7664,6 +7664,40 @@ AnimatorState:
   m_WriteDefaultValues: 1
   m_Mirror: 0
   m_Motion: {fileID: 7400000, guid: ded3e5abd2de844409dafefe30071c84, type: 2}
+  m_Tag: 
+--- !u!1102 &110288076
+AnimatorState:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: ThrowAttack 0
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_Motion: {fileID: 7400000, guid: c469eb14450a6f5459334e2e3a85c9c2, type: 2}
+  m_Tag: 
+--- !u!1102 &110288852
+AnimatorState:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: ThrowAttack
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_Motion: {fileID: 7400000, guid: c469eb14450a6f5459334e2e3a85c9c2, type: 2}
   m_Tag: 
 --- !u!1102 &110289294
 AnimatorState:
@@ -8084,7 +8118,7 @@ AnimatorStateMachine:
     m_Position: {x: 636, y: -276, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 110215318}
-    m_Position: {x: 636, y: -384, z: 0}
+    m_Position: {x: 636, y: -348, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 110237062}
     m_Position: {x: 144, y: -252, z: 0}
@@ -8093,7 +8127,7 @@ AnimatorStateMachine:
     m_Position: {x: 384, y: -180, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 110269080}
-    m_Position: {x: 636, y: -180, z: 0}
+    m_Position: {x: 636, y: -204, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -8310,6 +8344,12 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: 110202038}
     m_Position: {x: 492, y: 192, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 110288852}
+    m_Position: {x: 527, y: 257, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 110288076}
+    m_Position: {x: 562, y: 322, z: 0}
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: 110762358}
@@ -8434,7 +8474,7 @@ AnimatorStateMachine:
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: 110710716}
-    m_Position: {x: 204, y: -108, z: 0}
+    m_Position: {x: 192, y: -108, z: 0}
   - serializedVersion: 1
     m_StateMachine: {fileID: 110724460}
     m_Position: {x: 420, y: -108, z: 0}

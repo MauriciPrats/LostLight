@@ -7,6 +7,7 @@ public class GuardBreakAttack : Attack {
 	public float positionInFrontPlayer = 0.5f;
 	public float timeToActivate = 0.1f;
 	public float timeToDeactivate = 0.4f;
+
 	private bool hasHitEnemy;
 	private GameObject weapon;
 	private List<GameObject> enemiesHit;
@@ -24,7 +25,7 @@ public class GuardBreakAttack : Attack {
 
 	}
 
-	public override void enemyCollisionEnter(GameObject enemy){
+	public override void enemyCollisionEnter(GameObject enemy,Vector3 point){
 		if(!enemiesHit.Contains(enemy) && !enemy.GetComponent<IAController>().isDead){
 			enemiesHit.Add(enemy);
 			enemy.GetComponent<IAController>().getHurt(damage,(enemy.transform.position));

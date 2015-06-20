@@ -317,7 +317,9 @@ public class IAController : MonoBehaviour {
 		
 	}
 	public void sendFlying(Vector3 direction){
-		StartCoroutine(sendFlyingCoroutine(direction,getPlayerDirection()));
+		if (consecutiveHits > 1) {
+			StartCoroutine (sendFlyingCoroutine (direction * consecutiveHits, getPlayerDirection ()));
+		}
 
 	}
 
@@ -377,14 +379,15 @@ public class IAController : MonoBehaviour {
 		interruptAttack ();
 		consecutiveHits++;
 		timerConsecutiveHits = 0f;
-		if(consecutiveHits==hitResistance){
+		StartCoroutine (hitStone ());
+		/*if(consecutiveHits==hitResistance){
 			consecutiveHits = 0;
 			Vector3 direction = GetComponent<Rigidbody> ().worldCenterOfMass - GameManager.player.transform.position;//GetComponent<Rigidbody> ().worldCenterOfMass;
 			StartCoroutine (sendFlyingCoroutine(direction*15f,getPlayerDirection()));
 		}else if(consecutiveHits<hitResistance){
 			StartCoroutine (hitStone ());
 			//GetComponent<Rigidbody>().AddForce(transform.up*4f,ForceMode.VelocityChange);
-		}
+		}*/
 	}
 
 	public void hitInterruptsAndHitstone(){
@@ -399,17 +402,12 @@ public class IAController : MonoBehaviour {
 			Vector3 center = GetComponent<Rigidbody>().worldCenterOfMass;
 			Vector3 position = hitPosition;
 			Vector3 forwardDirection = center - GameManager.player.GetComponent<Rigidbody>().worldCenterOfMass;
-			RaycastHit hit;
-			if(GetComponent<Collider>().Raycast(new Ray(center,hitPosition - center),out hit,10f)){
-				position = hit.point;
-			}
 
 			foreach (GameObject particles in hitParticles) {
-				particles.GetComponent<ParticleSystem>().Play();
 				particles.transform.position = position;
 				particles.transform.forward = forwardDirection;
+				particles.GetComponent<ParticleSystem>().Play();
 			}
-
 			
 			GetComponent<Killable> ().TakeDamage (hurtAmmount);
 			iaAnimator.SetTrigger("isHurt");
@@ -427,14 +425,14 @@ public class IAController : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision collision){
-		if (isBeingThrown && GetComponent<Rigidbody>().velocity.magnitude>2f) {
-			hitGroundParticles.transform.forward = collision.contacts[0].normal;
-			hitGroundParticles.transform.position = collision.contacts[0].point;
-			GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);
-			hitGroundParticles.GetComponent<ParticleSystem>().Play();
+		if(collision.gameObject.layer.Equals(LayerMask.NameToLayer("Planets"))){
+			if (isBeingThrown && GetComponent<Rigidbody>().velocity.magnitude>2f) {
+				hitGroundParticles.transform.forward = collision.contacts[0].normal;
+				hitGroundParticles.transform.position = collision.contacts[0].point;
+				GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);
+				hitGroundParticles.GetComponent<ParticleSystem>().Play();
+			}
 		}
-
-
 		virtualOnCollisionEnter (collision);
 	}
 	protected virtual void virtualOnCollisionEnter(Collision collision){

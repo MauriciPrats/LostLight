@@ -73,7 +73,7 @@ public class KameAttackDirectionable : Attack,AnimationSubscriber {
 	}
 	
 	//When it hits an enemy
-	public override void enemyCollisionEnter(GameObject enemy){
+	public override void enemyCollisionEnter(GameObject enemy,Vector3 point){
 		if(!enemiesHit.Contains(enemy) && !enemy.GetComponent<IAController>().isDead){
 			enemiesHit.Add(enemy);
 			//If it's an enemy we damage him

@@ -129,6 +129,7 @@ ModelImporter:
     7400006: FlyAttack
     7400008: FallFlying
     7400010: GroundAttack
+    7400012: Die
     9500000: //RootNode
     13700000: Crane
   materials:
@@ -158,7 +159,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       loopTime: 1
-      loopBlend: 0
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -426,7 +427,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       loopTime: 1
-      loopBlend: 0
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -822,6 +823,140 @@ ModelImporter:
       takeName: CraneArmature|CraneArmatureAction
       firstFrame: 353
       lastFrame: 394
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Crane
+        weight: 1
+      - path: CraneArmature
+        weight: 1
+      - path: CraneArmature/Hip_L
+        weight: 1
+      - path: CraneArmature/Hip_L/Leg_L
+        weight: 1
+      - path: CraneArmature/Hip_L/Leg_L/Leg_L.001
+        weight: 1
+      - path: CraneArmature/Hip_L/Leg_L/Leg_L.001/FingerBack_L
+        weight: 1
+      - path: CraneArmature/Hip_L/Leg_L/Leg_L.001/FingerBack_L/FingerBack_L.001
+        weight: 1
+      - path: CraneArmature/Hip_L/Leg_L/Leg_L.001/FingerBack_L/FingerBack_L.001/FingerBack_L.001_end
+        weight: 1
+      - path: CraneArmature/Hip_L/Leg_L/Leg_L.001/Fingers_L
+        weight: 1
+      - path: CraneArmature/Hip_L/Leg_L/Leg_L.001/Fingers_L/Fingers_L.001
+        weight: 1
+      - path: CraneArmature/Hip_L/Leg_L/Leg_L.001/Fingers_L/Fingers_L.001/Fingers_L.001_end
+        weight: 1
+      - path: CraneArmature/Hip_R
+        weight: 1
+      - path: CraneArmature/Hip_R/Leg_R
+        weight: 1
+      - path: CraneArmature/Hip_R/Leg_R/Leg_R.001
+        weight: 1
+      - path: CraneArmature/Hip_R/Leg_R/Leg_R.001/FingerBack_R
+        weight: 1
+      - path: CraneArmature/Hip_R/Leg_R/Leg_R.001/FingerBack_R/FingerBack_R.001
+        weight: 1
+      - path: CraneArmature/Hip_R/Leg_R/Leg_R.001/FingerBack_R/FingerBack_R.001/FingerBack_R.001_end
+        weight: 1
+      - path: CraneArmature/Hip_R/Leg_R/Leg_R.001/Fingers_R
+        weight: 1
+      - path: CraneArmature/Hip_R/Leg_R/Leg_R.001/Fingers_R/Fingers_R.001
+        weight: 1
+      - path: CraneArmature/Hip_R/Leg_R/Leg_R.001/Fingers_R/Fingers_R.001/Fingers_R.001_end
+        weight: 1
+      - path: CraneArmature/Spine
+        weight: 1
+      - path: CraneArmature/Spine/Spine.001
+        weight: 1
+      - path: CraneArmature/Spine/Spine.001/Shoulder_L
+        weight: 1
+      - path: CraneArmature/Spine/Spine.001/Shoulder_L/Wing_L
+        weight: 1
+      - path: CraneArmature/Spine/Spine.001/Shoulder_L/Wing_L/Wing_L.001
+        weight: 1
+      - path: CraneArmature/Spine/Spine.001/Shoulder_L/Wing_L/Wing_L.001/Wing_L.001_end
+        weight: 1
+      - path: CraneArmature/Spine/Spine.001/Shoulder_L/Wing_L/Wing_L.002
+        weight: 1
+      - path: CraneArmature/Spine/Spine.001/Shoulder_L/Wing_L/Wing_L.002/Wing_L.002_end
+        weight: 1
+      - path: CraneArmature/Spine/Spine.001/Shoulder_L/Wing_L/Wing_L.003
+        weight: 1
+      - path: CraneArmature/Spine/Spine.001/Shoulder_L/Wing_L/Wing_L.003/Wing_L.003_end
+        weight: 1
+      - path: CraneArmature/Spine/Spine.001/Shoulder_R
+        weight: 1
+      - path: CraneArmature/Spine/Spine.001/Shoulder_R/Wing_R
+        weight: 1
+      - path: CraneArmature/Spine/Spine.001/Shoulder_R/Wing_R/Wing_R.001
+        weight: 1
+      - path: CraneArmature/Spine/Spine.001/Shoulder_R/Wing_R/Wing_R.001/Wing_R.001_end
+        weight: 1
+      - path: CraneArmature/Spine/Spine.001/Shoulder_R/Wing_R/Wing_R.002
+        weight: 1
+      - path: CraneArmature/Spine/Spine.001/Shoulder_R/Wing_R/Wing_R.002/Wing_R.002_end
+        weight: 1
+      - path: CraneArmature/Spine/Spine.001/Shoulder_R/Wing_R/Wing_R.003
+        weight: 1
+      - path: CraneArmature/Spine/Spine.001/Shoulder_R/Wing_R/Wing_R.003/Wing_R.003_end
+        weight: 1
+      - path: CraneArmature/Spine/Spine.001/Spine.002
+        weight: 1
+      - path: CraneArmature/Spine/Spine.001/Spine.002/Neck
+        weight: 1
+      - path: CraneArmature/Spine/Spine.001/Spine.002/Neck/Neck.001
+        weight: 1
+      - path: CraneArmature/Spine/Spine.001/Spine.002/Neck/Neck.001/Neck.002
+        weight: 1
+      - path: CraneArmature/Spine/Spine.001/Spine.002/Neck/Neck.001/Neck.002/Neck.003
+        weight: 1
+      - path: CraneArmature/Spine/Spine.001/Spine.002/Neck/Neck.001/Neck.002/Neck.003/Neck.004
+        weight: 1
+      - path: CraneArmature/Spine/Spine.001/Spine.002/Neck/Neck.001/Neck.002/Neck.003/Neck.004/Head
+        weight: 1
+      - path: CraneArmature/Spine/Spine.001/Spine.002/Neck/Neck.001/Neck.002/Neck.003/Neck.004/Head/Head_end
+        weight: 1
+      - path: CraneArmature/Spine/Spine.003
+        weight: 1
+      - path: CraneArmature/Spine/Spine.003/Tail
+        weight: 1
+      - path: CraneArmature/Spine/Spine.003/Tail/Tail.001
+        weight: 1
+      - path: CraneArmature/Spine/Spine.003/Tail/Tail.001/Tail.001_end
+        weight: 1
+      - path: Cube.000
+        weight: 1
+      - path: Cube.001
+        weight: 1
+      - path: Cube.002
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Die
+      takeName: CraneArmature|CraneArmatureAction
+      firstFrame: 283
+      lastFrame: 323
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

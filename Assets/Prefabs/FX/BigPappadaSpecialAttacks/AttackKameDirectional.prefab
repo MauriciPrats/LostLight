@@ -800,7 +800,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  cost: 0
+  cost: 40
   elementAttack: 0
   kameEffect: {fileID: 154724}
   kameCore: {fileID: 159632}

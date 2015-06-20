@@ -5,7 +5,7 @@ AnimationClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Attack4
+  m_Name: ThrowAttack
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -49310,14 +49310,14 @@ AnimationClip:
     messageOptions: 0
   - time: .666666687
     functionName: informEvent
-    data: ComboAttack:start
+    data: ThrowAttack:start
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: .875
     functionName: informEvent
-    data: ComboAttack:end
+    data: ThrowAttack:end
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0

@@ -11,7 +11,7 @@ public class Banana : MonoBehaviour {
 
 	void OnCollisionEnter(Collision collision){
 		if(collision.gameObject.layer == LayerMask.NameToLayer("Player")){
-			parentAttack.enemyCollisionEnter (collision.gameObject);
+			parentAttack.enemyCollisionEnter (collision.gameObject,collision.contacts[0].point);
 			Destroy(gameObject);
 		}else if(collision.gameObject.layer == LayerMask.NameToLayer("Planets")){
 			Destroy(gameObject);
@@ -20,7 +20,7 @@ public class Banana : MonoBehaviour {
 
 	void OnTriggerEnter(Collider collider){
 		if(collider.gameObject.layer == LayerMask.NameToLayer("Player")){
-			parentAttack.enemyCollisionEnter (collider.gameObject);
+			parentAttack.enemyCollisionEnter (collider.gameObject,collider.ClosestPointOnBounds(transform.position));
 			Destroy(gameObject);
 		}else if(collider.gameObject.layer == LayerMask.NameToLayer("Planets")){
 			Destroy(gameObject);

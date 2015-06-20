@@ -12,6 +12,7 @@ public class IAControllerCrane : IAController {
 	
 	public AttackType meleeAttack;
 	public AttackType flyingAttack;
+	public GameObject feet;
 
 	public float minimumDistanceInFront = 0.4f;
 	public float patrolTimeToTurn = 1.5f;

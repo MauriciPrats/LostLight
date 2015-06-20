@@ -10,11 +10,11 @@ Se llaman los initialize de cada ataque
 
 */
 
-
-	protected bool isFinished = true;
 	public int damage = 1;
 	public int cost = 0;
 	public ElementType elementAttack = ElementType.None;
+
+	protected bool isFinished = true;
 	protected bool isInterruptable;
 	protected AttackType attackType;
 
@@ -28,7 +28,7 @@ Se llaman los initialize de cada ataque
 		update ();
 	}
 
-	public virtual void enemyCollisionEnter(GameObject enemy){
+	public virtual void enemyCollisionEnter(GameObject enemy,Vector3 point){
 	}
 	
 	public virtual void enemyCollisionExit(GameObject enemy){
