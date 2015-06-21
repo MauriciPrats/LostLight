@@ -5,6 +5,8 @@ using System.Collections;
 [RequireComponent (typeof (SphereCollider))]
 
 public class Planet : MonoBehaviour {
+	public bool centerCameraOnLand = false;
+
 	protected GravityAttractor gravityAttractor;
 	protected SphereCollider sphereCollider;
 	protected HideFrontPlanetFaceOnEnter hideFrontPlanetFaceOnEnter;

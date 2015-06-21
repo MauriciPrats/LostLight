@@ -7,7 +7,9 @@ public class Spawner : MonoBehaviour {
 
 	public GameObject[] enemyPrefabsCanSpawn;
 	public bool isOutsidePlanet;
+	public GameObject particlesSpawnerPrefab;
 
+	private List<GameObject> usedParticleEffects = new List<GameObject>(0);
 
 	public bool isInRange(){
 		float distanceBetweenPlayerAndSpawnPoint = Vector3.Distance (transform.position, GameManager.player.transform.position);
@@ -52,11 +54,46 @@ public class Spawner : MonoBehaviour {
 			enemyTypeSpawned = enemySpawnedC.enemyType;
 			enemySpawnedC.actionToCallOnDie = actionToCallOnEnemyDead;
 			enemySpawnedC.actionToCallOnDespawn = actionToCallOnEnemyDespawned;
-		
+			StartCoroutine(spawnOverTime(newEnemySpawned));
 			return enemySpawnedC.pointsCost;
 		}else{
 			enemyTypeSpawned = EnemyType.None;
 			return 0;
 		}
+	}
+	private GameObject getParticleEffect(){
+		if(usedParticleEffects.Count>0){
+			GameObject effect = usedParticleEffects[0];
+			usedParticleEffects.Remove(effect);
+			return effect;
+		}else{
+			GameObject particleEffect = GameObject.Instantiate (particlesSpawnerPrefab);
+			return particleEffect;
+		}
+	}
+
+	private IEnumerator spawnOverTime(GameObject enemySpawned){
+		enemySpawned.SetActive (false);
+		GameObject particleEffect = getParticleEffect ();
+		particleEffect.transform.position = enemySpawned.transform.position;
+		particleEffect.transform.forward = enemySpawned.transform.up;
+		particleEffect.GetComponent<ParticleSystem> ().Play();
+		yield return new WaitForSeconds (1f);
+		enemySpawned.SetActive (true);
+		//enemySpawned.GetComponent<IAController> ().setNotEnabled();
+		//Vector3 originalSize = enemySpawned.transform.localScale;
+		//enemySpawned.transform.localScale = originalSize / 10f;
+		float timer = 0f;
+		float timeItTakesToSpawn = 2f;
+		while(timer<timeItTakesToSpawn){
+			timer+=Time.deltaTime;
+			float ratio = timer/timeItTakesToSpawn;
+			//enemySpawned.transform.localScale = originalSize * ratio;
+			yield return null;
+		}
+		particleEffect.GetComponent<ParticleSystem> ().Stop();
+		usedParticleEffects.Add (particleEffect);
+		//enemySpawned.transform.localScale = originalSize;
+		//enemySpawned.GetComponent<IAController> ().activate ();
 	}
 }

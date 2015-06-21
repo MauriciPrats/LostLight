@@ -7,7 +7,7 @@ public class LightGemEnergyUI : MonoBehaviour {
 	float energyPercentage = 0f;
 	bool lerping = false;
 	float timer = 0f;
-	float timeToLerp = 0.3f;
+	float timeToLerp = 0.1f;
 	float objectiveEnergy = 0f;
 	float lastRatioCalculated = 0f;
 
@@ -30,8 +30,10 @@ public class LightGemEnergyUI : MonoBehaviour {
 		}
 
 		if(lerping){
-			timer+=Time.deltaTime;
+			timer+=(Time.deltaTime/Util.getTimeProportion());
 			if(timer>=timeToLerp){
+				lastRatioCalculated = objectiveEnergy;
+				GetComponent<Image>().fillAmount = lastRatioCalculated;
 				lerping = false;
 				energyPercentage = objectiveEnergy;
 			}else{

@@ -17,12 +17,20 @@ public class FadeManager : MonoBehaviour {
 	float allAlpha = 0f;
 	int fadeDirAll = 1;
 	bool isFinishedAll = true;
+	float lastTime;
+	float deltaTime = 0f;
 
 	float fadeSpeed = Constants.FADE_SPEED;
 	private Action fadeAllInAction,fadeAllOutAction,fadeInAction,fadeOutAction;
 
 	void Awake () {
 		GUIManager.registerFadeManager (gameObject);
+		lastTime = Time.realtimeSinceStartup;
+	}
+
+	void Update(){
+		deltaTime = Time.realtimeSinceStartup - lastTime;
+		lastTime = Time.realtimeSinceStartup;
 	}
 
 	public void getHurtEffect(){
@@ -96,7 +104,7 @@ public class FadeManager : MonoBehaviour {
 	private IEnumerator fadeTexture(GameObject fadingMenu,float fadeDir,float alpha,Action fadeAction,float fadeSpeed){
 		bool isFinishedF = false;
 		while(!isFinishedF){
-			alpha += fadeDir * fadeSpeed * Time.deltaTime;
+			alpha += fadeDir * fadeSpeed * deltaTime;
 			alpha = Mathf.Clamp01 (alpha); 
 			if(fadingMenu!=null){
 				fadingMenu.GetComponent<CanvasGroup>().alpha = alpha;
@@ -122,7 +130,7 @@ public class FadeManager : MonoBehaviour {
 
 	void drawFadeOutCompleteTexture(){
 		if (!isFinishedAll) {
-			allAlpha += fadeDirAll * Constants.FADE_SPEED * Time.deltaTime;
+			allAlpha += fadeDirAll * Constants.FADE_SPEED * deltaTime;
 			allAlpha = Mathf.Clamp01 (allAlpha); 
 
 			GUI.color = new Color (GUI.color.r, GUI.color.g, GUI.color.b, 1f-allAlpha);

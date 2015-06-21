@@ -40,6 +40,9 @@ public static class Util{
 		Time.fixedDeltaTime = newTimeProportion * originalFixedDeltaTime;
 	}
 
+	public static float getTimeProportion(){
+		return Time.timeScale;
+	}
 	public static Vector3 RotatePointAroundPivot(Vector3 point,Vector3 pivot,Vector3 angles) {
 		Vector3 dir = point - pivot; // get point direction relative to pivot
 		dir = Quaternion.Euler(angles) * dir; // rotate it

@@ -5,21 +5,23 @@ public class LightOnDeath : MonoBehaviour {
 
 	public int pointsToAddPerLight = 0;
 	Vector3 speed;
-	float totalSpeedStart = 2.5f;
-	float totalspeed = 2.5f;
-	float speedIncrease = 4f;
-	float angleMultiplyier = 20f;
+	float totalSpeedStart = 1f;
+	float totalspeed = 1f;
+	float speedIncrease = 1f;
+	float angleMultiplyier = 2f;
 
 	float timeHasBeenAlive;
 
 	bool hasArrived = false;
 	float timerWhenArrived;
+	GameObject shintoDoor;
 
 	//GameObject objective;
 
 	public void setVectorUp(Vector3 vectorUp){
 		speed = new Vector3 (Random.value, Random.value, Random.value).normalized;
 		speed = ((speed * speedIncrease) + vectorUp).normalized;
+		shintoDoor = GameManager.playerSpaceBody.getClosestPlanet ().GetComponent<PlanetCorruption> ().shintoDoor.GetComponent<ShintoDoor> ().KanjiLevel1;
 	}
 	// Use this for initialization
 	void Start () {
@@ -28,7 +30,7 @@ public class LightOnDeath : MonoBehaviour {
 	}
 
 	private Vector3 getObjectivePosition(){
-		return GUIManager.getCorruptionBarPosition ();
+		return shintoDoor.transform.position;
 	}
 	
 	// Update is called once per frame
@@ -43,7 +45,7 @@ public class LightOnDeath : MonoBehaviour {
 
 				//If there is any close planet that is corrupted we increment the accumulated points when the light arrives to the bar.
 				if(GameManager.playerSpaceBody.getClosestPlanet()!=null && GameManager.playerSpaceBody.getClosestPlanet().isPlanetCorrupted()){
-					(GameManager.playerSpaceBody.getClosestPlanet() as PlanetCorrupted).getPlanetSpawnerManager().incrementAccumulatedPoints(pointsToAddPerLight);
+
 				}
 			}
 			timerWhenArrived+=Time.deltaTime;

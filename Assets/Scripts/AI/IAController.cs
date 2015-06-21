@@ -316,11 +316,14 @@ public class IAController : MonoBehaviour {
 		isEnabled = true;
 		
 	}
-	public void sendFlying(Vector3 direction){
+	public void sendFlyingByConsecutiveHits(Vector3 direction){
 		if (consecutiveHits > 1) {
 			StartCoroutine (sendFlyingCoroutine (direction * consecutiveHits, getPlayerDirection ()));
 		}
+	}
 
+	public void sendFlyingByForce(Vector3 direction){
+		StartCoroutine (sendFlyingCoroutine (direction, getPlayerDirection ()));
 	}
 
 	//Parabola
@@ -489,22 +492,25 @@ public class IAController : MonoBehaviour {
 	//Method to call after the enemy dies (To make it disappear)
 	private void onDeath(){
 		Vector3 center = GetComponent<Rigidbody> ().worldCenterOfMass;
-		GameObject newLight = GameObject.Instantiate(onDeathLight) as GameObject;
-		newLight.transform.position = (center);
-		newLight.GetComponent<LightOnDeath>().setVectorUp(transform.up);
-		newLight.GetComponent<LightOnDeath>().pointsToAddPerLight = GetComponent<EnemySpawned>().pointsCost;
-		int randRGB = UnityEngine.Random.Range(0,3);
-		Color color = new Color(1f,1f,1f);
-		float complementary = 1f;
-		float mainColor = 0.85f;
-		if(randRGB==0){
-			color = new Color(mainColor,complementary,complementary);
-		}else if(randRGB==1){
-			color = new Color(complementary,mainColor,complementary);
-		}else{
-			color = new Color(complementary,complementary,mainColor);
+		for(int i = 0;i<GetComponent<EnemySpawned>().pointsCost;i++){
+			GameObject newLight = GameObject.Instantiate(onDeathLight) as GameObject;
+			newLight.transform.position = (center);
+			newLight.GetComponent<LightOnDeath>().setVectorUp(transform.up);
+			newLight.GetComponent<LightOnDeath>().pointsToAddPerLight = GetComponent<EnemySpawned>().pointsCost;
+			int randRGB = UnityEngine.Random.Range(0,3);
+			Color color = new Color(1f,1f,1f);
+			float complementary = 1f;
+			float mainColor = 0.85f;
+			if(randRGB==0){
+				color = new Color(mainColor,complementary,complementary);
+			}else if(randRGB==1){
+				color = new Color(complementary,mainColor,complementary);
+			}else{
+				color = new Color(complementary,complementary,mainColor);
+			}
+			newLight.GetComponent<TrailRenderer>().material.color = color;
 		}
-		newLight.GetComponent<TrailRenderer>().material.color = color;
+		(GameManager.playerSpaceBody.getClosestPlanet() as PlanetCorrupted).getPlanetSpawnerManager().incrementAccumulatedPoints(GetComponent<EnemySpawned>().pointsCost);
 	}
 
 	public void interruptAttack(){
@@ -548,6 +554,10 @@ public class IAController : MonoBehaviour {
 		isEnabled = false;
 		StopMoving ();
 		interruptAttack ();
+	}
+
+	public void setNotEnabled(){
+		isEnabled = false;
 	}
 
 	public void activate(){

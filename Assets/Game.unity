@@ -1865,6 +1865,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fef3f1145db2741928db79c0dcbdd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  centerCameraOnLand: 0
 --- !u!114 &32074796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2373,6 +2374,102 @@ Prefab:
     - target: {fileID: 11450898, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
       propertyPath: points.Array.data[12].y
       value: -.482899994
+      objectReference: {fileID: 0}
+    - target: {fileID: 11446220, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: lookForward
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11430222, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: lookForward
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11475402, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: lookForward
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11444172, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: lookForward
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11496222, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: lookForward
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11494832, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: lookForward
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11408104, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: lookForward
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11471278, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: lookForward
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11440778, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: lookForward
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11408590, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: lookForward
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11410348, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: lookForward
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11430868, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: lookForward
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11446220, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: independentDeltaTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11430222, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: independentDeltaTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11475402, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: independentDeltaTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11444172, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: independentDeltaTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11496222, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: independentDeltaTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11494832, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: independentDeltaTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11408104, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: independentDeltaTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11471278, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: independentDeltaTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11440778, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: independentDeltaTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11408590, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: independentDeltaTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11410348, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: independentDeltaTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11430868, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: independentDeltaTime
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
@@ -3032,6 +3129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fef3f1145db2741928db79c0dcbdd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  centerCameraOnLand: 0
 --- !u!114 &79916499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3560,6 +3658,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fef3f1145db2741928db79c0dcbdd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  centerCameraOnLand: 0
 --- !u!114 &90194827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3994,6 +4093,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fef3f1145db2741928db79c0dcbdd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  centerCameraOnLand: 0
 --- !u!114 &107658109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7394,6 +7494,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fef3f1145db2741928db79c0dcbdd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  centerCameraOnLand: 0
 --- !u!114 &174930592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10061,7 +10162,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: febcb40f6047a074195536a66dbe4be4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorAmbientInsidePlanet: {r: .301470578, g: .301470578, b: .301470578, a: 0}
 --- !u!1 &283120712
 GameObject:
   m_ObjectHideFlags: 0
@@ -10086,7 +10186,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 283120712}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5629ac1e75aa624bb3e4e8a7d194bef, type: 3}
+  m_Script: {fileID: 11500000, guid: 5e3e1ba2a9582ba4ebfea4cf30f2cf9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   aspectRatioWidth: 16
@@ -15255,6 +15355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fef3f1145db2741928db79c0dcbdd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  centerCameraOnLand: 1
 --- !u!114 &413265411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15420,6 +15521,8 @@ MonoBehaviour:
   - {fileID: 100050, guid: a8815a4bb4d8d9d44a7a87c0be01ed17, type: 2}
   - {fileID: 152610, guid: 3a79967716eb9ae4fa586960487959c2, type: 2}
   isOutsidePlanet: 1
+  particlesSpawnerPrefab: {fileID: 133508, guid: a18e573213aa68d45b57ab149748abdf,
+    type: 2}
 --- !u!1 &423580141
 GameObject:
   m_ObjectHideFlags: 0
@@ -15577,6 +15680,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fef3f1145db2741928db79c0dcbdd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  centerCameraOnLand: 0
 --- !u!114 &424636785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17575,6 +17679,54 @@ Prefab:
       propertyPath: points.Array.data[12].y
       value: -.444467366
       objectReference: {fileID: 0}
+    - target: {fileID: 11446220, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: independentDeltaTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11430222, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: independentDeltaTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11475402, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: independentDeltaTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11444172, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: independentDeltaTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11496222, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: independentDeltaTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11494832, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: independentDeltaTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11408104, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: independentDeltaTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11471278, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: independentDeltaTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11440778, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: independentDeltaTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11408590, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: independentDeltaTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11410348, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: independentDeltaTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11430868, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
+      propertyPath: independentDeltaTime
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 219a2c404cb91074787c4a87aca68779, type: 2}
   m_IsPrefabParent: 0
@@ -18383,7 +18535,7 @@ Transform:
   - {fileID: 1529235612}
   - {fileID: 682557955}
   m_Father: {fileID: 730498442}
-  m_RootOrder: 8
+  m_RootOrder: 9
 --- !u!1 &580311929
 GameObject:
   m_ObjectHideFlags: 0
@@ -18737,6 +18889,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fef3f1145db2741928db79c0dcbdd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  centerCameraOnLand: 1
 --- !u!1001 &595585862
 Prefab:
   m_ObjectHideFlags: 0
@@ -19723,6 +19876,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fef3f1145db2741928db79c0dcbdd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  centerCameraOnLand: 0
 --- !u!114 &652470590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20424,7 +20578,7 @@ Transform:
   - {fileID: 1437391656}
   - {fileID: 141303745}
   m_Father: {fileID: 730498442}
-  m_RootOrder: 4
+  m_RootOrder: 5
 --- !u!1 &716077462
 GameObject:
   m_ObjectHideFlags: 0
@@ -20640,6 +20794,7 @@ Transform:
   - {fileID: 1377821196}
   - {fileID: 1780056248}
   - {fileID: 886854050}
+  - {fileID: 1318709181}
   - {fileID: 2107924168}
   - {fileID: 714338832}
   - {fileID: 1634208564}
@@ -20649,7 +20804,6 @@ Transform:
   - {fileID: 1202857090}
   - {fileID: 1727488032}
   - {fileID: 1867573926}
-  - {fileID: 1318709181}
   - {fileID: 130085764}
   - {fileID: 515812389}
   - {fileID: 1173193667}
@@ -20668,6 +20822,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f2a87b0bcb61242b8680374c6a0526, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  centerCameraOnLand: 1
 --- !u!135 &730498444
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -20697,9 +20852,9 @@ MonoBehaviour:
   - {fileID: 812195800}
   shintoDoor: {fileID: 0}
   isActive: 0
-  pointsUntilSealShintoDoor: 50
-  maxPointsSpawnedAtSameTime: 16
-  timeBetweenSpawns: 1
+  pointsUntilSealShintoDoor: 25
+  maxPointsSpawnedAtSameTime: 10
+  timeBetweenSpawns: 3
 --- !u!114 &730498446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20821,6 +20976,8 @@ MonoBehaviour:
   - {fileID: 100050, guid: a8815a4bb4d8d9d44a7a87c0be01ed17, type: 2}
   - {fileID: 152610, guid: 3a79967716eb9ae4fa586960487959c2, type: 2}
   isOutsidePlanet: 1
+  particlesSpawnerPrefab: {fileID: 133508, guid: a18e573213aa68d45b57ab149748abdf,
+    type: 2}
 --- !u!1 &737478482
 GameObject:
   m_ObjectHideFlags: 0
@@ -20951,7 +21108,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 746513858}
-  m_LocalRotation: {x: .00565734459, y: .705257714, z: .708897531, w: .00661944784}
+  m_LocalRotation: {x: .00565734459, y: .705257714, z: .708897531, w: .00661941804}
   m_LocalPosition: {x: -.00229996722, y: .643498421, z: -.829999924}
   m_LocalScale: {x: .00655176956, y: .00655176677, z: .00655177049}
   m_Children:
@@ -20986,7 +21143,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 747112187}
   m_LocalRotation: {x: -.196419001, y: .96916467, z: .0287065282, w: -.145997629}
-  m_LocalPosition: {x: -516, y: 184, z: 452}
+  m_LocalPosition: {x: -495, y: 320, z: 446}
   m_LocalScale: {x: 51.3980675, y: 51.3980331, z: 51.3980331}
   m_Children: []
   m_Father: {fileID: 1113485334}
@@ -21268,7 +21425,7 @@ ParticleSystem:
     serializedVersion: 2
     enabled: 1
     type: 8
-    radius: 3
+    radius: 4.23276711
     angle: 0
     length: 5
     boxX: 1
@@ -22083,7 +22240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0cf3373920ddd546a1f0a4da64950f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationPerSecond: {x: 0, y: 0, z: 20}
+  rotationPerSecond: {x: 0, y: 0, z: 2}
 --- !u!1 &750592727
 GameObject:
   m_ObjectHideFlags: 0
@@ -22744,6 +22901,8 @@ MonoBehaviour:
   - {fileID: 100050, guid: a8815a4bb4d8d9d44a7a87c0be01ed17, type: 2}
   - {fileID: 152610, guid: 3a79967716eb9ae4fa586960487959c2, type: 2}
   isOutsidePlanet: 1
+  particlesSpawnerPrefab: {fileID: 133508, guid: a18e573213aa68d45b57ab149748abdf,
+    type: 2}
 --- !u!4 &812195802
 Transform:
   m_ObjectHideFlags: 0
@@ -23016,6 +23175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fef3f1145db2741928db79c0dcbdd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  centerCameraOnLand: 1
 --- !u!1 &823319264
 GameObject:
   m_ObjectHideFlags: 0
@@ -24766,7 +24926,7 @@ Transform:
   - {fileID: 1948225883}
   - {fileID: 2058089267}
   m_Father: {fileID: 730498442}
-  m_RootOrder: 6
+  m_RootOrder: 7
 --- !u!1001 &875240789
 Prefab:
   m_ObjectHideFlags: 0
@@ -25194,6 +25354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fef3f1145db2741928db79c0dcbdd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  centerCameraOnLand: 0
 --- !u!114 &894661624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25561,6 +25722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fef3f1145db2741928db79c0dcbdd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  centerCameraOnLand: 0
 --- !u!114 &908696371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29427,6 +29589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fef3f1145db2741928db79c0dcbdd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  centerCameraOnLand: 0
 --- !u!114 &1031550718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30463,6 +30626,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fef3f1145db2741928db79c0dcbdd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  centerCameraOnLand: 0
 --- !u!114 &1075009979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32899,7 +33063,7 @@ Transform:
   - {fileID: 949511310}
   - {fileID: 160629228}
   m_Father: {fileID: 730498442}
-  m_RootOrder: 9
+  m_RootOrder: 10
 --- !u!1001 &1207193148
 Prefab:
   m_ObjectHideFlags: 0
@@ -35158,8 +35322,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxLightPoints: 100
-  actualLightPoints: 40
-  pointsRegeneratedPerSecond: 40
+  actualLightPoints: 0
+  pointsRegeneratedPerSecond: 15
 --- !u!1 &1275812604
 GameObject:
   m_ObjectHideFlags: 0
@@ -36309,7 +36473,7 @@ Transform:
   - {fileID: 422012067}
   - {fileID: 732346008}
   m_Father: {fileID: 730498442}
-  m_RootOrder: 12
+  m_RootOrder: 3
 --- !u!1 &1320276292
 GameObject:
   m_ObjectHideFlags: 0
@@ -36443,6 +36607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fef3f1145db2741928db79c0dcbdd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  centerCameraOnLand: 0
 --- !u!114 &1321590178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37437,6 +37602,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fef3f1145db2741928db79c0dcbdd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  centerCameraOnLand: 0
 --- !u!1 &1377821195
 GameObject:
   m_ObjectHideFlags: 0
@@ -40028,6 +40194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fef3f1145db2741928db79c0dcbdd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  centerCameraOnLand: 0
 --- !u!114 &1404545850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42466,10 +42633,10 @@ ParticleSystem:
         m_NumAlphaKeys: 2
       minColor:
         serializedVersion: 2
-        rgba: 4280392699
+        rgba: 4287354873
       maxColor:
         serializedVersion: 2
-        rgba: 4278248447
+        rgba: 4284413183
       minMaxState: 2
     startSize:
       scalar: 10
@@ -43340,7 +43507,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1444031128}
   m_LocalRotation: {x: 0, y: .0995083228, z: 0, w: -.995036781}
-  m_LocalPosition: {x: 0, y: 0, z: 500}
+  m_LocalPosition: {x: 5, y: 247, z: 501}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1113485334}
@@ -43935,6 +44102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fef3f1145db2741928db79c0dcbdd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  centerCameraOnLand: 1
 --- !u!114 &1486896611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44219,6 +44387,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fef3f1145db2741928db79c0dcbdd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  centerCameraOnLand: 0
 --- !u!1 &1503798628
 GameObject:
   m_ObjectHideFlags: 0
@@ -44689,6 +44858,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fef3f1145db2741928db79c0dcbdd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  centerCameraOnLand: 0
 --- !u!114 &1534100259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45869,7 +46039,7 @@ Transform:
   - {fileID: 1991009923}
   - {fileID: 1398101616}
   m_Father: {fileID: 730498442}
-  m_RootOrder: 7
+  m_RootOrder: 8
 --- !u!1 &1612437712
 GameObject:
   m_ObjectHideFlags: 0
@@ -47440,7 +47610,7 @@ Transform:
   - {fileID: 586947742}
   - {fileID: 404055474}
   m_Father: {fileID: 730498442}
-  m_RootOrder: 5
+  m_RootOrder: 6
 --- !u!1 &1634971526
 GameObject:
   m_ObjectHideFlags: 0
@@ -47527,7 +47697,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1634971723}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: -4.37113883e-08}
-  m_LocalPosition: {x: 0, y: 0, z: 500}
+  m_LocalPosition: {x: 51, y: 227, z: 500}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1113485334}
@@ -47741,10 +47911,10 @@ ParticleSystem:
         m_NumAlphaKeys: 2
       minColor:
         serializedVersion: 2
-        rgba: 4294964224
+        rgba: 4293263232
       maxColor:
         serializedVersion: 2
-        rgba: 4294901762
+        rgba: 4284818468
       minMaxState: 2
     startSize:
       scalar: 10
@@ -48741,6 +48911,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fef3f1145db2741928db79c0dcbdd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  centerCameraOnLand: 0
 --- !u!114 &1643641258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48844,6 +49015,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fef3f1145db2741928db79c0dcbdd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  centerCameraOnLand: 0
 --- !u!114 &1645803258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49357,6 +49529,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fef3f1145db2741928db79c0dcbdd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  centerCameraOnLand: 0
 --- !u!114 &1679070520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50299,7 +50472,7 @@ Transform:
   - {fileID: 1125076688}
   - {fileID: 996765710}
   m_Father: {fileID: 730498442}
-  m_RootOrder: 10
+  m_RootOrder: 11
 --- !u!1 &1731948032
 GameObject:
   m_ObjectHideFlags: 0
@@ -53787,6 +53960,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fef3f1145db2741928db79c0dcbdd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  centerCameraOnLand: 0
 --- !u!1 &1806287929
 GameObject:
   m_ObjectHideFlags: 0
@@ -54135,6 +54309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fef3f1145db2741928db79c0dcbdd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  centerCameraOnLand: 0
 --- !u!114 &1841451564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54412,6 +54587,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fef3f1145db2741928db79c0dcbdd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  centerCameraOnLand: 0
 --- !u!114 &1866622554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54510,7 +54686,7 @@ Transform:
   - {fileID: 1765404768}
   - {fileID: 345238353}
   m_Father: {fileID: 730498442}
-  m_RootOrder: 11
+  m_RootOrder: 12
 --- !u!135 &1867573927
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -59789,7 +59965,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2052176610}
-  m_LocalRotation: {x: -.00565738231, y: -.705257773, z: -.708897591, w: .00661941152}
+  m_LocalRotation: {x: -.00565738231, y: -.705257773, z: -.708897591, w: .00661938172}
   m_LocalPosition: {x: -38.3699989, y: 19.6900005, z: -2.80999994}
   m_LocalScale: {x: 152.630539, y: 152.630569, z: 152.630569}
   m_Children: []
@@ -61271,6 +61447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fef3f1145db2741928db79c0dcbdd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  centerCameraOnLand: 0
 --- !u!114 &2089894201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61449,6 +61626,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distanceCameraOnSpaceJump: 100
+  distanceCameraOnSmallPlanet: 50
   distanceCameraOnCleansePlanet: 40
   upMultiplyierWithAngle: 2.5
   upMultiplyierWithoutAngle: 1.20000005
@@ -61705,7 +61883,7 @@ Transform:
   - {fileID: 369983766}
   - {fileID: 1256535925}
   m_Father: {fileID: 730498442}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!114 &2107924169
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -17,7 +17,6 @@
     	Tags { "RenderType"="Opaque" }
 		LOD 200
     	ZWrite On
-	   	Cull [_Cull]
 		Lighting Off
 		Fog { Mode Off }
         Pass {

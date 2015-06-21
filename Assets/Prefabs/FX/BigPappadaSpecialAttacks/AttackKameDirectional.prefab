@@ -800,7 +800,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  cost: 40
+  cost: 0
   elementAttack: 0
   kameEffect: {fileID: 154724}
   kameCore: {fileID: 159632}
@@ -813,12 +813,16 @@ MonoBehaviour:
   timeToDisappear: .0500000007
   chargeTime: .5
   speed: 9
-  forceExplosion: 7
+  forceExplosion: 4
   maxWidthKame: .600000024
   lineLength: 1
   maxTimeCharging: .100000001
   explodes: 1
   curved: 1
+  slowTimeProportion: .100000001
+  costPerSecond: 100
+  kameMinSize: .200000003
+  kameMaxSize: 1.5
   extraScaleExplosion: 5
 --- !u!114 &11440450
 MonoBehaviour:
@@ -4369,7 +4373,7 @@ ParticleSystem:
       minMaxState: 0
     gravityModifier: 0
     inheritVelocity: 0
-    maxNumParticles: 300
+    maxNumParticles: 500
   ShapeModule:
     serializedVersion: 2
     enabled: 1
@@ -4388,7 +4392,7 @@ ParticleSystem:
     enabled: 1
     m_Type: 0
     rate:
-      scalar: 200
+      scalar: 400
       maxCurve:
         serializedVersion: 2
         m_Curve:

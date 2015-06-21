@@ -197,7 +197,11 @@ public class PlayerController : MonoBehaviour {
 		bpAnimator.SetBool("isSpaceJumping",false);
 		isSpaceJumping = false;
 		flyParticles.Stop();
-		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().returnOriginalZ();
+		if(GameManager.playerSpaceBody.getClosestPlanet().GetComponent<Planet>().centerCameraOnLand){
+			GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().returnOriginalZ();
+		}else{
+			GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().setObjectiveZCameraSmallPlanet();
+		}
 		HideArrow();
 		isFinishedSpaceJump = true;
 	}

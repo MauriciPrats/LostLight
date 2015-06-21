@@ -14,11 +14,14 @@ public class FollowHighlightedButton : MonoBehaviour {
 	private Vector3 originalScale;
 	public float scaleToGrow;
 	public float timeToGrow;
+	private float deltaTime;
+	private float lastTime;
 	// Use this for initialization
 	void Start () {
 		GUIManager.registerHightlightFollower (gameObject);
 		originalScale = spline.transform.localScale;
 		transform.parent = GameManager.mainCamera.transform;
+		lastTime = Time.realtimeSinceStartup;
 	}
 
 	public void informHighlightedObject(GameObject highlightedObject){
@@ -31,6 +34,8 @@ public class FollowHighlightedButton : MonoBehaviour {
 	
 	// Update is called once per frame
 	void LateUpdate () {
+		deltaTime = Time.realtimeSinceStartup - lastTime;
+		lastTime = Time.realtimeSinceStartup;
 			if(GUIManager.showLeafsInActualMenu() && highlightedObject!=null){
 				if(!isActive){
 					StartCoroutine("unGrow");
@@ -39,7 +44,7 @@ public class FollowHighlightedButton : MonoBehaviour {
 				Ray ray = GameManager.mainCamera.GetComponent<Camera> ().ScreenPointToRay (highlightedObject.transform.position);
 
 				Vector3 position = ray.GetPoint(distance);
-				float speedByTime = (speed * Time.deltaTime);
+				float speedByTime = (speed * deltaTime);
 				if(!isActive){
 					transform.position = position;
 				}else{
@@ -61,7 +66,7 @@ public class FollowHighlightedButton : MonoBehaviour {
 	IEnumerator grow(){
 		float timer = 0f;
 		while(timer<timeToGrow){
-			timer+=Time.deltaTime;
+			timer+=deltaTime;
 			float ratio = timer/timeToGrow;
 			float newScale = originalScale.x+ ((scaleToGrow - originalScale.x) * ratio);
 			spline.transform.localScale = new Vector3(newScale,newScale,newScale);
@@ -78,7 +83,7 @@ public class FollowHighlightedButton : MonoBehaviour {
 			r.enabled = true;
 		}
 		while(timer<timeToGrow){
-			timer+=Time.deltaTime;
+			timer+=deltaTime;
 			float inverRatio = 1f - (timer/timeToGrow);
 			float newScale = originalScale.x + ((scaleToGrow - originalScale.x) * inverRatio);
 			spline.transform.localScale = new Vector3(newScale,newScale,newScale);

@@ -28,7 +28,7 @@ public class ThrowAttack : Attack, AnimationSubscriber {
 			enemy.GetComponent<IAController>().getHurt(damage,point);
 			enemy.GetComponent<IAController>().hitCanSendFlying();
 			Vector3 direction = enemy.GetComponent<Rigidbody>().worldCenterOfMass - GameManager.player.transform.position;
-			enemy.GetComponent<IAController>().sendFlying(direction * 3f);
+			enemy.GetComponent<IAController>().sendFlyingByConsecutiveHits(direction * 3f);
 			//enemy.GetComponent<IAController> ().interruptAttack ();
 			GameManager.comboManager.addCombo ();
 			if(!hasHitEnemy){
