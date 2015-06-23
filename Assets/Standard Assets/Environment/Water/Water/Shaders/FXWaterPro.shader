@@ -109,8 +109,9 @@ sampler2D _BumpMap;
 
 half4 frag( v2f i ) : SV_Target
 {
-	i.viewDir = normalize(i.viewDir);
-	
+	i.viewDir = normalize((1,1,1));
+	// i.viewDir);
+
 	// combine two scrolling bumpmaps into one
 	half3 bump1 = UnpackNormal(tex2D( _BumpMap, i.bumpuv0 )).rgb;
 	half3 bump2 = UnpackNormal(tex2D( _BumpMap, i.bumpuv1 )).rgb;

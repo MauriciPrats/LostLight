@@ -7,8 +7,8 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: water
-  m_Shader: {fileID: 4800000, guid: 1cac2e0bcc34e4b3cbb4bd85982eba83, type: 3}
-  m_ShaderKeywords: 
+  m_Shader: {fileID: 4800000, guid: af6e577fac5e6ba4c9e69f6a27e649c0, type: 3}
+  m_ShaderKeywords: _CORR_ON
   m_LightmapFlags: 5
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -79,16 +79,23 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _Fresnel
+          name: _DissolveNoise
         second:
-          m_Texture: {fileID: 2800000, guid: 5b5c5575fd4c74abd9f7b30862fb76a3, type: 3}
+          m_Texture: {fileID: 2800000, guid: fdcc49f69a12f0e41b9ed2c94e230662, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _ReflectiveColor
+          name: _CorruptionTexture
         second:
-          m_Texture: {fileID: 2800000, guid: ab97f9ab7c2ce724ebc9446060a819a4, type: 3}
+          m_Texture: {fileID: 2800000, guid: c012cd004cede244c96a82228fed4480, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Ramp
+        second:
+          m_Texture: {fileID: 2800000, guid: 0d2d5756caa62a248b563de79e26635b, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -103,6 +110,20 @@ Material:
           name: _RefractionTex
         second:
           m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Fresnel
+        second:
+          m_Texture: {fileID: 2800000, guid: 5b5c5575fd4c74abd9f7b30862fb76a3, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _ReflectiveColor
+        second:
+          m_Texture: {fileID: 2800000, guid: ab97f9ab7c2ce724ebc9446060a819a4, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -160,6 +181,62 @@ Material:
         second: 0
       data:
         first:
+          name: _OutlineSize
+        second: 10
+      data:
+        first:
+          name: _YCutOut
+        second: 1000
+      data:
+        first:
+          name: _TileSize
+        second: .150000006
+      data:
+        first:
+          name: _TintColor
+        second: 0
+      data:
+        first:
+          name: _Cull
+        second: 2
+      data:
+        first:
+          name: _Outl
+        second: 0
+      data:
+        first:
+          name: _VertexColor
+        second: 0
+      data:
+        first:
+          name: _Brightness
+        second: 1
+      data:
+        first:
+          name: _DS
+        second: 0
+      data:
+        first:
+          name: _Outline
+        second: .00999999978
+      data:
+        first:
+          name: _Asym
+        second: 0
+      data:
+        first:
+          name: _Trans
+        second: 0
+      data:
+        first:
+          name: _TrOp
+        second: 0
+      data:
+        first:
+          name: _Corruption
+        second: 1
+      data:
+        first:
           name: _WaveScale
         second: .063000001
       data:
@@ -185,12 +262,28 @@ Material:
         second: {r: 1, g: 1, b: 1, a: 1}
       data:
         first:
-          name: _RefrColor
-        second: {r: .340000004, g: .850000024, b: .920000017, a: 1}
+          name: _OutlineColor
+        second: {r: .5, g: .5, b: .5, a: 1}
+      data:
+        first:
+          name: _Asymmetry
+        second: {r: 0, g: .25, b: .5, a: 0}
+      data:
+        first:
+          name: _CorruptionColor
+        second: {r: .5, g: .5, b: .5, a: .300000012}
+      data:
+        first:
+          name: _OriginCorruption
+        second: {r: 0, g: 0, b: 0, a: 0}
       data:
         first:
           name: WaveSpeed
         second: {r: 19, g: 9, b: -16, a: -7}
+      data:
+        first:
+          name: _RefrColor
+        second: {r: .340000004, g: .850000024, b: .920000017, a: 1}
       data:
         first:
           name: _HorizonColor

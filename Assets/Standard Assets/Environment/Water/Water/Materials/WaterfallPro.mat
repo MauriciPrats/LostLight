@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: WaterProDaytime
+  m_Name: WaterfallPro
   m_Shader: {fileID: 4800000, guid: 1cac2e0bcc34e4b3cbb4bd85982eba83, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
@@ -88,7 +88,7 @@ Material:
       data:
         first:
           name: WaveSpeed
-        second: {r: 9, g: 4.5, b: -8, a: -3.5}
+        second: {r: 1, g: 20, b: -1, a: -2}
       data:
         first:
           name: _ReflectionTex_ST
