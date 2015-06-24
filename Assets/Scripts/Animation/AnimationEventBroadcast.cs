@@ -35,14 +35,19 @@ public class AnimationEventBroadcast : MonoBehaviour {
 	TODO: Considerar algun modo para un broadcast masivo.
 	*/
 	public void informEvent(string msg) {
-		string[] pMsg = msg.Split(delimiterChars);
-		if (pMsg.Length < 2) return;
+		StartCoroutine (informSubscribed (msg));
+	}
 
-		foreach(AnimationSubscriber sub in subList) {
-			if (sub.subscriberName() == pMsg[0]) {
-				sub.handleEvent(pMsg[1]);
+	private IEnumerator informSubscribed(string msg){
+		string[] pMsg = msg.Split(delimiterChars);
+		if (pMsg.Length >= 2) {
+			foreach (AnimationSubscriber sub in subList) {
+				if (sub.subscriberName () == pMsg [0]) {
+					sub.handleEvent (pMsg [1]);
+				}
 			}
 		}
+		yield return null;
 	}
 
 

@@ -110,7 +110,7 @@ public class CameraFollowingPlayer : MonoBehaviour {
 
 		Vector3 newUp;
 		SpaceGravityBody playerGravityBody = GameManager.player.GetComponent<SpaceGravityBody> ();
-		if (!playerGravityBody.getUsesSpaceGravity()) {
+		if ((!playerGravityBody.getUsesSpaceGravity())) {
 			newUp = Vector3.Lerp (transform.up, objectiveUp,Time.deltaTime * lerpMultiplyierUp);
 		}else{
 			newUp = transform.up;

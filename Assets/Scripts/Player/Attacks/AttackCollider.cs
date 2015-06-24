@@ -4,6 +4,8 @@ using System.Collections;
 public class AttackCollider : MonoBehaviour {
 
 	public GameObject attack;
+	public GameObject debug;
+	private bool wasEnabled = false;
 
 	void OnTriggerEnter(Collider other) {
 		if(attack!=null){
@@ -13,6 +15,11 @@ public class AttackCollider : MonoBehaviour {
 				attack.GetComponent<Attack>().otherCollisionEnter(other.gameObject);
 			}
 		}
+		if (debug != null) {
+			debug.SetActive (true);
+			wasEnabled = false;
+		}
+
 	}
 
 	void OnTriggerExit(Collider other) {
@@ -46,4 +53,19 @@ public class AttackCollider : MonoBehaviour {
 		}
 	}
 
+	void Update(){
+		if (debug != null) {
+			if (GetComponent<Collider> ().enabled) {
+				if(!wasEnabled){
+					if(debug.GetComponent<ParticleSystem>()!=null){
+						debug.GetComponent<ParticleSystem>().Play ();
+					}
+				}
+				wasEnabled = true;
+			} else {
+				wasEnabled = false;
+				//debug.SetActive (false);
+			}
+		}
+	}
 }

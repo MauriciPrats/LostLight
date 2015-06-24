@@ -122,7 +122,6 @@ public class GravityAttractor : MonoBehaviour {
 					isOrbiting = false;
 					body.setIsOrbitingAroundPlanet(false);
 				}
-				
 				if(isOrbiting && !body.getIsGettingOutOfOrbit()){
 					hasToAddForce = false;
 					//Meeec, no funciona be, sempre va a la dreta

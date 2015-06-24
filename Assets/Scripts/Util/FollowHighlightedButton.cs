@@ -89,5 +89,6 @@ public class FollowHighlightedButton : MonoBehaviour {
 			spline.transform.localScale = new Vector3(newScale,newScale,newScale);
 			yield return null;
 		}
+		spline.transform.localScale = originalScale;
 	}
 }

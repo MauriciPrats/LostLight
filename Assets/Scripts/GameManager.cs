@@ -130,6 +130,15 @@ public static class GameManager{
 		}
 		return false;
 	}
+
+	public static bool getActualPlanetIsRelevant(){
+		if (playerSpaceBody.getClosestPlanet () != null) {
+			if(playerSpaceBody.getClosestPlanet ().GetComponent<Planet>().centerCameraOnLand){
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	
 	public static void RegisterAudioManager(AudioManager registerMe) {

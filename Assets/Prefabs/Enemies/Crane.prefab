@@ -1774,8 +1774,8 @@ MonoBehaviour:
   isForCinematic: 0
   hitResistance: 3
   isDead: 0
-  meleeAttack: 15
-  flyingAttack: 14
+  meleeAttack: 16
+  flyingAttack: 15
   feet: {fileID: 161552}
   minimumDistanceInFront: .800000012
   patrolTimeToTurn: 1.5

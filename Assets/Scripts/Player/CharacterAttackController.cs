@@ -18,7 +18,8 @@ public enum AttackType{Missiles,
 					   PenguinWhirlwindAttack,
 					   PenguinSlideMove,
 					   CraneFlyingAttack,
-					   CraneMeleeAttack};
+					   CraneMeleeAttack,
+					   LowAttack};
 
 public class CharacterAttackController : MonoBehaviour {
 

@@ -18,7 +18,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: 23c931a3fb7736b4eaa8c58c7167122e, type: 3}
+          m_Texture: {fileID: 2800000, guid: 5b6524766ee48a3488597a729ff9e94a, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -106,6 +106,10 @@ Material:
         second: 0
       data:
         first:
+          name: _TintColor
+        second: 1
+      data:
+        first:
           name: _Parallax
         second: .0199999996
       data:
@@ -144,10 +148,6 @@ Material:
         first:
           name: _Metallic
         second: 0
-      data:
-        first:
-          name: _TintColor
-        second: 1
       data:
         first:
           name: _DetailTex
@@ -199,12 +199,12 @@ Material:
         second: {r: 1, g: 1, b: 1, a: 1}
       data:
         first:
-          name: _EmissionColorUI
-        second: {r: 1, g: 1, b: 1, a: 1}
-      data:
-        first:
           name: _OutlineColor
         second: {r: 0, g: 0, b: 0, a: 1}
+      data:
+        first:
+          name: _EmissionColorUI
+        second: {r: 1, g: 1, b: 1, a: 1}
       data:
         first:
           name: _Asymmetry

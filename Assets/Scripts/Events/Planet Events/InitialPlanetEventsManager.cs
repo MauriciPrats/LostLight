@@ -37,6 +37,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 				GameManager.player.GetComponent<CharacterController> ().StopMoving ();
 				GameManager.player.GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);
 				GameManager.inputController.disableInputController ();
+				GameManager.playerAnimator.SetBool("isDoingCranePosition",true);
 				littleGHopper.GetComponent<SpaceGravityBody> ().bindToClosestPlanet ();
 				littleGHopper.GetComponent<SpaceGravityBody> ().setStatic (true);
 				littleGHopper.GetComponent<CharacterController> ().StopMoving ();
@@ -85,6 +86,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 				littleGHopper.GetComponent<CharacterController> ().LookLeftOrRight (1f);
 				yield return new WaitForSeconds (0.7f);
 				GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().resetXAngle();
+				GameManager.playerAnimator.SetBool("isDoingCranePosition",false);
 				GameManager.playerAnimator.SetBool ("isJumping", true);
 				GameManager.player.GetComponent<CharacterController>().StopMoving();
 				GameManager.playerSpaceBody.setStatic (false);
@@ -125,7 +127,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 				GUIManager.activateTutorialText();
 				yield return new WaitForSeconds (5f);
 				GUIManager.deactivateTutorialText();
-				yield return new WaitForSeconds (2f);
+				yield return new WaitForSeconds (12f);
 				littleGHopper.GetComponent<CharacterController> ().StopMoving ();
 				littleGHopper.GetComponentInChildren<Animator> ().SetBool ("isWalking", false);
 			}

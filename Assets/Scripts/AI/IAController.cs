@@ -64,7 +64,8 @@ public class IAController : MonoBehaviour {
 	private bool despawned = false;
 
 	private bool isEnabled = true;
-
+	private int consecutiveHits = 0;
+	private float timerConsecutiveHits = 0f;
 
 	// Use this for initialization
 	void Start () {
@@ -293,8 +294,7 @@ public class IAController : MonoBehaviour {
 		isStunned = true;
 	}
 
-	private int consecutiveHits = 0;
-	private float timerConsecutiveHits = 0f;
+	//Routine used to hitStone the enemy
 	private IEnumerator hitStone(){
 		GameManager.playerAnimator.enabled = false;
 		//iaAnimator.enabled = false;
@@ -303,7 +303,7 @@ public class IAController : MonoBehaviour {
 		Vector3 playerPosition = GameManager.player.transform.position;
 		Vector3 position = transform.position;
 		GetComponent<OutlineChanging> ().setMainColor (Color.black);
-		while(timer<0.13f){
+		while(timer<Constants.HITSTONE_TIME){
 			timer += Time.deltaTime;
 			transform.position = position;
 			GameManager.player.transform.position = playerPosition;
@@ -326,73 +326,45 @@ public class IAController : MonoBehaviour {
 		StartCoroutine (sendFlyingCoroutine (direction, getPlayerDirection ()));
 	}
 
-	//Parabola
+	//Sends the AI flying on the direction and rotating until it hits the ground
 	private IEnumerator sendFlyingCoroutine(Vector3 direction,float rotationDirection){
 
 		yield return StartCoroutine (hitStone ());
-		//iaAnimator.enabled = false;
-		//yield return new WaitForSeconds (0.1f);
-		//Util.changeTime (0.1f);
-		//yield return new WaitForSeconds (0.0 5f);
-		//Util.changeTime (1f);
 		flyParticles.GetComponent<ParticleSystem> ().Play ();
 		isEnabled = false;
 		gameObject.layer = LayerMask.NameToLayer("OnlyFloor");
-		//iaAnimator.enabled = false;
-		//GetComponent<Rigidbody> ().angularVelocity = new Vector3 (0f, 0f, 0f);
-		//GetComponent<Rigidbody> ().angularDrag = 0f;
-		/*foreach(Collider c in GetComponentsInChildren<Collider>()){
-			c.enabled = false;
-		}*/
 		GetComponent<GravityBody> ().setHasToChangeFacing (false);
-		//GetComponent<GravityBody> ().setHasToApplyForce (false);
 		GetComponent<Rigidbody> ().AddForce (direction,ForceMode.VelocityChange);
 		float timer = 0f;
 		transform.position += transform.up * 0.5f;
-
-		//GetComponent<Collider> ().material = materialOnRebound;
-		//iaAnimator.SetBool ("isFlying", true);
 		yield return null;
-		while(timer<2f){
+		while(timer<Constants.TIME_ENEMY_SPEND_FLYING_ON_HIT){
 			timer += Time.deltaTime;
-			if(timer>=0.3f){
+			if(timer>=Constants.MINIMUM_TIME_TO_HIT_GROUND_WHEN_FLYING){
 				isBeingThrown = true;
 			}
 			if(isBeingThrown && GetComponent<GravityBody>().getIsTouchingPlanet()){
 				break;
 			}
-			transform.RotateAround(GetComponent<Rigidbody>().worldCenterOfMass,Vector3.forward,20f * rotationDirection);
+			transform.RotateAround(GetComponent<Rigidbody>().worldCenterOfMass,Vector3.forward,Constants.ANGULAR_SPEED_ON_SENT_FLYING * rotationDirection);
 			yield return null;
 		}
 		gameObject.layer = LayerMask.NameToLayer("Enemy");
-		//die (false);
-		/*foreach(Collider c in GetComponentsInChildren<Collider>()){
-			c.enabled = true;
-		}*/
 		isBeingThrown = false;
 		flyParticles.GetComponent<ParticleSystem> ().Stop();
-		//iaAnimator.SetBool ("isFlying", false);
-		// GetComponent<GravityBody> ().setHasToApplyForce (true);
 		GetComponent<GravityBody> ().setHasToChangeFacing (true);
 		isEnabled = true;
-		//iaAnimator.enabled = true;
 	}
 
+	//Hit that acumulates strenght when the enemy is thrown (The more hits, the farther it flies)
 	public void hitCanSendFlying(){
 		interruptAttack ();
 		consecutiveHits++;
 		timerConsecutiveHits = 0f;
 		StartCoroutine (hitStone ());
-		/*if(consecutiveHits==hitResistance){
-			consecutiveHits = 0;
-			Vector3 direction = GetComponent<Rigidbody> ().worldCenterOfMass - GameManager.player.transform.position;//GetComponent<Rigidbody> ().worldCenterOfMass;
-			StartCoroutine (sendFlyingCoroutine(direction*15f,getPlayerDirection()));
-		}else if(consecutiveHits<hitResistance){
-			StartCoroutine (hitStone ());
-			//GetComponent<Rigidbody>().AddForce(transform.up*4f,ForceMode.VelocityChange);
-		}*/
 	}
 
+	//Hit that interrupts an the attacks and causes a hitstone
 	public void hitInterruptsAndHitstone(){
 		interruptAttack ();
 		StartCoroutine (hitStone ());
@@ -428,6 +400,8 @@ public class IAController : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision collision){
+		//We check if the character is flying to stop it when it hits the ground
+		//and play the particle effect upon landing
 		if(collision.gameObject.layer.Equals(LayerMask.NameToLayer("Planets"))){
 			if (isBeingThrown && GetComponent<Rigidbody>().velocity.magnitude>2f) {
 				hitGroundParticles.transform.forward = collision.contacts[0].normal;
@@ -563,17 +537,4 @@ public class IAController : MonoBehaviour {
 	public void activate(){
 		isEnabled = true;
 	}
-
-
-	//Functions and variables for the AI
-	//UpdateAI
-	//Move
-	//Jump
-	//canSeePlayer()
-	//getIsBlockedBySomethingInFront()
-	//getPlayerDistance
-	//closestThingInFront()
-
-
-
 }
