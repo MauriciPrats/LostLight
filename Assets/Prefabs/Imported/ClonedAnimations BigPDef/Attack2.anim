@@ -54268,14 +54268,14 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: .25
+  - time: .75
     functionName: informEvent
     data: ComboAttack:start
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.04166663
+  - time: 1
     functionName: informEvent
     data: ComboAttack:end
     objectReferenceParameter: {fileID: 0}

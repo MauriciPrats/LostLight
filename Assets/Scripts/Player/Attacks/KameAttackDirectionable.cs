@@ -25,6 +25,10 @@ public class KameAttackDirectionable : Attack,AnimationSubscriber {
 	public float maxTimeCharging = 1f;
 	public bool explodes = true;
 	public bool curved = true;
+	public float slowTimeProportion = 0.1f;
+	public int costPerSecond = 100;
+	public float kameMinSize = 0.5f;
+	public float kameMaxSize = 2f;
 
 	//Private Variables
 	private bool canDoNext = true;
@@ -44,15 +48,16 @@ public class KameAttackDirectionable : Attack,AnimationSubscriber {
 	private bool started = false;
 	private bool hasHitGround = false;
 	private Vector3 originalScale;
+	private int pointsSpent = 0;
+	private float scaleMultiplyier;
 
-	public float extraScaleExplosion = 5f;
+	public float extraScaleExplosion = 10f;
 	private Vector3 explosionScale;
 	
 
 
 	//Variables that need to be initialized at the beginning
 	public override void initialize(){
-		
 		explosionScale =  new Vector3(extraScaleExplosion,extraScaleExplosion,extraScaleExplosion);
 		originalScale = kameEffect.transform.localScale;
 		attackType = AttackType.KameDirectional;
@@ -74,19 +79,28 @@ public class KameAttackDirectionable : Attack,AnimationSubscriber {
 	}
 	
 	//When it hits an enemy
-	public override void enemyCollisionEnter(GameObject enemy){
+	public override void enemyCollisionEnter(GameObject enemy,Vector3 point){
 		if(!enemiesHit.Contains(enemy) && !enemy.GetComponent<IAController>().isDead){
 			enemiesHit.Add(enemy);
 			//If it's an enemy we damage him
-			enemy.GetComponent<IAController>().getHurt(damage,(kameEffect.transform.position+enemy.transform.position)/2f);
+			enemy.GetComponent<IAController>().getHurt(damage,point);
+
 			//We find the radius of areaEffect
-			enemy.GetComponent<Rigidbody>().AddExplosionForce(forceExplosion,transform.position,1f);
+			//enemy.GetComponent<Rigidbody>().AddExplosionForce(forceExplosion,transform.position,1f);
 			GameObject newEffect = GameObject.Instantiate (enemyHitEffectPrefab) as GameObject;
 			newEffect.transform.position = enemy.GetComponent<Rigidbody> ().worldCenterOfMass - (kameEffect.transform.forward * 0.15f);
-			Vector3 direction = (enemy.transform.position - kameCore.transform.position).normalized + (enemy.transform.up * 2f);
+			Vector3 direction = (enemy.transform.position - kameEffect.transform.position).normalized + (enemy.transform.up * 1f);
 			//enemy.GetComponent<Rigidbody> ().AddForce (direction.normalized * forceExplosion,ForceMode.Impulse);
-			enemy.GetComponent<Rigidbody>().velocity += direction * forceExplosion;
-			
+			//enemy.GetComponent<Rigidbody>().velocity += direction * forceExplosion;
+			/*if(detonate || (hasHitGround && explodes)){
+				enemy.GetComponent<IAController>().sendFlying(direction.normalized*forceExplosion);
+			}else{
+				enemy.GetComponent<IAController>().hitInterruptsAndHitstone();
+				enemy.GetComponent<Rigidbody> ().AddForce (direction.normalized * forceExplosion,ForceMode.Impulse);
+
+			}*/
+			enemy.GetComponent<IAController>().sendFlyingByForce(direction.normalized*forceExplosion * scaleMultiplyier);
+
 			GameManager.comboManager.addCombo ();
 			if(!elementAttack.Equals(ElementType.None)){
 				AttackElementsManager.getElement(elementAttack).doEffect(enemy);
@@ -176,7 +190,10 @@ public class KameAttackDirectionable : Attack,AnimationSubscriber {
 	}
 	
 	IEnumerator doKame(){
-		kameEffect.transform.localScale = originalScale;
+		Debug.Log(pointsSpent);
+		float ratioSizeKame = (float)pointsSpent / (float)costPerSecond;
+		scaleMultiplyier = ((kameMaxSize - kameMinSize) * ratioSizeKame)+kameMinSize;
+		kameEffect.transform.localScale = originalScale * scaleMultiplyier;
 		//Throws the Kame
 		enemiesHit = new List<GameObject> (0);
 		isCharged = true;
@@ -222,25 +239,29 @@ public class KameAttackDirectionable : Attack,AnimationSubscriber {
 		kameCore.GetComponent<ParticleSystem>().Stop();
 		kameEffect.GetComponent<ParticleSystem>().Stop();
 		timer = 0;
-		enemiesHit = new List<GameObject> (0);
+		//enemiesHit = new List<GameObject> (0);
 		//Kame Explosion
-		if (detonate || (hasHitGround && explodes)){
+		//if (detonate || (hasHitGround && explodes)){
+		enemiesHit.Clear ();
 			while (timer < explosionTime) {
 				timer+=Time.deltaTime;
-				kameEffect.transform.localScale += (Time.deltaTime * explosionScale);
+				kameEffect.transform.localScale += (Time.deltaTime * explosionScale * scaleMultiplyier);
+				Color color = kameEffect.GetComponent<Renderer>().material.GetColor("_TintColor");
+				color.a =  1f-(timer/explosionTime);
+				kameEffect.GetComponent<Renderer>().material.SetColor("_TintColor",color);
 				yield return null;
 			}
-		}
+		//}
 		//End explosion
 		
 		//CLEAN THE KAME START
 		started = false;
-		if (detonate || (hasHitGround && explodes)){
+		/*if (detonate || (hasHitGround && explodes)){
 			while (kameEffect.transform.localScale.x > 0f) {
-			kameEffect.transform.localScale -= (Time.deltaTime * 5f*explosionScale);
+			kameEffect.transform.localScale -= (Time.deltaTime * 5f*explosionScale * scaleMultiplyier);
 			yield return null;
 			}
-		}
+		}*/
 
 		if(!elementAttack.Equals(ElementType.None)){
 			elementalParticleSystem.GetComponent<ParticleSystem>().Stop();
@@ -271,7 +292,7 @@ public class KameAttackDirectionable : Attack,AnimationSubscriber {
 		chargeTimer = 0f;
 		initializeVariables ();
 		isCharging = true;
-		Util.changeTime (0.1f);
+		Util.changeTime (slowTimeProportion);
 		isFinished = false;
 		arrowDirection = GameManager.player.transform.forward;
 		directionalLine.SetActive (true);
@@ -282,7 +303,10 @@ public class KameAttackDirectionable : Attack,AnimationSubscriber {
 
 	//Updates the charging of the kame (It also limits the time that it can be charging)
 	private IEnumerator updateCharge(){
+		float pointsAccumulated = 0f;
+		pointsSpent = 0;
 		while(isCharging || isDoingKame){
+			pointsAccumulated+=(Time.deltaTime/slowTimeProportion) * costPerSecond;
 			timer+=Time.deltaTime;
 			//float ratio = (1f - ((timer) / (chargeTime))) * startChargeScale;
 			kameCore.transform.localScale = new Vector3 (0f, 0f, 0f);
@@ -290,6 +314,20 @@ public class KameAttackDirectionable : Attack,AnimationSubscriber {
 			elementalParticleOnCharge.transform.position = GameManager.playerController.lightGemObject.transform.position;
 			
 			kameEffect.transform.position = GameManager.playerController.lightGemObject.transform.position;
+			if(!isDoingKame){
+				if(pointsAccumulated>1){
+					if(!GameManager.lightGemEnergyManager.canDoSpecialAttack((int)pointsAccumulated)){
+						GameManager.lightGemEnergyManager.substractPoints((int)pointsAccumulated);
+						pointsSpent+=(int)pointsAccumulated;
+						pointsAccumulated = 0;
+						buttonReleased();
+					}else{
+						GameManager.lightGemEnergyManager.substractPoints((int)pointsAccumulated);
+						pointsSpent+=(int)pointsAccumulated;
+						pointsAccumulated = 0;
+					}
+				}
+			}
 			elementalParticleSystem.transform.position = kameEffect.transform.position;
 			if(isDoingKame){
 				GameManager.playerSpaceBody.setHasToApplyForce(false);

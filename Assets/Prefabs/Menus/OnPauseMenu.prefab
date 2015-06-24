@@ -196,7 +196,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 2d792fe8d2463b74f804827ed1e9a911, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -213,7 +213,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 2d792fe8d2463b74f804827ed1e9a911, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -230,7 +230,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 2d792fe8d2463b74f804827ed1e9a911, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -247,7 +247,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 2d792fe8d2463b74f804827ed1e9a911, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -359,7 +359,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: .808823526, g: .808823526, b: .808823526, a: 1}
-  m_Sprite: {fileID: 21300000, guid: 1fbb6a43f3eb2cb43825f7498801cb70, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 91ce44a7bc89fa540af67c2a8127d424, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -715,7 +715,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: .808823526, g: .808823526, b: .808823526, a: 1}
-  m_Sprite: {fileID: 21300000, guid: 1fbb6a43f3eb2cb43825f7498801cb70, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 91ce44a7bc89fa540af67c2a8127d424, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -736,7 +736,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: .808823526, g: .808823526, b: .808823526, a: 1}
-  m_Sprite: {fileID: 21300000, guid: 1fbb6a43f3eb2cb43825f7498801cb70, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 91ce44a7bc89fa540af67c2a8127d424, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -756,8 +756,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: .808823526, g: .808823526, b: .808823526, a: 1}
-  m_Sprite: {fileID: 21300000, guid: 1fbb6a43f3eb2cb43825f7498801cb70, type: 3}
+  m_Color: {r: .823529422, g: .823529422, b: .823529422, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 91ce44a7bc89fa540af67c2a8127d424, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -861,8 +861,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 2}
+  m_SizeDelta: {x: 0, y: -5}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22400004
 RectTransform:
@@ -901,8 +901,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -456, y: 308}
-  m_SizeDelta: {x: 158, y: 44}
+  m_AnchoredPosition: {x: -444.200012, y: 305.600006}
+  m_SizeDelta: {x: 101.5, y: 48.7000008}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22434036
 RectTransform:
@@ -920,7 +920,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -452, y: 159}
-  m_SizeDelta: {x: 158, y: 44}
+  m_SizeDelta: {x: 101.5, y: 48.7000008}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22436066
 RectTransform:
@@ -936,8 +936,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 4}
+  m_SizeDelta: {x: 0, y: -9}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22436096
 RectTransform:
@@ -970,8 +970,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 3.29999995}
+  m_SizeDelta: {x: 0, y: -6.5999999}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22438420
 RectTransform:
@@ -989,7 +989,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -320, y: 67}
-  m_SizeDelta: {x: 158, y: 44}
+  m_SizeDelta: {x: 101.5, y: 48.7000008}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22458406
 RectTransform:
@@ -1007,7 +1007,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -315, y: 237}
-  m_SizeDelta: {x: 158, y: 44}
+  m_SizeDelta: {x: 101.5, y: 48.7000008}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22469240
 RectTransform:
@@ -1023,8 +1023,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 3}
+  m_SizeDelta: {x: 0, y: -7}
   m_Pivot: {x: .5, y: .5}
 --- !u!225 &22500000
 CanvasGroup:

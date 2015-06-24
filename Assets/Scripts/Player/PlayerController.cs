@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[RequireComponent (typeof (OutlineChanging))]
 public class PlayerController : MonoBehaviour {
 
 	public float moveSpeed = 5f;
@@ -38,6 +39,8 @@ public class PlayerController : MonoBehaviour {
 	private bool isFinishedSpaceJump;
 	public GameObject explosionOnDieInSpacePrefab;
 	public GameObject weapon;
+	public float invulnerableTimeOnFallDown = 1f;
+	public float invulnerableTimeAfterFallDown = 1f;
 
 
 
@@ -55,6 +58,7 @@ public class PlayerController : MonoBehaviour {
 	private float timeHasNotBeenBreathing;
 	private PappadaController pappadaC;
 	private bool canDrownInSpace = true;
+	private bool isFallingDown = false;
 
 
 
@@ -75,7 +79,6 @@ public class PlayerController : MonoBehaviour {
 
 		initializeVariables ();
 		StartCoroutine ("resetWeaponTrail");
-
 	}
 
 	public void initializePlayerRotation(){
@@ -194,7 +197,11 @@ public class PlayerController : MonoBehaviour {
 		bpAnimator.SetBool("isSpaceJumping",false);
 		isSpaceJumping = false;
 		flyParticles.Stop();
-		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().returnOriginalZ();
+		if(GameManager.playerSpaceBody.getClosestPlanet().GetComponent<Planet>().centerCameraOnLand){
+			GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().returnOriginalZ();
+		}else{
+			GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().setObjectiveZCameraSmallPlanet();
+		}
 		HideArrow();
 		isFinishedSpaceJump = true;
 	}
@@ -276,7 +283,10 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void getHurt(int hitPointsToSubstract){
-		if (!isInvulnerable && !attackController.isDoingBlock ()) {
+		if (!isInvulnerable && !attackController.isDoingBlock () && !GameManager.isGameEnded && !GameManager.isGamePaused) {
+			if(!getIsSpaceJumping()){
+				//fallDown();
+			}
 			GameManager.playerAnimator.SetTrigger("isHurt");
 			GetComponent<DialogueController>().createNewExpression("Ouch!",0.5f,true,true);
 			GameManager.audioManager.PlayStableSound(8);
@@ -290,6 +300,34 @@ public class PlayerController : MonoBehaviour {
 			}
 		}
 		StartCoroutine ("takeHit");
+	}
+
+	//Method that makes the player fall, becoming invulnerable for a while
+	public void fallDown(){
+		attackController.interruptActualAttacks ();
+		StopMove ();
+		StartCoroutine (fallDownCoroutine ());
+	}
+
+	private IEnumerator fallDownCoroutine(){
+		float timer = 0f;
+		isFallingDown = true;
+		isInvulnerable = true;
+		GetComponent<OutlineChanging> ().setMainColor (Color.black);
+		bpAnimator.SetBool ("isFallingDown", true);
+		GetComponent<Rigidbody> ().AddForce (transform.up*10f, ForceMode.VelocityChange);
+		while(timer<invulnerableTimeOnFallDown){
+			timer+=Time.deltaTime;
+
+			yield return null;
+		}
+		bpAnimator.SetBool ("isFallingDown", false);
+		isFallingDown = false;
+		GetComponent<OutlineChanging> ().setMainColor (Color.yellow);
+		yield return new WaitForSeconds (invulnerableTimeAfterFallDown);
+		GetComponent<OutlineChanging> ().resetMainColor ();
+		isInvulnerable = false;
+
 
 	}
 
@@ -299,6 +337,7 @@ public class PlayerController : MonoBehaviour {
 
 	public void kill(){
 		getHurt(killable.HP);
+		StopMove ();
 	}
 
 	public bool isHit() {
@@ -374,5 +413,9 @@ public class PlayerController : MonoBehaviour {
 
 	public void setCanDrownInSpace(bool cdis){
 		canDrownInSpace = cdis;
+	}
+
+	public bool getIsFallingDown(){
+		return isFallingDown;
 	}
 }

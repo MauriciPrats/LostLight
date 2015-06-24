@@ -35,9 +35,12 @@ public class PenguinWhirlwindAttack : Attack {
 	
 	public override void startAttack(){
 		if(isFinished){
-			StartCoroutine("doAttack");
+			if(!interrupted){
+				StartCoroutine("doAttack");
+			}
 			isFinished = false;
 			hasHitPlayer = true;
+			interrupted = false;
 			isAttackHurting = false;
 		}
 	}
@@ -75,6 +78,8 @@ public class PenguinWhirlwindAttack : Attack {
 			//transform.RotateAround(parent.GetComponent<Rigidbody>().worldCenterOfMass,parent.transform.up,rotationSpeed*Time.deltaTime);
 			yield return null;
 		}
+
+		yield return null;
 		iaAnimator.SetBool("isDoingWhirlwind",false);
 		interrupted = false;
 		isFinished = true;
@@ -83,7 +88,6 @@ public class PenguinWhirlwindAttack : Attack {
 	public override void interruptAttack(){
 		interrupted = true;
 		isAttackHurting = false;
-		particlesWhirlwind.GetComponent<ParticleSystem>().Stop();
 		outlineChanger.setOutlineColor(Color.black);
 	}
 	

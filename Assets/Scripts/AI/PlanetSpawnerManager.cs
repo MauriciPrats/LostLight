@@ -57,7 +57,7 @@ public class PlanetSpawnerManager : MonoBehaviour {
 					Spawner randomSpawner = inRangeSpawners[Random.Range(0,inRangeSpawners.Count)];
 					EnemyType type;
 					int ammountLeft = pointsUntilSealShintoDoor -(ammountOfActualPointsSpawned + accumulatedPoints);
-					ammountOfActualPointsSpawned+= randomSpawner.spawnRandomEnemy(onEnemyDead,onEnemyDespawned,out type,enemiesAmmount,ammountLeft);
+					ammountOfActualPointsSpawned = ammountOfActualPointsSpawned + randomSpawner.spawnRandomEnemy(onEnemyDead,onEnemyDespawned,out type,enemiesAmmount,ammountLeft);
 					if(!type.Equals(EnemyType.None)){
 						addEnemyType(type);
 					}

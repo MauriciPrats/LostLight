@@ -45,7 +45,7 @@ public class KameAttack : Attack,AnimationSubscriber {
 		tr.material.color = trailsColor;
 	}
 
-	public override void enemyCollisionEnter(GameObject enemy){
+	public override void enemyCollisionEnter(GameObject enemy,Vector3 point){
 		if(!enemiesHit.Contains(enemy) && !enemy.GetComponent<IAController>().isDead){
 			enemiesHit.Add(enemy);
 			//If it's an enemy we damage him

@@ -9,19 +9,33 @@ public class SplineWalker : MonoBehaviour {
 	public bool lookForward;
 
 	public SplineWalkerMode mode;
+	public bool independentDeltaTime = false;
 
 	private float progress = 0f;
 	private bool goingForward = true;
 	private bool invertDirection = false;
+	private float lastTime ;
+	private float deltaTime;
+
+	void Start(){
+		lastTime = Time.realtimeSinceStartup;
+	}
 
 	private void Update () {
+		if(independentDeltaTime){
+			deltaTime = Time.realtimeSinceStartup - lastTime;
+		}else{
+			deltaTime = Time.deltaTime;
+		}
+		lastTime = Time.realtimeSinceStartup;
+
 		if (goingForward) {
-			progress += Time.deltaTime / duration;
+			progress += deltaTime / duration;
 			if (progress > 1f) {
 				progress = 1f;
 			}
 		}else{
-			progress -= Time.deltaTime / duration;
+			progress -= deltaTime / duration;
 			if (progress < 0f) {
 				progress = 0f;
 			}

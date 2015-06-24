@@ -49308,14 +49308,14 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: .416666657
+  - time: .666666687
     functionName: informEvent
     data: ComboAttack:start
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: .958333313
+  - time: .875
     functionName: informEvent
     data: ComboAttack:end
     objectReferenceParameter: {fileID: 0}

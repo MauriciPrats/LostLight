@@ -9,17 +9,31 @@ public class SplineWalkerMultipurpose : MonoBehaviour {
 	public bool lookForward;
 
 	public SplineWalkerMode mode;
+	public bool independentDeltaTime = false;
 
 	public float startProgress = 0f;
 	private float progress;
 	private bool goingForward = true;
+	private float lastTime ;
+	private float deltaTime;
+
 
 	void Start(){
 		progress = startProgress;
+		lastTime = Time.realtimeSinceStartup;
 	}
+
 	private void Update () {
+		if(independentDeltaTime){
+			deltaTime = Time.realtimeSinceStartup - lastTime;
+		}else{
+			deltaTime = Time.deltaTime;
+		}
+		lastTime = Time.realtimeSinceStartup;
+
+
 		if (goingForward) {
-			progress += Time.deltaTime / duration;
+			progress += deltaTime / duration;
 			if (progress > 1f) {
 				if (mode == SplineWalkerMode.Once) {
 					progress = 1f;
@@ -34,7 +48,7 @@ public class SplineWalkerMultipurpose : MonoBehaviour {
 			}
 		}
 		else {
-			progress -= Time.deltaTime / duration;
+			progress -= deltaTime / duration;
 			if (progress < 0f) {
 				progress = -progress;
 				goingForward = true;

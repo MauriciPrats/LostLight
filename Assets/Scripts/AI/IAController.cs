@@ -13,6 +13,8 @@ public class IAController : MonoBehaviour {
 	public GameObject[] onDeathEffects;
 	public GameObject onDeathLight;
 	public GameObject corruptionEffect;
+	public GameObject flySmokeParticles;
+	public GameObject onHitGroundParticles;
 
 	//Public Variables
 	public float minimumDistanceSeePlayer = 50f;
@@ -28,6 +30,7 @@ public class IAController : MonoBehaviour {
 	public float timeToChangeBehaviour = 0.1f;
 	public float timeToDie = 0.5f;
 	public bool isForCinematic = false;
+	public int hitResistance = 3;
 
 	//Private Variables
 	private float frozenTime;
@@ -40,8 +43,9 @@ public class IAController : MonoBehaviour {
 	private float lastTimeCheckedClosestThingInFront = 0f;
 	private float cooldownRaycastingClosestThingInFront = 0.1f;
 	private GameObject[] hitParticles;
+	private GameObject hitGroundParticles;
+	private GameObject flyParticles;
 	private bool hasBeenInitialized = false;
-
 	//Protected Variables to be used by all the AI
 	protected CharacterController characterController;
 	protected Animator iaAnimator;
@@ -55,6 +59,7 @@ public class IAController : MonoBehaviour {
 	protected bool isOnGuard;
 	protected bool isFrozen;
 	protected bool isStunned;
+	private bool isBeingThrown = false;
 
 	private bool despawned = false;
 
@@ -84,6 +89,12 @@ public class IAController : MonoBehaviour {
 		hitParticles[0] = GameObject.Instantiate (onHitEffect) as GameObject;
 		hitParticles[1] = GameObject.Instantiate (secondOnHitEffect) as GameObject;
 		hitParticles[2] = GameObject.Instantiate (thirdOnHitEffect) as GameObject;
+		flyParticles = GameObject.Instantiate (flySmokeParticles) as GameObject;
+		flyParticles.transform.parent = transform;
+		flyParticles.transform.position = GetComponent<Rigidbody> ().worldCenterOfMass;
+		hitGroundParticles = GameObject.Instantiate (onHitGroundParticles) as GameObject;
+		hitGroundParticles.transform.parent = transform;
+		hitGroundParticles.transform.position = GetComponent<Rigidbody> ().worldCenterOfMass;
 		
 		foreach (GameObject particles in hitParticles) {
 			particles.transform.parent = gameObject.transform;
@@ -162,7 +173,7 @@ public class IAController : MonoBehaviour {
 
 	//Returns is the feet collider is touching the planet
 	protected bool getIsTouchingPlanet(){
-		return GetComponent<GravityBody> ().getIsTouchingPlanet ();
+		return GetComponent<GravityBody> ().getIsTouchingPlanetOrCharacters ();
 	}
 
 	//FUNCTIONS FOR GETTING INFORMATION
@@ -252,6 +263,11 @@ public class IAController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		timerConsecutiveHits += Time.deltaTime;
+		if(timerConsecutiveHits>2f){
+			consecutiveHits = 0;
+			timerConsecutiveHits = 0f;
+		}
 		if(!hasBeenInitialized){
 			init();
 		}
@@ -277,12 +293,123 @@ public class IAController : MonoBehaviour {
 		isStunned = true;
 	}
 
+	private int consecutiveHits = 0;
+	private float timerConsecutiveHits = 0f;
+	private IEnumerator hitStone(){
+		GameManager.playerAnimator.enabled = false;
+		//iaAnimator.enabled = false;
+		isEnabled = false;
+		float timer = 0f;
+		Vector3 playerPosition = GameManager.player.transform.position;
+		Vector3 position = transform.position;
+		GetComponent<OutlineChanging> ().setMainColor (Color.black);
+		while(timer<0.13f){
+			timer += Time.deltaTime;
+			transform.position = position;
+			GameManager.player.transform.position = playerPosition;
+			yield return null;
+		}
+
+		GetComponent<OutlineChanging> ().setMainColorAndLerpBackToOriginal (Color.black, 0.2f);
+		GameManager.playerAnimator.enabled = true;
+		//iaAnimator.enabled = true;
+		isEnabled = true;
+		
+	}
+	public void sendFlyingByConsecutiveHits(Vector3 direction){
+		if (consecutiveHits > 1) {
+			StartCoroutine (sendFlyingCoroutine (direction * consecutiveHits, getPlayerDirection ()));
+		}
+	}
+
+	public void sendFlyingByForce(Vector3 direction){
+		StartCoroutine (sendFlyingCoroutine (direction, getPlayerDirection ()));
+	}
+
+	//Parabola
+	private IEnumerator sendFlyingCoroutine(Vector3 direction,float rotationDirection){
+
+		yield return StartCoroutine (hitStone ());
+		//iaAnimator.enabled = false;
+		//yield return new WaitForSeconds (0.1f);
+		//Util.changeTime (0.1f);
+		//yield return new WaitForSeconds (0.0 5f);
+		//Util.changeTime (1f);
+		flyParticles.GetComponent<ParticleSystem> ().Play ();
+		isEnabled = false;
+		gameObject.layer = LayerMask.NameToLayer("OnlyFloor");
+		//iaAnimator.enabled = false;
+		//GetComponent<Rigidbody> ().angularVelocity = new Vector3 (0f, 0f, 0f);
+		//GetComponent<Rigidbody> ().angularDrag = 0f;
+		/*foreach(Collider c in GetComponentsInChildren<Collider>()){
+			c.enabled = false;
+		}*/
+		GetComponent<GravityBody> ().setHasToChangeFacing (false);
+		//GetComponent<GravityBody> ().setHasToApplyForce (false);
+		GetComponent<Rigidbody> ().AddForce (direction,ForceMode.VelocityChange);
+		float timer = 0f;
+		transform.position += transform.up * 0.5f;
+
+		//GetComponent<Collider> ().material = materialOnRebound;
+		//iaAnimator.SetBool ("isFlying", true);
+		yield return null;
+		while(timer<2f){
+			timer += Time.deltaTime;
+			if(timer>=0.3f){
+				isBeingThrown = true;
+			}
+			if(isBeingThrown && GetComponent<GravityBody>().getIsTouchingPlanet()){
+				break;
+			}
+			transform.RotateAround(GetComponent<Rigidbody>().worldCenterOfMass,Vector3.forward,20f * rotationDirection);
+			yield return null;
+		}
+		gameObject.layer = LayerMask.NameToLayer("Enemy");
+		//die (false);
+		/*foreach(Collider c in GetComponentsInChildren<Collider>()){
+			c.enabled = true;
+		}*/
+		isBeingThrown = false;
+		flyParticles.GetComponent<ParticleSystem> ().Stop();
+		//iaAnimator.SetBool ("isFlying", false);
+		// GetComponent<GravityBody> ().setHasToApplyForce (true);
+		GetComponent<GravityBody> ().setHasToChangeFacing (true);
+		isEnabled = true;
+		//iaAnimator.enabled = true;
+	}
+
+	public void hitCanSendFlying(){
+		interruptAttack ();
+		consecutiveHits++;
+		timerConsecutiveHits = 0f;
+		StartCoroutine (hitStone ());
+		/*if(consecutiveHits==hitResistance){
+			consecutiveHits = 0;
+			Vector3 direction = GetComponent<Rigidbody> ().worldCenterOfMass - GameManager.player.transform.position;//GetComponent<Rigidbody> ().worldCenterOfMass;
+			StartCoroutine (sendFlyingCoroutine(direction*15f,getPlayerDirection()));
+		}else if(consecutiveHits<hitResistance){
+			StartCoroutine (hitStone ());
+			//GetComponent<Rigidbody>().AddForce(transform.up*4f,ForceMode.VelocityChange);
+		}*/
+	}
+
+	public void hitInterruptsAndHitstone(){
+		interruptAttack ();
+		StartCoroutine (hitStone ());
+	}
+
+
 	//Method to receive damage (Play particles, sounds effects, etc)
 	public void getHurt(int hurtAmmount,Vector3 hitPosition){
 		if(!isDead){
+			Vector3 center = GetComponent<Rigidbody>().worldCenterOfMass;
+			Vector3 position = hitPosition;
+			Vector3 forwardDirection = center - GameManager.player.GetComponent<Rigidbody>().worldCenterOfMass;
+
 			foreach (GameObject particles in hitParticles) {
+				particles.transform.position = position;
+				particles.transform.forward = forwardDirection;
 				particles.GetComponent<ParticleSystem>().Play();
-				particles.transform.position = hitPosition + (transform.up * 0.2f);
 			}
 			
 			GetComponent<Killable> ().TakeDamage (hurtAmmount);
@@ -301,6 +428,14 @@ public class IAController : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision collision){
+		if(collision.gameObject.layer.Equals(LayerMask.NameToLayer("Planets"))){
+			if (isBeingThrown && GetComponent<Rigidbody>().velocity.magnitude>2f) {
+				hitGroundParticles.transform.forward = collision.contacts[0].normal;
+				hitGroundParticles.transform.position = collision.contacts[0].point;
+				GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);
+				hitGroundParticles.GetComponent<ParticleSystem>().Play();
+			}
+		}
 		virtualOnCollisionEnter (collision);
 	}
 	protected virtual void virtualOnCollisionEnter(Collision collision){
@@ -357,22 +492,25 @@ public class IAController : MonoBehaviour {
 	//Method to call after the enemy dies (To make it disappear)
 	private void onDeath(){
 		Vector3 center = GetComponent<Rigidbody> ().worldCenterOfMass;
-		GameObject newLight = GameObject.Instantiate(onDeathLight) as GameObject;
-		newLight.transform.position = (center);
-		newLight.GetComponent<LightOnDeath>().setVectorUp(transform.up);
-		newLight.GetComponent<LightOnDeath>().pointsToAddPerLight = GetComponent<EnemySpawned>().pointsCost;
-		int randRGB = UnityEngine.Random.Range(0,3);
-		Color color = new Color(1f,1f,1f);
-		float complementary = 1f;
-		float mainColor = 0.85f;
-		if(randRGB==0){
-			color = new Color(mainColor,complementary,complementary);
-		}else if(randRGB==1){
-			color = new Color(complementary,mainColor,complementary);
-		}else{
-			color = new Color(complementary,complementary,mainColor);
+		for(int i = 0;i<GetComponent<EnemySpawned>().pointsCost;i++){
+			GameObject newLight = GameObject.Instantiate(onDeathLight) as GameObject;
+			newLight.transform.position = (center);
+			newLight.GetComponent<LightOnDeath>().setVectorUp(transform.up);
+			newLight.GetComponent<LightOnDeath>().pointsToAddPerLight = GetComponent<EnemySpawned>().pointsCost;
+			int randRGB = UnityEngine.Random.Range(0,3);
+			Color color = new Color(1f,1f,1f);
+			float complementary = 1f;
+			float mainColor = 0.85f;
+			if(randRGB==0){
+				color = new Color(mainColor,complementary,complementary);
+			}else if(randRGB==1){
+				color = new Color(complementary,mainColor,complementary);
+			}else{
+				color = new Color(complementary,complementary,mainColor);
+			}
+			newLight.GetComponent<TrailRenderer>().material.color = color;
 		}
-		newLight.GetComponent<TrailRenderer>().material.color = color;
+		(GameManager.playerSpaceBody.getClosestPlanet() as PlanetCorrupted).getPlanetSpawnerManager().incrementAccumulatedPoints(GetComponent<EnemySpawned>().pointsCost);
 	}
 
 	public void interruptAttack(){
@@ -416,6 +554,10 @@ public class IAController : MonoBehaviour {
 		isEnabled = false;
 		StopMoving ();
 		interruptAttack ();
+	}
+
+	public void setNotEnabled(){
+		isEnabled = false;
 	}
 
 	public void activate(){

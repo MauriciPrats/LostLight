@@ -801,7 +801,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   cost: 0
-  elementAttack: 2
+  elementAttack: 0
   kameEffect: {fileID: 154724}
   kameCore: {fileID: 159632}
   elementalParticleSystem: {fileID: 131674}
@@ -819,6 +819,11 @@ MonoBehaviour:
   maxTimeCharging: .100000001
   explodes: 1
   curved: 1
+  slowTimeProportion: .100000001
+  costPerSecond: 100
+  kameMinSize: .200000003
+  kameMaxSize: 1.5
+  extraScaleExplosion: 5
 --- !u!114 &11440450
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -956,7 +961,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.44500732
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &13616426
 CapsuleCollider:
@@ -4368,7 +4373,7 @@ ParticleSystem:
       minMaxState: 0
     gravityModifier: 0
     inheritVelocity: 0
-    maxNumParticles: 300
+    maxNumParticles: 500
   ShapeModule:
     serializedVersion: 2
     enabled: 1
@@ -4387,7 +4392,7 @@ ParticleSystem:
     enabled: 1
     m_Type: 0
     rate:
-      scalar: 200
+      scalar: 400
       maxCurve:
         serializedVersion: 2
         m_Curve:

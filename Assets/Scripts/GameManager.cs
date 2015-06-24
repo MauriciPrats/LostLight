@@ -69,14 +69,16 @@ public static class GameManager{
 	}
 
 	public static void pauseGame(){
+		Util.changeTime (0f);
 		GameManager.inputController.disableInputController ();
-		iaManager.disableIAs ();
+		//iaManager.disableIAs ();
 		isGamePaused = true;
 	}
 
 	public static void unPauseGame(){
+		Util.changeTime (1f);
 		GameManager.inputController.enableInputController ();
-		iaManager.enableIAs ();
+		//iaManager.enableIAs ();
 		isGamePaused = false;
 	}
 
@@ -99,8 +101,6 @@ public static class GameManager{
 		if(GameManager.playerSpaceBody.getClosestPlanet()!=null){
 			if(GameManager.playerSpaceBody.getClosestPlanet().isPlanetCorrupted()){
 				(GameManager.playerSpaceBody.getClosestPlanet() as PlanetCorrupted).getPlanetEventsManager().startButtonPressed();
-			}else{
-				GUIManager.activatePlayingGUIWithFadeIn();
 			}
 		}
 
