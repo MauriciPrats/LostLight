@@ -14,6 +14,9 @@ public class PlayerController : MonoBehaviour {
 	public GameObject lightGemObject;
 	public GameObject playerTongueObject;
 	public GameObject playerNeckObject;
+	public GameObject playerLegObject;
+	public GameObject playerFistObject;
+	public GameObject playerTongueColliderObject;
 	public float timeBetweenDamageWhenNotBreathing = 0.5f;
 	public int damageWhenNotBreathing = 1;
 	//public float minimumBreathingBubbleScale = 6f;
@@ -42,8 +45,6 @@ public class PlayerController : MonoBehaviour {
 	public float invulnerableTimeOnFallDown = 1f;
 	public float invulnerableTimeAfterFallDown = 1f;
 
-
-
 	private CharacterController characterController;
 	private CharacterAttackController attackController;
 	private Animator bpAnimator;
@@ -59,8 +60,6 @@ public class PlayerController : MonoBehaviour {
 	private PappadaController pappadaC;
 	private bool canDrownInSpace = true;
 	private bool isFallingDown = false;
-
-
 
 	void Awake(){
 		GameManager.registerPlayer (gameObject);	
@@ -124,7 +123,6 @@ public class PlayerController : MonoBehaviour {
 		body.setIsGettingOutOfOrbit (false);
 		canDrownInSpace = true;
 	}
-
 
 	void Update() {
 		if(characterController.getIsJumping()){
@@ -258,7 +256,12 @@ public class PlayerController : MonoBehaviour {
 
 	public void CancelChargingSpaceJump(){
 		GUIManager.activatePlayingGUIWithFadeIn ();
-		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().returnOriginalZ();
+		//GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().returnOriginalZ();
+		if (GameManager.getActualPlanetIsRelevant ()) {
+			GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().returnOriginalZ ();
+		} else {
+			GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().setObjectiveZCameraSmallPlanet();
+		}
 		ParticleSystem particles = particleSystemJumpCharge.GetComponent<ParticleSystem> ();
 		particles.Stop ();
 		bpAnimator.SetBool("isChargingSpaceJumping",false);

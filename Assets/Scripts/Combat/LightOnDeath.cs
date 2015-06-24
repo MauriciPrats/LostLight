@@ -21,6 +21,7 @@ public class LightOnDeath : MonoBehaviour {
 	public void setVectorUp(Vector3 vectorUp){
 		speed = new Vector3 (Random.value, Random.value, Random.value).normalized;
 		speed = ((speed * speedIncrease) + vectorUp).normalized;
+
 		shintoDoor = GameManager.playerSpaceBody.getClosestPlanet ().GetComponent<PlanetCorruption> ().shintoDoor.GetComponent<ShintoDoor> ().KanjiLevel1;
 	}
 	// Use this for initialization
@@ -57,6 +58,7 @@ public class LightOnDeath : MonoBehaviour {
 
 		}else{
 			totalspeed = totalSpeedStart + (timeHasBeenAlive * speedIncrease);
+			if(totalspeed>3f){totalspeed = 3f;}
 			transform.position = transform.position+(speed * Time.deltaTime * totalspeed);
 			Vector3 objectiveDirection = currentObjectivePosition -  transform.position;
 			int angleRotation =(int) (timeHasBeenAlive * angleMultiplyier);

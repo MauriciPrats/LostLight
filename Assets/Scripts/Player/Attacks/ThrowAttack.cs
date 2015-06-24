@@ -8,7 +8,7 @@ public class ThrowAttack : Attack, AnimationSubscriber {
 	public float timeToDeactivate = 0.4f;
 
 	private AnimationEventBroadcast eventHandler;
-	private GameObject weapon;
+	private GameObject tongue;
 	private Xft.XWeaponTrail weaponEffects;
 	private float timeOfAnimation;
 	private List<GameObject> enemiesHit;
@@ -18,8 +18,8 @@ public class ThrowAttack : Attack, AnimationSubscriber {
 		attackType = AttackType.ThrowAttack;
 		eventHandler = GameManager.playerAnimator.gameObject.GetComponent<AnimationEventBroadcast>();
 		eventHandler.subscribe(this);
-		weapon = GameManager.player.GetComponent<PlayerController> ().weapon;
-		weaponEffects = weapon.GetComponentInChildren<Xft.XWeaponTrail>();
+		tongue = GameManager.player.GetComponent<PlayerController> ().playerTongueColliderObject;
+		//weaponEffects = weapon.GetComponentInChildren<Xft.XWeaponTrail>();
 	}
 
 	public override void enemyCollisionEnter(GameObject enemy,Vector3 point){
@@ -41,16 +41,16 @@ public class ThrowAttack : Attack, AnimationSubscriber {
 	private void enableHitbox(){
 		enemiesHit = new List<GameObject> (0);
 		hasHitEnemy = false;
-		weapon.GetComponentInChildren<AttackCollider> ().attack = gameObject;
-		weapon.GetComponentInChildren<Collider> ().enabled = true;
-		weaponEffects.Activate();
+		tongue.GetComponentInChildren<AttackCollider> ().attack = gameObject;
+		tongue.GetComponentInChildren<Collider> ().enabled = true;
+		//weaponEffects.Activate();
 	}
 
 	private void disableHitbox(){
-		weapon.GetComponentInChildren<AttackCollider> ().attack = null;
-		weapon.GetComponentInChildren<Collider> ().enabled = false;
+		tongue.GetComponentInChildren<AttackCollider> ().attack = null;
+		tongue.GetComponentInChildren<Collider> ().enabled = false;
 		isFinished = true;
-		weaponEffects.StopSmoothly (0.5f);
+		//weaponEffects.StopSmoothly (0.5f);
 	}
 	
 	/*private IEnumerator doThrowAttack(){
@@ -70,7 +70,7 @@ public class ThrowAttack : Attack, AnimationSubscriber {
 	
 	public override void startAttack(){
 		if (isFinished) {
-			GameManager.playerAnimator.SetTrigger ("isDoingCounterAttack");
+			GameManager.playerAnimator.SetTrigger ("isDoingThrowAttack");
 			isFinished = false;
 		}
 	}

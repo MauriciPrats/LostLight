@@ -41,7 +41,7 @@ public class InputController : MonoBehaviour {
 		WeaponManager wpm = WeaponManager.Instance;
 	}
 
-	void LateUpdate() {
+	void Update() {
 		//We wait some time to avoid jumping when we select to start the game
 		timeSinceGameReenabled += Time.deltaTime;
 		if(GameManager.isGameEnded || GameManager.isGamePaused){
@@ -56,7 +56,11 @@ public class InputController : MonoBehaviour {
 						character.MoveArrow(Input.GetAxisRaw ("Horizontal"),Input.GetAxis ("Vertical"));
 					}else if(isCharacterAllowedToMove()){
 						ResetJumping ();
-						character.Move (Input.GetAxisRaw("Horizontal"));
+						if(attackController.isDoingAnyAttack()){
+							character.Move (Input.GetAxisRaw("Horizontal")/2f);
+						}else{
+							character.Move (Input.GetAxisRaw("Horizontal"));
+						}
 
 					}else{
 						character.StopMove ();
@@ -113,21 +117,17 @@ public class InputController : MonoBehaviour {
 			//JUMP BUTTON
 
 
-			if (Input.GetButtonUp("Jump") && isSpaceJumpCharged) {
+			if (Input.GetButtonDown("Jump") && isSpaceJumpCharged) {
 				ResetJumping(); 
 				character.SpaceJump(); 
 			}
 
-			if(Input.GetButton("Jump") && (Input.GetAxis("Vertical")<-0.5f || isSpaceJumpCharging)){
+			if(Input.GetButtonDown("Jump") && (Input.GetAxisRaw("Vertical")<0f || isSpaceJumpCharging)){
 				if(isCharacterAllowedToSpaceJump()){
-					timeJumpPressed += Time.deltaTime;
-					if (timeJumpPressed >= startChargeSpaceJump && !isSpaceJumpCharging) {isSpaceJumpCharging = true; }
-					if (timeJumpPressed >= timeIsSpaceJumpCharged && !isSpaceJumpCharged) {isSpaceJumpCharged = true; character.ChargeJump(); }
+					isSpaceJumpCharged = true; character.ChargeJump();
 				}
 			}else if(Input.GetButtonDown("Jump") && isCharacterAllowedToJump()) {
 				character.Jump(); 
-			}else {
-				ResetJumping();
 			}
 
 			if (Input.GetButtonDown("Jump")){
@@ -139,14 +139,15 @@ public class InputController : MonoBehaviour {
 				}
 			}
 
-			if (Input.GetButton("Block")) {
+			if (Input.GetButtonDown("Block")) {
 				Interactuable entity = EntityManager.getClosestInteractuable();
 				SpaceGravityBody body = GetComponent<SpaceGravityBody>();
-				if(character.getIsSpaceJumping() && body.getIsOrbitingAroundPlanet()){
-					body.setIsFallingIntoPlanet(true);
-				}else if (entity != null){ entity.doInteractAction();}
-				else if (isSpaceJumpCharged){
+				if(isSpaceJumpCharged){
 					CancelChargingSpaceJump();
+				}else if(character.getIsSpaceJumping() && body.getIsOrbitingAroundPlanet()){
+					body.setIsFallingIntoPlanet(true);
+				}else if (entity != null){ 
+					entity.doInteractAction();
 				}else if(Input.GetAxis("Vertical")<-0.5f && isCharacterAllowedToBlock()){
 					attackController.doBlock();
 				}else if(isCharacterAllowedToDash()){

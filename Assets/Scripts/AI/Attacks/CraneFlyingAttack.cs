@@ -72,17 +72,12 @@ public class CraneFlyingAttack : Attack {
 			doDamage = true;
 			particles.Play ();
 		}
-
-
-
 	}
 
 	public override void interruptAttack(){
 		interrupted = true;
 		doDamage = false;
 	}
-
-	
 	
 	public override void informParent(GameObject parentObject){
 		transform.rotation = parentObject.transform.rotation;
