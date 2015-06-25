@@ -12,7 +12,7 @@ public class AttackCollider : MonoBehaviour {
 			if(other.tag.Equals("Enemy")){
 				attack.GetComponent<Attack>().enemyCollisionEnter(other.gameObject,other.ClosestPointOnBounds(transform.position));
 			}else{
-				attack.GetComponent<Attack>().otherCollisionEnter(other.gameObject);
+				attack.GetComponent<Attack>().otherCollisionEnter(other.gameObject,other.ClosestPointOnBounds(transform.position));
 			}
 		}
 		if (debug != null) {
@@ -37,7 +37,7 @@ public class AttackCollider : MonoBehaviour {
 			if(other.gameObject.tag.Equals("Enemy")){
 				attack.GetComponent<Attack>().enemyCollisionEnter(other.gameObject,other.contacts[0].point);
 			}else{
-				attack.GetComponent<Attack>().otherCollisionEnter(other.gameObject);
+				attack.GetComponent<Attack>().otherCollisionEnter(other.gameObject,other.contacts[0].point);
 				attack.GetComponent<Attack>().otherCollisionEnter(other);
 			}
 		}

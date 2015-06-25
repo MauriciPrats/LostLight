@@ -21,10 +21,10 @@ public class CraneFlyingAttack : Attack {
 		attackType = AttackType.CraneFlyingAttack;
 	}
 	
-	public override void otherCollisionEnter(GameObject enemy){
+	public override void otherCollisionEnter(GameObject enemy,Vector3 position){
 		if(isActive && enemy.tag.Equals("Player") && doDamage && !isFinished && !interrupted){
 			isActive = false;
-			GameManager.player.GetComponent<PlayerController> ().getHurt (damage);
+			GameManager.player.GetComponent<PlayerController> ().getHurt (damage,position);
 		}
 	}
 

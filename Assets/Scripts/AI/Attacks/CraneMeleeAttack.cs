@@ -21,10 +21,10 @@ public class CraneMeleeAttack : Attack {
 
 
 	private void doDamage(){
-		GameManager.playerController.getHurt (damage);
+		GameManager.playerController.getHurt (damage,GameManager.player.GetComponentInChildren<Collider>().ClosestPointOnBounds(transform.position));
 	}
 
-	public override void otherCollisionEnter(GameObject element){
+	public override void otherCollisionEnter(GameObject element,Vector3 point){
 		if( element.tag.Equals("Player")){
 			isPlayerInRange = true;
 		}

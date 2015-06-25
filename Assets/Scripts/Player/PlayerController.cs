@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour {
 	public float spaceJumpForce = 100f;
 	public GameObject particleSystemJumpCharge;
 	public GameObject animationBigPappada;
+	public GameObject getHurtBigPappadaPrefab;
 	//public GameObject breathingBubble;
 	public GameObject lightGemObject;
 	public GameObject playerTongueObject;
@@ -60,7 +61,7 @@ public class PlayerController : MonoBehaviour {
 	private PappadaController pappadaC;
 	private bool canDrownInSpace = true;
 	private bool isFallingDown = false;
-
+	public GameObject getHurtBigPappada;
 	void Awake(){
 		GameManager.registerPlayer (gameObject);	
 	}
@@ -75,7 +76,7 @@ public class PlayerController : MonoBehaviour {
 		bpAnimator = animationBigPappada.GetComponent<Animator>();
 		pappadaC = pappada.GetComponent<PappadaController> ();
 		flyParticles = flyingParticles.GetComponent<ParticleSystem> ();
-
+		getHurtBigPappada = GameObject.Instantiate (getHurtBigPappadaPrefab) as GameObject; 
 		initializeVariables ();
 		StartCoroutine ("resetWeaponTrail");
 	}
@@ -285,8 +286,10 @@ public class PlayerController : MonoBehaviour {
 		ShowArrow ();
 	}
 
-	public void getHurt(int hitPointsToSubstract){
+	public void getHurt(int hitPointsToSubstract,Vector3 positionImpact){
 		if (!isInvulnerable && !attackController.isDoingBlock () && !GameManager.isGameEnded && !GameManager.isGamePaused) {
+			getHurtBigPappada.transform.position = positionImpact;
+			getHurtBigPappada.GetComponent<ParticleSystem>().Play();
 			if(!getIsSpaceJumping()){
 				//fallDown();
 			}
@@ -339,7 +342,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void kill(){
-		getHurt(killable.HP);
+		getHurt(killable.HP,GameManager.player.GetComponent<Rigidbody>().worldCenterOfMass);
 		StopMove ();
 	}
 

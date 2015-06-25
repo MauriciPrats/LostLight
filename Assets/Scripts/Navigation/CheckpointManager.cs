@@ -24,4 +24,13 @@ public class CheckpointManager : MonoBehaviour {
 		return null;
 	}
 
+	public CheckpointStub getCheckpointByIndex(int index){
+		for(int i = 0;i<checkPointsList.Count;++i){
+			if(checkPointsList[i].checkPointIndex == index){
+				return checkPointsList[i];
+			}
+		}
+		return null;
+	}
+
 }

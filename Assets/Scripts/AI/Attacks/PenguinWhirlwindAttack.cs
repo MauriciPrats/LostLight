@@ -27,7 +27,7 @@ public class PenguinWhirlwindAttack : Attack {
 	void OnTriggerStay(Collider enemy){
 		if(enemy.gameObject.tag.Equals("Player") && !isFinished && !hasHitPlayer && isAttackHurting && !parent.GetComponent<IAController>().isDead){
 			hasHitPlayer = true;
-			GameManager.player.GetComponent<PlayerController> ().getHurt (damage);
+			GameManager.player.GetComponent<PlayerController> ().getHurt (damage,enemy.ClosestPointOnBounds(transform.position));
 			Vector3 speedToAdd = GameManager.player.GetComponent<Rigidbody>().worldCenterOfMass - parent.transform.position;
 			GameManager.player.GetComponent<Rigidbody>().velocity +=(speedToAdd.normalized * speedToAddV);
 		}

@@ -37,7 +37,7 @@ public class BoarChargeAttack : Attack {
 		if(!parent.GetComponent<IAController>().isDead && !interrupted){
 			if(col.tag == "Player"){
 				GameManager.player.GetComponent<Rigidbody>().velocity = GameManager.player.transform.up * velocityAppliedToPlayer;
-				GameManager.player.GetComponent<PlayerController>().getHurt(damage);
+				GameManager.player.GetComponent<PlayerController>().getHurt(damage,col.ClosestPointOnBounds(transform.position));
 			}else if(col.gameObject.tag == "Enemy"){
 				col.gameObject.GetComponent<Rigidbody>().velocity += col.gameObject.transform.up * velocityAppliedToEnemy;
 			}
@@ -48,7 +48,7 @@ public class BoarChargeAttack : Attack {
 		if(!parent.GetComponent<IAController>().isDead && !interrupted){
 			if(col.gameObject.tag == "Player"){
 				GameManager.player.GetComponent<Rigidbody>().velocity = GameManager.player.transform.up * velocityAppliedToEnemy;
-				GameManager.player.GetComponent<PlayerController>().getHurt(damage);
+				GameManager.player.GetComponent<PlayerController>().getHurt(damage,col.contacts[0].point);
 			}else if(col.gameObject.tag == "Enemy"){
 				col.gameObject.GetComponent<Rigidbody>().velocity += col.gameObject.transform.up * velocityAppliedToEnemy;
 			}

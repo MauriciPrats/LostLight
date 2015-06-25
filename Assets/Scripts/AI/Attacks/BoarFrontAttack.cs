@@ -84,7 +84,7 @@ public class BoarFrontAttack : Attack {
 
 	private void attackEffect(){
 		if(isPlayerInsideAttack && !interrupted){
-			GameManager.player.GetComponent<PlayerController>().getHurt(damage);
+			GameManager.player.GetComponent<PlayerController>().getHurt(damage,GameManager.player.GetComponentInChildren<Collider>().ClosestPointOnBounds(transform.position));
 		}
 	}
 

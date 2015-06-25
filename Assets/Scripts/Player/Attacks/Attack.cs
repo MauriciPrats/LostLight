@@ -37,7 +37,7 @@ Se llaman los initialize de cada ataque
 	public virtual void otherCollisionExit(GameObject enemy){
 	}
 
-	public virtual void otherCollisionEnter(GameObject enemy){
+	public virtual void otherCollisionEnter(GameObject enemy,Vector3 point){
 	}
 
 	public virtual void otherCollisionEnter(Collision collision){
