@@ -115,8 +115,6 @@ public class InputController : MonoBehaviour {
 			} 
 
 			//JUMP BUTTON
-
-
 			if (Input.GetButtonDown("Jump") && isSpaceJumpCharged) {
 				ResetJumping(); 
 				character.SpaceJump(); 

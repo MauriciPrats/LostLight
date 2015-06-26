@@ -114,6 +114,7 @@ public class PlayerController : MonoBehaviour {
 			bpAnimator.SetBool("isGoingUp",false);
 			bpAnimator.SetBool("isChargingSpaceJumping",false);
 			bpAnimator.SetBool("isWalking",false);
+			bpAnimator.SetBool("isDerribado",false);
 		}
 
 		isSpaceJumping = false;
@@ -275,7 +276,6 @@ public class PlayerController : MonoBehaviour {
 		characterController.StopMoving ();
 	}
 
-
 	public void ChargeJump() {
 		GUIManager.deactivatePlayingGUI ();
 		bpAnimator.SetBool("isChargingSpaceJumping",true);
@@ -283,6 +283,7 @@ public class PlayerController : MonoBehaviour {
 		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().setObjectiveZCameraOnSpaceJump ();
 		ParticleSystem particles = particleSystemJumpCharge.GetComponent<ParticleSystem> ();
 		particles.Play ();
+		StopMove ();
 		ShowArrow ();
 	}
 
@@ -300,6 +301,9 @@ public class PlayerController : MonoBehaviour {
 			killable.TakeDamage (hitPointsToSubstract);
 			pappadaC.newProportionOfLife (killable.proportionHP ());
 			if (killable.HP <= 0 && !GameManager.isGameEnded) {
+				GameManager.playerAnimator.SetBool("isDerribado",true);
+				StopMove();
+				isInvulnerable = true;
 				GameManager.audioManager.StopSong();
 				GameManager.audioManager.PlayStableSound(9);
 				GameManager.loseGame ();

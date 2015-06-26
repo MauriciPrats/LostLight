@@ -227,7 +227,7 @@ public class IAController : MonoBehaviour {
 	}
 
 	//Gets the direction at which is looking (-1f left, 1f right)
-	protected float getLookingDirection(){
+	public float getLookingDirection(){
 		if(getIsLookingRight()){
 			return 1f;
 		}else{

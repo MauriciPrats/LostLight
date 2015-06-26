@@ -36,6 +36,7 @@ public class ComboAttack : Attack, AnimationSubscriber {
 		attackColliderLeg = GameManager.player.GetComponent<PlayerController> ().playerLegObject.GetComponent<AttackCollider> ();
 		attackColliderFist = GameManager.player.GetComponent<PlayerController> ().playerFistObject.GetComponent<AttackCollider> ();
 		weaponEffects = GameManager.player.GetComponent<PlayerController>().weapon.GetComponentInChildren<Xft.XWeaponTrail>();
+		enemiesHit = new List<GameObject> (0);
 		//weaponEffects.StopSmoothly(0.1f);
 	}
 
@@ -112,9 +113,7 @@ public class ComboAttack : Attack, AnimationSubscriber {
 	}
 	
 	public void allowChaining() {
-		//Debug.Log (combosteep);
 		if (lastEnded) {
-			//combosteep = (combosteep % 6) + 1;
 			lastEnded = false;
 		}
 		isComboing = false;

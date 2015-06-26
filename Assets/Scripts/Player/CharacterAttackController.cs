@@ -19,7 +19,9 @@ public enum AttackType{Missiles,
 					   PenguinSlideMove,
 					   CraneFlyingAttack,
 					   CraneMeleeAttack,
-					   LowAttack};
+					   LowAttack,
+					   MundusBaseAttack,
+					   MundusBallOfDeath};
 
 public class CharacterAttackController : MonoBehaviour {
 
