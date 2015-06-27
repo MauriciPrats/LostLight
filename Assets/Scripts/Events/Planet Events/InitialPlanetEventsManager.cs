@@ -37,6 +37,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 				GameManager.player.GetComponent<CharacterController> ().StopMoving ();
 				GameManager.player.GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);
 				GameManager.inputController.disableInputController ();
+				GameManager.playerAnimator.SetBool("isDoingCranePosition",true);
 				littleGHopper.GetComponent<SpaceGravityBody> ().bindToClosestPlanet ();
 				littleGHopper.GetComponent<SpaceGravityBody> ().setStatic (true);
 				littleGHopper.GetComponent<CharacterController> ().StopMoving ();
@@ -85,6 +86,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 				littleGHopper.GetComponent<CharacterController> ().LookLeftOrRight (1f);
 				yield return new WaitForSeconds (0.7f);
 				GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().resetXAngle();
+				GameManager.playerAnimator.SetBool("isDoingCranePosition",false);
 				GameManager.playerAnimator.SetBool ("isJumping", true);
 				GameManager.player.GetComponent<CharacterController>().StopMoving();
 				GameManager.playerSpaceBody.setStatic (false);
@@ -125,7 +127,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 				GUIManager.activateTutorialText();
 				yield return new WaitForSeconds (5f);
 				GUIManager.deactivateTutorialText();
-				yield return new WaitForSeconds (2f);
+				yield return new WaitForSeconds (12f);
 				littleGHopper.GetComponent<CharacterController> ().StopMoving ();
 				littleGHopper.GetComponentInChildren<Animator> ().SetBool ("isWalking", false);
 			}
@@ -198,7 +200,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			yield return StartCoroutine(WaitInterruptable (1f,bigPappadaDialogue));
 			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¡¿Que es estoo?!", 1f, true, false);
 			yield return StartCoroutine(WaitInterruptable (5f,bigPappadaDialogue));
-			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("El templo!! Little G.!", 2f, true, false);
+			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¡Little G.!", 2f, true, false);
 			yield return StartCoroutine(WaitInterruptable (2f,bigPappadaDialogue));
 			bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().planetGettingCorrupted.SetActive(true);
 			GameManager.player.GetComponent<PlayerController>().Move(1f);
@@ -238,7 +240,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			littleGDialogue = littleGHopper.GetComponent<DialogueController> ().createNewDialogue ("Aaahhh!!\n MAESTROO!!", 1.5f, true, false);
 			yield return StartCoroutine(WaitInterruptable (1f,littleGDialogue));
 			littleGHopper.GetComponent<CharacterController>().Jump(25f);
-			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¡Little G!!", 1f, false, false);
+			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¡Aguanta, ya voy!", 1f, false, false);
 			yield return StartCoroutine(WaitInterruptable (1f,bigPappadaDialogue));
 			GameManager.inputController.disableInputController ();
 			//bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().bridge.GetComponent<Collider>().enabled = false;
@@ -343,6 +345,8 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 	public override void startButtonPressed(){
 		if(isEnabled && !firstCinematicPlayed){
 			StartCoroutine("initialCinematic");
+		}else{
+			GameManager.persistentData.spaceJumpUnlocked = true;
 		}
 	}
 

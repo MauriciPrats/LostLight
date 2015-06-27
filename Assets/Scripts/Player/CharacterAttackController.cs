@@ -7,7 +7,7 @@ public enum AttackType{Missiles,
 					   KameDirectional,
 					   Shockwave,
 		               GuardBreaker,
-	                   CounterAttack,
+	                   ThrowAttack,
 	                   OnAir,
 	                   Combo,
 	                   BoarFrontAttack,
@@ -18,7 +18,10 @@ public enum AttackType{Missiles,
 					   PenguinWhirlwindAttack,
 					   PenguinSlideMove,
 					   CraneFlyingAttack,
-					   CraneMeleeAttack};
+					   CraneMeleeAttack,
+					   LowAttack,
+					   MundusBaseAttack,
+					   MundusBallOfDeath};
 
 public class CharacterAttackController : MonoBehaviour {
 

@@ -15,6 +15,7 @@ public class GravityBody : MonoBehaviour {
 	protected List<GameObject> collidingObjects = new List<GameObject>(0);
 	protected int objectsTouching = 0;
 	protected bool hasToApplyForce = true;
+	protected bool hasToChangeFacing = true;
 
 
 	void Start() {
@@ -73,7 +74,7 @@ public class GravityBody : MonoBehaviour {
 		foreach (GameObject planet in planets) {
 			GravityAttractor gravityAttractor = planet.GetComponent<GravityAttractor> ();
 			float distance = 0f;
-			if(gravityAttractor.Attract (transform,out distance,applyForce)){
+			if(gravityAttractor.Attract (transform,out distance,applyForce,hasToChangeFacing)){
 				closePlanets++;
 			}
 			if(distance<minimumPlanetDistance){
@@ -86,9 +87,18 @@ public class GravityBody : MonoBehaviour {
 		return false;
 	}
 
-	public bool getIsTouchingPlanet(){
+	public bool getIsTouchingPlanetOrCharacters(){
 		checkForDestroyedObjects ();
 		return isTouchingPlanet;
+	}
+
+	public bool getIsTouchingPlanet(){
+		foreach(GameObject collidingObject in collidingObjects){
+			if(collidingObject.tag == "Planet"){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public float getMinimumPlanetDistance(){
@@ -101,5 +111,13 @@ public class GravityBody : MonoBehaviour {
 
 	public bool getHasToApplyForce(){
 		return hasToApplyForce;
+	}
+
+	public void setHasToChangeFacing(bool change){
+		hasToChangeFacing = change;
+	}
+
+	public bool getHasToChangeFacing(){
+		return hasToChangeFacing;
 	}
 }

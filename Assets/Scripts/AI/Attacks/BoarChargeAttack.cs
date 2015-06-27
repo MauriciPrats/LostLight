@@ -22,6 +22,7 @@ public class BoarChargeAttack : Attack {
 	private float originalSpeed = 0f;
 	private float direction = 0f;
 	private OutlineChanging outlineChanger;
+	private bool interrupted = false;
 	
 	private bool isPlayerInsideAttack = false;
 
@@ -33,10 +34,10 @@ public class BoarChargeAttack : Attack {
 	}
 
 	void OnTriggerEnter(Collider col) {
-		if(!parent.GetComponent<IAController>().isDead){
+		if(!parent.GetComponent<IAController>().isDead && !interrupted){
 			if(col.tag == "Player"){
 				GameManager.player.GetComponent<Rigidbody>().velocity = GameManager.player.transform.up * velocityAppliedToPlayer;
-				GameManager.player.GetComponent<PlayerController>().getHurt(damage);
+				GameManager.player.GetComponent<PlayerController>().getHurt(damage,col.ClosestPointOnBounds(transform.position));
 			}else if(col.gameObject.tag == "Enemy"){
 				col.gameObject.GetComponent<Rigidbody>().velocity += col.gameObject.transform.up * velocityAppliedToEnemy;
 			}
@@ -44,10 +45,10 @@ public class BoarChargeAttack : Attack {
 	}
 	
 	void OnCollisionEnter(Collision col) {
-		if(!parent.GetComponent<IAController>().isDead){
+		if(!parent.GetComponent<IAController>().isDead && !interrupted){
 			if(col.gameObject.tag == "Player"){
 				GameManager.player.GetComponent<Rigidbody>().velocity = GameManager.player.transform.up * velocityAppliedToEnemy;
-				GameManager.player.GetComponent<PlayerController>().getHurt(damage);
+				GameManager.player.GetComponent<PlayerController>().getHurt(damage,col.contacts[0].point);
 			}else if(col.gameObject.tag == "Enemy"){
 				col.gameObject.GetComponent<Rigidbody>().velocity += col.gameObject.transform.up * velocityAppliedToEnemy;
 			}
@@ -56,6 +57,7 @@ public class BoarChargeAttack : Attack {
 
 	//Called when the attack is started
 	public override void startAttack(){
+	
 		bool isRight = parent.GetComponent<CharacterController>().getIsLookingRight();
 		if(isRight){
 			direction = 1f;
@@ -63,23 +65,8 @@ public class BoarChargeAttack : Attack {
 			direction = -1f;
 		}
 		isFinished = false;
+		interrupted = false;
 		StartCoroutine ("attack");
-	}
-
-	//Coroutine that makes the boar move straight
-	private IEnumerator moveStraight(){
-		parent.layer = LayerMask.NameToLayer ("Dashing");
-		attackTimer = 0f;
-		while(attackTimer<=timeItLastsCharge){
-			attackTimer+=Time.deltaTime;
-			if(!parent.GetComponent<IAController>().isDead){
-				parent.GetComponent<IAController> ().Move(direction);
-			}
-			yield return null;
-		}
-		parent.layer = LayerMask.NameToLayer ("Enemy");
-		yield return true;
-
 	}
 
 	private IEnumerator attack(){
@@ -89,22 +76,34 @@ public class BoarChargeAttack : Attack {
 		iaAnimator.SetTrigger("isChargingChargeAttack");
 
 		float timer = 0f;
-		while(timer<timeBeforeCharge){
+		while(timer<timeBeforeCharge && !interrupted && !parent.GetComponent<IAController>().isDead){
 			timer+=Time.deltaTime;
 			float ratio = timer/timeBeforeCharge;
 			Color newColor = Color.Lerp (Color.black, Color.red, ratio);
 			outlineChanger.setOutlineColor (newColor);
 			yield return null;
 		}
+
 		//yield return new WaitForSeconds (timeBeforeCharge);
 		chargeParticles.SetActive (false);
 		iaAnimator.SetBool("isDoingChargeAttack",true);
-		if(!parent.GetComponent<IAController>().isDead){
-			StartCoroutine ("moveStraight");
-			GetComponent<Collider> ().enabled = true;
-			whileChargingParticles.GetComponent<ParticleSystem> ().Play ();
+		yield return null;
+		GetComponent<Collider> ().enabled = true;
+		whileChargingParticles.GetComponent<ParticleSystem> ().Play ();
+		
+		timer = 0f;
+		parent.layer = LayerMask.NameToLayer ("Dashing");
+	
+		while(timer<=timeItLastsCharge && !interrupted && !parent.GetComponent<IAController>().isDead){
+			timer+=Time.deltaTime;
+			parent.GetComponent<IAController> ().Move(direction);
+			
+			yield return null;
 		}
-		yield return new WaitForSeconds(timeItLastsCharge);
+
+		parent.layer = LayerMask.NameToLayer ("Enemy");
+
+		interrupted = false;
 		outlineChanger.setOutlineColor (Color.black);
 		//whileChargingParticles.SetActive (false);
 		whileChargingParticles.GetComponent<ParticleSystem> ().Stop ();
@@ -112,16 +111,12 @@ public class BoarChargeAttack : Attack {
 		isFinished = true;
 		parent.GetComponent<CharacterController> ().speed = originalSpeed;
 		GetComponent<Collider> ().enabled = false;
+		yield return null;
 	}
 
 	
 	public override void interruptAttack(){
-		if(parent!=null){
-			chargeParticles.GetComponent<ParticleSystem> ().Stop ();
-			whileChargingParticles.GetComponent<ParticleSystem> ().Stop ();
-			outlineChanger.setOutlineColor (Color.black);
-			GetComponent<Collider> ().enabled = false;
-		}
+		interrupted = true;
 	}
 
 	public override void informParent(GameObject parentObject){

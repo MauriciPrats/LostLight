@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[RequireComponent (typeof (OutlineChanging))]
 public class PlayerController : MonoBehaviour {
 
 	public float moveSpeed = 5f;
@@ -9,10 +10,14 @@ public class PlayerController : MonoBehaviour {
 	public float spaceJumpForce = 100f;
 	public GameObject particleSystemJumpCharge;
 	public GameObject animationBigPappada;
+	public GameObject getHurtBigPappadaPrefab;
 	//public GameObject breathingBubble;
 	public GameObject lightGemObject;
 	public GameObject playerTongueObject;
 	public GameObject playerNeckObject;
+	public GameObject playerLegObject;
+	public GameObject playerFistObject;
+	public GameObject playerTongueColliderObject;
 	public float timeBetweenDamageWhenNotBreathing = 0.5f;
 	public int damageWhenNotBreathing = 1;
 	//public float minimumBreathingBubbleScale = 6f;
@@ -38,8 +43,8 @@ public class PlayerController : MonoBehaviour {
 	private bool isFinishedSpaceJump;
 	public GameObject explosionOnDieInSpacePrefab;
 	public GameObject weapon;
-
-
+	public float invulnerableTimeOnFallDown = 1f;
+	public float invulnerableTimeAfterFallDown = 1f;
 
 	private CharacterController characterController;
 	private CharacterAttackController attackController;
@@ -55,9 +60,8 @@ public class PlayerController : MonoBehaviour {
 	private float timeHasNotBeenBreathing;
 	private PappadaController pappadaC;
 	private bool canDrownInSpace = true;
-
-
-
+	private bool isFallingDown = false;
+	public GameObject getHurtBigPappada;
 	void Awake(){
 		GameManager.registerPlayer (gameObject);	
 	}
@@ -72,10 +76,9 @@ public class PlayerController : MonoBehaviour {
 		bpAnimator = animationBigPappada.GetComponent<Animator>();
 		pappadaC = pappada.GetComponent<PappadaController> ();
 		flyParticles = flyingParticles.GetComponent<ParticleSystem> ();
-
+		getHurtBigPappada = GameObject.Instantiate (getHurtBigPappadaPrefab) as GameObject; 
 		initializeVariables ();
 		StartCoroutine ("resetWeaponTrail");
-
 	}
 
 	public void initializePlayerRotation(){
@@ -111,6 +114,7 @@ public class PlayerController : MonoBehaviour {
 			bpAnimator.SetBool("isGoingUp",false);
 			bpAnimator.SetBool("isChargingSpaceJumping",false);
 			bpAnimator.SetBool("isWalking",false);
+			bpAnimator.SetBool("isDerribado",false);
 		}
 
 		isSpaceJumping = false;
@@ -121,7 +125,6 @@ public class PlayerController : MonoBehaviour {
 		body.setIsGettingOutOfOrbit (false);
 		canDrownInSpace = true;
 	}
-
 
 	void Update() {
 		if(characterController.getIsJumping()){
@@ -194,7 +197,11 @@ public class PlayerController : MonoBehaviour {
 		bpAnimator.SetBool("isSpaceJumping",false);
 		isSpaceJumping = false;
 		flyParticles.Stop();
-		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().returnOriginalZ();
+		if(GameManager.playerSpaceBody.getClosestPlanet().GetComponent<Planet>().centerCameraOnLand){
+			GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().returnOriginalZ();
+		}else{
+			GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().setObjectiveZCameraSmallPlanet();
+		}
 		HideArrow();
 		isFinishedSpaceJump = true;
 	}
@@ -251,7 +258,12 @@ public class PlayerController : MonoBehaviour {
 
 	public void CancelChargingSpaceJump(){
 		GUIManager.activatePlayingGUIWithFadeIn ();
-		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().returnOriginalZ();
+		//GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().returnOriginalZ();
+		if (GameManager.getActualPlanetIsRelevant ()) {
+			GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().returnOriginalZ ();
+		} else {
+			GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().setObjectiveZCameraSmallPlanet();
+		}
 		ParticleSystem particles = particleSystemJumpCharge.GetComponent<ParticleSystem> ();
 		particles.Stop ();
 		bpAnimator.SetBool("isChargingSpaceJumping",false);
@@ -264,7 +276,6 @@ public class PlayerController : MonoBehaviour {
 		characterController.StopMoving ();
 	}
 
-
 	public void ChargeJump() {
 		GUIManager.deactivatePlayingGUI ();
 		bpAnimator.SetBool("isChargingSpaceJumping",true);
@@ -272,11 +283,17 @@ public class PlayerController : MonoBehaviour {
 		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().setObjectiveZCameraOnSpaceJump ();
 		ParticleSystem particles = particleSystemJumpCharge.GetComponent<ParticleSystem> ();
 		particles.Play ();
+		StopMove ();
 		ShowArrow ();
 	}
 
-	public void getHurt(int hitPointsToSubstract){
-		if (!isInvulnerable && !attackController.isDoingBlock ()) {
+	public void getHurt(int hitPointsToSubstract,Vector3 positionImpact){
+		if (!isInvulnerable && !attackController.isDoingBlock () && !GameManager.isGameEnded && !GameManager.isGamePaused) {
+			getHurtBigPappada.transform.position = positionImpact;
+			getHurtBigPappada.GetComponent<ParticleSystem>().Play();
+			if(!getIsSpaceJumping()){
+				//fallDown();
+			}
 			GameManager.playerAnimator.SetTrigger("isHurt");
 			GetComponent<DialogueController>().createNewExpression("Ouch!",0.5f,true,true);
 			GameManager.audioManager.PlayStableSound(8);
@@ -284,12 +301,43 @@ public class PlayerController : MonoBehaviour {
 			killable.TakeDamage (hitPointsToSubstract);
 			pappadaC.newProportionOfLife (killable.proportionHP ());
 			if (killable.HP <= 0 && !GameManager.isGameEnded) {
+				GameManager.playerAnimator.SetBool("isDerribado",true);
+				StopMove();
+				isInvulnerable = true;
 				GameManager.audioManager.StopSong();
 				GameManager.audioManager.PlayStableSound(9);
 				GameManager.loseGame ();
 			}
 		}
 		StartCoroutine ("takeHit");
+	}
+
+	//Method that makes the player fall, becoming invulnerable for a while
+	public void fallDown(){
+		attackController.interruptActualAttacks ();
+		StopMove ();
+		StartCoroutine (fallDownCoroutine ());
+	}
+
+	private IEnumerator fallDownCoroutine(){
+		float timer = 0f;
+		isFallingDown = true;
+		isInvulnerable = true;
+		GetComponent<OutlineChanging> ().setMainColor (Color.black);
+		bpAnimator.SetBool ("isFallingDown", true);
+		GetComponent<Rigidbody> ().AddForce (transform.up*10f, ForceMode.VelocityChange);
+		while(timer<invulnerableTimeOnFallDown){
+			timer+=Time.deltaTime;
+
+			yield return null;
+		}
+		bpAnimator.SetBool ("isFallingDown", false);
+		isFallingDown = false;
+		GetComponent<OutlineChanging> ().setMainColor (Color.yellow);
+		yield return new WaitForSeconds (invulnerableTimeAfterFallDown);
+		GetComponent<OutlineChanging> ().resetMainColor ();
+		isInvulnerable = false;
+
 
 	}
 
@@ -298,7 +346,8 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void kill(){
-		getHurt(killable.HP);
+		getHurt(killable.HP,GameManager.player.GetComponent<Rigidbody>().worldCenterOfMass);
+		StopMove ();
 	}
 
 	public bool isHit() {
@@ -374,5 +423,9 @@ public class PlayerController : MonoBehaviour {
 
 	public void setCanDrownInSpace(bool cdis){
 		canDrownInSpace = cdis;
+	}
+
+	public bool getIsFallingDown(){
+		return isFallingDown;
 	}
 }

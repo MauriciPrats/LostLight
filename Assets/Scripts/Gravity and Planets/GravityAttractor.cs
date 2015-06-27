@@ -51,7 +51,7 @@ public class GravityAttractor : MonoBehaviour {
 		}
 	}
 
-	private bool attract(Transform objectToAttract,out float distance,bool applyForce){
+	private bool attract(Transform objectToAttract,out float distance,bool applyForce,bool hasToChangeFacing){
 		//Only attract the body to the planet if it is close enough.
 		distance = Vector3.Distance (transform.position, objectToAttract.position);
 		GravityBody body = objectToAttract.GetComponent<GravityBody> ();
@@ -63,8 +63,10 @@ public class GravityAttractor : MonoBehaviour {
 			targetDir = new Vector3(targetDir.x,targetDir.y,0f).normalized;
 			
 			Vector3 objectUp = objectToAttract.up;
-			
-			objectToAttract.rotation = Quaternion.FromToRotation (objectUp, targetDir) * objectToAttract.rotation;
+
+			if(hasToChangeFacing){
+				objectToAttract.rotation = Quaternion.FromToRotation (objectUp, targetDir) * objectToAttract.rotation;
+			}
 			float forceToAdd = -Constants.GRAVITY_FORCE_OF_PLANETS * Time.deltaTime;
 			if(applyForce){
 				objectToAttract.GetComponent<Rigidbody>().AddForce (targetDir * forceToAdd ,ForceMode.VelocityChange);
@@ -74,7 +76,7 @@ public class GravityAttractor : MonoBehaviour {
 		return false;
 	}
 
-	private bool spaceAttract(Transform objectToAttract,out float distance,bool applyForce){
+	private bool spaceAttract(Transform objectToAttract,out float distance,bool applyForce,bool hasToChangeFacing){
 		//Only attract the body to the planet if it is close enough.
 		distance = Vector3.Distance (transform.position, objectToAttract.position);
 		SpaceGravityBody body = objectToAttract.GetComponent<SpaceGravityBody> ();
@@ -87,8 +89,10 @@ public class GravityAttractor : MonoBehaviour {
 			targetDir = new Vector3(targetDir.x,targetDir.y,0f).normalized;
 			
 			Vector3 objectUp = objectToAttract.up;
-			
-			objectToAttract.rotation = Quaternion.FromToRotation (objectUp, targetDir) * objectToAttract.rotation;
+
+			if(hasToChangeFacing){
+				objectToAttract.rotation = Quaternion.FromToRotation (objectUp, targetDir) * objectToAttract.rotation;
+			}
 			float forceToAdd = -Constants.GRAVITY_FORCE_OF_PLANETS * Time.deltaTime;
 			
 			bool hasToAddForce = true;
@@ -118,7 +122,6 @@ public class GravityAttractor : MonoBehaviour {
 					isOrbiting = false;
 					body.setIsOrbitingAroundPlanet(false);
 				}
-				
 				if(isOrbiting && !body.getIsGettingOutOfOrbit()){
 					hasToAddForce = false;
 					//Meeec, no funciona be, sempre va a la dreta
@@ -169,12 +172,12 @@ public class GravityAttractor : MonoBehaviour {
 		return false;
 	}
 
-	public bool Attract (Transform objectToAttract,out float distance,bool applyForce){
+	public bool Attract (Transform objectToAttract,out float distance,bool applyForce,bool hasToChangeFacing){
 
 		if(objectToAttract.GetComponent<GravityBody>().isSpaceGravityBody()){
-			return spaceAttract(objectToAttract,out distance,applyForce);
+			return spaceAttract(objectToAttract,out distance,applyForce,hasToChangeFacing);
 		}else{
-			return attract(objectToAttract,out distance,applyForce);
+			return attract(objectToAttract,out distance,applyForce,hasToChangeFacing);
 		}
 
 	}

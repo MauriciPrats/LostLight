@@ -9,7 +9,7 @@ public class DamageOnCollide : MonoBehaviour {
 	void OnCollisionStay(Collision collision){
 		if(collision.gameObject.layer.Equals(LayerMask.NameToLayer("Player")) && cooldownTimer>cooldown){
 			cooldownTimer = 0f;
-			GameManager.playerController.getHurt(damage);
+			GameManager.playerController.getHurt(damage,collision.contacts[0].point);
 		}
 	}
 	// Use this for initialization

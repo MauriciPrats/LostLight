@@ -5,6 +5,7 @@ public class CameraFollowingPlayer : MonoBehaviour {
 
 
 	public float distanceCameraOnSpaceJump = 100;
+	public float distanceCameraOnSmallPlanet = 70;
 	public float distanceCameraOnCleansePlanet = 40;
 	public float upMultiplyierWithAngle = 2.5f;
 	public float upMultiplyierWithoutAngle = 1.2f;
@@ -64,7 +65,7 @@ public class CameraFollowingPlayer : MonoBehaviour {
 		Vector3 objectivePosition;
 		Vector3 objectiveVectorZ;
 		//If we are changing objectives we calculate the appropiate rotation around the planet
-		if(isChangingObjective && GameManager.playerSpaceBody.getClosestPlanet()!=null){
+		if(isChangingObjective && GameManager.playerSpaceBody.getClosestPlanet()!=null && GameManager.playerSpaceBody.getClosestPlanet().GetComponent<Planet>().centerCameraOnLand){
 			timerChangingObjective +=Time.deltaTime;
 			if(timerChangingObjective<timeItTakesToChangeObjective){
 				float ratio = timerChangingObjective/timeItTakesToChangeObjective;
@@ -95,7 +96,7 @@ public class CameraFollowingPlayer : MonoBehaviour {
 		Vector3 rightWithoutZ = new Vector3 (transform.right.x, transform.right.y, 0f).normalized;
 
 		//Modifying objective up
-		if (!GameManager.player.GetComponent<PlayerController> ().getIsSpaceJumping () && !GameManager.playerController.getIsChargingSpaceJump() && !GameManager.getIsInsidePlanet()) {
+		if (!GameManager.player.GetComponent<PlayerController> ().getIsSpaceJumping () && !GameManager.playerController.getIsChargingSpaceJump() && !GameManager.getIsInsidePlanet() && GameManager.playerSpaceBody.getClosestPlanet() != null && GameManager.playerSpaceBody.getClosestPlanet().GetComponent<Planet>().centerCameraOnLand) {
 			if(Vector3.Distance(objectiveUp,transform.up)<=minimumUpDistanceOnStartLerpingXAngle){
 				Vector3 objectiveUpRotated = (Quaternion.AngleAxis (xAngle, rightWithoutZ) * objectiveUp);
 				timer+=Time.deltaTime;
@@ -109,7 +110,7 @@ public class CameraFollowingPlayer : MonoBehaviour {
 
 		Vector3 newUp;
 		SpaceGravityBody playerGravityBody = GameManager.player.GetComponent<SpaceGravityBody> ();
-		if (!playerGravityBody.getUsesSpaceGravity()) {
+		if ((!playerGravityBody.getUsesSpaceGravity())) {
 			newUp = Vector3.Lerp (transform.up, objectiveUp,Time.deltaTime * lerpMultiplyierUp);
 		}else{
 			newUp = transform.up;
@@ -123,11 +124,6 @@ public class CameraFollowingPlayer : MonoBehaviour {
 				Vector3 displacement = Random.insideUnitSphere * shake_intensity;
 				displacement.z = 0f;
 				transform.position = transform.position + displacement;
-				/*transform.rotation =  new Quaternion(
-					transform.rotation.x,
-					transform.rotation.y,
-					transform.rotation.z + Random.Range(-shake_intensity,shake_intensity)*0.1f,
-					transform.rotation.w);*/
 				if(isStoppingShaking){
 					shake_intensity -= shake_decay;
 				}
@@ -166,6 +162,11 @@ public class CameraFollowingPlayer : MonoBehaviour {
 	public void setObjectiveZCameraCleansePlanet(){
 		timerZPosition = 0f;
 		objectiveZ = -distanceCameraOnCleansePlanet;
+	}
+
+	public void setObjectiveZCameraSmallPlanet(){
+		timerZPosition = 0f;
+		objectiveZ = -distanceCameraOnSmallPlanet;
 	}
 	
 	// Update is called once per frame

@@ -115,8 +115,8 @@ MonoBehaviour:
   damage: 1
   cost: 20
   elementAttack: 0
-  timeItLastsCharge: .699999988
-  chargeSpeed: 8
+  timeItLastsCharge: .300000012
+  chargeSpeed: 16
   velocityAppliedToPlayer: 10
   velocityAppliedToEnemy: 3
   timeBeforeCharge: 2

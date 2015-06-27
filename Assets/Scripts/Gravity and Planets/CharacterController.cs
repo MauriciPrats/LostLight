@@ -4,6 +4,7 @@ using System.Collections;
 public class CharacterController : MonoBehaviour {
 
 	public float speed;
+	public bool noChangingDirection = false;
 	
 
 	private bool isLookingRight = true;
@@ -12,12 +13,19 @@ public class CharacterController : MonoBehaviour {
 	private bool isGoingUp = false;
 	private float amount;
 
+
 	private float oldSpeed;
 	Vector3 moveAmount;
 
 	void FixedUpdate(){
 		Vector3 movement = moveAmount * Time.deltaTime;
-		moveAmount = (speed * Mathf.Abs (amount)) * this.transform.forward;
+		float finalAmmount;
+		if (noChangingDirection) {
+			finalAmmount = amount;
+		} else {
+			finalAmmount = Mathf.Abs (amount);
+		}
+		moveAmount = (speed * finalAmmount) * this.transform.forward;
 
 		this.transform.position = new Vector3(this.transform.position.x + movement.x,this.transform.position.y + movement.y,this.transform.position.z);
 
@@ -28,7 +36,7 @@ public class CharacterController : MonoBehaviour {
 
 	void Update(){
 		//Check if the gravity body is touching the ground or not
-		if(isJumping && GetComponent<GravityBody>().getIsTouchingPlanet() && !isGoingUp){
+		if(isJumping && GetComponent<GravityBody>().getIsTouchingPlanetOrCharacters() && !isGoingUp){
 			isJumping = false;
 		}
 	}
@@ -39,21 +47,24 @@ public class CharacterController : MonoBehaviour {
 	public void Move(float amount) {
 		isMoving = true;
 		LookLeftOrRight (amount);
+		
 		this.amount = amount;
 	}
 	/*
 	 * It makes the character change the orientation depending on the moveAmount (-1 left, 1 right)
 	 */
 	public void LookLeftOrRight(float amount){
-		if (amount > 0f) {
-			if(!isLookingRight){
-				transform.Rotate(0f,180f,0f);
-				isLookingRight = true;
-			}
-		}else if(amount<0f){
-			if(isLookingRight){
-				transform.Rotate(0f,180f,0f);
-				isLookingRight = false;
+		if (!noChangingDirection) {
+			if (amount > 0f) {
+				if (!isLookingRight) {
+					transform.Rotate (0f, 180f, 0f);
+					isLookingRight = true;
+				}
+			} else if (amount < 0f) {
+				if (isLookingRight) {
+					transform.Rotate (0f, 180f, 0f);
+					isLookingRight = false;
+				}
 			}
 		}
 	}

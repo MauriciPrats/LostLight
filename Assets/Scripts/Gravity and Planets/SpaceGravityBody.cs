@@ -64,7 +64,7 @@ public class SpaceGravityBody : GravityBody {
 			foreach (GameObject planet in planets) {
 				GravityAttractor gravityAttractor = planet.GetComponent<GravityAttractor> ();
 				float distance = 0f;
-				if(gravityAttractor.Attract (transform,out distance,applyForce)){
+				if(gravityAttractor.Attract (transform,out distance,applyForce,hasToChangeFacing)){
 					closePlanets++;
 				}
 				if(distance<minimumPlanetDistance){

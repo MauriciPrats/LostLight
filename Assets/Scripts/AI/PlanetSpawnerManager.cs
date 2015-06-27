@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -19,11 +20,8 @@ public class PlanetSpawnerManager : MonoBehaviour {
 
 	public List<EnemyTypeAmmount> enemiesAmmount = new List<EnemyTypeAmmount> (0);
 	private PlanetCorruption planetCorruption;
-	
-	
+
 	private int lastLevelShintoActivated = 0;
-
-
 
 	private float timerSpawn = 0f;
 
@@ -57,7 +55,7 @@ public class PlanetSpawnerManager : MonoBehaviour {
 					Spawner randomSpawner = inRangeSpawners[Random.Range(0,inRangeSpawners.Count)];
 					EnemyType type;
 					int ammountLeft = pointsUntilSealShintoDoor -(ammountOfActualPointsSpawned + accumulatedPoints);
-					ammountOfActualPointsSpawned+= randomSpawner.spawnRandomEnemy(onEnemyDead,onEnemyDespawned,out type,enemiesAmmount,ammountLeft);
+					ammountOfActualPointsSpawned = ammountOfActualPointsSpawned + randomSpawner.spawnRandomEnemy(onEnemyDead,onEnemyDespawned,out type,enemiesAmmount,ammountLeft);
 					if(!type.Equals(EnemyType.None)){
 						addEnemyType(type);
 					}
@@ -100,6 +98,7 @@ public class PlanetSpawnerManager : MonoBehaviour {
 			EnemySpawned enemySpawned = enemy.GetComponent<EnemySpawned> ();
 			//accumulatedPoints += enemySpawned.pointsCost;
 			ammountOfActualPointsSpawned -= enemySpawned.pointsCost;
+	
 			substractEnemyType (enemySpawned.enemyType);
 		}
 	}

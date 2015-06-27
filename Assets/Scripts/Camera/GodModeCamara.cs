@@ -37,19 +37,33 @@ public class GodModeCamara : MonoBehaviour {
 				this.gameObject.GetComponent<CameraFollowingPlayer> ().enabled = false;
 				GameManager.player.GetComponent<InputController> ().enabled = false;
 			}
-		}else if (Input.GetKeyDown (KeyCode.F1)) {
-			Attack attack = GameManager.player.GetComponent<CharacterAttackController>().getAttack(AttackType.Kame);
-			attack.elementAttack = transformElement(attack.elementAttack);
-			attack.cost = 0;
-		}else if (Input.GetKeyDown (KeyCode.F2)) {
-			Attack attack = GameManager.player.GetComponent<CharacterAttackController>().getAttack(AttackType.Shockwave);
-			attack.elementAttack = transformElement(attack.elementAttack);
-			attack.cost = 0;
-		}else if (Input.GetKeyDown (KeyCode.F3)) {
-			Attack attack = GameManager.player.GetComponent<CharacterAttackController>().getAttack(AttackType.Missiles);
-			attack.elementAttack = transformElement(attack.elementAttack);
-			attack.cost = 0;
+		}else if (Input.GetKeyDown (KeyCode.Alpha0)) {
+			GameManager.player.transform.position = GameManager.checkPointManager.getCheckpointByIndex(0).checkPointObject.transform.position;
+			Vector3 cameraPosition = GameManager.player.transform.position;
+			cameraPosition.z = GameManager.mainCamera.transform.position.z;
+			GameManager.mainCamera.transform.position = cameraPosition;
+		}else if (Input.GetKeyDown (KeyCode.Alpha1)) {
+			GameManager.player.transform.position = GameManager.checkPointManager.getCheckpointByIndex(1).checkPointObject.transform.position;
+			Vector3 cameraPosition = GameManager.player.transform.position;
+			cameraPosition.z = GameManager.mainCamera.transform.position.z;
+			GameManager.mainCamera.transform.position = cameraPosition;
+		}else if (Input.GetKeyDown (KeyCode.Alpha2)) {
+			GameManager.player.transform.position = GameManager.checkPointManager.getCheckpointByIndex(2).checkPointObject.transform.position;
+			Vector3 cameraPosition = GameManager.player.transform.position;
+			cameraPosition.z = GameManager.mainCamera.transform.position.z;
+			GameManager.mainCamera.transform.position = cameraPosition;
+		}else if (Input.GetKeyDown (KeyCode.Alpha3)) {
+			GameManager.player.transform.position = GameManager.checkPointManager.getCheckpointByIndex(3).checkPointObject.transform.position;
+			Vector3 cameraPosition = GameManager.player.transform.position;
+			cameraPosition.z = GameManager.mainCamera.transform.position.z;
+			GameManager.mainCamera.transform.position = cameraPosition;
+		}else if (Input.GetKeyDown (KeyCode.Alpha4)) {
+			GameManager.player.transform.position = GameManager.checkPointManager.getCheckpointByIndex(4).checkPointObject.transform.position;
+			Vector3 cameraPosition = GameManager.player.transform.position;
+			cameraPosition.z = GameManager.mainCamera.transform.position.z;
+			GameManager.mainCamera.transform.position = cameraPosition;
 		}
+
 	
 		if (areYouGod) {
 			float xmove = Input.GetAxis ("Horizontal");

@@ -24,8 +24,8 @@ public class MonkeyBananaAttack : Attack {
 		attackType = AttackType.MonkeyBananaAttack;
 	}
 
-	public override void enemyCollisionEnter(GameObject enemy){
-		GameManager.player.GetComponent<PlayerController> ().getHurt (damage);
+	public override void enemyCollisionEnter(GameObject enemy,Vector3 point){
+		GameManager.player.GetComponent<PlayerController> ().getHurt (damage,point);
 	}
 	
 	public override void startAttack(){

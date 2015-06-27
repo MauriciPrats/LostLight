@@ -6,12 +6,21 @@ public class ComboAttack : Attack, AnimationSubscriber {
 
 	private AnimationEventBroadcast eventHandler;
 	private Collider stick;
-	private AttackCollider attackCollider;
+	private Collider leg;
+	private Collider fist;
+
+	private AttackCollider attackColliderStick;
+	private AttackCollider attackColliderLeg;
+	private AttackCollider attackColliderFist;
 	private Xft.XWeaponTrail weaponEffects;
 	private float timeOfAnimation;
 	
 	private List<GameObject> enemiesHit;
 	private bool hasHitEnemy;
+	private bool isComboing;
+	private string[] correspondancesComboBodyPart = {"Weapon","Leg","Weapon","Weapon","Weapon","Fist"};
+	private bool lastEnded = true;
+	char[] comboNumberSeparator = { '-' };
 
 
 	public override void initialize() {
@@ -20,15 +29,23 @@ public class ComboAttack : Attack, AnimationSubscriber {
 		eventHandler.subscribe(this);
 		
 		stick = GameManager.player.GetComponent<PlayerController>().weapon.GetComponentInChildren<Collider>();
-		attackCollider = GameManager.player.GetComponent<PlayerController>().weapon.GetComponentInChildren<AttackCollider>();
+		leg = GameManager.player.GetComponent<PlayerController> ().playerLegObject.GetComponent<Collider> ();
+		fist = GameManager.player.GetComponent<PlayerController> ().playerFistObject.GetComponent<Collider> ();
+
+		attackColliderStick = GameManager.player.GetComponent<PlayerController>().weapon.GetComponentInChildren<AttackCollider>();
+		attackColliderLeg = GameManager.player.GetComponent<PlayerController> ().playerLegObject.GetComponent<AttackCollider> ();
+		attackColliderFist = GameManager.player.GetComponent<PlayerController> ().playerFistObject.GetComponent<AttackCollider> ();
 		weaponEffects = GameManager.player.GetComponent<PlayerController>().weapon.GetComponentInChildren<Xft.XWeaponTrail>();
+		enemiesHit = new List<GameObject> (0);
 		//weaponEffects.StopSmoothly(0.1f);
 	}
+
 	//Cuando se hace el combo 3 con el enemies hit  activo, los enemigos no son afectados por el tercer golpe. 
-	public override void enemyCollisionEnter(GameObject enemy) {
+	public override void enemyCollisionEnter(GameObject enemy,Vector3 point) {
 		if(!enemiesHit.Contains(enemy) && !enemy.GetComponent<IAController>().isDead){
 			enemiesHit.Add(enemy);
-			enemy.GetComponent<IAController>().getHurt(1,(enemy.transform.position));
+			enemy.GetComponent<IAController>().getHurt(1,point);
+			enemy.GetComponent<IAController>().hitCanSendFlying();
 			GameManager.comboManager.addCombo ();
 			GameManager.audioManager.PlayStableSound(10);
 			//Pruebas de que lanze al enemigo por los aires)
@@ -41,59 +58,96 @@ public class ComboAttack : Attack, AnimationSubscriber {
 		}
 	}
 
+	private Collider getCorrespondingCollider(){
+		if (combosteep > 0 && combosteep <= correspondancesComboBodyPart.Length) {
+			if (correspondancesComboBodyPart [combosteep - 1].Equals ("Weapon")) {
+				return stick;
+			} else if (correspondancesComboBodyPart [combosteep - 1].Equals ("Leg")) {
+				return leg;
+			} else if (correspondancesComboBodyPart [combosteep - 1].Equals ("Fist")) {
+				return fist;
+			}
+		}
+		return null;
+	}
+
+	private void setAttackColliders(){
+		attackColliderStick.attack = gameObject;
+		attackColliderLeg.attack = gameObject;
+		attackColliderFist.attack = gameObject;
+	}
+
 	public bool isComboable = false;
 	public int combosteep = 0;
 	
 	
-	public override void startAttack(){
-	
-	if (isFinished) {
-			attackCollider.attack = gameObject;
-			//stick.enabled = true;
-			weaponEffects.Activate();
-
-			isFinished = false;
-			GameManager.playerAnimator.SetTrigger("doComboAttack");	
-			combosteep = 1;
-	} else {
+	public override void startAttack(){	
 		if (isComboable) {
-				isComboable = false;
-				GameManager.playerAnimator.SetTrigger("doComboAttack");	
-				combosteep = (combosteep%3)+1;
+			isComboing = true;
 		}
-	}
-	
-		
+		if (!isComboing) {
+				//stick.enabled = true;
+				//weaponEffects.Activate();
+				isFinished = false;
+				GameManager.playerAnimator.SetBool("doComboAttack",true);
+				//GameManager.playerAnimator.SetTrigger("doComboAttack");	
+				combosteep = 0;
+				lastEnded = true;
+		} else if (isComboable) {
+				isFinished = false;
+				//GameManager.playerAnimator.SetTrigger("doComboAttack");
+		}
 	}
 
 	public void enableHitbox() {
 		if(!isFinished){
-			
 			GameManager.audioManager.PlaySound(3);
-			
-			stick.enabled = true;
+			if(getCorrespondingCollider()!=null){
+				getCorrespondingCollider().enabled = true;
+			}
+			setAttackColliders();
+			//stick.enabled = true;
 			enemiesHit = new List<GameObject>(0);
 			hasHitEnemy = false;
 		}
 	}
 	
 	public void allowChaining() {
+		if (lastEnded) {
+			lastEnded = false;
+		}
+		isComboing = false;
 		isComboable = true;
 	}
 	
 	public void disableHitbox() {
-		stick.enabled = false;
+		if(getCorrespondingCollider()!=null){
+			getCorrespondingCollider().enabled = false;
+		}
+		//getCorrespondingAttackCollider ().attack = null;
 	}
 	
 	public void endCombo() {
 		//gameObject.GetComponent<ParticleSystem>().enableEmission = true;
-		weaponEffects.StopSmoothly(0.5f);
-	//	eventHandler.unsubscribe(this);
+		weaponEffects.StopSmoothly (0.5f);
+		//eventHandler.unsubscribe(this);
 		isComboable = false;
-		isFinished = true;
-		GameManager.playerAnimator.ResetTrigger("doComboAttack");
-		attackCollider.attack = null;
-		stick.enabled = false;
+		if (!isComboing) {
+			isFinished = true;
+			GameManager.playerAnimator.SetBool ("doComboAttack", false);
+			lastEnded = false;
+		} else {
+			isComboing = false;
+			GameManager.playerAnimator.SetBool("doComboAttack",true);
+			lastEnded = true;
+		}
+
+		if (getCorrespondingCollider () != null) {
+			getCorrespondingCollider ().enabled = false;
+		}
+
+		//attackCollider.attack = null;
+
 		//print ("combo ended");
 	}
 	
@@ -113,26 +167,31 @@ public class ComboAttack : Attack, AnimationSubscriber {
 
 	
 	void AnimationSubscriber.handleEvent(string idEvent) {
-		switch (idEvent) {
-		case "start": 
-			enableHitbox();
-			break;
-		case "end":
-			disableHitbox();
-			break;
-		case "done":
-			endCombo();
-			break;
-		case "combo":
+		//If it contains the combo we check which step of the combo is it
+		if(idEvent.Contains("combo")){
+			//Debug.Log("Combo "+Time.time);
+
+			combosteep = int.Parse(idEvent.Split((char[])comboNumberSeparator)[1]);
 			allowChaining();
+		}else{
+			switch (idEvent) {
+			case "start": 
+				//Debug.Log("start "+Time.time);
+				enableHitbox();
+				break;
+			case "end":
+				//Debug.Log("end "+Time.time);
+				disableHitbox();
+				break;
+			case "done":
+				//Debug.Log("done "+Time.time);
+				endCombo();
+				break;
+			default: 
 			break;
-		default: 
-			
-			break;
+			}
 		}
-		
 	}
-	
 	
 	string AnimationSubscriber.subscriberName() {
 		return  "ComboAttack";	
