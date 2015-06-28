@@ -3,7 +3,10 @@ using System.Collections;
 
 public class MundusBallOfDeathAttack : Attack {
 
-	public float timeToCharge = 2f;
+	public float timeToChargeTier1;
+	public float timeToChargeTier2;
+	public float timeToChargeTier3;
+
 	public float timeToSummonBall = 0.7f;
 	public float maxScaleSummoningParticles = 2f;
 	public GameObject ballOfDeath;
@@ -17,10 +20,12 @@ public class MundusBallOfDeathAttack : Attack {
 	private bool interrupted = false;
 	private Vector3 localPositionRight, localPositionLeft;
 	private GameObject backSpawningGO;
+	private float timeToCharge = 2f;
 	
 	public override void initialize(){
 		attackType = AttackType.MundusBallOfDeath;
 		particlesSpawnBallOfDeath.SetActive (false);
+		setTier (1);
 	}
 	
 	public override void enemyCollisionEnter(GameObject enemy,Vector3 point){
@@ -39,6 +44,17 @@ public class MundusBallOfDeathAttack : Attack {
 
 		float timer = 0f;
 
+		iaAnimator.SetBool ("isChargingBallAttack", true);
+
+		while (timer<timeToCharge) {
+			timer+=Time.deltaTime;
+			float ratio = timer/timeToCharge;
+			outlineChanger.setOutlineColor(Color.Lerp(Color.black,Color.red,ratio));
+			yield return null;
+		}
+
+		iaAnimator.SetBool ("isChargingBallAttack", false);
+
 		for (int i =0; i<numBalls; i++) {
 			Vector3 ballPosition;
 			float direction = 0f;
@@ -50,17 +66,15 @@ public class MundusBallOfDeathAttack : Attack {
 				direction = -1f;
 			}
 
-			iaAnimator.SetBool ("isChargingBallAttack", true);
 			particlesSpawnBallOfDeath.transform.localScale = new Vector3 (0f, 0f, 0f);
 			particlesSpawnBallOfDeath.SetActive (true);
 			particlesSpawnBallOfDeath.transform.position = ballPosition;
-
+			timer = 0f;
 			while (timer<timeToCharge) {
 				timer+=Time.deltaTime;
 				float ratio = timer/timeToCharge;
 				float proportionScale = ratio * maxScaleSummoningParticles;
 				particlesSpawnBallOfDeath.transform.localScale = new Vector3(proportionScale,proportionScale,proportionScale);
-				outlineChanger.setOutlineColor(Color.Lerp(Color.black,Color.red,ratio));
 				yield return null;
 			}
 
@@ -69,7 +83,6 @@ public class MundusBallOfDeathAttack : Attack {
 			ballOfDeathInstance.transform.position = ballPosition;
 			ballOfDeathInstance.GetComponent<BallOfDeath> ().setDirectionAndDamage (direction, damage, particlesSpawnBallOfDeath);
 			particlesSpawnBallOfDeath.SetActive (false);
-			iaAnimator.SetBool ("isChargingBallAttack", false);
 
 			timer = 0f;
 			while (timer<timeToSummonBall) {
@@ -77,6 +90,7 @@ public class MundusBallOfDeathAttack : Attack {
 				yield return null;
 			}
 		}
+		iaAnimator.SetTrigger ("isBallOfDeathAttackFinished");
 		outlineChanger.setOutlineColor(Color.black);
 		isFinished = true;
 		interrupted = false;
@@ -85,6 +99,16 @@ public class MundusBallOfDeathAttack : Attack {
 	public override void interruptAttack(){
 		interrupted = true;
 		outlineChanger.setOutlineColor(Color.black);
+	}
+
+	public override void setTier(int tier){
+		if(tier==1){
+			timeToCharge = timeToChargeTier1;
+		}else if(tier==2){
+			timeToCharge = timeToChargeTier2;
+		}else if(tier==3){
+			timeToCharge = timeToChargeTier3;
+		}
 	}
 	
 	public override void informParent(GameObject parentObject){

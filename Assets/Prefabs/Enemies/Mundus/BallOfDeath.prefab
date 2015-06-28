@@ -17,9 +17,9 @@ GameObject:
   - 114: {fileID: 11463860}
   - 198: {fileID: 19827236}
   - 199: {fileID: 19907222}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: BallOfDeath
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -106,6 +106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  noChangingDirection: 0
 --- !u!114 &11477042
 MonoBehaviour:
   m_ObjectHideFlags: 1

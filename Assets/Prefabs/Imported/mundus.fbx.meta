@@ -2929,7 +2929,7 @@ ModelImporter:
       name: Block
       takeName: Armature|ArmatureAction
       firstFrame: 257
-      lastFrame: 274
+      lastFrame: 268
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

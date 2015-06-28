@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 458258}
   - 114: {fileID: 11426736}
   - 65: {fileID: 6529616}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: ChargeAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ GameObject:
   - 4: {fileID: 489296}
   - 198: {fileID: 19872432}
   - 199: {fileID: 19926602}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: ParticlesWhileCharging
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - 4: {fileID: 458280}
   - 198: {fileID: 19844180}
   - 199: {fileID: 19949004}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: ParticlesOnCharge
   m_TagString: Untagged
   m_Icon: {fileID: 0}

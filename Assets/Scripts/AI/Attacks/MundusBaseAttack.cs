@@ -3,19 +3,25 @@ using System.Collections;
 
 public class MundusBaseAttack : Attack {
 
-	public float timeToCharge = 1f;
-	public float timeItLasts = 0.5f;
+
 	public GameObject attackParticles;
-	public GameObject baseAttack;
-	public float speed;
+	public float speedTier1;
+	public float speedTier2;
+	public float speedTier3;
+	public float timeToChargeTier1;
+	public float timeToChargeTier2;
+	public float timeToChargeTier3;
 
 	//Private variables
+	private float speed;
+	private float timeToCharge;
 	private GameObject parent;
 	private Animator iaAnimator;
 	private OutlineChanging outlineChanger;
 	private bool interrupted = false;
 	private bool hasHurtPlayer = false;
 	private ParticleSystem attackParticlesRight,attackParticlesLeft;
+	private float timeItLasts = 2f;
 
 	private Vector3 playerDirectionRight,playerDirectionLeft;
 
@@ -24,14 +30,11 @@ public class MundusBaseAttack : Attack {
 	
 	public override void initialize(){
 		attackType = AttackType.MundusBaseAttack;
+		setTier (1);
 	}
 
 	public override void otherCollisionEnter(GameObject enemy,Vector3 point){
 		if(enemy.layer.Equals(LayerMask.NameToLayer("Player")) && !hasHurtPlayer){
-			GameManager.playerController.getHurt(damage,point);
-			hasHurtPlayer = true;
-			setParticles(false);
-		}else if(enemy.layer.Equals(LayerMask.NameToLayer("Planets")) && !hasHurtPlayer){
 			GameManager.playerController.getHurt(damage,point);
 			hasHurtPlayer = true;
 			setParticles(false);
@@ -97,6 +100,19 @@ public class MundusBaseAttack : Attack {
 			StartCoroutine("doAttack");
 			isFinished = false;
 			interrupted = false;
+		}
+	}
+
+	public virtual void setTier(int tier){
+		if(tier==1){
+			speed= speedTier1;
+			timeToCharge = timeToChargeTier1;
+		}else if(tier==2){
+			speed= speedTier2;
+			timeToCharge = timeToChargeTier2;
+		}else if(tier==3){
+			speed= speedTier3;
+			timeToCharge = timeToChargeTier3;
 		}
 	}
 	
