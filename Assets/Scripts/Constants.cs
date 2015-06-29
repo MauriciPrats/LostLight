@@ -7,7 +7,7 @@ public static class Constants{
 
 	//PLANET CONSTANTS
 	public static float GRAVITY_DISTANCE_FROM_PLANET_FLOOR = 8f;
-	public static float GRAVITY_FORCE_OF_PLANETS = 20f;
+	public static float GRAVITY_FORCE_OF_PLANETS = 50f;
 	public static float DRAG_ON_TOUCH_PLANETS = 3f;
 
 	//ORBIT AROUND PLANETS

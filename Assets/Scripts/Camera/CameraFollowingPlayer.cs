@@ -168,6 +168,15 @@ public class CameraFollowingPlayer : MonoBehaviour {
 		timerZPosition = 0f;
 		objectiveZ = -distanceCameraOnSmallPlanet;
 	}
+
+	public void setObjectiveZ(float newObjectiveZ){
+		timerZPosition = 0f;
+		objectiveZ = -newObjectiveZ;
+	}
+
+	public float getObjectiveZ(){
+		return objectiveZ;
+	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {

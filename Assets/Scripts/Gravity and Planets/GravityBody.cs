@@ -68,7 +68,7 @@ public class GravityBody : MonoBehaviour {
 
 	public virtual void attract(bool applyForce){
 
-		transform.parent = null;
+		//transform.parent = null;
 		int closePlanets = 0;
 		minimumPlanetDistance = float.MaxValue;
 		foreach (GameObject planet in planets) {

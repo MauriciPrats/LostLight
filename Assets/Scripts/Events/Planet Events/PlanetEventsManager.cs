@@ -9,6 +9,7 @@ abstract public class PlanetEventsManager : MonoBehaviour {
 	public abstract void informEventActivated (CutsceneIdentifyier identifyier);
 	public abstract void initialize ();
 	public abstract void isActivated ();
+	public abstract void isDeactivated ();
 	public abstract void startButtonPressed ();
 	public abstract void planetCleansed ();
 
@@ -26,8 +27,10 @@ abstract public class PlanetEventsManager : MonoBehaviour {
 		isActivated ();
 	}
 
+
 	public void deactivate(){
 		active = false;
+		isDeactivated ();
 	}
 
 	public void interrupt(){

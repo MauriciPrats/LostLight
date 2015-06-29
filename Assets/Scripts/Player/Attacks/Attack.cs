@@ -80,6 +80,10 @@ Se llaman los initialize de cada ataque
 		
 	}
 
+	public virtual void setTier(int tier){
+		
+	}
+
 	public bool canPayAttackCost(){
 		return GameManager.lightGemEnergyManager.canDoSpecialAttack (cost);
 	}

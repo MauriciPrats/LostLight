@@ -77,12 +77,13 @@ public class IAControllerCrane : IAController {
 		doActualBehaviour ();
 	}
 
-	protected override void virtualGetHurt(){
+	protected override bool virtualGetHurt(){
 		attackController.interruptActualAttacks ();
 		actualBehaviour = ActualBehaviour.FlyingFalling;
 		iaAnimator.SetBool ("isFlying",false);
 		GetComponent<GravityBody> ().setHasToApplyForce (true);
 		preferredHeight = 0f;
+		return true;
 	}
 
 	IEnumerator standUpWithDelay(){

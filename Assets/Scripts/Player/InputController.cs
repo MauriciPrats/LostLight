@@ -191,7 +191,7 @@ public class InputController : MonoBehaviour {
 			return false;
 		}else if(character.getIsJumping()){
 			return false;
-		}else if(GameManager.playerSpaceBody.getClosestPlanet()!=null && GameManager.playerSpaceBody.getClosestPlanet().isPlanetCorrupted() && (GameManager.playerSpaceBody.getClosestPlanet() as PlanetCorrupted).getPlanetSpawnerManager().isActive){
+		}else if(GameManager.playerSpaceBody.getClosestPlanet()!=null && GameManager.playerSpaceBody.getClosestPlanet().isPlanetCorrupted() && !(GameManager.playerSpaceBody.getClosestPlanet() as PlanetCorrupted).canPlayerSpaceJumpInPlanet()){
 			return false;
 		}else if(GameManager.getIsInsidePlanet()){
 			return false;
