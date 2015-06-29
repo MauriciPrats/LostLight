@@ -31,6 +31,7 @@ public class IAController : MonoBehaviour {
 	public float timeToDie = 0.5f;
 	public bool isForCinematic = false;
 	public int hitResistance = 3;
+	public bool isUnthrowable = false;
 
 	//Private Variables
 	private float frozenTime;
@@ -294,6 +295,16 @@ public class IAController : MonoBehaviour {
 		isStunned = true;
 	}
 
+	protected virtual bool virtualHitStone(){
+		return true;
+	}
+
+	private void doHitStone(){
+		if(virtualHitStone()){
+			StartCoroutine (hitStone ());
+		}
+	}
+
 	//Routine used to hitStone the enemy
 	private IEnumerator hitStone(){
 		GameManager.playerAnimator.enabled = false;
@@ -317,13 +328,18 @@ public class IAController : MonoBehaviour {
 		
 	}
 	public void sendFlyingByConsecutiveHits(Vector3 direction){
-		if (consecutiveHits > 1) {
-			StartCoroutine (sendFlyingCoroutine (direction * consecutiveHits, getPlayerDirection ()));
+		if(!isUnthrowable){
+			if (consecutiveHits > 1) {
+				StartCoroutine (sendFlyingCoroutine (direction * consecutiveHits, getPlayerDirection ()));
+			}
 		}
 	}
 
 	public void sendFlyingByForce(Vector3 direction){
-		StartCoroutine (sendFlyingCoroutine (direction, getPlayerDirection ()));
+		if(!isUnthrowable){
+			interruptAttack ();
+			StartCoroutine (sendFlyingCoroutine (direction, getPlayerDirection ()));
+		}
 	}
 
 	//Sends the AI flying on the direction and rotating until it hits the ground
@@ -361,19 +377,20 @@ public class IAController : MonoBehaviour {
 		interruptAttack ();
 		consecutiveHits++;
 		timerConsecutiveHits = 0f;
-		StartCoroutine (hitStone ());
+		doHitStone ();
 	}
 
 	//Hit that interrupts an the attacks and causes a hitstone
 	public void hitInterruptsAndHitstone(){
 		interruptAttack ();
-		StartCoroutine (hitStone ());
+		doHitStone ();
 	}
 
 
 	//Method to receive damage (Play particles, sounds effects, etc)
 	public void getHurt(int hurtAmmount,Vector3 hitPosition){
-		if(!isDead){
+
+		if(!isDead && virtualGetHurt()){
 			Vector3 center = GetComponent<Rigidbody>().worldCenterOfMass;
 			Vector3 position = hitPosition;
 			Vector3 forwardDirection = center - GameManager.player.GetComponent<Rigidbody>().worldCenterOfMass;
@@ -391,7 +408,6 @@ public class IAController : MonoBehaviour {
 				die(false);
 			}
 		}
-		virtualGetHurt();
 	}
 
 	private IEnumerator hurtAnimationReset(){
@@ -415,8 +431,8 @@ public class IAController : MonoBehaviour {
 	protected virtual void virtualOnCollisionEnter(Collision collision){
 
 	}
-	protected virtual void virtualGetHurt(){
-
+	protected virtual bool virtualGetHurt(){
+		return true;
 	}
 
 	//Method called upon the enemy's death

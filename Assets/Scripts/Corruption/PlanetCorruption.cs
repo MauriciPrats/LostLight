@@ -39,7 +39,9 @@ public class PlanetCorruption : MonoBehaviour {
 		}
 		if(!startCorrupted){
 			setCorruptionToClean();
-			GetComponent<PlanetSpawnerManager> ().deactivate();
+			if(GetComponent<PlanetSpawnerManager>()!=null){
+				GetComponent<PlanetSpawnerManager> ().deactivate();
+			}
 		}
 	}
 
@@ -78,7 +80,9 @@ public class PlanetCorruption : MonoBehaviour {
 
 	public void activateSpawning(){
 		spawningEnabled = true;
-		GetComponent<PlanetSpawnerManager> ().activate ();
+		if(GetComponent<PlanetSpawnerManager>()!=null){
+			GetComponent<PlanetSpawnerManager> ().activate ();
+		}
 	}
 
 

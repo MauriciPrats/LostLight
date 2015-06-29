@@ -19,14 +19,29 @@ public class PlanetCorrupted : Planet {
 		return true;
 	}
 
+	public bool canPlayerSpaceJumpInPlanet(){
+		if(planetCorruption!=null && planetCorruption.isCorrupted()){
+			return false;
+		}
+		return true;
+	}
+
 	protected override void virtualActivate(){
-		if(planetCorruption.isCorrupted()){
+		if(planetCorruption!=null && planetCorruption.isCorrupted()){
 			planetCorruption.activateSpawning();
+		}
+		if(planetEventsManager!=null){
+			planetEventsManager.activate();
 		}
 	}
 
 	protected override void virtualDeactivate(){
-		planetSpawnerManager.deactivate();
+		if(planetSpawnerManager!=null){
+			planetSpawnerManager.deactivate();
+		}
+		if(planetEventsManager!=null){
+			planetEventsManager.deactivate();
+		}
 	}
 	
 	public PlanetSpawnerManager getPlanetSpawnerManager(){

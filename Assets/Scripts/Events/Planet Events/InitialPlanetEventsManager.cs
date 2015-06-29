@@ -52,11 +52,16 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 				rocksBlockingPathGO.GetComponent<FirstPlanetBlockPathRocks>().rocks.SetActive(false);
 				GameManager.persistentData.spaceJumpUnlocked = false;
 			}else{
+				GameManager.persistentData.spaceJumpUnlocked = true;
 				boarHuntingGO.GetComponent<FirstPlanetBoarHunting>().boar.SetActive(false);
 				boarHuntingGO.SetActive(false);
 				littleGHopper.SetActive(false);
 			}
 		}
+	}
+
+	public override void isDeactivated(){
+
 	}
 
 	//This cinematic corresponds to the first cinematic that will play when the play button is pressed
