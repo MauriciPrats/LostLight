@@ -8,6 +8,7 @@ public class GravityBody : MonoBehaviour {
 
 	public LayerMask objectsToCollide;
 	public float drag;
+	public float gravityMultiplyier = 1f;
 	protected GameObject[] planets;
 	protected bool isTouchingPlanet;
 	protected float minimumPlanetDistance = float.MaxValue;
@@ -16,6 +17,7 @@ public class GravityBody : MonoBehaviour {
 	protected int objectsTouching = 0;
 	protected bool hasToApplyForce = true;
 	protected bool hasToChangeFacing = true;
+
 
 
 	void Start() {
@@ -74,7 +76,7 @@ public class GravityBody : MonoBehaviour {
 		foreach (GameObject planet in planets) {
 			GravityAttractor gravityAttractor = planet.GetComponent<GravityAttractor> ();
 			float distance = 0f;
-			if(gravityAttractor.Attract (transform,out distance,applyForce,hasToChangeFacing)){
+			if(gravityAttractor.Attract (transform,out distance,applyForce,hasToChangeFacing,gravityMultiplyier)){
 				closePlanets++;
 			}
 			if(distance<minimumPlanetDistance){

@@ -51,7 +51,7 @@ public class GravityAttractor : MonoBehaviour {
 		}
 	}
 
-	private bool attract(Transform objectToAttract,out float distance,bool applyForce,bool hasToChangeFacing){
+	private bool attract(Transform objectToAttract,out float distance,bool applyForce,bool hasToChangeFacing,float gravityMultiplyier){
 		//Only attract the body to the planet if it is close enough.
 		distance = Vector3.Distance (transform.position, objectToAttract.position);
 		GravityBody body = objectToAttract.GetComponent<GravityBody> ();
@@ -69,14 +69,14 @@ public class GravityAttractor : MonoBehaviour {
 			}
 			float forceToAdd = -Constants.GRAVITY_FORCE_OF_PLANETS * Time.deltaTime;
 			if(applyForce){
-				objectToAttract.GetComponent<Rigidbody>().AddForce (targetDir * forceToAdd ,ForceMode.VelocityChange);
+				objectToAttract.GetComponent<Rigidbody>().AddForce (gravityMultiplyier * targetDir * forceToAdd ,ForceMode.VelocityChange);
 			}
 			return true;
 		}
 		return false;
 	}
 
-	private bool spaceAttract(Transform objectToAttract,out float distance,bool applyForce,bool hasToChangeFacing){
+	private bool spaceAttract(Transform objectToAttract,out float distance,bool applyForce,bool hasToChangeFacing,float gravityMultiplyier){
 		//Only attract the body to the planet if it is close enough.
 		distance = Vector3.Distance (transform.position, objectToAttract.position);
 		SpaceGravityBody body = objectToAttract.GetComponent<SpaceGravityBody> ();
@@ -159,7 +159,7 @@ public class GravityAttractor : MonoBehaviour {
 				hasToAddForce = false;
 			}
 			if(hasToAddForce && applyForce){
-				objectToAttract.GetComponent<Rigidbody>().AddForce (targetDir * forceToAdd ,ForceMode.VelocityChange);
+				objectToAttract.GetComponent<Rigidbody>().AddForce (gravityMultiplyier * targetDir * forceToAdd ,ForceMode.VelocityChange);
 			}
 			body.GetComponent<Rigidbody>().velocity = body.GetComponent<Rigidbody>().velocity.normalized* Mathf.Abs(forceMagnitude);
 			//We only put the body in the hierarchy if it has touched a planet after doing "Space travel".
@@ -172,12 +172,12 @@ public class GravityAttractor : MonoBehaviour {
 		return false;
 	}
 
-	public bool Attract (Transform objectToAttract,out float distance,bool applyForce,bool hasToChangeFacing){
+	public bool Attract (Transform objectToAttract,out float distance,bool applyForce,bool hasToChangeFacing,float gravityMultiplyier){
 
 		if(objectToAttract.GetComponent<GravityBody>().isSpaceGravityBody()){
-			return spaceAttract(objectToAttract,out distance,applyForce,hasToChangeFacing);
+			return spaceAttract(objectToAttract,out distance,applyForce,hasToChangeFacing,gravityMultiplyier);
 		}else{
-			return attract(objectToAttract,out distance,applyForce,hasToChangeFacing);
+			return attract(objectToAttract,out distance,applyForce,hasToChangeFacing,gravityMultiplyier);
 		}
 
 	}
