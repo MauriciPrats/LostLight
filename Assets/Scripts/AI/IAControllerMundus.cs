@@ -23,6 +23,11 @@ public class IAControllerMundus : IAController {
 	private float timerAfterAttack = 0f;
 	private bool isAttacking = false;
 	private MundusPlanetEventsManager eventsManager;
+	private int fragmentsDestroyed = 0;
+
+	private bool isMovingToPlatform = false;
+	private GameObject closestPlatform;
+
 
 
 	private int faseSteps = 1;
@@ -87,6 +92,7 @@ public class IAControllerMundus : IAController {
 	}
 
 	protected override void UpdateAI(){
+		//Debug.Log (fase);
 		if(fase == 1){
 			timerAfterAttack += Time.deltaTime;
 			if (!attackController.isDoingAnyAttack () && !isAttacking && timerAfterAttack>1f && canSeePlayer() && getPlayerDistance()<2f){
@@ -123,12 +129,60 @@ public class IAControllerMundus : IAController {
 				StopMoving();
 			}
 		}else if(fase == 2){
+			if(eventsManager.getIsFinishedTransition()){
+				if(closestPlatform==null){
+					closestPlatform = eventsManager.getClosestPlatformTop(transform.position);
+				}
+				if(!attackController.isDoingAnyAttack()){
+					if(damageReceived>3){
+						closestPlatform.transform.parent.gameObject.AddComponent<PlatformAbsorbed>();
+						//closestPlatform.transform.parent.gameObject.GetComponent<Rigidbody>().isKinematic = false;
 
+						damageReceived = 0;
+						fragmentsDestroyed++;
+						DestroyImmediate(closestPlatform);
+						closestPlatform = eventsManager.getClosestPlatformTop(transform.position);
+
+						if(fragmentsDestroyed>=1){
+							die (false);
+						}
+					}
+
+					if(Vector3.Distance(closestPlatform.transform.position,transform.position)<1.5f){
+						isMovingToPlatform = false;
+					}else{
+						isMovingToPlatform = true;
+					}
+
+					if(!isMovingToPlatform){
+						StopMoving();
+						float random = Random.value;
+						if(random<0.6f){
+							attackController.doAttack(baseAttack,false);
+						}else{
+							attackController.doAttack(ballOfDeathAttack,false);
+						}
+					}else{
+						Move(Util.getPlanetaryDirectionFromAToB(gameObject,closestPlatform));
+					}
+				}
+				if(closestPlatform!=null){
+					Vector3 distanceMundus = transform.position - eventsManager.getInsidePlanetPosition();
+					Vector3 objectiveDistance = closestPlatform.transform.position - eventsManager.getInsidePlanetPosition();
+					if(Vector3.Distance(distanceMundus,objectiveDistance)>1f){
+						transform.position += transform.up * (objectiveDistance.magnitude - distanceMundus.magnitude) * Time.deltaTime * 5f;
+					}
+				}
+			}
 		}
 	}
 
+	protected override void virtualDie(){
+		eventsManager.informEventActivated (CutsceneIdentifyier.MundusDies);
+	}
+
 	protected override bool virtualGetHurt(){
-		if(!attackController.isDoingAnyAttack() || isSpawning){
+		if(!attackController.isDoingAnyAttack() || isSpawning && !(fase == 2)){
 			if(!protecting){
 				StartCoroutine(Protect());
 			}
@@ -140,7 +194,7 @@ public class IAControllerMundus : IAController {
 	}
 
 	protected override bool virtualHitStone(){
-		if(!attackController.isDoingAnyAttack()  || isSpawning){
+		if(!attackController.isDoingAnyAttack()  || isSpawning && !(fase == 2)){
 			return false;
 		}else{
 			return true;

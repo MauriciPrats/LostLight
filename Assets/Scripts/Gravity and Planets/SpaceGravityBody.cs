@@ -21,7 +21,7 @@ public class SpaceGravityBody : GravityBody {
 	}
 
 	public override void checkTouchEnter(GameObject obj){
-		if (obj.tag == "Planet" || obj.tag == "Enemy") {
+		if (obj.layer.Equals(LayerMask.NameToLayer("Planets")) || obj.layer.Equals(LayerMask.NameToLayer("Enemy"))) {
 			collidingObjects.Add (obj);
 			if(isPlayer){
 				GUIManager.deactivateSpaceJumpGUI();
@@ -34,14 +34,14 @@ public class SpaceGravityBody : GravityBody {
 			isTouchingPlanet = true;
 			usesSpaceGravity = false;
 			isFallingIntoPlanet = false;
-			if(obj.tag == "Planet"){
+			if(obj.layer.Equals(LayerMask.NameToLayer("Planets"))){
 				GetComponent<Rigidbody>().mass = originalMass;
 			}
 		}
 	}
 
 	public override void checkTouchExit(GameObject obj){
-		if (obj.tag == "Planet" || obj.tag == "Enemy") {
+		if (obj.layer.Equals(LayerMask.NameToLayer("Planets")) || obj.layer.Equals(LayerMask.NameToLayer("Enemy"))) {
 			collidingObjects.Remove(obj);
 			
 			objectsTouching--;

@@ -10,7 +10,7 @@ public class PlatformAbsorbed : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision collision){
-		if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Planets"))) {
+		if (collision.gameObject.tag.Equals("CenterMundusPlanet") || collision.gameObject.tag.Equals("MundusPlanetFragment")) {
 			Destroy(gameObject);
 		}else if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Enemy"))) {
 			Destroy(gameObject);
@@ -19,6 +19,7 @@ public class PlatformAbsorbed : MonoBehaviour {
 
 	// Update is called once per frame
 	void FixedUpdate () {
-		transform.position -= speed * transform.up * Time.deltaTime;
+		GetComponent<Rigidbody> ().velocity = new Vector3 (0f, 0f, 0f);
+		transform.position -= speed * transform.up * Time.fixedDeltaTime;
 	}
 }

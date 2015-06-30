@@ -435,6 +435,9 @@ public class IAController : MonoBehaviour {
 		return true;
 	}
 
+	protected virtual void virtualDie(){
+		
+	}
 	//Method called upon the enemy's death
 	public void die(bool despawn){
 		//A despawned enemy will not give points (spawn light)
@@ -454,6 +457,7 @@ public class IAController : MonoBehaviour {
 			if(corruptionEffect!=null){
 				corruptionEffect.GetComponent<ParticleSystem>().Stop();
 			}
+			virtualDie();
 		}
 		isDead = true;
 	}

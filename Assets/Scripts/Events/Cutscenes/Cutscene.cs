@@ -10,7 +10,8 @@ public enum CutsceneIdentifyier {
 	FirstPlanetToTheBridge2,
 	FirstPlanetPathBlockedStones,
 	FirstPlanetCorruptionSeeping,
-	LastPlanetMundusSecondPhase};
+	LastPlanetMundusSecondPhase,
+	MundusDies};
 
 abstract public class Cutscene: MonoBehaviour  {
 

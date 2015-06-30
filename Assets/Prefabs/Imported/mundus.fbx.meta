@@ -104,6 +104,10 @@ ModelImporter:
     100192: Cube.002
     100194: //RootNode
     100196: Plane.002
+    100198: Camera
+    100200: Lamp
+    100202: Mundus
+    100204: MundusWings
     400000: Armature
     400002: Bone
     400004: Bone.001
@@ -203,8 +207,14 @@ ModelImporter:
     400192: Cube.002
     400194: //RootNode
     400196: Plane.002
+    400198: Camera
+    400200: Lamp
+    400202: Mundus
+    400204: MundusWings
     4300000: Plane.002
     4300002: Cube.002
+    4300004: MundusWings
+    4300006: Mundus
     7400000: Walking
     7400002: ChargeAttack1
     7400004: GetHurt
@@ -221,6 +231,8 @@ ModelImporter:
     9500000: //RootNode
     13700000: Cube.002
     13700002: Plane.002
+    13700004: Mundus
+    13700006: MundusWings
   materials:
     importMaterials: 1
     materialName: 0

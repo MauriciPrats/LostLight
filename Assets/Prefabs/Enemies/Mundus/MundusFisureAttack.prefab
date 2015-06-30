@@ -48,7 +48,7 @@ MonoBehaviour:
   maxScaleSphere: 3.5
   timeGoingUp: 3
   explodingTime: 4
-  scaleOnExplosion: 120
+  scaleOnExplosion: 40
   cameraZPositionTotal: 30
 --- !u!1001 &100100000
 Prefab:

@@ -17,6 +17,14 @@ public static class Util{
 		}
 	}
 
+	public static float getPlanetaryDirectionFromAToB(GameObject a,GameObject b){
+		if (getPlanetaryAngleFromAToB (a, b) > 0f) {
+			return -1f;
+		} else {
+			return 1f;
+		}
+	}
+
 	public static float getAngleFromVectorAToB(Vector3 a,Vector3 b){
 		float angle = Mathf.DeltaAngle(Mathf.Atan2(b.y, b.x) * Mathf.Rad2Deg,Mathf.Atan2(a.y, a.x) * Mathf.Rad2Deg);
 		return angle;

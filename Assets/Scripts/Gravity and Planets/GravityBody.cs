@@ -29,7 +29,7 @@ public class GravityBody : MonoBehaviour {
 	}
 
 	public virtual void checkTouchEnter(GameObject obj){
-		if (obj.tag == "Planet" || obj.tag == "Enemy") {
+		if (obj.layer.Equals(LayerMask.NameToLayer("Planets"))|| obj.layer.Equals(LayerMask.NameToLayer("Enemy"))) {
 			collidingObjects.Add (obj);
 			objectsTouching++;
 			isTouchingPlanet = true;
@@ -37,7 +37,7 @@ public class GravityBody : MonoBehaviour {
 	}
 
 	public virtual void checkTouchExit(GameObject obj){
-		if (obj.tag == "Planet" || obj.tag == "Enemy") {
+		if (obj.layer.Equals(LayerMask.NameToLayer("Planets")) || obj.layer.Equals(LayerMask.NameToLayer("Enemy"))) {
 			collidingObjects.Remove(obj);
 
 			objectsTouching--;
@@ -94,7 +94,7 @@ public class GravityBody : MonoBehaviour {
 
 	public bool getIsTouchingPlanet(){
 		foreach(GameObject collidingObject in collidingObjects){
-			if(collidingObject.tag == "Planet"){
+			if(collidingObject.layer.Equals(LayerMask.NameToLayer("Planets"))){
 				return true;
 			}
 		}
