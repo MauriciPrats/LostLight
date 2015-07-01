@@ -113,6 +113,7 @@ public class KameAttackDirectionable : Attack,AnimationSubscriber {
 	public override void startAttack(){
 		if(!isCharging && !isDoingKame && !started){
 			started = true;
+			GameManager.audioManager.PlayStableSound(11);
 			GameManager.playerAnimator.SetBool ("isChargingDirectionalKame",true);
 		}
 	}
@@ -228,7 +229,7 @@ public class KameAttackDirectionable : Attack,AnimationSubscriber {
 			if(canDoNext && isCharging){
 				isCharging = false;
 				Util.changeTime (1f);
-				GameManager.audioManager.PlayStableSound(2);
+				
 			}
 			directionalLine.SetActive (false);
 		}
@@ -246,6 +247,7 @@ public class KameAttackDirectionable : Attack,AnimationSubscriber {
 		kameEffect.SetActive (true);
 		
 		//THROW THE KAME START
+		GameManager.audioManager.PlayStableSound(2);
 		kameEffect.transform.position = GameManager.playerController.lightGemObject.transform.position - (kameEffect.transform.forward.normalized * speed * Time.deltaTime * 2f);
 		kameCore.GetComponent<ParticleSystem>().Stop();
 		if(!elementAttack.Equals(ElementType.None)){

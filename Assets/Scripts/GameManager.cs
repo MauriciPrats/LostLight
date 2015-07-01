@@ -48,6 +48,7 @@ public static class GameManager{
 	public static void rebuildGameFromGameState(){
 		//We put the player in the last checkpoint
 		CheckpointStub lastCheckpoint = checkPointManager.getLastCheckpoint();
+		GameManager.audioManager.RestartSong();
 		if(lastCheckpoint!=null){
 			player.transform.position = lastCheckpoint.checkPointObject.transform.position;
 		}else{

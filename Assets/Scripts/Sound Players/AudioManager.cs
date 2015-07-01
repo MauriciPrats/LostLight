@@ -48,6 +48,10 @@ public class AudioManager : MonoBehaviour {
 		}
 	}
 	
+	public void RestartSong() {
+		musicplayer.Play();
+	}
+	
 	public void StopSong() {
 	
 		musicplayer.Stop();
@@ -69,6 +73,18 @@ public class AudioManager : MonoBehaviour {
 		{
 		bigpplayer.pitch = 1f;
 		bigpplayer.PlayOneShot(sfx[i],volLowRange);
+		}
+	}
+	
+	float lastplay = 0.0f;
+	float delta = 0.0f;
+	
+	public void PlaySoundDontRepeat(int sound, float time) {
+		float now = Time.time;
+		if (lastplay +delta < now) {
+			lastplay = now;
+			delta = time;
+			PlaySound(sound);
 		}
 	}
 	
