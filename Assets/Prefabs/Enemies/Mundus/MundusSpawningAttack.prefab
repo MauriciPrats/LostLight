@@ -42,16 +42,13 @@ MonoBehaviour:
   damage: 1
   cost: 0
   elementAttack: 0
-  timeGoingUp: 2
+  timeGoingUp: 4
   enemiesTier2:
   - {fileID: 144914, guid: 688142451848255478385317a67538bd, type: 2}
   - {fileID: 144914, guid: 688142451848255478385317a67538bd, type: 2}
-  - {fileID: 196066, guid: 1868ba8b978d6b14eafb383ba0d317ec, type: 2}
   enemiesTier3:
   - {fileID: 144914, guid: 688142451848255478385317a67538bd, type: 2}
   - {fileID: 144914, guid: 688142451848255478385317a67538bd, type: 2}
-  - {fileID: 144914, guid: 688142451848255478385317a67538bd, type: 2}
-  - {fileID: 196066, guid: 1868ba8b978d6b14eafb383ba0d317ec, type: 2}
   - {fileID: 196066, guid: 1868ba8b978d6b14eafb383ba0d317ec, type: 2}
 --- !u!1001 &100100000
 Prefab:

@@ -53,11 +53,11 @@ public class IAControllerBoar : IAController {
 		}
 
 		if(!canSeePlayer()){
-			actualBehaviour = ActualBehaviour.Patroling;
+			actualBehaviour = ActualBehaviour.ChasePlayer;
 		}else{
 			
 			if(getPlayerDistance()>=maxDistancePlayer){
-				actualBehaviour = ActualBehaviour.Patroling;
+				actualBehaviour = ActualBehaviour.ChasePlayer;
 			}
 
 			if(getPlayerDistance()<=maxDistanceMeleeAttack){

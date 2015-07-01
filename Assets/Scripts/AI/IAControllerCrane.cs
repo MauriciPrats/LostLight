@@ -138,7 +138,7 @@ public class IAControllerCrane : IAController {
 			if(isDoingFlyingAttack){flyingAttackTimer = 0f; isDoingFlyingAttack = false;}
 		}
 
-		if(canSeePlayer() && !actualBehaviour.Equals(ActualBehaviour.FlyingFalling)){
+		if(!actualBehaviour.Equals(ActualBehaviour.FlyingFalling)){
 			if(isFlying){
 				float playerDistance = getPlayerDistance();
 				if(playerDistance>closestDistanceAttack && playerDistance<farthestDistanceAttack && (getLookingDirection() == getPlayerDirection()) && missingDistancePreferredHeight<0.3f){

@@ -201,7 +201,7 @@ public class IAController : MonoBehaviour {
 	//Gets the distance to the player
 	public float getPlayerDistance(){
 		PlayerController chaCon = player.GetComponent<PlayerController>();
-		return Vector3.Distance (player.GetComponent<Rigidbody>().worldCenterOfMass, transform.position) - (walkOnMultiplePaths.centerToExtremesDistance + chaCon.centerToExtremesDistance);
+		return Vector3.Distance (player.GetComponent<Rigidbody>().worldCenterOfMass, GetComponent<Rigidbody>().worldCenterOfMass) - (walkOnMultiplePaths.centerToExtremesDistance + chaCon.centerToExtremesDistance);
 	}
 
 	//Gets the direction on which is the player (Corresponding to planet rotation) -1f is left and 1f is right

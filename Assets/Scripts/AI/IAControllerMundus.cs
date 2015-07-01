@@ -63,10 +63,12 @@ public class IAControllerMundus : IAController {
 	}
 
 	public void setProtecting(){
-		isSpawning = true;
-		protecting = true;
-		iaAnimator.SetBool ("isProtecting", true);
-		protectionSphere.SetActive (true);
+		if (fase == 1) {
+			isSpawning = true;
+			protecting = true;
+			iaAnimator.SetBool ("isProtecting", true);
+			protectionSphere.SetActive (true);
+		}
 
 	}
 
@@ -95,7 +97,7 @@ public class IAControllerMundus : IAController {
 		//Debug.Log (fase);
 		if(fase == 1){
 			timerAfterAttack += Time.deltaTime;
-			if (!attackController.isDoingAnyAttack () && !isAttacking && timerAfterAttack>1f && canSeePlayer() && getPlayerDistance()<2f){
+			if (!attackController.isDoingAnyAttack () && !isAttacking && timerAfterAttack>1f && canSeePlayer() && getPlayerDistance()<3f){
 				characterController.StopMoving();
 				if(damageReceived>phaseHitsReceivedThreshold){
 					attackController.doAttack(fisureAttack,false);
@@ -117,8 +119,10 @@ public class IAControllerMundus : IAController {
 				isAttacking = true;
 			}else if(!attackController.isDoingAnyAttack () && isAttacking){
 				if(faseSteps>=4){
-					fase = 2;
 					eventsManager.informEventActivated(CutsceneIdentifyier.LastPlanetMundusSecondPhase);
+
+					fase = 2;
+
 				}
 				isAttacking = false;
 				timerAfterAttack = 0f;
@@ -182,7 +186,7 @@ public class IAControllerMundus : IAController {
 	}
 
 	protected override bool virtualGetHurt(){
-		if(!attackController.isDoingAnyAttack() || isSpawning && !(fase == 2)){
+		if(!attackController.isDoingAnyAttack() || isSpawning){
 			if(!protecting){
 				StartCoroutine(Protect());
 			}
@@ -194,7 +198,7 @@ public class IAControllerMundus : IAController {
 	}
 
 	protected override bool virtualHitStone(){
-		if(!attackController.isDoingAnyAttack()  || isSpawning && !(fase == 2)){
+		if(!attackController.isDoingAnyAttack()  || isSpawning){
 			return false;
 		}else{
 			return true;

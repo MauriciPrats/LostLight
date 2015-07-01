@@ -109,8 +109,6 @@ public class MundusPlanetEventsManager : PlanetEventsManager {
 	}
 
 	private IEnumerator CinematicChangeToPhase2(){
-		isFinishedTransition = false;
-		isInSecondPhase = true;
 		GameObject staticPlatforms = lastPlanet.GetComponent<MundusFightPlanet>().staticPlatforms;
 
 		mundus.GetComponent<GravityBody> ().setHasToApplyForce (false);
@@ -219,6 +217,8 @@ public class MundusPlanetEventsManager : PlanetEventsManager {
 	public override void informEventActivated (CutsceneIdentifyier identifyier){
 		if(isEnabled){
 			if(identifyier.Equals(CutsceneIdentifyier.LastPlanetMundusSecondPhase)){
+				isFinishedTransition = false;
+				isInSecondPhase = true;
 				StartCoroutine(CinematicChangeToPhase2());
 			}if(identifyier.Equals(CutsceneIdentifyier.MundusDies)){
 				StartCoroutine(CinematicEndGame());
