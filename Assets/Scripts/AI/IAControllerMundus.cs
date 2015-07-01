@@ -24,6 +24,7 @@ public class IAControllerMundus : IAController {
 	private bool isAttacking = false;
 	private MundusPlanetEventsManager eventsManager;
 	private int fragmentsDestroyed = 0;
+	private bool isSubroutineMovementPlaying = false;
 
 	private bool isMovingToPlatform = false;
 	private GameObject closestPlatform;
@@ -131,12 +132,15 @@ public class IAControllerMundus : IAController {
 				StopMoving();
 			}
 		}else if(fase == 2){
+			if(!isSubroutineMovementPlaying){
+				StartCoroutine(MoveFromPointToPoint());
+				isSubroutineMovementPlaying = true;
+			}
+
 			if(eventsManager.getIsFinishedTransition()){
-				if(closestPlatform==null){
-					closestPlatform = eventsManager.getClosestPlatformTop(transform.position);
-				}
+
 				if(!attackController.isDoingAnyAttack()){
-					if(damageReceived>3){
+					if(damageReceived>3 && closestPlatform!=null){
 						closestPlatform.transform.parent.gameObject.AddComponent<PlatformAbsorbed>();
 						//closestPlatform.transform.parent.gameObject.GetComponent<Rigidbody>().isKinematic = false;
 
@@ -145,7 +149,7 @@ public class IAControllerMundus : IAController {
 						DestroyImmediate(closestPlatform);
 						closestPlatform = eventsManager.getClosestPlatformTop(transform.position);
 
-						if(fragmentsDestroyed>=1){
+						if(fragmentsDestroyed>=3){
 							die (false);
 						}
 					}
@@ -164,18 +168,33 @@ public class IAControllerMundus : IAController {
 						}else{
 							attackController.doAttack(ballOfDeathAttack,false);
 						}
-					}else{
-						Move(Util.getPlanetaryDirectionFromAToB(gameObject,closestPlatform));
-					}
-				}
-				if(closestPlatform!=null){
-					Vector3 distanceMundus = transform.position - eventsManager.getInsidePlanetPosition();
-					Vector3 objectiveDistance = closestPlatform.transform.position - eventsManager.getInsidePlanetPosition();
-					if(Vector3.Distance(distanceMundus,objectiveDistance)>1f){
-						transform.position += transform.up * (objectiveDistance.magnitude - distanceMundus.magnitude) * Time.deltaTime * 5f;
 					}
 				}
 			}
+		}
+	}
+
+	private IEnumerator MoveFromPointToPoint(){
+		float direction = 1f;
+		float timer = 0f;
+		while (!isDead) {
+			timer+=Time.deltaTime;
+			if (closestPlatform == null) {
+				closestPlatform = eventsManager.getClosestPlatformTop (transform.position);
+			}
+			if(closestPlatform!=null){
+				if(timer>=1f){
+					direction = Util.getPlanetaryDirectionFromAToB (gameObject, closestPlatform);
+				}
+				Debug.Log(direction);
+				Move (direction);
+				Vector3 distanceMundus = transform.position - eventsManager.getInsidePlanetPosition ();
+				Vector3 objectiveDistance = closestPlatform.transform.position - eventsManager.getInsidePlanetPosition ();
+				if (Vector3.Distance (distanceMundus, objectiveDistance) > 1f) {
+					transform.position += transform.up * (objectiveDistance.magnitude - distanceMundus.magnitude) * Time.deltaTime * 5f;
+				}
+			}
+			yield return null;
 		}
 	}
 

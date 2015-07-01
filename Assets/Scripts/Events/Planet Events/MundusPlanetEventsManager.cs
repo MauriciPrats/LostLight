@@ -31,15 +31,15 @@ public class MundusPlanetEventsManager : PlanetEventsManager {
 		if(!hasBeenActivated){
 			if(isEnabled){
 
-				//setFase2();
+				setFase2();
 
 				//We instantiate the inside of the planet 
 
 				//We create the new mundus
 
-				mundus = GameObject.Instantiate(mundusPrefab) as GameObject;
+				/*mundus = GameObject.Instantiate(mundusPrefab) as GameObject;
 				mundus.GetComponent<IAControllerMundus>().informPlanetEventManager(this);
-				mundus.transform.position = mundusSpawnPosition.transform.position;
+				mundus.transform.position = mundusSpawnPosition.transform.position;*/
 
 			}else{
 
@@ -99,7 +99,6 @@ public class MundusPlanetEventsManager : PlanetEventsManager {
 		GameManager.playerController.isInvulnerable = true;
 		GameManager.inputController.disableInputController ();
 		yield return new WaitForSeconds (1f);
-		isInSecondPhase = false;
 		GetComponent<PlanetCorruption> ().setCorruptionToClean ();
 
 		GameManager.player.transform.position = positionEndingBigP.transform.position;
@@ -109,6 +108,8 @@ public class MundusPlanetEventsManager : PlanetEventsManager {
 	}
 
 	private IEnumerator CinematicChangeToPhase2(){
+		isFinishedTransition = false;
+		isInSecondPhase = true;
 		GameObject staticPlatforms = lastPlanet.GetComponent<MundusFightPlanet>().staticPlatforms;
 		mundus.GetComponent<IAControllerMundus> ().setPhase (2);
 		mundus.GetComponent<GravityBody> ().setHasToApplyForce (false);
@@ -217,8 +218,6 @@ public class MundusPlanetEventsManager : PlanetEventsManager {
 	public override void informEventActivated (CutsceneIdentifyier identifyier){
 		if(isEnabled){
 			if(identifyier.Equals(CutsceneIdentifyier.LastPlanetMundusSecondPhase)){
-				isFinishedTransition = false;
-				isInSecondPhase = true;
 				StartCoroutine(CinematicChangeToPhase2());
 			}if(identifyier.Equals(CutsceneIdentifyier.MundusDies)){
 				StartCoroutine(CinematicEndGame());
