@@ -31,6 +31,7 @@ public class LowAttack : Attack, AnimationSubscriber {
 			enemy.GetComponent<IAController>().sendFlyingByConsecutiveHits(direction * 3f);
 			//enemy.GetComponent<IAController> ().interruptAttack ();
 			GameManager.comboManager.addCombo ();
+			GameManager.audioManager.PlayStableSound(10);
 			if(!hasHitEnemy){
 				hasHitEnemy = true;
 				GameManager.lightGemEnergyManager.addPoints(1);
@@ -39,6 +40,7 @@ public class LowAttack : Attack, AnimationSubscriber {
 	}
 	
 	private void enableHitbox(){
+		GameManager.audioManager.PlaySound(3);
 		enemiesHit = new List<GameObject> (0);
 		hasHitEnemy = false;
 		weapon.GetComponentInChildren<AttackCollider> ().attack = gameObject;

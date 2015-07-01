@@ -32,6 +32,7 @@ public class SplineNavigator : MonoBehaviour {
 			}else{
 				GameManager.player.GetComponent<SplineWalker> ().setNonInvert();
 			}
+			GameManager.audioManager.PlayStableSound(12);
 			StartCoroutine(removeAfterTime(time));
 		}
 	}

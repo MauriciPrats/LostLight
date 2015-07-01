@@ -450,7 +450,7 @@ public class IAController : MonoBehaviour {
 			}
 			gameObject.layer = LayerMask.NameToLayer("OnlyFloor");
 			characterController.StopMoving();
-			GameManager.audioManager.PlaySound(6);
+			GameManager.audioManager.PlaySoundDontRepeat(6,1.0f);
 			if(isActiveAndEnabled){
 				StartCoroutine("disappearOnDeath");
 			}
