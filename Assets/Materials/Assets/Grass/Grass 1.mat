@@ -18,7 +18,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: fd07c2fc713a27d4fa08e20488ab962a, type: 3}
+          m_Texture: {fileID: 2800000, guid: 2312319e2c87654499c7c2e7f16ed015, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -81,7 +81,7 @@ Material:
       data:
         first:
           name: _Cutoff
-        second: .515999973
+        second: .684000015
       data:
         first:
           name: _Shininess
@@ -146,7 +146,7 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: 1, g: 1, b: 1, a: 1}
+        second: {r: .737931013, g: 1, b: 0, a: 1}
       data:
         first:
           name: _SpecColor

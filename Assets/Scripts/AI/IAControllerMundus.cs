@@ -120,9 +120,7 @@ public class IAControllerMundus : IAController {
 			}else if(!attackController.isDoingAnyAttack () && isAttacking){
 				if(faseSteps>=4){
 					eventsManager.informEventActivated(CutsceneIdentifyier.LastPlanetMundusSecondPhase);
-
-					fase = 2;
-
+					damageReceived = 0;
 				}
 				isAttacking = false;
 				timerAfterAttack = 0f;

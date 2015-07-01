@@ -110,7 +110,7 @@ public class MundusPlanetEventsManager : PlanetEventsManager {
 
 	private IEnumerator CinematicChangeToPhase2(){
 		GameObject staticPlatforms = lastPlanet.GetComponent<MundusFightPlanet>().staticPlatforms;
-
+		mundus.GetComponent<IAControllerMundus> ().setPhase (2);
 		mundus.GetComponent<GravityBody> ().setHasToApplyForce (false);
 		yield return new WaitForSeconds (3f);
 		//Deactivate player input and move camera
