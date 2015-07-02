@@ -23,6 +23,7 @@ public class SceneManager : MonoBehaviour {
 
 	void Awake(){
 		GameManager.registerActualSceneManager (gameObject);
+		GUIManager.initialize();
 		GUIManager.registerMainMenu (mainMenuPrefab);
 		GUIManager.registerControlsMenu(controlsMenuPrefab);
 		GUIManager.registerCreditsMenu (creditsMenuPrefab);

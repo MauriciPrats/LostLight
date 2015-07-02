@@ -22,7 +22,7 @@ public class OnAirAttack : Attack {
 			enemiesHit.Add(enemy);
 			enemy.GetComponent<IAController>().getHurt(1,point);
 			enemy.GetComponent<IAController>().hitCanSendFlying();
-			GameManager.audioManager.PlayStableSound(10);
+			//GameManager.audioManager.PlayStableSound(10);
 			if(!hasHitEnemy){
 				hasHitEnemy = true;
 				GameManager.lightGemEnergyManager.addPoints(1);

@@ -31,6 +31,7 @@ public class ThrowAttack : Attack, AnimationSubscriber {
 			enemy.GetComponent<IAController>().sendFlyingByConsecutiveHits(direction * 3f);
 			//enemy.GetComponent<IAController> ().interruptAttack ();
 			GameManager.comboManager.addCombo ();
+			
 			if(!hasHitEnemy){
 				hasHitEnemy = true;
 				GameManager.lightGemEnergyManager.addPoints(1);
@@ -39,6 +40,7 @@ public class ThrowAttack : Attack, AnimationSubscriber {
 	}
 
 	private void enableHitbox(){
+		GameManager.audioManager.PlaySound(3);
 		enemiesHit = new List<GameObject> (0);
 		hasHitEnemy = false;
 		tongue.GetComponentInChildren<AttackCollider> ().attack = gameObject;

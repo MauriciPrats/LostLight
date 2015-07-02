@@ -199,6 +199,7 @@ public class IAControllerMundus : IAController {
 	}
 
 	protected override void virtualDie(){
+		GameManager.audioManager.PlayStableSound(14);
 		eventsManager.informEventActivated (CutsceneIdentifyier.MundusDies);
 	}
 
@@ -207,9 +208,11 @@ public class IAControllerMundus : IAController {
 			if(!protecting){
 				StartCoroutine(Protect());
 			}
+			GameManager.audioManager.PlayStableSound(13);
 			return false;
 		}else{
 			damageReceived++;
+			GameManager.audioManager.PlayStableSound(10);
 			return true;
 		}
 	}

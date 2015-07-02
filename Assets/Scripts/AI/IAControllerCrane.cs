@@ -78,11 +78,13 @@ public class IAControllerCrane : IAController {
 	}
 
 	protected override bool virtualGetHurt(){
+		GameManager.audioManager.PlayStableSound(10);
 		attackController.interruptActualAttacks ();
 		actualBehaviour = ActualBehaviour.FlyingFalling;
 		iaAnimator.SetBool ("isFlying",false);
 		GetComponent<GravityBody> ().setHasToApplyForce (true);
 		preferredHeight = 0f;
+		GameManager.audioManager.PlaySoundDontRepeat(15,1.0f);
 		return true;
 	}
 

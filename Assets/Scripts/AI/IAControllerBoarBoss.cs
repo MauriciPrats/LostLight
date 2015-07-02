@@ -129,6 +129,19 @@ public class IAControllerBoarBoss : IAController {
 			lookAtDirection(getPlayerDirection());
 		}
 	}
+	
+	protected override bool virtualGetHurt ()
+	{
+		GameManager.audioManager.PlayStableSound(10);
+		GameManager.audioManager.PlaySoundDontRepeat(5,1.0f);
+		return base.virtualGetHurt ();
+	}
+
+	protected override void virtualDie ()
+	{
+		base.virtualDie ();
+		GameManager.audioManager.PlaySoundDontRepeat(6,1.0f);
+	}
 
 	/***FUNCTIONS***/
 	//initialize()

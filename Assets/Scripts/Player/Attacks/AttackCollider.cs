@@ -10,8 +10,10 @@ public class AttackCollider : MonoBehaviour {
 	void OnTriggerEnter(Collider other) {
 		if(attack!=null){
 			if(other.tag.Equals("Enemy")){
+				
 				attack.GetComponent<Attack>().enemyCollisionEnter(other.gameObject,other.ClosestPointOnBounds(transform.position));
 			}else{
+				
 				attack.GetComponent<Attack>().otherCollisionEnter(other.gameObject,other.ClosestPointOnBounds(transform.position));
 			}
 		}

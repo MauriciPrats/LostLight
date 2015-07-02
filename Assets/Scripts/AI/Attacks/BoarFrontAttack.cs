@@ -62,7 +62,7 @@ public class BoarFrontAttack : Attack {
 			isChargingAttack = false;
 			isDoingAttack = true;
 			iaAnimator.SetTrigger ("isDoingHeadbutt");
-			GameManager.audioManager.PlaySound(5);
+			
 			if(!interrupted){
 				particlesAttack.GetComponent<ParticleSystem>().Play();
 			}

@@ -1770,7 +1770,7 @@ Transform:
   m_PrefabParentObject: {fileID: 400158, guid: e97cb08648af68245b9a5b2f5e95bbc3, type: 3}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 30945378}
-  m_LocalRotation: {x: -.577040017, y: .25606221, z: .546329796, w: .550436795}
+  m_LocalRotation: {x: -.577040076, y: .256062239, z: .546329856, w: .550436854}
   m_LocalPosition: {x: -1.78813934e-07, y: 2.07544231, z: 9.68575478e-08}
   m_LocalScale: {x: 1.00000024, y: 1, z: 1}
   m_Children: []
@@ -18009,6 +18009,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: baa452f79e2d8ef4cb4381caa58ba215, type: 3}
   - {fileID: 8300000, guid: 3d0d293ecd99ae44ba689ab50608b1a0, type: 3}
   - {fileID: 8300000, guid: 0458e94ab90e2e94d8f9c85b6842ff4d, type: 3}
+  - {fileID: 8300000, guid: 21eabf8f903451a448d7bc9c5cc1dec3, type: 3}
+  - {fileID: 8300000, guid: 32c4fb51905e03f499a2ac10f6ff4b60, type: 3}
+  - {fileID: 8300000, guid: a1bf684c4624fe948be54fb47f268db7, type: 3}
 --- !u!81 &398706164
 AudioListener:
   m_ObjectHideFlags: 0
@@ -25538,7 +25541,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6219b76d882b6d043822e9cd6d010af3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 0
+  isEnabled: 1
   bigPappadaInitialPosition: {fileID: 2013654545}
   littleGHopper: {fileID: 1973452111}
   boarHuntingGO: {fileID: 1806287929}
@@ -25743,7 +25746,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 746513858}
-  m_LocalRotation: {x: .00565734459, y: .705257714, z: .708897531, w: .00661920011}
+  m_LocalRotation: {x: .00565734459, y: .705257714, z: .708897531, w: .00661919778}
   m_LocalPosition: {x: -.00229996722, y: .643498421, z: -.829999924}
   m_LocalScale: {x: .00655176956, y: .00655176677, z: .00655177049}
   m_Children:
@@ -71973,7 +71976,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2052176610}
-  m_LocalRotation: {x: -.00565738231, y: -.705257773, z: -.708897591, w: .00661916379}
+  m_LocalRotation: {x: -.00565738231, y: -.705257773, z: -.708897591, w: .00661916146}
   m_LocalPosition: {x: -38.3699989, y: 19.6900005, z: -2.80999994}
   m_LocalScale: {x: 152.630539, y: 152.630569, z: 152.630569}
   m_Children: []
