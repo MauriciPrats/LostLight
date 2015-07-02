@@ -137,7 +137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BubbleStartPosition: {fileID: 0}
-  zPosition: -.5
+  zPosition: -.699999988
 --- !u!114 &11445492
 MonoBehaviour:
   m_ObjectHideFlags: 1

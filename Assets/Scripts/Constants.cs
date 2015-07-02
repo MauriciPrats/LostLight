@@ -33,7 +33,7 @@ public static class Constants{
 	public static float TIME_BETWEEN_QUICK_TIME_EVENTS = 3f;
 	public static float RANDOMNESS_TIME_BETWEEN_QUICK_TIME_EVENTS = 1f; //The final time will be TIME_BETWEEN_QUICK_TIME_EVENTS +- RANDOMNESS_TIME_BETWEEN_QUICK_TIME_EVENTS
 	public static float ASTEROID_SPEED = 5f;
-	public static float DISTANCE_SHOW_POPUP = 3f;
+	public static float DISTANCE_SHOW_POPUP = 100f;
 
 	//MINIMAPA
 	public static float MINIMAP_DISTANCE = -110f;

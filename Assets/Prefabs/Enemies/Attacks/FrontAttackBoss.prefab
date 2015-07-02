@@ -74,7 +74,7 @@ MonoBehaviour:
   cost: 10
   elementAttack: 0
   timeToChargeAttack: .100000001
-  attackDuration: .100000001
+  attackDuration: .200000003
   particlesAttack: {fileID: 193960}
   animator: {fileID: 0}
 --- !u!135 &13509964

@@ -110,15 +110,15 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 				yield return new WaitForSeconds (1f);
 				littleGHopper.GetComponentInChildren<Animator>().SetBool("isFallingDown",false);
 				yield return new WaitForSeconds (1f);
-				bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Debes concentrar \n tu energia Little G.", 4f, false, false);
+				bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("You must focus \n Little G.", 4f, false, false);
 				yield return StartCoroutine(WaitInterruptable (4f,bigPappadaDialogue));
-				bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("El equilibrio no está en el cuerpo,\n está en la mente. ", 4f, false, false);
+				bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("The balance is not in your body, \n it's in your mind. ", 4f, false, false);
 				yield return StartCoroutine(WaitInterruptable (4f,bigPappadaDialogue));
-				littleGDialogue = littleGHopper.GetComponent<DialogueController> ().createNewDialogue ("Si, maestro ", 3f, false, false);
+				littleGDialogue = littleGHopper.GetComponent<DialogueController> ().createNewDialogue ("Yes master! ", 3f, false, false);
 				yield return StartCoroutine(WaitInterruptable (3f,littleGDialogue));
-				bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Ya es suficiente entrenamiento \n por hoy. ", 4f, false, false);
+				bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("It's enough training \n for today. ", 4f, false, false);
 				yield return StartCoroutine(WaitInterruptable (4f,bigPappadaDialogue));
-				bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Ve al templo,\n Yo ire a cazar algo para cenar ", 4f, false, false);
+				bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Go to the temple,\n I'll go to hunt something to eat ", 4f, false, false);
 				yield return StartCoroutine(WaitInterruptable (4f,bigPappadaDialogue));
 				littleGHopper.GetComponent<CharacterController> ().Move (-1f);
 				littleGHopper.GetComponentInChildren<Animator> ().SetBool ("isWalking", true);
@@ -128,7 +128,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 				boarHuntingGO.GetComponent<Cutscene>().isActive = true;
 				shintoDoorGO.GetComponent<FirstPlanetShintoDoor>().isActive = true;
 
-				GUIManager.setTutorialText("Muevete con 'Espacio','A' y 'D'");
+				GUIManager.setTutorialText("Move with left joystick, jump with 'A' ");
 				GUIManager.activateTutorialText();
 				yield return new WaitForSeconds (5f);
 				GUIManager.deactivateTutorialText();
@@ -160,7 +160,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Tendre que encontrar \n una forma de romperlas! ", 3f, false, false);
 			yield return StartCoroutine(WaitInterruptable (3f,bigPappadaDialogue));
 			GameManager.inputController.enableInputController ();
-			GUIManager.setTutorialText("Pulsa 'Izquierda' para realizar ataques \n y romper las rocas!");
+			GUIManager.setTutorialText("Press 'X' to attack \n and clear the path!");
 			GUIManager.activateTutorialText();
 		}
 	}
@@ -169,14 +169,14 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 		if(isEnabled){
 			corruptionSeepingGO.GetComponent<FirstPlanetCorruptionSeeping>().isActive = false;
 			GameManager.inputController.disableInputController ();
-			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Argh", 1f, true, false);
+			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Hmph...", 1f, true, false);
 			yield return StartCoroutine(WaitInterruptable (1f,bigPappadaDialogue));
-			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("La corrupcion ha \n llegado hasta aqui!", 3f, true, false);
+			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("The corruption has \n gotten this far!", 3f, true, false);
 			yield return StartCoroutine(WaitInterruptable (3f,bigPappadaDialogue));
-			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Quizas si paso rapido \n no me afectara! ", 3f, false, false);
+			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("I'll dash through it! ", 3f, false, false);
 			yield return StartCoroutine(WaitInterruptable (3f,bigPappadaDialogue));
 			GameManager.inputController.enableInputController ();
-			GUIManager.setTutorialText("Pulsa 'Derecha' para realizar un dash \n y atravesar la corrupcion!");
+			GUIManager.setTutorialText("Press 'B' to dash \n and pass through the corruption!");
 			GUIManager.activateTutorialText();
 			yield return new WaitForSeconds (4f);
 			GUIManager.deactivateTutorialText();
@@ -191,9 +191,9 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			boarHuntingGO.GetComponent<Cutscene>().isActive = false;
 			boarHuntingGO.GetComponent<FirstPlanetBoarHunting>().boar.SetActive(false);
 			GameManager.inputController.disableInputController ();
-			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Que raro... ", 1.5f, false, false);
+			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("That's weird... ", 1.5f, false, false);
 			yield return StartCoroutine(WaitInterruptable (1.5f,bigPappadaDialogue));
-			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Nunca habia visto \n los sellos brillar de esta forma", 4f, false, false);
+			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("I had never seen \n the seals shine this way...", 4f, false, false);
 			yield return StartCoroutine(WaitInterruptable (4f,bigPappadaDialogue));
 			GetComponent<PlanetCorruption>().corrupt();
 			GameManager.mainCamera.GetComponent<CameraFollowingPlayer>().setCameraShaking();
@@ -201,9 +201,9 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			
 			shintoDoorGO.GetComponent<FirstPlanetShintoDoor>().shintoDoor.GetComponent<ShintoDoor>().disableKanjis();
 			yield return new WaitForSeconds(2f);
-			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Waaah!!!", 1f, true, false);
+			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Woah!!", 1f, true, false);
 			yield return StartCoroutine(WaitInterruptable (1f,bigPappadaDialogue));
-			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¡¿Que es estoo?!", 1f, true, false);
+			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¡¿What's this?!", 1f, true, false);
 			yield return StartCoroutine(WaitInterruptable (5f,bigPappadaDialogue));
 			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¡Little G.!", 2f, true, false);
 			yield return StartCoroutine(WaitInterruptable (2f,bigPappadaDialogue));
@@ -242,10 +242,10 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 		if(isEnabled){
 			bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().isActive = false;
 			GameManager.player.GetComponent<PlayerController>().StopMove();
-			littleGDialogue = littleGHopper.GetComponent<DialogueController> ().createNewDialogue ("Aaahhh!!\n MAESTROO!!", 1.5f, true, false);
+			littleGDialogue = littleGHopper.GetComponent<DialogueController> ().createNewDialogue ("Aaahhh!!\n MASTEEER!!", 1.5f, true, false);
 			yield return StartCoroutine(WaitInterruptable (1f,littleGDialogue));
 			littleGHopper.GetComponent<CharacterController>().Jump(25f);
-			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¡Aguanta, ya voy!", 1f, false, false);
+			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¡Hold on!!", 1f, false, false);
 			yield return StartCoroutine(WaitInterruptable (1f,bigPappadaDialogue));
 			GameManager.inputController.disableInputController ();
 			//bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().bridge.GetComponent<Collider>().enabled = false;
@@ -264,9 +264,9 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			GUIManager.fadeOut(null);
 			rocksBlockingPathGO.GetComponent<FirstPlanetBlockPathRocks>().rocks.SetActive(true);
 			GameManager.audioManager.playSong(3);
-			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¿Donde estoy? \n ¿Que es este lugar?", 3f, false, false);
+			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¿Where am I? \n ¿What is this place?", 3f, false, false);
 			yield return StartCoroutine(WaitInterruptable (3f,bigPappadaDialogue));
-			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Parece que no tengo \n otra alternativa que \n seguir adelante...", 3f, false, false);
+			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Looks like i have no choice \n I must press onwards...", 3f, false, false);
 			yield return StartCoroutine(WaitInterruptable (3f,bigPappadaDialogue));
 			GameManager.inputController.enableInputController();
 		}
@@ -277,9 +277,9 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 		if(isEnabled){
 			GameManager.inputController.disableInputController ();
 			lightGemGO.GetComponent<SanctuaryLightGem>().isActive = false;
-			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("La lightgem de\n Whiteheart sensei!?", 3f, false, false);
+			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Is that the lightgem of \n Whiteheart sensei!?", 3f, false, false);
 			yield return StartCoroutine(WaitInterruptable (3f,bigPappadaDialogue));
-			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Me pregunto que hace aqui...", 3f, false, false);
+			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("I wonder what's it doing here...", 3f, false, false);
 			yield return StartCoroutine(WaitInterruptable (3f,bigPappadaDialogue));
 			GameManager.player.GetComponent<PlayerController>().Move(-1f);
 			
@@ -299,9 +299,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			foreach(ParticleSystem particles in lightGemGO.GetComponentsInChildren<ParticleSystem>()){
 				particles.Stop();
 			}
-			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Fuaaah!!! Que poder!", 2f, true, false);
-			yield return StartCoroutine(WaitInterruptable (2f,bigPappadaDialogue));
-			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Quizas puedo utilizar \n esto para salir de aqui!", 3f, true, false);
+			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Maybe I can use this \n to get out of here!", 3f, true, false);
 			yield return StartCoroutine(WaitInterruptable (3f,bigPappadaDialogue));
 			GameManager.audioManager.playSong(4);
 			foreach(Collider collider in bridgeFallGO.GetComponent<FirstPlanetFallingFromTheBridge>().fallenRocks.GetComponentsInChildren<Collider>()){
@@ -332,13 +330,13 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			yield return new WaitForSeconds(1f);
 			GameManager.player.GetComponent<PlayerController>().StopMove();
 			yield return new WaitForSeconds(2f);
-			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¡Al fin estoy fuera!", 2f, true, false);
+			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¡Finally! I'm outside!", 2f, true, false);
 			yield return StartCoroutine(WaitInterruptable (2f,bigPappadaDialogue));
-			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¡¿Donde esta little G?!", 2f, true, false);
+			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¡¿Where is Little G??!", 2f, true, false);
 			yield return StartCoroutine(WaitInterruptable (2f,bigPappadaDialogue));
-			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¡Tengo que encontrarle!", 2f, true, false);
+			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¡I must find him!", 2f, true, false);
 			yield return StartCoroutine(WaitInterruptable (2f,bigPappadaDialogue));
-			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¡Primero tengo que \n encontrar una forma \n de vencer la corrupcion!", 4f, true, false);
+			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¡But first i must \n find a way to \n cleanse this mess!", 4f, true, false);
 			yield return StartCoroutine(WaitInterruptable (4f,bigPappadaDialogue));
 			GetComponent<PlanetCorruption>().activateSpawning();
 			GameManager.inputController.enableInputController();

@@ -95,10 +95,11 @@ public class IAControllerMundus : IAController {
 	}
 
 	protected override void UpdateAI(){
+		GetComponent<Rigidbody> ().velocity = new Vector3 (0f, 0f, 0f);
 		//Debug.Log (fase);
 		if(fase == 1){
 			timerAfterAttack += Time.deltaTime;
-			if (!attackController.isDoingAnyAttack () && !isAttacking && timerAfterAttack>1f && canSeePlayer() && getPlayerDistance()<3f){
+			if (!attackController.isDoingAnyAttack () && !isAttacking && timerAfterAttack>1f && canSeePlayer() && getPlayerDistance()<1f){
 				characterController.StopMoving();
 				if(damageReceived>phaseHitsReceivedThreshold){
 					attackController.doAttack(fisureAttack,false);
@@ -125,21 +126,19 @@ public class IAControllerMundus : IAController {
 				}
 				isAttacking = false;
 				timerAfterAttack = 0f;
-			}else if(!attackController.isDoingAnyAttack () && getPlayerDistance()>1f){
+			}else if(!attackController.isDoingAnyAttack () && getPlayerDistance()>4f){
 				characterController.Move(getPlayerDirection());
-
 			}else{
 				StopMoving();
 			}
 		}else if(fase == 2){
-			if(!isSubroutineMovementPlaying){
-				StartCoroutine(MoveFromPointToPoint());
-				isSubroutineMovementPlaying = true;
-			}
 
 			if(eventsManager.getIsFinishedTransition()){
-
 				if(!attackController.isDoingAnyAttack()){
+					if (closestPlatform == null) {
+						closestPlatform = eventsManager.getClosestPlatformTop (transform.position);
+					}
+
 					if(damageReceived>3 && closestPlatform!=null){
 						closestPlatform.transform.parent.gameObject.AddComponent<PlatformAbsorbed>();
 						//closestPlatform.transform.parent.gameObject.GetComponent<Rigidbody>().isKinematic = false;
@@ -149,7 +148,7 @@ public class IAControllerMundus : IAController {
 						DestroyImmediate(closestPlatform);
 						closestPlatform = eventsManager.getClosestPlatformTop(transform.position);
 
-						if(fragmentsDestroyed>=3){
+						if(fragmentsDestroyed>=2){
 							die (false);
 						}
 					}
@@ -168,35 +167,42 @@ public class IAControllerMundus : IAController {
 						}else{
 							attackController.doAttack(ballOfDeathAttack,false);
 						}
+					}else{
+						direction = Util.getPlanetaryDirectionFromAToB(gameObject,closestPlatform);
+						Move (direction);
 					}
 				}
-			}
-		}
-	}
-
-	private IEnumerator MoveFromPointToPoint(){
-		float direction = 1f;
-		float timer = 0f;
-		while (!isDead) {
-			timer+=Time.deltaTime;
-			if (closestPlatform == null) {
-				closestPlatform = eventsManager.getClosestPlatformTop (transform.position);
-			}
-			if(closestPlatform!=null){
-				if(timer>=1f){
-					direction = Util.getPlanetaryDirectionFromAToB (gameObject, closestPlatform);
-				}
-				Debug.Log(direction);
-				Move (direction);
 				Vector3 distanceMundus = transform.position - eventsManager.getInsidePlanetPosition ();
 				Vector3 objectiveDistance = closestPlatform.transform.position - eventsManager.getInsidePlanetPosition ();
 				if (Vector3.Distance (distanceMundus, objectiveDistance) > 1f) {
 					transform.position += transform.up * (objectiveDistance.magnitude - distanceMundus.magnitude) * Time.deltaTime * 5f;
 				}
 			}
-			yield return null;
 		}
 	}
+
+	/*private IEnumerator MoveFromPointToPoint(){
+		float direction = 1f;
+		float timer = 0f;
+		while (!isDead) {
+			timer+=Time.deltaTime;
+
+			if(closestPlatform!=null){
+				if(Vector3.Distance(closestPlatform.transform.position,transform.position)<3f){
+					if(timer>=1f){
+						direction = Util.getPlanetaryDirectionFromAToB (gameObject, closestPlatform);
+					}
+					Move (direction);
+					Vector3 distanceMundus = transform.position - eventsManager.getInsidePlanetPosition ();
+					Vector3 objectiveDistance = closestPlatform.transform.position - eventsManager.getInsidePlanetPosition ();
+					if (Vector3.Distance (distanceMundus, objectiveDistance) > 1f) {
+						transform.position += transform.up * (objectiveDistance.magnitude - distanceMundus.magnitude) * Time.deltaTime * 5f;
+					}
+				}
+			}
+			yield return null;
+		}
+	}*/
 
 	protected override void virtualDie(){
 		GameManager.audioManager.PlayStableSound(14);
@@ -204,6 +210,10 @@ public class IAControllerMundus : IAController {
 	}
 
 	protected override bool virtualGetHurt(){
+		if (fase == 2) {
+			damageReceived++;
+			return true;
+		}
 		if(!attackController.isDoingAnyAttack() || isSpawning){
 			if(!protecting){
 				StartCoroutine(Protect());

@@ -31,15 +31,17 @@ public class MundusPlanetEventsManager : PlanetEventsManager {
 		if(!hasBeenActivated){
 			if(isEnabled){
 
-				setFase2();
+				//setFase2();
 
 				//We instantiate the inside of the planet 
 
 				//We create the new mundus
 
-				/*mundus = GameObject.Instantiate(mundusPrefab) as GameObject;
+				GameManager.audioManager.playSong(4);
+
+				mundus = GameObject.Instantiate(mundusPrefab) as GameObject;
 				mundus.GetComponent<IAControllerMundus>().informPlanetEventManager(this);
-				mundus.transform.position = mundusSpawnPosition.transform.position;*/
+				mundus.transform.position = mundusSpawnPosition.transform.position;
 
 			}else{
 
@@ -190,6 +192,7 @@ public class MundusPlanetEventsManager : PlanetEventsManager {
 	}
 
 	public override void isDeactivated(){
+		GameManager.audioManager.playSong(1);
 		isInSecondPhase = false;
 		Destroy(mundus);
 		DestroyImmediate(lastPlanet);
