@@ -17,7 +17,8 @@ public enum Menu{None,
 				OnPauseMenu,
 				BlackMenu,
 				TutorialMenu,
-				OptionsMenu
+				OptionsMenu,
+				IntroScene
 			    };
 
 public class GUIManager : MonoBehaviour {
@@ -44,7 +45,8 @@ public class GUIManager : MonoBehaviour {
 	private static GameObject blackMenuO;
 	private static GameObject tutorialMenuO;
 	private static GameObject optionsMenuO;
-
+	private static GameObject introSceneO;
+	
 	private static Text tutorialText;
 
 	private static GameObject corruptionBar;
@@ -65,6 +67,9 @@ public class GUIManager : MonoBehaviour {
 	private static void deactivateMenus(){
 		if(mainMenuO!=null){
 			mainMenuO.SetActive(false);
+		}
+		if(introSceneO!=null){
+			introSceneO.SetActive(false);
 		}
 		if(controlsO!=null){
 			controlsO.SetActive(false);
@@ -110,6 +115,8 @@ public class GUIManager : MonoBehaviour {
 	private static GameObject getMenu(Menu menu){
 		if (menu.Equals (Menu.MainMenu)) {
 			return mainMenuO;
+		}else if(menu.Equals(Menu.IntroScene)){
+			return introSceneO;
 		}else if(menu.Equals(Menu.ControlsMenu)){
 			return controlsO;
 		}else if(menu.Equals(Menu.CreditsMenu)){
@@ -144,6 +151,14 @@ public class GUIManager : MonoBehaviour {
 			mainMenuO = GameObject.Instantiate (mainMenuGO) as GameObject;
 			mainMenuO.SetActive (false);
 		}
+	}
+	
+	public static void registerIntroScene(GameObject introSceneGO) {
+		if(introSceneGO!=null && introSceneO == null){
+			introSceneO = GameObject.Instantiate (introSceneGO) as GameObject;
+			introSceneO.SetActive (false);
+		}
+	
 	}
 
 	public static void registerControlsMenu(GameObject controlsGO){
@@ -368,7 +383,7 @@ public class GUIManager : MonoBehaviour {
 	}
 
 	public static bool showLeafsInActualMenu(){
-		if(actualMenu!=null){
+		if(actualMenu!=null && actualMenu != introSceneO){		
 			if(actualMenu.GetComponent<MenuManager>().menuWithLeaves && actualMenu.GetComponent<CanvasGroup>().alpha == 1f){
 				return true;
 			}

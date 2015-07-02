@@ -31,10 +31,19 @@ public class AudioManager : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		GameManager.RegisterAudioManager(this);
-		playSong(0);
+		
 	}
 	
-
+	public void PlaySong(AudioClip mySong) {
+		if (musicplayer.isPlaying) {
+			//please stop the music
+			musicplayer.Stop();
+		}
+		musicplayer.clip = mySong;
+		musicplayer.Play();
+	
+	}
+	
 	//Plays the song at position n
 	public void playSong(int n) {
 		if (0 <= n && n < music.Length) 

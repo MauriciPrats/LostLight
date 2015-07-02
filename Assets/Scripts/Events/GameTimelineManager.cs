@@ -17,7 +17,7 @@ public class GameTimelineManager : MonoBehaviour {
 		GameManager.rebuildGameFromGameState ();
 		GUIManager.deactivatePlayingGUI();
 		GameManager.inputController.disableInputController ();
-		GUIManager.activateMenu(Menu.MainMenu);
+		GUIManager.activateMenu(GameManager.actualSceneManager.startingMenu);
 		GUIManager.fadeAllIn();
 
 		//Get the actual planet and initialize it
