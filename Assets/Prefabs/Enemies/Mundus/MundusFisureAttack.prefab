@@ -43,12 +43,12 @@ MonoBehaviour:
   cost: 0
   elementAttack: 0
   fisurePrefab: {fileID: 142354, guid: be5fa2b858f07084d94703388cd768e5, type: 2}
-  timeToChargeAttack: 1
-  timeToGrow: 6
+  timeToChargeAttack: .5
+  timeToGrow: 2
   maxScaleSphere: 3.5
-  timeGoingUp: 3
-  explodingTime: 4
-  scaleOnExplosion: 40
+  timeGoingUp: 1
+  explodingTime: 1
+  scaleOnExplosion: 50
   cameraZPositionTotal: 30
 --- !u!1001 &100100000
 Prefab:
