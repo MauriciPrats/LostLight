@@ -27,6 +27,7 @@ public static class GameManager{
 	public static AudioManager audioManager;
 	public static LightsManager lightsManager;
 	public static OptionsManager optionsManager;
+	public static EnemyPrefabManager enemyPrefabManager;
 
 	public static bool isGameEnded = true;
 	public static bool isCameraLockedToPlayer = true;
@@ -206,4 +207,9 @@ public static class GameManager{
 	public static void registerOptionsManager(OptionsManager om){
 		optionsManager = om;
 	}
+
+	public static void registerEnemyPrefabManager(EnemyPrefabManager epm){
+		enemyPrefabManager = epm;
+	}
+
 }

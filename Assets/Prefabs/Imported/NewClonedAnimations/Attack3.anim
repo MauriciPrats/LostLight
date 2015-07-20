@@ -37896,14 +37896,7 @@ AnimationClip:
   m_Events:
   - time: .0416666679
     functionName: informEvent
-    data: ComboAttack:combo-3
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: .0833333358
-    functionName: informEvent
-    data: ComboAttack:start
+    data: ComboAttack:comboStart-3
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0

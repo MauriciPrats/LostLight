@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-public enum EnemyType{Boar,Rat,Monkey,Penguin,Crane,None}
+public enum EnemyType{Boar,BoarBoss,Rat,Monkey,Penguin,Crane,None}
 
 [RequireComponent (typeof (WalkOnMultiplePaths))]
 public class IAController : MonoBehaviour {
@@ -505,7 +505,7 @@ public class IAController : MonoBehaviour {
 				}
 				newLight.GetComponent<TrailRenderer>().material.color = color;
 			}
-			(GameManager.playerSpaceBody.getClosestPlanet() as PlanetCorrupted).getPlanetSpawnerManager().incrementAccumulatedPoints(GetComponent<EnemySpawned>().pointsCost);
+			//(GameManager.playerSpaceBody.getClosestPlanet() as PlanetCorrupted).getPlanetSpawnerManager().incrementAccumulatedPoints(GetComponent<EnemySpawned>().pointsCost);
 		}
 	}
 

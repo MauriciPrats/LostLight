@@ -168,7 +168,13 @@ public class ComboAttack : Attack, AnimationSubscriber {
 	
 	void AnimationSubscriber.handleEvent(string idEvent) {
 		//If it contains the combo we check which step of the combo is it
-		if(idEvent.Contains("combo")){
+		if(idEvent.Contains("comboStart")){
+			//Debug.Log("Combo "+Time.time);
+			
+			combosteep = int.Parse(idEvent.Split((char[])comboNumberSeparator)[1]);
+			allowChaining();
+			enableHitbox();
+		}else if(idEvent.Contains("combo")){
 			//Debug.Log("Combo "+Time.time);
 
 			combosteep = int.Parse(idEvent.Split((char[])comboNumberSeparator)[1]);

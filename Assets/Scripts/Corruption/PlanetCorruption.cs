@@ -120,7 +120,10 @@ public class PlanetCorruption : MonoBehaviour {
 		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().resetObjective ();
 		GUIManager.activateMinimapGUI();
 		if(GameManager.playerSpaceBody.getClosestPlanet().isPlanetCorrupted()){
-			(GameManager.playerSpaceBody.getClosestPlanet() as PlanetCorrupted).getPlanetEventsManager().planetCleansed();
+			PlanetEventsManager pem = (GameManager.playerSpaceBody.getClosestPlanet() as PlanetCorrupted).getPlanetEventsManager();
+			if(pem!=null){
+				pem.planetCleansed();
+			}
 		}
 		GameManager.persistentData.spaceJumpUnlocked = true;
 		GameManager.audioManager.playSong(1);

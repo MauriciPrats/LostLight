@@ -3329,7 +3329,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointsCost: 2
   maximumEnemiesInPlanet: 1
-  enemyType: 1
+  enemyType: 2
 --- !u!114 &11410104
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3409,6 +3409,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   drag: 0
+  gravityMultiplyier: 1
 --- !u!114 &11485054
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3421,6 +3422,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+  noChangingDirection: 0
 --- !u!114 &11492790
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3457,6 +3459,8 @@ MonoBehaviour:
   - {fileID: 0}
   onDeathLight: {fileID: 190320, guid: 1b14ff513f64b5c47a24d2bcf4e709e7, type: 2}
   corruptionEffect: {fileID: 116714}
+  flySmokeParticles: {fileID: 0}
+  onHitGroundParticles: {fileID: 0}
   minimumDistanceSeePlayer: 50
   layersToFindCollision:
     serializedVersion: 2
@@ -3472,6 +3476,8 @@ MonoBehaviour:
   timeToChangeBehaviour: .100000001
   timeToDie: 2
   isForCinematic: 0
+  hitResistance: 3
+  isUnthrowable: 0
   isDead: 0
   jumpingAttack: 12
   burrowAttack: 11

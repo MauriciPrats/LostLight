@@ -170,6 +170,7 @@ public class CameraFollowingPlayer : MonoBehaviour {
 			}
 		}
 
+
 		float zProportion = Mathf.Abs (transform.position.z - originalZ) / Mathf.Abs (distanceCameraOnSpaceJump - originalZ);
 		GameManager.setGrassPorcentualLevel (zProportion);
 
