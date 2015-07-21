@@ -88,7 +88,7 @@ public static class GameManager{
 	public static void loseGame(){
 		GUIManager.deactivatePlayingGUI ();
 		isGameEnded = true;
-		GUIManager.fadeInWithAction(rebuildGameFromGameState,Menu.YouLostMenu);
+		GUIManager.fadeInWithAction(restartGame,Menu.YouLostMenu);
 	}
 
 	public static void winGame(){
@@ -111,8 +111,10 @@ public static class GameManager{
 	}
 
 	public static void restartGame(){
+		rebuildGameFromGameState ();
 		isGameEnded = false;
-		GUIManager.activatePlayingGUIWithFadeIn();
+		//GUIManager.activatePlayingGUIWithFadeIn();
+		GUIManager.fadeOutChangeMenuFadeIn (Menu.None);
 	}
 
 

@@ -184,11 +184,18 @@ public class PlanetSpawnerManager : MonoBehaviour {
 		}
 	}*/
 
+	private IEnumerator SpawnEnemyWithDelay(GameObject enemy,Vector3 position){
+		yield return new WaitForSeconds(3f);
+		SpawnEnemy (enemy, position);
+	}
+
 	public void onEnemyDespawned(GameObject enemy){
 		if(isActive){
 			enemy.GetComponent<IAController>().interruptAttack();
 			Vector3 spawnPoint = GameManager.player.transform.position + GameManager.player.transform.up * 3f;
-			SpawnEnemy(enemy,spawnPoint);
+			enemy.SetActive(false);
+			StartCoroutine(SpawnEnemyWithDelay(enemy,spawnPoint));
+			//SpawnEnemy(enemy,spawnPoint);
 		}else{
 			onEnemyDead(enemy);
 			Debug.Log(currentEnemies.Count);
@@ -213,13 +220,15 @@ public class PlanetSpawnerManager : MonoBehaviour {
 	}
 
 	public void deactivate(){
-		if(!isFinished){
-			accumulatedPoints = 0;
-			currentWave = 0;
-			ongoingCurrentWave = false;
-			timerSpawn = 0f;
-			GUIManager.deactivateCorruptionBar();
-			currentEnemies = new List<GameObject>(0);
+		if(isActive){
+			if(!isFinished){
+				accumulatedPoints = 0;
+				currentWave = 0;
+				ongoingCurrentWave = false;
+				timerSpawn = 0f;
+				GUIManager.deactivateCorruptionBarC();
+				currentEnemies = new List<GameObject>(0);
+			}
 		}
 		isActive = false;
 	}
