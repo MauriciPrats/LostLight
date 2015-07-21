@@ -444,6 +444,7 @@ GameObject:
   - 136: {fileID: 13632836}
   - 114: {fileID: 11439962}
   - 114: {fileID: 11431640}
+  - 114: {fileID: 11411244}
   m_Layer: 10
   m_Name: Rat
   m_TagString: Enemy
@@ -3342,6 +3343,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 5
+--- !u!114 &11411244
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 120254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99727fa224acbeb4ba3d8c17d8fb9db1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11429470
 MonoBehaviour:
   m_ObjectHideFlags: 1

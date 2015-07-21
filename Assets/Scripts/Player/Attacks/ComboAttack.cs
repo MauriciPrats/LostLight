@@ -18,6 +18,7 @@ public class ComboAttack : Attack, AnimationSubscriber {
 	private List<GameObject> enemiesHit;
 	private bool hasHitEnemy;
 	private bool isComboing;
+	private SlashController slashController;
 	private string[] correspondancesComboBodyPart = {"Weapon","Leg","Weapon","Weapon","Weapon","Fist"};
 	private bool lastEnded = true;
 	char[] comboNumberSeparator = { '-' };
@@ -36,6 +37,7 @@ public class ComboAttack : Attack, AnimationSubscriber {
 		attackColliderLeg = GameManager.player.GetComponent<PlayerController> ().playerLegObject.GetComponent<AttackCollider> ();
 		attackColliderFist = GameManager.player.GetComponent<PlayerController> ().playerFistObject.GetComponent<AttackCollider> ();
 		weaponEffects = GameManager.player.GetComponent<PlayerController>().weapon.GetComponentInChildren<Xft.XWeaponTrail>();
+		slashController = GameManager.player.GetComponent<PlayerController>().weapon.GetComponentInChildren<SlashController>();
 		enemiesHit = new List<GameObject> (0);
 		//weaponEffects.StopSmoothly(0.1f);
 	}
@@ -44,7 +46,12 @@ public class ComboAttack : Attack, AnimationSubscriber {
 	public override void enemyCollisionEnter(GameObject enemy,Vector3 point) {
 		if(!enemiesHit.Contains(enemy) && !enemy.GetComponent<IAController>().isDead){
 			enemiesHit.Add(enemy);
-			enemy.GetComponent<IAController>().getHurt(1,point);
+			if(correspondancesComboBodyPart [combosteep - 1].Equals ("Weapon")){
+				enemy.GetComponent<IAController>().getHurt(1,point,false);
+			}else{
+				enemy.GetComponent<IAController>().getHurt(1,point,true);
+			}
+
 			enemy.GetComponent<IAController>().hitCanSendFlying();
 			GameManager.comboManager.addCombo ();
 			
@@ -192,6 +199,10 @@ public class ComboAttack : Attack, AnimationSubscriber {
 			case "done":
 				//Debug.Log("done "+Time.time);
 				endCombo();
+				break;
+			case "doSlash":
+				//Debug.Log("done "+Time.time);
+				slashController.doSlash();
 				break;
 			default: 
 			break;

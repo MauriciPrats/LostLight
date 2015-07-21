@@ -10,7 +10,13 @@ public class SpawnBall : MonoBehaviour {
 	private float timer = 0f;
 	// Use this for initialization
 	void Start () {
-	
+		GetComponent<ParticleSystem> ().Stop ();
+	}
+
+	void OnCollisionEnter(Collision collision){
+		if(collision.gameObject.layer.Equals(LayerMask.NameToLayer("Planets"))){
+			GetComponent<ParticleSystem> ().Play ();
+		}
 	}
 	
 	// Update is called once per frame

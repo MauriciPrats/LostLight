@@ -461,6 +461,7 @@ GameObject:
   - 136: {fileID: 13654672}
   - 114: {fileID: 11410488}
   - 114: {fileID: 11437682}
+  - 114: {fileID: 11419010}
   m_Layer: 10
   m_Name: Crane
   m_TagString: Enemy
@@ -1734,6 +1735,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da29e90efa018984286932e5ea7ee710, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11419010
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 152610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99727fa224acbeb4ba3d8c17d8fb9db1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &11421472

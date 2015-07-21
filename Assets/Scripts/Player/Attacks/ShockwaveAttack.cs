@@ -26,7 +26,7 @@ public class ShockwaveAttack : Attack,AnimationSubscriber {
 		//If it's an enemy we damage him
 		if(!enemiesHit.Contains(enemy) && !enemy.GetComponent<IAController>().isDead){
 			enemiesHit.Add(enemy);
-			enemy.GetComponent<IAController>().getHurt(damage,enemy.transform.position);
+			enemy.GetComponent<IAController>().getHurt(damage,enemy.transform.position,true);
 			float radius = areaEffect.GetComponent<SphereCollider> ().radius * endScaleOfAttack;
 			Vector3 position = areaEffect.transform.position;
 			enemy.GetComponent<Rigidbody>().velocity = ((enemy.transform.position - chargeEffect.transform.position).normalized + enemy.transform.up).normalized*forceExplosion;

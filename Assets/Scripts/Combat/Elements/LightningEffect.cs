@@ -29,7 +29,7 @@ public class LightningEffect : MonoBehaviour {
 		elementsGoneThroughLightning.Add (startLightningElement);
 		finished = false;
 		jumpsDone = 0;
-		startLightningElement.GetComponent<IAController> ().getHurt (damage,actualPosition);
+		startLightningElement.GetComponent<IAController> ().getHurt (damage,actualPosition,true);
 		actualPosition = startLightningElement.GetComponent<Rigidbody> ().worldCenterOfMass;
 		foreach(GameObject trail in trails){
 			trail.transform.position = actualPosition;
@@ -48,7 +48,7 @@ public class LightningEffect : MonoBehaviour {
 		if(actualObjective!=null){
 			if (Vector3.Distance (trails[0].transform.position,actualObjective.GetComponent<Rigidbody>().worldCenterOfMass) < distanceToMove) {
 				if(jumpsDone<elementsCanJumpTo){
-					actualObjective.GetComponent<IAController>().getHurt(damage,actualPosition);
+					actualObjective.GetComponent<IAController>().getHurt(damage,actualPosition,true);
 					foreach(GameObject trail in trails){
 						trail.transform.position = actualObjective.GetComponent<Rigidbody> ().worldCenterOfMass;
 					}

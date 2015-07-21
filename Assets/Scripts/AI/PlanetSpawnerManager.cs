@@ -100,24 +100,28 @@ public class PlanetSpawnerManager : MonoBehaviour {
 		foreach(EnemyTypeAmmount enemyAmmount in wave.enemies){
 			for(int i = 0;i<enemyAmmount.ammount;i++){
 				GameObject enemy = GameObject.Instantiate(GameManager.enemyPrefabManager.getPrefab(enemyAmmount.type)) as GameObject;
-				EnemySpawned spawned = enemy.GetComponent<EnemySpawned>();
-				spawned.actionToCallOnDie = onEnemyDead;
-				spawned.actionToCallOnDespawn = onEnemyDespawned;
-				enemy.SetActive(false);
-
-				GameObject spawnBall = GameObject.Instantiate(GameManager.enemyPrefabManager.getSpawnBall()) as GameObject;
-
-				spawnBall.GetComponent<SpawnBall>().spawned = enemy;
-				float forceX = Random.value-0.5f;
-				float forceY = Random.value-0.5f;
-				Vector3 force = new Vector3(forceX,forceY,0f) * 4f;
-				spawnBall.transform.position = spawnPoint + force;
-				spawnBall.GetComponent<Rigidbody>().AddForce(force,ForceMode.Impulse);
+				SpawnEnemy(enemy,spawnPoint);
 				currentEnemies.Add(enemy);
 			}
 		}
 		
 		currentWave++;
+	}
+
+	private void SpawnEnemy(GameObject toSpawn,Vector3 position){
+		EnemySpawned spawned = toSpawn.GetComponent<EnemySpawned>();
+		spawned.actionToCallOnDie = onEnemyDead;
+		spawned.actionToCallOnDespawn = onEnemyDespawned;
+		toSpawn.SetActive(false);
+		
+		GameObject spawnBall = GameObject.Instantiate(GameManager.enemyPrefabManager.getSpawnBall()) as GameObject;
+		
+		spawnBall.GetComponent<SpawnBall>().spawned = toSpawn;
+		float forceX = Random.value-0.5f;
+		float forceY = Random.value-0.5f;
+		Vector3 force = new Vector3(forceX,forceY,0f) * 4f;
+		spawnBall.transform.position = position + force;
+		spawnBall.GetComponent<Rigidbody>().AddForce(force,ForceMode.Impulse);
 	}
 
 	/*private void addEnemyType(EnemyType type){
@@ -181,14 +185,15 @@ public class PlanetSpawnerManager : MonoBehaviour {
 	}*/
 
 	public void onEnemyDespawned(GameObject enemy){
-		//EnemySpawned enemySpawned = enemy.GetComponent<EnemySpawned> ();
-		//It has despawned because it's superfar away
-		//substractEnemyType (enemySpawned.enemyType);
-		/*currentEnemies.Remove(enemy);
-		if(currentEnemies.Count==0){
-			ongoingCurrentWave = false;
-		}*/
-		onEnemyDead (enemy);
+		if(isActive){
+			enemy.GetComponent<IAController>().interruptAttack();
+			Vector3 spawnPoint = GameManager.player.transform.position + GameManager.player.transform.up * 3f;
+			SpawnEnemy(enemy,spawnPoint);
+		}else{
+			onEnemyDead(enemy);
+			Debug.Log(currentEnemies.Count);
+			Destroy(enemy);
+		}
 	}
 
 
@@ -208,6 +213,14 @@ public class PlanetSpawnerManager : MonoBehaviour {
 	}
 
 	public void deactivate(){
+		if(!isFinished){
+			accumulatedPoints = 0;
+			currentWave = 0;
+			ongoingCurrentWave = false;
+			timerSpawn = 0f;
+			GUIManager.deactivateCorruptionBar();
+			currentEnemies = new List<GameObject>(0);
+		}
 		isActive = false;
 	}
 }

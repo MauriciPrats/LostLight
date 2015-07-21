@@ -25,7 +25,7 @@ public class LowAttack : Attack, AnimationSubscriber {
 	public override void enemyCollisionEnter(GameObject enemy,Vector3 point){
 		if(!enemiesHit.Contains(enemy) && !enemy.GetComponent<IAController>().isDead){
 			enemiesHit.Add(enemy);
-			enemy.GetComponent<IAController>().getHurt(damage,point);
+			enemy.GetComponent<IAController>().getHurt(damage,point,false);
 			enemy.GetComponent<IAController>().hitCanSendFlying();
 			Vector3 direction = enemy.GetComponent<Rigidbody>().worldCenterOfMass - GameManager.player.transform.position;
 			enemy.GetComponent<IAController>().sendFlyingByConsecutiveHits(direction * 3f);

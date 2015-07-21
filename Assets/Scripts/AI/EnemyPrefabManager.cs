@@ -5,6 +5,9 @@ public class EnemyPrefabManager : MonoBehaviour {
 
 	public GameObject[] enemyPrefabs;
 	public GameObject spawnBall;
+
+	public GameObject[] particlesOnContundentHit;
+	public GameObject[] particlesOnSlashingHit;
 	
 	void Awake(){
 		GameManager.registerEnemyPrefabManager (this);
@@ -24,4 +27,11 @@ public class EnemyPrefabManager : MonoBehaviour {
 		return spawnBall;
 	}
 
+	public GameObject[] getParticlesOnContundentHit(){
+		return particlesOnContundentHit;
+	}
+
+	public GameObject[] getParticlesOnSlashingHit(){
+		return particlesOnSlashingHit;
+	}
 }

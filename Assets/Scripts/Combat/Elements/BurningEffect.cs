@@ -29,7 +29,7 @@ public class BurningEffect : MonoBehaviour {
 			Destroy(gameObject);
 		}else if(tickTimer>=timeBetweenTicks){
 			tickTimer = 0f;
-			elementBurning.GetComponent<IAController>().getHurt(damagePerTick,transform.position);
+			elementBurning.GetComponent<IAController>().getHurt(damagePerTick,transform.position,true);
 		}
 
 	}

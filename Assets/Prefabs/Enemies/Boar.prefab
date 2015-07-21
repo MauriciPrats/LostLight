@@ -20,6 +20,7 @@ GameObject:
   - 136: {fileID: 13605186}
   - 114: {fileID: 11471412}
   - 114: {fileID: 11491190}
+  - 114: {fileID: 11467144}
   m_Layer: 10
   m_Name: Boar
   m_TagString: Enemy
@@ -1468,7 +1469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08a55b89b5e1ed245baa31759debe4dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onHitEffect: {fileID: 100000, guid: 12bcd11168a419d45b48549497198ad5, type: 2}
+  onHitEffect: {fileID: 178800, guid: 5c387df0365af8347a6256e79541c799, type: 2}
   secondOnHitEffect: {fileID: 181236, guid: 0f93f97fefeab5d46af3b913b7cbfeb3, type: 2}
   thirdOnHitEffect: {fileID: 138160, guid: 3c32aaf1e6513274b96031f57271f274, type: 2}
   onDeathEffects:
@@ -1494,6 +1495,7 @@ MonoBehaviour:
   timeToDie: 2
   isForCinematic: 0
   hitResistance: 3
+  isUnthrowable: 0
   isDead: 0
   frontAttack: 8
   chargeAttack: 9
@@ -1539,6 +1541,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   drag: 0
+  gravityMultiplyier: 1
 --- !u!114 &11400008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1565,6 +1568,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
+  noChangingDirection: 0
 --- !u!114 &11425218
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1582,6 +1586,17 @@ MonoBehaviour:
   currentAttack: {fileID: 0}
   blockGO: {fileID: 0}
   dashGO: {fileID: 0}
+--- !u!114 &11467144
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99727fa224acbeb4ba3d8c17d8fb9db1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11471412
 MonoBehaviour:
   m_ObjectHideFlags: 1

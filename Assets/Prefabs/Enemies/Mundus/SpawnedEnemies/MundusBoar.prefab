@@ -340,6 +340,7 @@ GameObject:
   - 136: {fileID: 13614030}
   - 114: {fileID: 11467328}
   - 114: {fileID: 11455106}
+  - 114: {fileID: 11431886}
   m_Layer: 10
   m_Name: MundusBoar
   m_TagString: Enemy
@@ -1456,6 +1457,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainBody: {fileID: 144914}
+--- !u!114 &11431886
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 144914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99727fa224acbeb4ba3d8c17d8fb9db1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11453464
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1471,6 +1483,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   drag: 0
+  gravityMultiplyier: 1
 --- !u!114 &11455106
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1555,6 +1568,7 @@ MonoBehaviour:
   timeToDie: 2
   isForCinematic: 0
   hitResistance: 3
+  isUnthrowable: 0
   isDead: 0
   frontAttack: 8
   chargeAttack: 9

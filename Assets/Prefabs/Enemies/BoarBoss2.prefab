@@ -557,6 +557,7 @@ GameObject:
   - 114: {fileID: 11440792}
   - 114: {fileID: 11492718}
   - 114: {fileID: 11416076}
+  - 114: {fileID: 11480128}
   m_Layer: 10
   m_Name: BoarBoss2
   m_TagString: Enemy
@@ -1634,6 +1635,17 @@ MonoBehaviour:
   maxDistanceMeleeAttack: .200000003
   phase1Duration: 10
   stunDuration: 5
+--- !u!114 &11480128
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 163150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99727fa224acbeb4ba3d8c17d8fb9db1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11492718
 MonoBehaviour:
   m_ObjectHideFlags: 1

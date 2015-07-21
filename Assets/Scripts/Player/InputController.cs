@@ -170,7 +170,10 @@ public class InputController : MonoBehaviour {
 				//If it's not enabled, interrupt any ongoing cinematic 
 				Planet actualPlanet = GameManager.playerSpaceBody.getClosestPlanet();
 				if(actualPlanet!=null && actualPlanet.isPlanetCorrupted()){
-					(actualPlanet as PlanetCorrupted).getPlanetEventsManager().interrupt();
+					PlanetEventsManager pem = (actualPlanet as PlanetCorrupted).getPlanetEventsManager();
+					if(pem!=null){
+						pem.interrupt();
+					}
 				}
 			}
 		}
