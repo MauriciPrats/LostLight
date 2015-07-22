@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-public enum EnemyType{Boar,Rat,Monkey,Penguin,Crane,None}
+public enum EnemyType{Boar,BoarBoss,Rat,Monkey,Penguin,Crane,None}
 
 [RequireComponent (typeof (WalkOnMultiplePaths))]
 public class IAController : MonoBehaviour {
@@ -43,7 +43,7 @@ public class IAController : MonoBehaviour {
 	private float timeToJump = 0f;
 	private float lastTimeCheckedClosestThingInFront = 0f;
 	private float cooldownRaycastingClosestThingInFront = 0.1f;
-	private GameObject[] hitParticles;
+	//private GameObject[] hitParticles;
 	private GameObject hitGroundParticles;
 	private GameObject flyParticles;
 	private bool hasBeenInitialized = false;
@@ -53,6 +53,7 @@ public class IAController : MonoBehaviour {
 	protected WalkOnMultiplePaths walkOnMultiplePaths;
 	protected CharacterAttackController attackController;
 	protected GameObject player;
+	private EnemyOnHitParticlesController enemyOnHitParticlesController;
 
 	//State of the AI
 	protected float closestThingInFront = 0f;
@@ -85,12 +86,13 @@ public class IAController : MonoBehaviour {
 		isDead = false;
 		walkOnMultiplePaths = GetComponent<WalkOnMultiplePaths> ();
 
+		enemyOnHitParticlesController = GetComponent<EnemyOnHitParticlesController> ();
 		//Particle Inicialization
-		hitParticles = new GameObject[3];
+		//hitParticles = new GameObject[3];
 		
-		hitParticles[0] = GameObject.Instantiate (onHitEffect) as GameObject;
-		hitParticles[1] = GameObject.Instantiate (secondOnHitEffect) as GameObject;
-		hitParticles[2] = GameObject.Instantiate (thirdOnHitEffect) as GameObject;
+		//hitParticles[0] = GameObject.Instantiate (onHitEffect) as GameObject;
+		//hitParticles[1] = GameObject.Instantiate (secondOnHitEffect) as GameObject;
+		//hitParticles[2] = GameObject.Instantiate (thirdOnHitEffect) as GameObject;
 		flyParticles = GameObject.Instantiate (flySmokeParticles) as GameObject;
 		flyParticles.transform.parent = transform;
 		flyParticles.transform.position = GetComponent<Rigidbody> ().worldCenterOfMass;
@@ -98,9 +100,9 @@ public class IAController : MonoBehaviour {
 		hitGroundParticles.transform.parent = transform;
 		hitGroundParticles.transform.position = GetComponent<Rigidbody> ().worldCenterOfMass;
 		
-		foreach (GameObject particles in hitParticles) {
+		/*foreach (GameObject particles in hitParticles) {
 			particles.transform.parent = gameObject.transform;
-		}
+		}*/
 	}
 
 	//Gets the distance of the closest thing that the enemy has in front (path, enemy or player)
@@ -388,17 +390,17 @@ public class IAController : MonoBehaviour {
 
 
 	//Method to receive damage (Play particles, sounds effects, etc)
-	public void getHurt(int hurtAmmount,Vector3 hitPosition){
+	public void getHurt(int hurtAmmount,Vector3 hitPosition,bool contundent){
 
 		if(!isDead && virtualGetHurt()){
 			Vector3 center = GetComponent<Rigidbody>().worldCenterOfMass;
 			Vector3 position = hitPosition;
 			Vector3 forwardDirection = center - GameManager.player.GetComponent<Rigidbody>().worldCenterOfMass;
 
-			foreach (GameObject particles in hitParticles) {
-				particles.transform.position = position;
-				particles.transform.forward = forwardDirection;
-				particles.GetComponent<ParticleSystem>().Play();
+			if(contundent){
+				enemyOnHitParticlesController.contundentHit(position,forwardDirection);
+			}else{
+				enemyOnHitParticlesController.slashingHit(position,forwardDirection);
 			}
 			
 			GetComponent<Killable> ().TakeDamage (hurtAmmount);
@@ -505,7 +507,7 @@ public class IAController : MonoBehaviour {
 				}
 				newLight.GetComponent<TrailRenderer>().material.color = color;
 			}
-			(GameManager.playerSpaceBody.getClosestPlanet() as PlanetCorrupted).getPlanetSpawnerManager().incrementAccumulatedPoints(GetComponent<EnemySpawned>().pointsCost);
+			//(GameManager.playerSpaceBody.getClosestPlanet() as PlanetCorrupted).getPlanetSpawnerManager().incrementAccumulatedPoints(GetComponent<EnemySpawned>().pointsCost);
 		}
 	}
 

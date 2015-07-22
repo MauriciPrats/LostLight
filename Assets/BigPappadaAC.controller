@@ -6254,7 +6254,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Attack2
-  m_Speed: 1.25
+  m_Speed: .75
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 110188134}
@@ -6816,7 +6816,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Attack1
-  m_Speed: 1.25
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 110150134}
@@ -7911,7 +7911,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Attack 6
-  m_Speed: 1.25
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 110160054}
@@ -8825,16 +8825,16 @@ AnimatorStateMachine:
       first: {fileID: 110747896}
       second: []
     data:
-      first: {fileID: 110708838}
-      second: []
-    data:
-      first: {fileID: 110754998}
-      second: []
-    data:
       first: {fileID: 110762358}
       second: []
     data:
       first: {fileID: 110727736}
+      second: []
+    data:
+      first: {fileID: 110708838}
+      second: []
+    data:
+      first: {fileID: 110754998}
       second: []
     data:
       first: {fileID: 110710716}

@@ -3,7 +3,6 @@ using System.Collections;
 
 [RequireComponent (typeof (PlanetSpawnerManager))]
 [RequireComponent (typeof (PlanetCorruption))]
-[RequireComponent (typeof (PlanetEventsManager))]
 public class PlanetCorrupted : Planet {
 	private PlanetSpawnerManager planetSpawnerManager;
 	private PlanetCorruption planetCorruption;

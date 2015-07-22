@@ -1428,6 +1428,7 @@ GameObject:
   - 114: {fileID: 11418008}
   - 114: {fileID: 11432970}
   - 136: {fileID: 13697020}
+  - 114: {fileID: 11466268}
   m_Layer: 10
   m_Name: Mundus
   m_TagString: Enemy
@@ -2071,7 +2072,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 134742}
-  m_LocalRotation: {x: .53737247, y: -.121855706, z: .180750161, w: .814684927}
+  m_LocalRotation: {x: .53737241, y: -.121855691, z: .180750147, w: .814684808}
   m_LocalPosition: {x: -0, y: 1.0839628, z: -3.7252903e-08}
   m_LocalScale: {x: .99999994, y: .999999821, z: .99999994}
   m_Children:
@@ -3628,6 +3629,17 @@ MonoBehaviour:
   ballOfDeathAttack: 19
   spawningAttack: 20
   fisureAttack: 21
+--- !u!114 &11466268
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 186562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99727fa224acbeb4ba3d8c17d8fb9db1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11466526
 MonoBehaviour:
   m_ObjectHideFlags: 1

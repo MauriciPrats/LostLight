@@ -63,7 +63,7 @@ public class IAControllerBoarBoss : IAController {
 		}else if (phase2) {
 			actualBehaviour = ActualBehaviour.ChargeAttack;
 			timeInPhase2 += Time.deltaTime;
-			Debug.Log (timeInPhase2);
+			//Debug.Log (timeInPhase2);
 			if (timeInPhase2 >= 6.5f){
 				timeInPhase2 = 0;
 				phase1 = false;
@@ -73,7 +73,7 @@ public class IAControllerBoarBoss : IAController {
 		} else if(stunned) {
 			actualBehaviour = ActualBehaviour.Stunned;
 			timeStunned += Time.deltaTime;
-			Debug.Log (timeStunned);
+			//Debug.Log (timeStunned);
 			if (timeStunned >= stunDuration ) {
 				timeStunned = 0;
 				phase1 = true;

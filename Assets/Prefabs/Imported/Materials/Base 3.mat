@@ -7,8 +7,8 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Base 3
-  m_Shader: {fileID: 4800000, guid: 76374158b4c4e5744b394e9290aae693, type: 3}
-  m_ShaderKeywords: _COLOR_ON _OUTL_ON _TEX_ON
+  m_Shader: {fileID: 4800000, guid: a021b6bfcab3cc44fbf4bc8ded279bae, type: 3}
+  m_ShaderKeywords: _COLOR_ON _DISS_ON _OUTL_ON _TEX_ON
   m_LightmapFlags: 5
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -31,6 +31,13 @@ Material:
       data:
         first:
           name: _DetailNormalMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _DissolveNoise
         second:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
@@ -108,6 +115,14 @@ Material:
         first:
           name: _TintColor
         second: 1
+      data:
+        first:
+          name: _Dissolution
+        second: 1
+      data:
+        first:
+          name: _BurningWidth
+        second: .0500000007
       data:
         first:
           name: _Parallax
@@ -188,6 +203,10 @@ Material:
         first:
           name: _TrOp
         second: 0
+      data:
+        first:
+          name: _DissolveThreshold
+        second: 1
     m_Colors:
       data:
         first:
@@ -201,6 +220,10 @@ Material:
         first:
           name: _OutlineColor
         second: {r: 0, g: 0, b: 0, a: 1}
+      data:
+        first:
+          name: _BurningColor
+        second: {r: 1, g: 1, b: 1, a: 1}
       data:
         first:
           name: _EmissionColorUI

@@ -28,7 +28,7 @@ public class GuardBreakAttack : Attack {
 	public override void enemyCollisionEnter(GameObject enemy,Vector3 point){
 		if(!enemiesHit.Contains(enemy) && !enemy.GetComponent<IAController>().isDead){
 			enemiesHit.Add(enemy);
-			enemy.GetComponent<IAController>().getHurt(damage,(enemy.transform.position));
+			enemy.GetComponent<IAController>().getHurt(damage,(enemy.transform.position),true);
 			enemy.GetComponent<IAController> ().breakGuard ();
 			GameManager.comboManager.addCombo ();
 			if(!hasHitEnemy){

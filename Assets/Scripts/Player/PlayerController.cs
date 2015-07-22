@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour {
 	public GameObject playerLegObject;
 	public GameObject playerFistObject;
 	public GameObject playerTongueColliderObject;
+	public GameObject particlesOnDematerialize;
+	public GameObject particlesOnMaterialize;
 	public float timeBetweenDamageWhenNotBreathing = 0.5f;
 	public int damageWhenNotBreathing = 1;
 	//public float minimumBreathingBubbleScale = 6f;
@@ -62,6 +64,8 @@ public class PlayerController : MonoBehaviour {
 	private bool canDrownInSpace = true;
 	private bool isFallingDown = false;
 	public GameObject getHurtBigPappada;
+
+	private bool isDematerialized = false;
 	void Awake(){
 		GameManager.registerPlayer (gameObject);	
 	}
@@ -124,6 +128,10 @@ public class PlayerController : MonoBehaviour {
 		flyParticles.Stop();
 		body.setIsGettingOutOfOrbit (false);
 		canDrownInSpace = true;
+
+		if(isDematerialized){
+			StartCoroutine(rematerialize());
+		}
 	}
 
 	void Update() {
@@ -306,10 +314,48 @@ public class PlayerController : MonoBehaviour {
 				isInvulnerable = true;
 				GameManager.audioManager.StopSong();
 				GameManager.audioManager.PlayStableSound(9);
-				GameManager.loseGame ();
+				StartCoroutine(dissolveAndLose());
 			}
 		}
 		StartCoroutine ("takeHit");
+	}
+
+	private IEnumerator dissolveAndLose(){
+		GameManager.inputController.disableInputController ();
+		bpAnimator.gameObject.layer = LayerMask.NameToLayer ("Dashing");
+		yield return new WaitForSeconds (0.5f);
+		particlesOnDematerialize.GetComponent<ParticleSystem> ().Play ();
+		float timer = 0f;
+		float timeToDissolve = 1f;
+		while(timer<timeToDissolve){
+			timer+=Time.deltaTime;
+			float ratio = timer/timeToDissolve;
+			GetComponent<Dissolve>().setDisolution(1f-ratio);
+			yield return null;
+		}
+		isDematerialized = true;
+
+		GameManager.loseGame ();
+	}
+
+	private IEnumerator rematerialize(){
+
+		isInvulnerable = true;
+		yield return new WaitForSeconds (1f);
+		particlesOnMaterialize.GetComponent<ParticleSystem> ().Play ();
+		yield return new WaitForSeconds (0.2f);
+		float timer = 0f;
+		float timeToDissolve = 1f;
+		while(timer<timeToDissolve){
+			timer+=Time.deltaTime;
+			float ratio = timer/timeToDissolve;
+			GetComponent<Dissolve>().setDisolution(ratio);
+			yield return null;
+		}
+		isDematerialized = false;
+		isInvulnerable = false; 
+		bpAnimator.gameObject.layer = LayerMask.NameToLayer ("Player");
+		GameManager.inputController.enableInputController();
 	}
 
 	//Method that makes the player fall, becoming invulnerable for a while

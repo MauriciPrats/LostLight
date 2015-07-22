@@ -143,7 +143,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 	IEnumerator boarHuntingCinematic(){
 		if(isEnabled){
 			boarHuntingGO.GetComponent<FirstPlanetBoarHunting>().makeBoarGoAway();
-			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Un Jabali!", 2f, false, false);
+			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("A boar!", 2f, false, false);
 			yield return null;
 		}
 	}
@@ -155,9 +155,9 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			GameManager.inputController.disableInputController ();
 			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Mh...", 1f, false, false);
 			yield return StartCoroutine(WaitInterruptable (1f,bigPappadaDialogue));
-			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Estas piedras \n bloquean el camino", 3f, false, false);
+			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("This rocks \n are in the way", 3f, false, false);
 			yield return StartCoroutine(WaitInterruptable (3f,bigPappadaDialogue));
-			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Tendre que encontrar \n una forma de romperlas! ", 3f, false, false);
+			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("I must find a \n way to find them! ", 3f, false, false);
 			yield return StartCoroutine(WaitInterruptable (3f,bigPappadaDialogue));
 			GameManager.inputController.enableInputController ();
 			GUIManager.setTutorialText("Press 'X' to attack \n and clear the path!");

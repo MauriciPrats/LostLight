@@ -113,12 +113,16 @@ Material:
         second: 0
       data:
         first:
+          name: _TintColor
+        second: 1
+      data:
+        first:
           name: _OutlineSize
         second: 10
       data:
         first:
           name: _YCutOut
-        second: 0
+        second: 1111
       data:
         first:
           name: _TileSize
@@ -163,10 +167,6 @@ Material:
         first:
           name: _Metallic
         second: 0
-      data:
-        first:
-          name: _TintColor
-        second: 1
       data:
         first:
           name: _Cull

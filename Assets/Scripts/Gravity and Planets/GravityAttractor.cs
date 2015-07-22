@@ -8,6 +8,9 @@ public class GravityAttractor : MonoBehaviour {
 	public GameObject athmospherePrefab;
 	private GameObject athmosphere;
 	public GameObject athmosphereMinimapPrefab;
+	public bool separateGravityAndAir = false;
+	public float airDistance = 0f;
+
 	public float gravityDistance = Constants.GRAVITY_DISTANCE_FROM_PLANET_FLOOR;
 
 	private float sphereRadius;

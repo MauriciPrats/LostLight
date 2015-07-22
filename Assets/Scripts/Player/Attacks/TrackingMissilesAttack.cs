@@ -36,7 +36,7 @@ public class TrackingMissilesAttack : Attack,AnimationSubscriber {
 	public void enemyHit(GameObject enemy){
 		if(!enemiesHit.Contains(enemy) && !enemy.GetComponent<IAController>().isDead){
 			enemiesHit.Add(enemy);
-			enemy.GetComponent<IAController>().getHurt(damage,(enemy.transform.position));
+			enemy.GetComponent<IAController>().getHurt(damage,(enemy.transform.position),true);
 			GameManager.comboManager.addCombo ();
 			if(!elementAttack.Equals(ElementType.None)){
 				AttackElementsManager.getElement(elementAttack).doEffect(enemy);

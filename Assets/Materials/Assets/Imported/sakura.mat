@@ -120,12 +120,20 @@ Material:
         second: 0
       data:
         first:
+          name: _InvFade
+        second: 1
+      data:
+        first:
+          name: _TintColor
+        second: 0
+      data:
+        first:
           name: _OutlineSize
         second: 10
       data:
         first:
           name: _YCutOut
-        second: 0
+        second: 1111
       data:
         first:
           name: _Dissolution
@@ -138,6 +146,10 @@ Material:
         first:
           name: _TileSize
         second: .140000001
+      data:
+        first:
+          name: _DissolveThreshold
+        second: 1
       data:
         first:
           name: _Parallax
@@ -177,10 +189,6 @@ Material:
       data:
         first:
           name: _Metallic
-        second: 0
-      data:
-        first:
-          name: _TintColor
         second: 0
       data:
         first:
@@ -225,14 +233,6 @@ Material:
       data:
         first:
           name: _Corruption
-        second: 1
-      data:
-        first:
-          name: _DissolveThreshold
-        second: 1
-      data:
-        first:
-          name: _InvFade
         second: 1
       data:
         first:

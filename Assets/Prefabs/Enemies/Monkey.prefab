@@ -172,6 +172,7 @@ GameObject:
   - 136: {fileID: 13616612}
   - 114: {fileID: 11478882}
   - 114: {fileID: 11475394}
+  - 114: {fileID: 11420268}
   m_Layer: 10
   m_Name: Monkey
   m_TagString: Enemy
@@ -1476,6 +1477,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11420268
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 114598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99727fa224acbeb4ba3d8c17d8fb9db1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11434396
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1495,6 +1507,8 @@ MonoBehaviour:
   - {fileID: 117406}
   onDeathLight: {fileID: 190320, guid: 1b14ff513f64b5c47a24d2bcf4e709e7, type: 2}
   corruptionEffect: {fileID: 0}
+  flySmokeParticles: {fileID: 0}
+  onHitGroundParticles: {fileID: 0}
   minimumDistanceSeePlayer: 50
   layersToFindCollision:
     serializedVersion: 2
@@ -1509,6 +1523,9 @@ MonoBehaviour:
   attackChance: .200000003
   timeToChangeBehaviour: .100000001
   timeToDie: 2
+  isForCinematic: 0
+  hitResistance: 3
+  isUnthrowable: 0
   isDead: 0
   rangedAttack: 10
   minimumDistanceInFront: .800000012
@@ -1559,6 +1576,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   drag: 0
+  gravityMultiplyier: 1
 --- !u!114 &11443264
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1572,6 +1590,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attacksGO:
   - {fileID: 199866, guid: e4d488345cc70e74ea2dfd05f9be9ce7, type: 2}
+  currentAttack: {fileID: 0}
   blockGO: {fileID: 0}
   dashGO: {fileID: 0}
 --- !u!114 &11460910
@@ -1640,6 +1659,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+  noChangingDirection: 0
 --- !u!136 &13616612
 CapsuleCollider:
   m_ObjectHideFlags: 1

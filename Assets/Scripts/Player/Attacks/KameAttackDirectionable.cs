@@ -75,7 +75,7 @@ public class KameAttackDirectionable : Attack,AnimationSubscriber {
 		if(!enemiesHit.Contains(enemy) && !enemy.GetComponent<IAController>().isDead){
 			enemiesHit.Add(enemy);
 			//If it's an enemy we damage him
-			enemy.GetComponent<IAController>().getHurt(damage,point);
+			enemy.GetComponent<IAController>().getHurt(damage,point,true);
 			
 			//We find the radius of areaEffect
 			//enemy.GetComponent<Rigidbody>().AddExplosionForce(forceExplosion,transform.position,1f);

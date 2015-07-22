@@ -9,7 +9,7 @@ public class WeaponColider : MonoBehaviour {
 	void OnTriggerEnter(Collider other) {
 		if (other.tag == "Enemy") {
 			IAController enemy = other.GetComponent<IAController>();
-			enemy.getHurt(damage,other.ClosestPointOnBounds(transform.position));
+			enemy.getHurt(damage,other.ClosestPointOnBounds(transform.position),true);
 		}
 	}
 	

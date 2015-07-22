@@ -461,6 +461,7 @@ GameObject:
   - 136: {fileID: 13654672}
   - 114: {fileID: 11410488}
   - 114: {fileID: 11437682}
+  - 114: {fileID: 11419010}
   m_Layer: 10
   m_Name: Crane
   m_TagString: Enemy
@@ -1736,6 +1737,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da29e90efa018984286932e5ea7ee710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11419010
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 152610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99727fa224acbeb4ba3d8c17d8fb9db1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11421472
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1773,6 +1785,7 @@ MonoBehaviour:
   timeToDie: 2
   isForCinematic: 0
   hitResistance: 3
+  isUnthrowable: 0
   isDead: 0
   meleeAttack: 16
   flyingAttack: 15
@@ -1824,7 +1837,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointsCost: 4
   maximumEnemiesInPlanet: 0
-  enemyType: 4
+  enemyType: 5
 --- !u!114 &11434042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1878,6 +1891,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
+  noChangingDirection: 0
 --- !u!114 &11479946
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1905,6 +1919,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   drag: 0
+  gravityMultiplyier: 1
 --- !u!136 &13654672
 CapsuleCollider:
   m_ObjectHideFlags: 1
