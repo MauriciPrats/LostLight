@@ -156,7 +156,7 @@ public class GUIManager : MonoBehaviour {
 	public static void registerMainMenu(GameObject mainMenuGO){
 		if(mainMenuGO!=null && mainMenuO == null){
 			mainMenuO = GameObject.Instantiate (mainMenuGO) as GameObject;
-			mainMenuO.transform.parent = allMenus.transform;
+			mainMenuO.transform.SetParent(allMenus.transform);
 			mainMenuO.SetActive (false);
 		}
 	}
@@ -164,7 +164,7 @@ public class GUIManager : MonoBehaviour {
 	public static void registerIntroScene(GameObject introSceneGO) {
 		if(introSceneGO!=null && introSceneO == null){
 			introSceneO = GameObject.Instantiate (introSceneGO) as GameObject;
-			introSceneO.transform.parent = allMenus.transform;
+			introSceneO.transform.SetParent(allMenus.transform);
 			introSceneO.SetActive (false);
 		}
 	
@@ -173,7 +173,7 @@ public class GUIManager : MonoBehaviour {
 	public static void registerControlsMenu(GameObject controlsGO){
 		if(controlsGO!=null && controlsO == null){
 			controlsO = GameObject.Instantiate (controlsGO) as GameObject;
-			controlsO.transform.parent = allMenus.transform;
+			controlsO.transform.SetParent(allMenus.transform);
 			controlsO.SetActive (false);
 		}
 	}
@@ -182,7 +182,7 @@ public class GUIManager : MonoBehaviour {
 	public static void registerCreditsMenu(GameObject creditsGO){
 		if(creditsGO!=null && creditsO == null){
 			creditsO = GameObject.Instantiate (creditsGO) as GameObject;
-			creditsO.transform.parent = allMenus.transform;
+			creditsO.transform.SetParent(allMenus.transform);
 			creditsO.SetActive (false);
 		}
 	}
@@ -190,7 +190,7 @@ public class GUIManager : MonoBehaviour {
 	public static void registerYouLostMenu(GameObject youLostGO){
 		if(youLostGO!=null && youLostO == null){
 			youLostO = GameObject.Instantiate (youLostGO) as GameObject;
-			youLostO.transform.parent = allMenus.transform;
+			youLostO.transform.SetParent(allMenus.transform);
 			youLostO.SetActive (false);
 		}
 	}
@@ -198,7 +198,7 @@ public class GUIManager : MonoBehaviour {
 	public static void registerYouWonMenu(GameObject youWonGO){
 		if(youWonGO!=null && youWonO == null){
 			youWonO = GameObject.Instantiate (youWonGO) as GameObject;
-			youWonO.transform.parent = allMenus.transform;
+			youWonO.transform.SetParent(allMenus.transform);
 			youWonO.SetActive (false);
 		}
 	}
@@ -206,7 +206,7 @@ public class GUIManager : MonoBehaviour {
 	public static void registerStartingSplashScreen(GameObject startingSplashScreenGO){
 		if(startingSplashScreenGO!=null && startingSplashScreenO == null){
 			startingSplashScreenO = GameObject.Instantiate (startingSplashScreenGO) as GameObject;
-			startingSplashScreenO.transform.parent = allMenus.transform;
+			startingSplashScreenO.transform.SetParent(allMenus.transform);
 			startingSplashScreenO.SetActive (false);
 		}
 	}
@@ -214,7 +214,7 @@ public class GUIManager : MonoBehaviour {
 	public static void registerCraftingMenu(GameObject craftingMenuGO){
 		if(craftingMenuGO!=null && craftingMenuO == null){
 			craftingMenuO = GameObject.Instantiate (craftingMenuGO) as GameObject;
-			craftingMenuO.transform.parent = allMenus.transform;
+			craftingMenuO.transform.SetParent(allMenus.transform);
 			craftingMenuO.SetActive (false);
 		}
 	}
@@ -222,7 +222,7 @@ public class GUIManager : MonoBehaviour {
 	public static void registerInteractuablePopup(GameObject interactuablePopupGO){
 		if(interactuablePopupGO!=null && interactuablePopupO == null){
 			interactuablePopupO = GameObject.Instantiate (interactuablePopupGO) as GameObject;
-			interactuablePopupO.transform.parent = allMenus.transform;
+			interactuablePopupO.transform.SetParent(allMenus.transform);
 			interactuablePopupO.SetActive (false);
 		}
 	}
@@ -230,7 +230,7 @@ public class GUIManager : MonoBehaviour {
 	public static void registerOnPauseMenu(GameObject onPauseMenuGO){
 		if(onPauseMenuGO!=null && onPauseMenuO == null){
 			onPauseMenuO = GameObject.Instantiate (onPauseMenuGO) as GameObject;
-			onPauseMenuO.transform.parent = allMenus.transform;
+			onPauseMenuO.transform.SetParent(allMenus.transform);
 			onPauseMenuO.SetActive (false);
 		}
 	}
@@ -238,7 +238,7 @@ public class GUIManager : MonoBehaviour {
 	public static void registerOptionsMenu(GameObject optionsMenuGO){
 		if(optionsMenuGO!=null && optionsMenuO == null){
 			optionsMenuO = GameObject.Instantiate (optionsMenuGO) as GameObject;
-			optionsMenuO.transform.parent = allMenus.transform;
+			optionsMenuO.transform.SetParent(allMenus.transform);
 			optionsMenuO.SetActive (false);
 		}
 	}
@@ -246,7 +246,7 @@ public class GUIManager : MonoBehaviour {
 	public static void registerBlackMenu(GameObject blackMenuGO){
 		if(blackMenuGO!=null && blackMenuO == null){
 			blackMenuO = GameObject.Instantiate (blackMenuGO) as GameObject;
-			blackMenuO.transform.parent = allMenus.transform;
+			blackMenuO.transform.SetParent(allMenus.transform);
 			blackMenuO.SetActive (false);
 		}
 	}
