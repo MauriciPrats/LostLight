@@ -23,7 +23,7 @@ public class SpaceGravityBody : GravityBody {
 	public override void checkTouchEnter(GameObject obj){
 		if (obj.layer.Equals(LayerMask.NameToLayer("Planets")) || obj.layer.Equals(LayerMask.NameToLayer("Enemy"))) {
 			collidingObjects.Add (obj);
-			if(isPlayer){
+			if(isPlayer && canBreatheInActualPlanet()){
 				GUIManager.deactivateSpaceJumpGUI();
 			}
 			if(usesSpaceGravity){
@@ -51,6 +51,16 @@ public class SpaceGravityBody : GravityBody {
 		}
 	}
 
+	public bool canBreatheInActualPlanet(){
+		bool canBreatheInActualPlanet = true;
+		if(getClosestPlanet()!=null){
+			GravityAttractor actualAttractor = getClosestPlanet().GetComponent<GravityAttractor>();
+			if(!actualAttractor.getCanBreathe(gameObject)){
+				canBreatheInActualPlanet = false;
+			}
+		}
+		return canBreatheInActualPlanet;
+	}
 	public void applySpaceBodyChangesOnJump(){
 		GetComponent<Rigidbody>().mass = massOnJump;
 	}

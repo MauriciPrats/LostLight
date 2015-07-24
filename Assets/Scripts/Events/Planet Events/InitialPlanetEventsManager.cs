@@ -387,4 +387,8 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 		}
 
 	}
+
+	public override void playerDies(){
+		
+	}
 }

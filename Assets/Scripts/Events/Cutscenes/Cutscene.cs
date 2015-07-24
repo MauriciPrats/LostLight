@@ -11,7 +11,10 @@ public enum CutsceneIdentifyier {
 	FirstPlanetPathBlockedStones,
 	FirstPlanetCorruptionSeeping,
 	LastPlanetMundusSecondPhase,
-	MundusDies};
+	MundusDies,
+    TowerPlanetWhiteHeartEncounter,
+    TowerPlanetCorruptionChasing,
+	TowerPlanetJumpingToMundus};
 
 abstract public class Cutscene: MonoBehaviour  {
 

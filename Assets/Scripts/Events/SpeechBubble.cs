@@ -31,7 +31,11 @@ public abstract class SpeechBubble : MonoBehaviour {
 		transform.parent = null;
 		timer = 0f;
 		GetComponentInChildren<CanvasGroup> ().alpha = 1f;
-
+		/*if(originalScale==null){
+			originalScale = transform.localScale;
+		}else{
+			transform.localScale = originalScale;
+		}*/
 		if(bouncingIn){
 			StartCoroutine ("beat");
 		}
@@ -50,7 +54,6 @@ public abstract class SpeechBubble : MonoBehaviour {
 		float beatTime = 0.15f;
 		float extraScale = 0.2f;
 		Vector3 extraScaleV = new Vector3 (extraScale, extraScale, extraScale);
-		originalScale = transform.localScale;
 		
 		
 		while(timer<beatTime){
@@ -114,8 +117,11 @@ public abstract class SpeechBubble : MonoBehaviour {
 
 	public void deactivate(){
 		onFinish ();
-		transform.localScale = originalScale;
 		isActive = false;
+	}
+
+	void Start(){
+		originalScale = transform.localScale;
 	}
 
 }

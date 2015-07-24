@@ -113,6 +113,10 @@ Material:
         second: 0
       data:
         first:
+          name: _TintColor
+        second: 0
+      data:
+        first:
           name: _OutlineSize
         second: 10
       data:
@@ -165,10 +169,6 @@ Material:
         second: 0
       data:
         first:
-          name: _TintColor
-        second: 0
-      data:
-        first:
           name: _Cull
         second: 2
       data:
@@ -190,7 +190,7 @@ Material:
       data:
         first:
           name: _Outline
-        second: .00999999978
+        second: 3
       data:
         first:
           name: _Asym
@@ -219,7 +219,7 @@ Material:
       data:
         first:
           name: _OutlineColor
-        second: {r: .5, g: .5, b: .5, a: 1}
+        second: {r: 0, g: 0, b: 0, a: 1}
       data:
         first:
           name: _EmissionColorUI
