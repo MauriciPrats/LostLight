@@ -148,31 +148,32 @@ public class PlayerController : MonoBehaviour {
 			}
 		}
 
-		if(body.getUsesSpaceGravity()){
-			if(!body.getIsOutsideAthmosphere()){
+		bool canBreatheInActualPlanet = GameManager.playerSpaceBody.canBreatheInActualPlanet ();
+		if(body.getUsesSpaceGravity() || (!canBreatheInActualPlanet)){
+			if(!body.getIsOutsideAthmosphere() && canBreatheInActualPlanet){
 				timeHasBeenInSpace = 0f;
 			}
 			float ratio = 1f - (timeHasBeenInSpace/timeToDieInSpace);
 			GUIManager.setPercentageOfBreathing(ratio);
 		}
 
+		
+		if((body.getIsOutsideAthmosphere() || !canBreatheInActualPlanet) && canDrownInSpace){
 
-		if(body.getIsOutsideAthmosphere() && canDrownInSpace){
 			//breathingBubble.SetActive(true);
-			//GUIManager.activateSpaceJumpGUI();
+			GUIManager.activateSpaceJumpGUI();
 			//rigidbody.velocity = rigidbody.velocity.normalized * (Constants.GRAVITY_FORCE_OF_PLANETS/1.5f);
 
 			if(!GameManager.isGameEnded){
 				if(timeHasBeenInSpace>=timeToDieInSpace){
 					//breathingBubble.transform.localScale = new Vector3(0f,0f,0f);
 					timeHasNotBeenBreathing+=Time.deltaTime;
-					if(timeHasNotBeenBreathing>=timeBetweenDamageWhenNotBreathing){
+					if(timeHasNotBeenBreathing>=timeBetweenDamageWhenNotBreathing && !killable.isDead()){
 						kill ();
 						flyParticles.Stop();
 						GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);
 						GameObject newEffect = GameObject.Instantiate(explosionOnDieInSpacePrefab) as GameObject;
 						newEffect.transform.position = transform.position;
-
 						timeHasNotBeenBreathing = 0f;
 					}
 				}else{
@@ -184,9 +185,7 @@ public class PlayerController : MonoBehaviour {
 			}
 
 		}else{
-
-
-			if(!GameManager.isGameEnded){
+			if(!GameManager.isGameEnded && canBreatheInActualPlanet){
 				timeHasBeenInSpace = 0f;
 				//breathingBubble.SetActive(false);
 			}
@@ -197,6 +196,10 @@ public class PlayerController : MonoBehaviour {
 		}else{
 			ActArrow();
 		}
+	}
+
+	public void resetBreathing(){
+		timeHasBeenInSpace = 0f;
 	}
 
 	void FinishSpaceJump(){
@@ -309,6 +312,7 @@ public class PlayerController : MonoBehaviour {
 			killable.TakeDamage (hitPointsToSubstract);
 			pappadaC.newProportionOfLife (killable.proportionHP ());
 			if (killable.HP <= 0 && !GameManager.isGameEnded) {
+				onDieCallEvent();
 				GameManager.playerAnimator.SetBool("isDerribado",true);
 				StopMove();
 				isInvulnerable = true;
@@ -318,6 +322,17 @@ public class PlayerController : MonoBehaviour {
 			}
 		}
 		StartCoroutine ("takeHit");
+	}
+
+	private void onDieCallEvent(){
+		if (body.getClosestPlanet () != null) {
+			if(body.getClosestPlanet().GetComponent<Planet>().isPlanetCorrupted()){
+				PlanetCorrupted pc = body.getClosestPlanet().GetComponent<PlanetCorrupted>();
+				if(pc.getPlanetEventsManager()!=null){
+					pc.getPlanetEventsManager().playerDies();
+				}
+			}
+		}
 	}
 
 	private IEnumerator dissolveAndLose(){

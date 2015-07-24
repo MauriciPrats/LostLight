@@ -238,4 +238,8 @@ public class MundusPlanetEventsManager : PlanetEventsManager {
 			//GetComponent<PlanetCorruption> ().setCorruptionToClean ();
 		}
 	}
+
+	public override void playerDies(){
+		
+	}
 }

@@ -60,6 +60,7 @@ public class GUIManager : MonoBehaviour {
 	private static Menu actualMenuActivated = Menu.None;
 
 	private static Action actionToDo;
+	private static bool isSpaceGUIActive = false;
 
 	private static List<FollowHighlightedButton> highlightFollowers;
 
@@ -316,7 +317,10 @@ public class GUIManager : MonoBehaviour {
 	}
 
 	public static void activateSpaceJumpGUI(){
-		spaceJumpGUIO.SetActive (true);
+		if(!isSpaceGUIActive){
+			spaceJumpGUIO.SetActive (true);
+			isSpaceGUIActive = true;
+		}
 	}
 
 	public static void setPercentageOfBreathing(float percentage){
@@ -329,7 +333,10 @@ public class GUIManager : MonoBehaviour {
 	}
 	
 	public static void deactivateSpaceJumpGUI(){
-		spaceJumpGUIO.SetActive (false);
+		if(isSpaceGUIActive){
+			spaceJumpGUIO.SetActive (false);
+			isSpaceGUIActive = false;
+		}
 	}
 
 	public static void activateMenu(Menu newMenu){

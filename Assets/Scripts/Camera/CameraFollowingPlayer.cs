@@ -87,6 +87,21 @@ public class CameraFollowingPlayer : MonoBehaviour {
 		objectivePosition = Vector3.Lerp (objectivePosition, objectiveVectorZ, timerZPosition * lerpMultiplyierZPosition );
 		
 		transform.position = Vector3.Lerp (transform.position, objectivePosition, Time.deltaTime * lerpMultiplyierPos);
+
+		if(isShaking){
+			if(shake_intensity > 0){
+				Vector3 displacement = Random.insideUnitSphere * shake_intensity;
+				displacement.z = 0f;
+				transform.position = transform.position + displacement;
+				if(isStoppingShaking){
+					shake_intensity -= shake_decay;
+				}
+			}else{
+				isShaking = false;
+			}
+		}
+
+
 	}
 
 	public void setStaticUp(Vector3 newUp) {

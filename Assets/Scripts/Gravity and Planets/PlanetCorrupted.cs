@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent (typeof (PlanetSpawnerManager))]
-[RequireComponent (typeof (PlanetCorruption))]
 public class PlanetCorrupted : Planet {
 	private PlanetSpawnerManager planetSpawnerManager;
 	private PlanetCorruption planetCorruption;

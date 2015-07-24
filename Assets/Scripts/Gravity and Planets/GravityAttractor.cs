@@ -12,9 +12,14 @@ public class GravityAttractor : MonoBehaviour {
 	public float airDistance = 0f;
 
 	public float gravityDistance = Constants.GRAVITY_DISTANCE_FROM_PLANET_FLOOR;
-
 	private float sphereRadius;
+
+
 	void Awake(){
+
+		if(!separateGravityAndAir){
+			airDistance = gravityDistance;
+		}
 
 		GravityAttractorsManager.registerNewAttractor(this.gameObject);
 
@@ -30,7 +35,7 @@ public class GravityAttractor : MonoBehaviour {
 
 		//We calculate the size of the athmosphere of the gravityAttractor
 		float size = transform.GetComponent<SphereCollider> ().radius * Mathf.Max (transform.lossyScale.x, transform.lossyScale.y, transform.lossyScale.z);
-		size += gravityDistance;
+		size += airDistance;
 
 		//Athmosphere size
 		float athmosphereSize = athmosphere.transform.GetComponent<SphereCollider> ().radius * Mathf.Max (athmosphere.transform.lossyScale.x, athmosphere.transform.lossyScale.y, athmosphere.transform.lossyScale.z);
@@ -47,6 +52,17 @@ public class GravityAttractor : MonoBehaviour {
 		SphereCollider sphereCollider = (SphereCollider) transform.gameObject.GetComponent (typeof(SphereCollider));
 		sphereRadius = sphereCollider.transform.lossyScale.x * sphereCollider.radius;
 	}
+
+	public bool getCanBreathe(GameObject body){
+		Vector3 position = body.transform.position;
+		float distance = Vector3.Distance (position, transform.position) - sphereRadius;
+		if(distance<airDistance){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 
 	void FixedUpdate(){
 		if (isRotating && GameManager.arePlanetsMoving) {
