@@ -340,7 +340,15 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			yield return StartCoroutine(WaitInterruptable (4f,bigPappadaDialogue));
 			GetComponent<PlanetCorruption>().activateSpawning();
 			GameManager.inputController.enableInputController();
-			
+			GameManager.inputController.enableInputController ();
+			GUIManager.setTutorialText("Press 'Square' to perform a consecutive attack series");
+			GUIManager.activateTutorialText();			
+			yield return new WaitForSeconds(2f);
+			GUIManager.deactivateTutorialText();
+			GUIManager.setTutorialText ("Press 'Triangle' to perform a powerful light attack. \n 'Triangle + Right pad' to control the attack direction");
+			GUIManager.activateTutorialText();
+			yield return new WaitForSeconds(5f);
+			GUIManager.deactivateTutorialText();
 		}
 	}
 
