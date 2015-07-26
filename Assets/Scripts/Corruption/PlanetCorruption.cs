@@ -127,6 +127,7 @@ public class PlanetCorruption : MonoBehaviour {
 		}
 		GameManager.persistentData.spaceJumpUnlocked = true;
 		GameManager.audioManager.playSong(1);
+		GetComponent<InitialPlanetEventsManager>().StartCoroutine("IPTutorial");
 	}
 	// Update is called once per frame
 	void Update () {

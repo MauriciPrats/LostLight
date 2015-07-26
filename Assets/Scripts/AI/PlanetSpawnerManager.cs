@@ -60,6 +60,9 @@ public class PlanetSpawnerManager : MonoBehaviour {
 				}else{
 					//If the time between waves has passed and the last wave was finished we spawn the next wave
 					ongoingCurrentWave = true;
+					if (currentWave==1){
+						GetComponent<InitialPlanetEventsManager>().StartCoroutine("gemPowerAttackTutorial");
+					}
 					SpawnWave(waves[currentWave]);
 					timerSpawn = 0f;
 				}
