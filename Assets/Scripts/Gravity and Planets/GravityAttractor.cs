@@ -66,7 +66,7 @@ public class GravityAttractor : MonoBehaviour {
 
 	void FixedUpdate(){
 		if (isRotating && GameManager.arePlanetsMoving) {
-			transform.position = OrbiteAroundPoint (transform.position, transform.parent.position, Quaternion.Euler (0, 0, speedRotation * Time.deltaTime));
+			transform.position = OrbitAroundPoint (transform.position, transform.parent.position, Quaternion.Euler (0, 0, speedRotation * Time.deltaTime));
 		}
 	}
 
@@ -205,7 +205,7 @@ public class GravityAttractor : MonoBehaviour {
 		return sphereRadius;
 	}
 
-	private Vector3 OrbiteAroundPoint(Vector3 point, Vector3 pivot, Quaternion angle) {
+	private Vector3 OrbitAroundPoint(Vector3 point, Vector3 pivot, Quaternion angle) {
 		return angle * ( point - pivot) + pivot;
 	}
 

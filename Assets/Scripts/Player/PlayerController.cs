@@ -168,13 +168,8 @@ public class PlayerController : MonoBehaviour {
 				if(timeHasBeenInSpace>=timeToDieInSpace){
 					//breathingBubble.transform.localScale = new Vector3(0f,0f,0f);
 					timeHasNotBeenBreathing+=Time.deltaTime;
-					if(timeHasNotBeenBreathing>=timeBetweenDamageWhenNotBreathing && !killable.isDead()){
-						kill ();
-						flyParticles.Stop();
-						GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);
-						GameObject newEffect = GameObject.Instantiate(explosionOnDieInSpacePrefab) as GameObject;
-						newEffect.transform.position = transform.position;
-						timeHasNotBeenBreathing = 0f;
+					if(timeHasNotBeenBreathing>=timeBetweenDamageWhenNotBreathing){
+						dieInSpace();
 					}
 				}else{
 					timeHasBeenInSpace += Time.deltaTime;
@@ -220,6 +215,17 @@ public class PlayerController : MonoBehaviour {
 	void FinishJump(){
 		bpAnimator.SetBool("isJumping",false);
 		characterController.stopJumping ();
+	}
+
+	public void dieInSpace(){
+		if(!killable.isDead()){
+			kill ();
+			flyParticles.Stop();
+			GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);
+			GameObject newEffect = GameObject.Instantiate(explosionOnDieInSpacePrefab) as GameObject;
+			newEffect.transform.position = transform.position;
+			timeHasNotBeenBreathing = 0f;
+		}
 	}
 
 	public void SpaceJump() {

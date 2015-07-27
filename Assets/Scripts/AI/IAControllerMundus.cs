@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class IAControllerMundus : IAController {
 
@@ -28,11 +29,12 @@ public class IAControllerMundus : IAController {
 
 	private bool isMovingToPlatform = false;
 	private GameObject closestPlatform;
+	private bool doingTalkCinematic = false;
 
-
+	private List<GameObject> enemiesSpawned = new List<GameObject> (0);
 
 	private int faseSteps = 1;
-	private int fase = 1;
+	private int fase = 0;
 	private bool hasSpawnedThisPhaseStep = true;
 	private int damageReceived = 0;
 
@@ -96,10 +98,20 @@ public class IAControllerMundus : IAController {
 
 	protected override void UpdateAI(){
 		GetComponent<Rigidbody> ().velocity = new Vector3 (0f, 0f, 0f);
-		//Debug.Log (fase);
-		if(fase == 1){
+		float attackDistance = 2f;
+		if(fase == 0){
+			if(!doingTalkCinematic){
+				if(!attackController.isDoingAnyAttack () && getPlayerDistance()>=attackDistance){
+					characterController.Move(getPlayerDirection());
+				}else{
+					StopMoving();
+					eventsManager.mundusInRangeOfCinematic();
+					doingTalkCinematic = true;
+				}
+			}
+		}if(fase == 1){
 			timerAfterAttack += Time.deltaTime;
-			if (!attackController.isDoingAnyAttack () && !isAttacking && timerAfterAttack>1f && canSeePlayer() && getPlayerDistance()<1f){
+			if (!attackController.isDoingAnyAttack () && !isAttacking && timerAfterAttack>1f && getPlayerDistance()<attackDistance){
 				characterController.StopMoving();
 				if(damageReceived>phaseHitsReceivedThreshold){
 					attackController.doAttack(fisureAttack,false);
@@ -126,13 +138,12 @@ public class IAControllerMundus : IAController {
 				}
 				isAttacking = false;
 				timerAfterAttack = 0f;
-			}else if(!attackController.isDoingAnyAttack () && getPlayerDistance()>4f){
+			}else if(!attackController.isDoingAnyAttack () && getPlayerDistance()>=attackDistance){
 				characterController.Move(getPlayerDirection());
 			}else{
 				StopMoving();
 			}
 		}else if(fase == 2){
-
 			if(eventsManager.getIsFinishedTransition()){
 				if(!attackController.isDoingAnyAttack()){
 					if (closestPlatform == null) {
@@ -140,20 +151,19 @@ public class IAControllerMundus : IAController {
 					}
 
 					if(damageReceived>3 && closestPlatform!=null){
-						closestPlatform.transform.parent.gameObject.AddComponent<PlatformAbsorbed>();
-						//closestPlatform.transform.parent.gameObject.GetComponent<Rigidbody>().isKinematic = false;
-
 						damageReceived = 0;
 						fragmentsDestroyed++;
+						StartCoroutine(shrinkPlatformToCenter(closestPlatform.transform.parent.gameObject));
 						DestroyImmediate(closestPlatform);
 						closestPlatform = eventsManager.getClosestPlatformTop(transform.position);
 
-						if(fragmentsDestroyed>=2){
+						if(fragmentsDestroyed>=3){
 							die (false);
 						}
 					}
 
-					if(Vector3.Distance(closestPlatform.transform.position,transform.position)<1.5f){
+
+					if(Mathf.Abs(Util.getPlanetaryAngleFromAToB (this.gameObject,closestPlatform,eventsManager.getInsidePlanetPosition ()))<0.5f){
 						isMovingToPlatform = false;
 					}else{
 						isMovingToPlatform = true;
@@ -168,7 +178,7 @@ public class IAControllerMundus : IAController {
 							attackController.doAttack(ballOfDeathAttack,false);
 						}
 					}else{
-						direction = Util.getPlanetaryDirectionFromAToB(gameObject,closestPlatform);
+						direction = Util.getPlanetaryDirectionFromAToB(this.gameObject,closestPlatform,eventsManager.getInsidePlanetPosition ());
 						Move (direction);
 					}
 				}
@@ -180,29 +190,6 @@ public class IAControllerMundus : IAController {
 			}
 		}
 	}
-
-	/*private IEnumerator MoveFromPointToPoint(){
-		float direction = 1f;
-		float timer = 0f;
-		while (!isDead) {
-			timer+=Time.deltaTime;
-
-			if(closestPlatform!=null){
-				if(Vector3.Distance(closestPlatform.transform.position,transform.position)<3f){
-					if(timer>=1f){
-						direction = Util.getPlanetaryDirectionFromAToB (gameObject, closestPlatform);
-					}
-					Move (direction);
-					Vector3 distanceMundus = transform.position - eventsManager.getInsidePlanetPosition ();
-					Vector3 objectiveDistance = closestPlatform.transform.position - eventsManager.getInsidePlanetPosition ();
-					if (Vector3.Distance (distanceMundus, objectiveDistance) > 1f) {
-						transform.position += transform.up * (objectiveDistance.magnitude - distanceMundus.magnitude) * Time.deltaTime * 5f;
-					}
-				}
-			}
-			yield return null;
-		}
-	}*/
 
 	protected override void virtualDie(){
 		GameManager.audioManager.PlayStableSound(14);
@@ -255,9 +242,34 @@ public class IAControllerMundus : IAController {
 		Move (direction);
 	}
 
+	public IEnumerator shrinkPlatformToCenter(GameObject platform){
+		Vector3 center = eventsManager.getInsidePlanetPosition ();
+		Vector3 position = platform.transform.position;
+		Vector3 startingLocalScale = platform.transform.localScale;
+		float time = 5f;
+		float timer = 0f;
+		while(timer<time){
+			timer+=Time.deltaTime;
+			float ratio = timer/time;
+			platform.transform.position = Vector3.Lerp(position,center,ratio);
+			platform.transform.localScale = startingLocalScale * (1f-ratio);
+			yield return null;
+		}
+	}
+
 	public void setPhase(int phase){
 		this.fase = phase;
 	}
 
+	public void addEnemySpawned(GameObject newEnemy){
+		enemiesSpawned.Add (newEnemy);
+	}
 
+	void OnDestroy(){
+		foreach(GameObject go in enemiesSpawned){
+			if(go!=null){
+				Destroy(go);
+			}
+		}
+	}
 }

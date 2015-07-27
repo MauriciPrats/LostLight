@@ -78,6 +78,7 @@ public class MundusSpawnEnemiesAttack : Attack {
 			}
 			newEnemy.transform.position = transform.position + (parent.transform.forward * 2f * (direction) * distance);
 			enemiesAlive.Add(newEnemy);
+			parent.GetComponent<IAControllerMundus>().addEnemySpawned(newEnemy);
 		}
 	}
 

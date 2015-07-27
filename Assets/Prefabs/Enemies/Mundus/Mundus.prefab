@@ -664,6 +664,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &137926
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 401994}
+  - 65: {fileID: 6543492}
+  m_Layer: 10
+  m_Name: TopCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &139232
 GameObject:
   m_ObjectHideFlags: 1
@@ -1429,6 +1445,7 @@ GameObject:
   - 114: {fileID: 11432970}
   - 136: {fileID: 13697020}
   - 114: {fileID: 11466268}
+  - 114: {fileID: 11437010}
   m_Layer: 10
   m_Name: Mundus
   m_TagString: Enemy
@@ -1570,6 +1587,18 @@ Transform:
   - {fileID: 419352}
   m_Father: {fileID: 419678}
   m_RootOrder: 1
+--- !u!4 &401994
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 137926}
+  m_LocalRotation: {x: -.364169568, y: -.00742459018, z: -.0068030688, w: .931278288}
+  m_LocalPosition: {x: 0, y: 1.79999995, z: .0380090587}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 445628}
+  m_RootOrder: 8
 --- !u!4 &402780
 Transform:
   m_ObjectHideFlags: 1
@@ -2307,6 +2336,7 @@ Transform:
   - {fileID: 428446}
   - {fileID: 479758}
   - {fileID: 466452}
+  - {fileID: 401994}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &446604
@@ -3266,6 +3296,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: .811344326, y: .0450075753, z: .444893032}
   m_Center: {x: .04834795, y: .0171041638, z: -.13377063}
+--- !u!65 &6543492
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 137926}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: .953405201, z: .952017903}
+  m_Center: {x: .000209004356, y: -.0233299267, z: -.0239822697}
 --- !u!65 &6588346
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -3500,6 +3542,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack: {fileID: 0}
   debug: {fileID: 0}
+--- !u!114 &11437010
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 186562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91653a1c793cdab40a84b9169199f51d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  positionOffset: {x: 0, y: 2, z: 0}
+  bubbleColor: {r: 1, g: .375, b: 1, a: .90196079}
 --- !u!114 &11441284
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3608,7 +3663,7 @@ MonoBehaviour:
   jumpCooldown: 2
   jumpStrength: 3
   isIdle: 1
-  minimumDistanceAttackPlayer: .200000003
+  minimumDistanceAttackPlayer: .5
   meleeRange: 1
   attackChoosingCooldown: 1
   attackChance: .200000003
@@ -3799,10 +3854,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: .843651175
-  m_Height: 2.12397885
+  m_Radius: .805535734
+  m_Height: 1.84074664
   m_Direction: 1
-  m_Center: {x: 0, y: 1.46000004, z: 0}
+  m_Center: {x: 0, y: 1.20000005, z: 0}
 --- !u!137 &13737734
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

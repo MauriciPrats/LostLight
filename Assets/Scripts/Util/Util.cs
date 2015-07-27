@@ -17,11 +17,28 @@ public static class Util{
 		}
 	}
 
+	//Clockwise
+	public static float getPlanetaryAngleFromAToB(GameObject a,GameObject b,Vector3 centerPlanet){
+		if(a!=null && b!=null){
+			return getAngleFromVectorAToB ((a.transform.position - centerPlanet).normalized,(b.transform.position - centerPlanet).normalized);
+		}else{
+			return float.PositiveInfinity;
+		}
+	}
+
 	public static float getPlanetaryDirectionFromAToB(GameObject a,GameObject b){
 		if (getPlanetaryAngleFromAToB (a, b) > 0f) {
-			return -1f;
-		} else {
 			return 1f;
+		} else {
+			return -1f;
+		}
+	}
+
+	public static float getPlanetaryDirectionFromAToB(GameObject a,GameObject b,Vector3 centerPlanet){
+		if (getPlanetaryAngleFromAToB (a, b,centerPlanet) > 0f) {
+			return 1f;
+		} else {
+			return -1f;
 		}
 	}
 

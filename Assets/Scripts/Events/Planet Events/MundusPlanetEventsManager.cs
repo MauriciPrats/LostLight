@@ -12,12 +12,16 @@ public class MundusPlanetEventsManager : PlanetEventsManager {
 	public GameObject positionEndingBigP;
 	public LayerMask layersToCollideRaycastPlatforms;
 
+	private DialogueController mundusDialogueController; 
+	private DialogueController bigPappadaDialogueController;
+
+	private GameObject mundusDialogue;
+	private GameObject bigPappadaDialogue;
 
 	bool firstCinematicPlayed = false;
 	bool hasBeenActivated = false;
 
 	private GameObject mundus;
-	private GameObject bigPappadaDialogue;
 	private GameObject littleGDialogue;
 	private List<GameObject> fisures;
 	private GameObject athmosphere;
@@ -42,9 +46,10 @@ public class MundusPlanetEventsManager : PlanetEventsManager {
 				mundus = GameObject.Instantiate(mundusPrefab) as GameObject;
 				mundus.GetComponent<IAControllerMundus>().informPlanetEventManager(this);
 				mundus.transform.position = mundusSpawnPosition.transform.position;
-
-			}else{
-
+				mundusDialogueController = mundus.GetComponent<DialogueController>();
+				bigPappadaDialogueController = GameManager.player.GetComponent<DialogueController>();
+				GameManager.inputController.disableInputController();
+				GUIManager.deactivateMinimapGUI();
 			}
 		}
 	}
@@ -127,6 +132,7 @@ public class MundusPlanetEventsManager : PlanetEventsManager {
 			foreach(ParticleSystem ps in fisure.GetComponentsInChildren<ParticleSystem>()){
 				ps.Stop();
 			}
+			fisure.GetComponent<SphereCollider>().enabled = false;
 		}
 
 		GameObject closestPlayerSafePlace = getClosestPlatformTop (GameManager.player.transform.position);
@@ -170,6 +176,30 @@ public class MundusPlanetEventsManager : PlanetEventsManager {
 		isFinishedTransition = true;
 	}
 
+	private IEnumerator startingCinematic(){
+		GameObject middlePosition = new GameObject ();
+		middlePosition.transform.position = (mundus.GetComponent<Rigidbody>().worldCenterOfMass + GameManager.player.GetComponent<Rigidbody>().worldCenterOfMass) / 2f;
+		middlePosition.transform.up = middlePosition.transform.position - getInsidePlanetPosition ();
+		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().followObjective (middlePosition);
+
+		mundusDialogue = mundusDialogueController.createNewDialogue ("You finally came!!", 2f, false, false);
+		yield return StartCoroutine (WaitInterruptable (2f, mundusDialogue));
+
+		bigPappadaDialogue = bigPappadaDialogueController.createNewDialogue ("I came here to destroy \n you mundus!!", 2f, false, false);
+		yield return StartCoroutine (WaitInterruptable (2f, bigPappadaDialogue));
+
+		mundusDialogue = mundusDialogueController.createNewDialogue ("HA HA HA!", 1f, false, false);
+		yield return StartCoroutine (WaitInterruptable (1f, mundusDialogue));
+
+		mundusDialogue = mundusDialogueController.createNewDialogue ("Just try!", 2f, false, false);
+		yield return StartCoroutine (WaitInterruptable (2f, mundusDialogue));
+
+		GameManager.inputController.enableInputController();
+		mundus.GetComponent<IAControllerMundus> ().setPhase (1);
+
+		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().resetObjective ();
+	}
+
 	public bool getIsFinishedTransition(){
 		return isFinishedTransition;
 	}
@@ -192,6 +222,7 @@ public class MundusPlanetEventsManager : PlanetEventsManager {
 	}
 
 	public override void isDeactivated(){
+		GUIManager.activateMinimapGUI();
 		GameManager.audioManager.playSong(1);
 		isInSecondPhase = false;
 		Destroy(mundus);
@@ -226,6 +257,10 @@ public class MundusPlanetEventsManager : PlanetEventsManager {
 				StartCoroutine(CinematicEndGame());
 			}
 		}
+	}
+
+	public void mundusInRangeOfCinematic(){
+		StartCoroutine (startingCinematic ());
 	}
 	
 	public override void initialize(){
