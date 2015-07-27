@@ -272,6 +272,26 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 		}
 	}
 
+	IEnumerator IPTutorial() {
+		GUIManager.setTutorialText ("Press 'Down (hold) +Space' to perform a interplanetary jump.");
+		GUIManager.activateTutorialText();
+		yield return new WaitForSeconds(5f);
+		GUIManager.setTutorialText ("You can control the jump direction with 'A' or 'D' (while holding 'Down' key");
+		GUIManager.activateTutorialText();
+		yield return new WaitForSeconds(10f);
+		GUIManager.deactivateTutorialText();
+	}
+
+	IEnumerator gemPowerAttackTutorial() {
+		//This event is activated when the player has kthe first wave.
+		GUIManager.setTutorialText ("Press 'Triangle' to perform a powerful light attack.");
+		GUIManager.activateTutorialText();
+		yield return new WaitForSeconds(5f);
+		GUIManager.setTutorialText ("You can control the attack direction with 'Triangle + Right pad'");
+		GUIManager.activateTutorialText();
+		yield return new WaitForSeconds(5f);
+		GUIManager.deactivateTutorialText();
+	}
 
 	IEnumerator lightgemCinematic(){
 		if(isEnabled){
@@ -343,10 +363,6 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			GameManager.inputController.enableInputController ();
 			GUIManager.setTutorialText("Press 'Square' to perform a consecutive attack series");
 			GUIManager.activateTutorialText();			
-			yield return new WaitForSeconds(2f);
-			GUIManager.deactivateTutorialText();
-			GUIManager.setTutorialText ("Press 'Triangle' to perform a powerful light attack. \n 'Triangle + Right pad' to control the attack direction");
-			GUIManager.activateTutorialText();
 			yield return new WaitForSeconds(5f);
 			GUIManager.deactivateTutorialText();
 		}
