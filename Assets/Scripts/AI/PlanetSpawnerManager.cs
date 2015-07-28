@@ -70,9 +70,6 @@ public class PlanetSpawnerManager : MonoBehaviour {
 				}
 			}
 
-
-
-
 			/*timerSpawn += Time.deltaTime;
 			if(ammountOfActualPointsSpawned< maxPointsSpawnedAtSameTime && timerSpawn > timeBetweenSpawns){
 				timerSpawn = 0f;

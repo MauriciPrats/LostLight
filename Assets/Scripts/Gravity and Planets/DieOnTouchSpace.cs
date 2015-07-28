@@ -9,14 +9,14 @@ public class DieOnTouchSpace : MonoBehaviour {
 	void OnCollisionEnter (Collision collider) {
 		if(collider.gameObject.tag == "Player" && timer>cooldown){
 			timer = 0f;
-			collider.gameObject.transform.GetComponent<PlayerController>().dieInSpace();
+			GameManager.playerController.dieInSpace();
 		}
 	}
 
 	void OnTriggerEnter (Collider collider) {
 		if(collider.gameObject.tag == "Player" && timer>cooldown){
 			timer = 0f;
-			collider.gameObject.transform.GetComponent<PlayerController>().dieInSpace();
+			GameManager.playerController.dieInSpace();
 		}
 	}
 	

@@ -72,6 +72,11 @@ public class GodModeCamara : MonoBehaviour {
 			Vector3 cameraPosition = GameManager.player.transform.position;
 			cameraPosition.z = GameManager.mainCamera.transform.position.z;
 			GameManager.mainCamera.transform.position = cameraPosition;
+		}else if (Input.GetKeyDown (KeyCode.Alpha7)) {
+			GameManager.player.transform.position = GameManager.checkPointManager.getCheckpointByIndex(7).checkPointObject.transform.position;
+			Vector3 cameraPosition = GameManager.player.transform.position;
+			cameraPosition.z = GameManager.mainCamera.transform.position.z;
+			GameManager.mainCamera.transform.position = cameraPosition;
 		}
 
 	

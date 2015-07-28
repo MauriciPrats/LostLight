@@ -10,6 +10,12 @@ public class DieOnTouch : MonoBehaviour {
 		}
 	}
 
+	void OnTriggerEnter (Collider collider) {
+		if(collider.gameObject.tag == "Player"){
+			collider.gameObject.transform.GetComponent<PlayerController>().kill();
+		}
+	}
+
 	// Use this for initialization
 	void Start () {
 	

@@ -14,7 +14,8 @@ public enum CutsceneIdentifyier {
 	MundusDies,
     TowerPlanetWhiteHeartEncounter,
     TowerPlanetCorruptionChasing,
-	TowerPlanetJumpingToMundus};
+	TowerPlanetJumpingToMundus,
+    FrostFirePlanetPenguinAttack};
 
 abstract public class Cutscene: MonoBehaviour  {
 
