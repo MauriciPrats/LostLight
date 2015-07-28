@@ -240,14 +240,6 @@ public class MundusPlanetEventsManager : PlanetEventsManager {
 	public void informFisure(GameObject fisure){
 		fisures.Add (fisure);
 	}
-
-	public override void startButtonPressed(){
-
-	}
-	
-	public override void planetCleansed(){
-
-	}
 	
 	public override void informEventActivated (CutsceneIdentifyier identifyier){
 		if(isEnabled){
@@ -272,9 +264,5 @@ public class MundusPlanetEventsManager : PlanetEventsManager {
 			lastPlanet.transform.position = transform.position;
 			//GetComponent<PlanetCorruption> ().setCorruptionToClean ();
 		}
-	}
-
-	public override void playerDies(){
-		
 	}
 }

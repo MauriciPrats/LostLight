@@ -6,9 +6,9 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: ice
+  m_Name: Spikes
   m_Shader: {fileID: 4800000, guid: af6e577fac5e6ba4c9e69f6a27e649c0, type: 3}
-  m_ShaderKeywords: _CORR_ON
+  m_ShaderKeywords: _COLOR_ON _CORR_ON _OUTL_ON
   m_LightmapFlags: 5
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -46,7 +46,7 @@ Material:
       data:
         first:
           name: _TintColor
-        second: 0
+        second: 1
       data:
         first:
           name: _OutlineSize
@@ -66,7 +66,7 @@ Material:
       data:
         first:
           name: _Outl
-        second: 0
+        second: 1
       data:
         first:
           name: _VertexColor
@@ -82,7 +82,7 @@ Material:
       data:
         first:
           name: _Outline
-        second: .200000003
+        second: .100000001
       data:
         first:
           name: _Asym
@@ -103,7 +103,7 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: .502726436, g: .800000072, b: .800000072, a: .300000012}
+        second: {r: .348824233, g: .582103133, b: .800000072, a: 1}
       data:
         first:
           name: _OutlineColor

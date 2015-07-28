@@ -380,6 +380,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 	public override void planetCleansed(){
 		if(isEnabled){
 			corruptionSeepingGO.GetComponent<FirstPlanetCorruptionSeeping>().corruptionSeeping.SetActive(false);
+			StartCoroutine("IPTutorial");
 		}
 	}
 
@@ -412,7 +413,9 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 
 	}
 
-	public override void playerDies(){
-		
+	public override void firstWaveFinished(){
+		StartCoroutine("gemPowerAttackTutorial");
 	}
+
+
 }

@@ -10,9 +10,11 @@ abstract public class PlanetEventsManager : MonoBehaviour {
 	public abstract void initialize ();
 	public abstract void isActivated ();
 	public abstract void isDeactivated ();
-	public abstract void startButtonPressed ();
-	public abstract void planetCleansed ();
-	public abstract void playerDies ();
+
+	public virtual void startButtonPressed (){}
+	public virtual void planetCleansed (){}
+	public virtual void playerDies (){}
+	public virtual void firstWaveFinished(){}
 
 	private bool isInterrupted = false;
 

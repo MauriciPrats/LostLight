@@ -114,14 +114,6 @@ public class TowerPlanetEventsManager : PlanetEventsManager {
 
 	}
 
-	public override void startButtonPressed (){
-
-	}
-
-	public override void planetCleansed (){
-		//
-	}
-
 	public override void playerDies(){
 		corruptionChasing.GetComponent<TowerPlanetCorruptionChasing>().isActive = true;
 		stopCorruptionChasingEvent ();

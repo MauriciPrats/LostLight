@@ -35,10 +35,12 @@ public class LightsManager : MonoBehaviour {
 	}
 
 	void Update () {
-		if(GameManager.getIsInsidePlanet()){
-			enableDirectionalLights(false);
-		}else{
-			enableDirectionalLights(true);
+		if(GameManager.getHasToTurnLightsOffInsidePlanet()){
+			if(GameManager.getIsInsidePlanet()){
+				enableDirectionalLights(false);
+			}else{
+				enableDirectionalLights(true);
+			}
 		}
 	}
 }

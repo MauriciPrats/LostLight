@@ -135,6 +135,14 @@ public static class GameManager{
 		return false;
 	}
 
+	public static bool getHasToTurnLightsOffInsidePlanet(){
+		Planet closestPlanet = playerSpaceBody.getClosestPlanet ();
+		if(closestPlanet!=null && closestPlanet.getHasInsidePlanet() && closestPlanet.getHideFrontPlanetFaceOnEnter().changeLightsInsidePlanet){
+			return true;
+		}
+		return false;
+	}
+
 	public static bool getActualPlanetIsRelevant(){
 		if (playerSpaceBody.getClosestPlanet () != null) {
 			if(playerSpaceBody.getClosestPlanet ().GetComponent<Planet>().centerCameraOnLand){

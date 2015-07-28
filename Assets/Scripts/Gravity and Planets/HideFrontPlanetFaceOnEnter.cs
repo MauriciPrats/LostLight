@@ -3,6 +3,7 @@ using System.Collections;
 
 public class HideFrontPlanetFaceOnEnter : MonoBehaviour {
 
+	public bool changeLightsInsidePlanet = true;
 	private bool isInsidePlanet = false;
 	// Use this for initialization
 	void Start () {
