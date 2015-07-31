@@ -113,7 +113,6 @@
 				  half3 worldNormal : TEXCOORD6;
 				  fixed3 vlight : TEXCOORD7; // ambient/SH/vertexlights
 				  SHADOW_COORDS(3)
-				  UNITY_FOG_COORDS(4)
 				  #if SHADER_TARGET >= 30
 				  float4 lmap : TEXCOORD8;
 				  #endif
@@ -129,22 +128,13 @@
 				  float4 pos : SV_POSITION;
 				  half2 uvn : TEXCOORD0;
                   half2 uv : TEXCOORD1;
-                  #if _DISS_ON
-                    half2 disuv : TEXCOORD2;
-                  #endif
-				  float2 pack0 : TEXCOORD5; // _MainTex
-				  half3 worldNormal : TEXCOORD6;
-				  float4 lmap : TEXCOORD7;
+				  float2 pack0 : TEXCOORD2; // _MainTex
+				  half3 worldNormal : TEXCOORD4;
+				  float4 lmap : TEXCOORD5;
 				  SHADOW_COORDS(3)
-				  UNITY_FOG_COORDS(4)
-				  #ifdef DIRLIGHTMAP_COMBINED
-				  fixed3 tSpace0 : TEXCOORD8;
-				  fixed3 tSpace1 : TEXCOORD9;
-				  fixed3 tSpace2 : TEXCOORD10;
-				  #endif
 				  #if _CORR_ON
-	                 float4 world : TEXCOORD11;
-	                 half2 uvC : TEXCOORD12;
+	                 float4 world : TEXCOORD6;
+	                 half2 uvC : TEXCOORD7;
 				  #endif
 				};
 				#endif

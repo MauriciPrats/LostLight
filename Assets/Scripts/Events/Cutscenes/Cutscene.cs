@@ -15,7 +15,8 @@ public enum CutsceneIdentifyier {
     TowerPlanetWhiteHeartEncounter,
     TowerPlanetCorruptionChasing,
 	TowerPlanetJumpingToMundus,
-    FrostFirePlanetPenguinAttack};
+    FrostFirePlanetPenguinAttack,
+	FrostFirePlanetHydraAppearence};
 
 abstract public class Cutscene: MonoBehaviour  {
 

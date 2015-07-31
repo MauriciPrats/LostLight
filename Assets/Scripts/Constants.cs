@@ -9,7 +9,7 @@ public static class Constants{
 	public static float GRAVITY_DISTANCE_FROM_PLANET_FLOOR = 8f;
 	public static float GRAVITY_FORCE_OF_PLANETS = 20f;
 	public static float DRAG_ON_TOUCH_PLANETS = 3f;
-
+	
 	//ORBIT AROUND PLANETS
 	public static float GRAVITY_MULTIPLYIER_ON_SPACE_JUMPS = 10f;
 	public static float GRAVITY_DRAG_OF_ATHMOSPHERE = 3f;
@@ -56,7 +56,7 @@ public static class Constants{
 	public static float TIME_ENEMY_SPEND_FLYING_ON_HIT = 2f;
 	public static float MINIMUM_TIME_TO_HIT_GROUND_WHEN_FLYING = 0.3f;
 	public static float ANGULAR_SPEED_ON_SENT_FLYING = 20f;
-	public static float HITSTONE_TIME = 0.04f;
+	public static float HITSTONE_TIME = 0.06f;
 	//ENEMY SPAWNING
 	public static float SPAWNING_MINIMUM_DISTANCE_OF_PLAYER = 8f;
 	public static float SPAWNING_MAXIMUM_DISTANCE_OF_PLAYER = 20f;

@@ -3,16 +3,18 @@ using System.Collections;
 
 public class DieOnTouch : MonoBehaviour {
 
+	public bool collision = true;
+	public bool trigger = true;
 
 	void OnCollisionEnter (Collision collider) {
-		if(collider.gameObject.tag == "Player"){
-			collider.gameObject.transform.GetComponent<PlayerController>().kill();
+		if(collider.gameObject.tag == "Player" && collision){
+			GameManager.playerController.kill();
 		}
 	}
 
 	void OnTriggerEnter (Collider collider) {
-		if(collider.gameObject.tag == "Player"){
-			collider.gameObject.transform.GetComponent<PlayerController>().kill();
+		if(collider.gameObject.tag == "Player" && trigger){
+			GameManager.playerController.kill();
 		}
 	}
 
