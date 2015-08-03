@@ -7,13 +7,13 @@ public class DieOnTouch : MonoBehaviour {
 	public bool trigger = true;
 
 	void OnCollisionEnter (Collision collider) {
-		if(collider.gameObject.tag == "Player" && collision){
+		if(collider.gameObject.tag == "Player" && collision && isActiveAndEnabled){
 			GameManager.playerController.kill();
 		}
 	}
 
 	void OnTriggerEnter (Collider collider) {
-		if(collider.gameObject.tag == "Player" && trigger){
+		if(collider.gameObject.tag == "Player" && trigger && isActiveAndEnabled){
 			GameManager.playerController.kill();
 		}
 	}

@@ -7,6 +7,9 @@ public class FrostFirePlanetEventsManager : PlanetEventsManager {
 
 	private DialogueController bigPappadaDialogueController;
 
+	public Material materialCoreOnSolidify;
+
+	public RunnerSegment[] runnerSegments;
 	public Checkpoint planetCheckpoint;
 	public GameObject corruptionBlockade;
 	public GameObject penguinAttackEvent;
@@ -20,6 +23,11 @@ public class FrostFirePlanetEventsManager : PlanetEventsManager {
 	private Vector3 startingScale;
 	private Vector3 objectiveScale;
 	private Quaternion startingFireRotation;
+
+	private int lastCompletedSegment = 0;
+	private bool diedOnSegment = false;
+
+	public GameObject hydraPrefab;
 
 
 	private bool hydraEventCinematicFinished = false;
@@ -54,37 +62,62 @@ public class FrostFirePlanetEventsManager : PlanetEventsManager {
 	}
 
 	private IEnumerator doRunningEvent(){
-		float timeItLasts = 15f;
+		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().setCameraShaking ();
+		diedOnSegment = false;
+		rotatingFire.SetActive(true);
+		while (lastCompletedSegment<runnerSegments.Length && !diedOnSegment) {
+			yield return StartCoroutine(doSegment());
+		}
+		if (!diedOnSegment) {
+			hydraEventCinematicOngoing = false;
+			hydraEventCinematicFinished = true;
+			burningCore.GetComponent<DieOnTouch>().enabled = false;
+			burningCore.layer = LayerMask.NameToLayer("Planets");
+			burningCore.tag = "Planet";
+			GetComponent<MeteoriteSpawner>().enabled = false;
+			burningCore.GetComponent<Renderer>().material = materialCoreOnSolidify;
+			GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().stopCameraShaking ();
+		}
+		rotatingFire.SetActive(false);
+	}
+
+	public void hydraDead(){
+		runningEvent ();
+	}
+
+	private void runningEvent(){
+		StartCoroutine (doRunningEvent ());
+	}
+
+	private IEnumerator doSegment(){
+
+		GameManager.persistentData.playerLastCheckpoint = runnerSegments [lastCompletedSegment].segmentCheckpoint.checkPointIndex;
+		Vector3 startingScale = Vector3.one * runnerSegments [lastCompletedSegment].startingScale;
+		Vector3 endScale = Vector3.one * runnerSegments [lastCompletedSegment].endingScale;
+
+		float startingRotation = runnerSegments [lastCompletedSegment].startingFireRotation;
+		float endingRotation = runnerSegments [lastCompletedSegment].endingFireRotation;
+
 		float timer = 0f;
-		rotatingFire.SetActive (true);
-		rotatingFire.GetComponent<RotateAroundItself> ().rotationPerSecond = new Vector3 (0f, 0f,-8f);
-		while(timer<3f){
+		while (timer<runnerSegments[lastCompletedSegment].timeItLasts && !diedOnSegment) {
 			timer+=Time.deltaTime;
-			burningCore.transform.localScale += Time.deltaTime *Vector3.one * 0.01f;
-			yield return null;
-		}
+			float ratio = timer/runnerSegments[lastCompletedSegment].timeItLasts;
+			burningCore.transform.localScale = Vector3.Lerp(startingScale,endScale,ratio);
 
-		while(timer<timeItLasts){
-			timer+=Time.deltaTime;
-			movePlatforms(0.6f);
-			burningCore.transform.localScale += Time.deltaTime *Vector3.one * 0.04f;
-			yield return null;
-		}
-		rotatingFire.GetComponent<RotateAroundItself> ().rotationPerSecond = new Vector3 (0f, 0f,-14f);
+			float actualRotation = ((endingRotation - startingRotation) * ratio) + startingRotation;
+			Quaternion rotation = Quaternion.Euler (new Vector3 (burningCore.transform.localRotation.eulerAngles.x,burningCore.transform.localRotation.eulerAngles.y,actualRotation));
+			rotatingFire.transform.rotation = rotation;
 
-		timer = 0f;
-		while (timer<10f) {
-			timer+=Time.deltaTime;
+			if(runnerSegments[lastCompletedSegment].movePlatforms){
+				movePlatforms(runnerSegments[lastCompletedSegment].speedPlatforms);
+			}
 			yield return null;
 		}
-		timer = 0f;
-		while(timer<40f){
-			timer+=Time.deltaTime;
-			burningCore.transform.localScale += Time.deltaTime *Vector3.one * 0.02f;
-			yield return null;
+		if (!diedOnSegment) {
+			lastCompletedSegment++;
+		} else {
+			burningCore.transform.localScale = startingScale;
 		}
-
-		rotatingFire.GetComponent<RotateAroundItself> ().rotationPerSecond = new Vector3 (0f, 0f,0f);
 	}
 
 	private void cleanHydraCombat(){
@@ -93,7 +126,19 @@ public class FrostFirePlanetEventsManager : PlanetEventsManager {
 
 	private void startHydraCombat(){
 		//Temporarily there is no hydra
-		StartCoroutine (doRunningEvent ());
+		StartCoroutine (hydraCombat ());
+	}
+
+	private IEnumerator hydraCombat(){
+		GameObject hydra = GameObject.Instantiate (hydraPrefab) as GameObject;
+		hydra.transform.position = GameManager.player.transform.position + (GameManager.player.transform.up * 3f);
+		IAController controller = hydra.GetComponent<IAController> ();
+		controller.isDead = false;
+		while (!controller.isDead) {
+			yield return null;
+		}
+		Debug.Log("Hydra dead");
+		hydraDead ();
 	}
 
 	public override void initialize (){
@@ -149,11 +194,15 @@ public class FrostFirePlanetEventsManager : PlanetEventsManager {
 
 	public override void playerDies (){
 		if(hydraEventCinematicOngoing){
-
+			diedOnSegment = true;
 		}
 	}
 
-
+	public override void playerRespawned (){
+		if (diedOnSegment) {
+			runningEvent();
+		}
+	}
 
 
 }

@@ -377,6 +377,15 @@ public class PlayerController : MonoBehaviour {
 		isInvulnerable = false; 
 		bpAnimator.gameObject.layer = LayerMask.NameToLayer ("Player");
 		GameManager.inputController.enableInputController();
+
+		if (GameManager.playerSpaceBody.getClosestPlanet ()!=null) {
+			if(GameManager.playerSpaceBody.getClosestPlanet().isPlanetCorrupted()){
+				PlanetCorrupted pc = (PlanetCorrupted)GameManager.playerSpaceBody.getClosestPlanet();
+				if(pc.getPlanetEventsManager()!=null){
+					pc.getPlanetEventsManager().playerRespawned();
+				}
+			}
+		}
 	}
 
 	//Method that makes the player fall, becoming invulnerable for a while
