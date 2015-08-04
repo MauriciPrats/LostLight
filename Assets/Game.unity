@@ -17425,7 +17425,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1614c1826dbb3274db7e0889574bce03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorAmbientInsidePlanet: {r: .477941155, g: .477941155, b: .477941155, a: 0}
 --- !u!1 &279487488
 GameObject:
   m_ObjectHideFlags: 0
@@ -17558,8 +17557,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e3e1ba2a9582ba4ebfea4cf30f2cf9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aspectRatioWidth: 16
-  aspectRatioHeight: 9
 --- !u!4 &283120714
 Transform:
   m_ObjectHideFlags: 0
@@ -35138,7 +35135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waves:
   - enemies:
-    - type: 0
+    - type: 2
       ammount: 4
   - enemies:
     - type: 0
@@ -35146,7 +35143,7 @@ MonoBehaviour:
     - type: 5
       ammount: 2
   shintoDoor: {fileID: 0}
-  isActive: 0
+  isActive: 1
   timeBetweenWaves: 2
 --- !u!114 &730498446
 MonoBehaviour:
@@ -35165,7 +35162,7 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: c9719fd028677b141ab68a68fac7fa7a, type: 2}
   yMin: -2
   yMax: 36
-  startCorrupted: 0
+  startCorrupted: 1
   speed: 3.5
   particlesOnPurificationSpeed: 5
 --- !u!114 &730498447
@@ -35434,7 +35431,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 746513858}
-  m_LocalRotation: {x: .00565734459, y: .705257714, z: .708897531, w: .00661901012}
+  m_LocalRotation: {x: .00565734459, y: .705257714, z: .708897531, w: .00661900826}
   m_LocalPosition: {x: -.00229996722, y: .643498421, z: -.829999924}
   m_LocalScale: {x: .00655176956, y: .00655176677, z: .00655177049}
   m_Children:
@@ -59406,7 +59403,7 @@ Transform:
   - {fileID: 1113485334}
   - {fileID: 1624148354}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
 --- !u!1 &1280661463
 GameObject:
   m_ObjectHideFlags: 0
@@ -88020,6 +88017,7 @@ MonoBehaviour:
   - {fileID: 152610, guid: 3a79967716eb9ae4fa586960487959c2, type: 2}
   - {fileID: 163150, guid: 999201feb5c4f87469260b677c80aaa9, type: 2}
   - {fileID: 147550, guid: caa3b76d7af440449a9f5a5645b420d9, type: 2}
+  - {fileID: 120254, guid: 39be1fd8b05b81a41891ca5bfa4173d7, type: 2}
   spawnBall: {fileID: 136478, guid: 907aa934c17a6f34c9864ba7cfbf3a4a, type: 2}
   particlesOnContundentHit:
   - {fileID: 100000, guid: 12bcd11168a419d45b48549497198ad5, type: 2}
@@ -106621,7 +106619,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2052176610}
-  m_LocalRotation: {x: -.00565738231, y: -.705257773, z: -.708897591, w: .0066189738}
+  m_LocalRotation: {x: -.00565738231, y: -.705257773, z: -.708897591, w: .00661897194}
   m_LocalPosition: {x: -38.3699989, y: 19.6900005, z: -2.80999994}
   m_LocalScale: {x: 152.630539, y: 152.630569, z: 152.630569}
   m_Children: []
