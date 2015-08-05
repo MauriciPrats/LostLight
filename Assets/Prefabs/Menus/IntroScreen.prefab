@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: -98529514, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: a0ec947576ca8164da839e8f9250d312, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Texture: {fileID: 15200000, guid: a053d0aa32349af41bb2f214fc9d0593, type: 3}
   m_UVRect:

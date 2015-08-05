@@ -111,7 +111,16 @@ public static class GameManager{
 	}
 
 	public static void restartGame(){
+		Planet planet = playerSpaceBody.getClosestPlanet ();
+		if(planet!=null && planet.isPlanetCorrupted()){
+			PlanetCorrupted planetCorrupted = (PlanetCorrupted)planet;
+			if(planetCorrupted.getPlanetEventsManager()!=null){
+				planetCorrupted.getPlanetEventsManager().onFadeOutAfterDeath();
+			}
+		}
+
 		rebuildGameFromGameState ();
+
 		isGameEnded = false;
 		//GUIManager.activatePlayingGUIWithFadeIn();
 		GUIManager.fadeOutChangeMenuFadeIn (Menu.None);

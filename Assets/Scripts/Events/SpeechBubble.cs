@@ -18,7 +18,10 @@ public abstract class SpeechBubble : MonoBehaviour {
 	private bool firstFrameSkipped = false;
 	private bool calculatedVariablesAfterFirstFrame = false;
 	private Vector3 originalScale;
-	
+
+	void Awake(){
+		originalScale = transform.localScale;
+	}
 	public virtual void initialize(string text,GameObject goToFollow,float timeItLasts,bool bouncingIn,bool fadeOut){
 		this.fadeOut = fadeOut;
 		textO = GetComponentInChildren<Text> ();
@@ -33,9 +36,9 @@ public abstract class SpeechBubble : MonoBehaviour {
 		GetComponentInChildren<CanvasGroup> ().alpha = 1f;
 		/*if(originalScale==null){
 			originalScale = transform.localScale;
-		}else{
+		}else{*/
 			transform.localScale = originalScale;
-		}*/
+
 		if(bouncingIn){
 			StartCoroutine ("beat");
 		}

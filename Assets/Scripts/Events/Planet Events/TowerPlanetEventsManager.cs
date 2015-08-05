@@ -40,7 +40,7 @@ public class TowerPlanetEventsManager : PlanetEventsManager {
 			GameManager.inputController.disableInputController();
 			GameManager.mainCamera.GetComponent<CameraFollowingPlayer>().setCameraShaking();
 			yield return new WaitForSeconds (2f);
-			bigPappadaDialogue = bigPappadaDialogueController.createNewDialogue ("?!", 1f, false, false);
+			bigPappadaDialogue = bigPappadaDialogueController.createNewDialogue ("What is this?!", 1f, false, false);
 			yield return StartCoroutine(WaitInterruptable (1f,bigPappadaDialogue));
 
 			corruptionOngoing = GameObject.Instantiate (corruptionPlanetPrefab) as GameObject;
@@ -101,6 +101,10 @@ public class TowerPlanetEventsManager : PlanetEventsManager {
 
 	}
 
+	public override void onFadeOutAfterDeath (){
+		stopCorruptionChasingEvent ();
+	}
+
 	public override void initialize (){
 		whiteHeartDialogueController = whiteHeartEncounter.GetComponent<TowerPlanetWhiteHeartEncounter> ().whiteHeartSensei.GetComponent<DialogueController> ();
 		bigPappadaDialogueController = GameManager.player.GetComponent<DialogueController> ();
@@ -116,7 +120,6 @@ public class TowerPlanetEventsManager : PlanetEventsManager {
 
 	public override void playerDies(){
 		corruptionChasing.GetComponent<TowerPlanetCorruptionChasing>().isActive = true;
-		stopCorruptionChasingEvent ();
 	}
 
 	
