@@ -3419,7 +3419,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectsToCollide:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   drag: 0
   gravityMultiplyier: 1
 --- !u!114 &11485054
@@ -3433,7 +3433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1698e9ac60bf14c4eaf030f9aa71a7a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: .5
   noChangingDirection: 0
 --- !u!114 &11492790
 MonoBehaviour:
@@ -3493,7 +3493,7 @@ MonoBehaviour:
   isDead: 0
   jumpingAttack: 12
   burrowAttack: 11
-  patrolTimeToTurn: 1.5
+  patrolTimeToTurn: 5
 --- !u!136 &13632836
 CapsuleCollider:
   m_ObjectHideFlags: 1

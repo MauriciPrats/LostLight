@@ -31,7 +31,12 @@ public class IAControllerRat : IAController {
 		burrowAttackA.informParent (gameObject);
 		jumpingAttackA.informParent (gameObject);
 
+	
+		iaAnimator.SetBool ("isWalking", true);
+		isBurried = false;
+
 		burrowParticles = gameObject.transform.Find ("BurriedDust").gameObject;
+		burrowParticles.SetActive (false);
 
 		SetMeleeRange (0.025f);
 		SetVisionRange (3f);
@@ -55,30 +60,29 @@ public class IAControllerRat : IAController {
 				if (isBurried) {
 					Debug.Log("Salgo!");
 					Emerge ();
-					gameObject.transform.Find ("Model").gameObject.transform.localPosition = new Vector3 (0.391f,0,-0.418f);
+					//gameObject.transform.Find ("Model").gameObject.transform.localPosition = new Vector3 (0.391f,0,-0.418f);
 				}
-				characterController.Move (0f);
+				//characterController.Move (0f);
 				Debug.Log ("Ataque veneno");
 			} else {
 				Debug.Log ("Me voy debajo tierra. A ver si puedo llegar hasta el.");
 				if (!isBurried) {
 					Burrow ();				
 				}
-				if ( (isBurried && isUndergroundState())) {
-					gameObject.transform.Find ("Model").gameObject.transform.localPosition = new Vector3 (5000,5000,5000);
+				if (isBurried && isUndergroundState()) {
+					gameObject.transform.Find ("Model").gameObject.SetActive(false);
+				}	
+				//if (!isBurried && isWalkingState()){
 					characterController.Move(getPlayerDirection ());
-				}
-				if (!isBurried && isWalkingState()){
-					characterController.Move(getPlayerDirection ());
-				}
+				//}
 			}
 
-		//I can't see the player. Just Patrol or Burrow
+		//I can't see the player. Just Patrol.
 		}else if (!attackController.isDoingAnyAttack() && !isJumping) {
 			Debug.Log ("Patrullo en la superficie"); 
-			characterController.Move (0f);
-			Emerge ();
-			//Patrol ();
+			//characterController.Move (0f);
+			//Emerge ();
+			Patrol ();
 		}
 	}
 
@@ -92,16 +96,20 @@ public class IAControllerRat : IAController {
 		}else{
 			Move(getLookingDirection());
 		}
+		if (GetComponent<GravityBody>().getIsTouchingPlanet()) {
+			characterController.Jump(2);
+		}
 	}
 
 	private void Emerge() {
 		burrowParticles.SetActive (false);
-		iaAnimator.SetBool ("isWalking", true);
+		iaAnimator.SetBool ("Unearthing", true);
+		gameObject.transform.Find ("Model").gameObject.SetActive(true);
 		isBurried = false;
 	}
 
 	private void Burrow() {
-		iaAnimator.SetBool ("isWalking", false);
+		iaAnimator.SetBool ("Burrowing", true);
 		burrowParticles.SetActive (true);
 		isBurried = true;	
 	}
