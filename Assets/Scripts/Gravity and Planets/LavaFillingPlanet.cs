@@ -4,6 +4,7 @@ using System.Collections;
 public class LavaFillingPlanet : MonoBehaviour {
 
 	public GameObject corePlanet;
+	public ParticleSystem particleSystem;
 
 	public float timeToGrow = 2f;
 
@@ -19,6 +20,12 @@ public class LavaFillingPlanet : MonoBehaviour {
 	private float timer = 0f;
 	private enum Phase{Growing,WaitingGrown,Ungrowing,WaitingUngrown};
 	private Phase actualPhase = Phase.Growing;
+
+	void Awake(){
+		if(particleSystem!=null){
+			particleSystem.Stop ();
+		}
+	}
 
 	void Update(){
 		timer += Time.deltaTime;
@@ -39,6 +46,9 @@ public class LavaFillingPlanet : MonoBehaviour {
 				float ratio = timer / timeToStayMaxGrown;
 				//Vector3 scale = maxScale * (ratio);
 				if (timer > timeToStayMaxGrown) {
+					if(particleSystem!=null){
+						particleSystem.Stop();
+					}
 					nextPhase ();
 				}
 
@@ -55,6 +65,12 @@ public class LavaFillingPlanet : MonoBehaviour {
 				//Vector3 scale = maxScale * ratio;
 				if (timer > timeToStayMinGrown) {
 					nextPhase ();
+				}else{
+					if(particleSystem!=null){
+						if(timeToStayMinGrown-timer < 0.75f && !particleSystem.isPlaying){
+							particleSystem.Play();
+						}
+					}
 				}
 
 			}

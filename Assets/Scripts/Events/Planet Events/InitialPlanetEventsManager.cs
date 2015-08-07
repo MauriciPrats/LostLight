@@ -14,6 +14,11 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 	public GameObject lightGemGO;
 	public GameObject rocksBlockingPathGO;
 	public GameObject corruptionSeepingGO;
+	public Vector3 weaponOnCranePosition;
+	public Vector3 weaponOnCraneRotation;
+
+	private Vector3 originalWeaponOnCranePosition;
+	private Vector3 originalWeaponOnCraneRotation;
 
 	bool firstCinematicPlayed = false;
 	bool hasBeenActivated = false;
@@ -25,8 +30,13 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 	public override void isActivated(){
 		if(!hasBeenActivated){
 			if(isEnabled){
+				GameObject middlePointBigPLittleG = new GameObject();
+
 				littleGHopper.SetActive(true);
 				GameManager.player.transform.position = new Vector3(bigPappadaInitialPosition.transform.position.x,bigPappadaInitialPosition.transform.position.y,0f);
+				middlePointBigPLittleG.transform.position = (littleGHopper.transform.position+GameManager.player.transform.position)/2f;
+				middlePointBigPLittleG.transform.up = middlePointBigPLittleG.transform.position - transform.position;
+				GameManager.mainCamera.GetComponent<CameraFollowingPlayer>().followObjective(middlePointBigPLittleG);
 				hasBeenActivated = true;
 				//First event is putting Big P in the initial position
 				GameManager.player.transform.position = bigPappadaInitialPosition.transform.position;
@@ -38,6 +48,10 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 				GameManager.player.GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);
 				GameManager.inputController.disableInputController ();
 				GameManager.playerAnimator.SetBool("isDoingCranePosition",true);
+				originalWeaponOnCranePosition = GameManager.playerController.weapon.transform.localPosition;
+				originalWeaponOnCraneRotation = GameManager.playerController.weapon.transform.localEulerAngles;
+				GameManager.playerController.weapon.transform.localPosition = weaponOnCranePosition;
+				GameManager.playerController.weapon.transform.localEulerAngles = weaponOnCraneRotation;
 				littleGHopper.GetComponent<SpaceGravityBody> ().bindToClosestPlanet ();
 				littleGHopper.GetComponent<SpaceGravityBody> ().setStatic (true);
 				littleGHopper.GetComponent<CharacterController> ().StopMoving ();
@@ -93,11 +107,14 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 				GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().resetXAngle();
 				GameManager.playerAnimator.SetBool("isDoingCranePosition",false);
 				GameManager.playerAnimator.SetBool ("isJumping", true);
+				GameManager.mainCamera.GetComponent<CameraFollowingPlayer>().resetObjective();
 				GameManager.player.GetComponent<CharacterController>().StopMoving();
 				GameManager.playerSpaceBody.setStatic (false);
 				GameManager.player.GetComponent<CharacterController>().Jump(12f);
 				GameManager.playerController.initializePlayerRotation();
 				GameManager.player.GetComponent<CharacterController>().LookLeftOrRight(-1f);
+				GameManager.playerController.weapon.transform.localPosition = originalWeaponOnCranePosition;
+				GameManager.playerController.weapon.transform.localEulerAngles = originalWeaponOnCraneRotation;
 				
 				timer = 0f;
 				originalZ = GameManager.player.transform.position.z;
@@ -157,7 +174,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			yield return StartCoroutine(WaitInterruptable (1f,bigPappadaDialogue));
 			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("This rocks \n are in the way", 3f, false, false);
 			yield return StartCoroutine(WaitInterruptable (3f,bigPappadaDialogue));
-			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("I must find a \n way to find them! ", 3f, false, false);
+			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("I must find a \n way to break them! ", 3f, false, false);
 			yield return StartCoroutine(WaitInterruptable (3f,bigPappadaDialogue));
 			GameManager.inputController.enableInputController ();
 			GUIManager.setTutorialText("Press 'X' to attack \n and clear the path!");

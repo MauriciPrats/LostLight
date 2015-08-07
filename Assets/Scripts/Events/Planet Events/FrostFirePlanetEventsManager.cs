@@ -76,9 +76,11 @@ public class FrostFirePlanetEventsManager : PlanetEventsManager {
 			burningCore.tag = "Planet";
 			GetComponent<MeteoriteSpawner>().enabled = false;
 			burningCore.GetComponent<Renderer>().material = materialCoreOnSolidify;
+			burningCore.GetComponent<ParticleSystem>().Stop();
 			GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().stopCameraShaking ();
+			rotatingFire.SetActive(false);
 		}
-		rotatingFire.SetActive(false);
+		//rotatingFire.SetActive(false);
 	}
 
 	public void hydraDead(){
@@ -115,8 +117,6 @@ public class FrostFirePlanetEventsManager : PlanetEventsManager {
 		}
 		if (!diedOnSegment) {
 			lastCompletedSegment++;
-		} else {
-			burningCore.transform.localScale = startingScale;
 		}
 	}
 
@@ -137,7 +137,6 @@ public class FrostFirePlanetEventsManager : PlanetEventsManager {
 		while (!controller.isDead) {
 			yield return null;
 		}
-		Debug.Log("Hydra dead");
 		hydraDead ();
 	}
 
@@ -204,5 +203,10 @@ public class FrostFirePlanetEventsManager : PlanetEventsManager {
 		}
 	}
 
+	public override void onFadeOutAfterDeath (){
+		if(diedOnSegment){
+			burningCore.transform.localScale = runnerSegments[lastCompletedSegment].startingScale * Vector3.one;
+		}
+	}
 
 }
