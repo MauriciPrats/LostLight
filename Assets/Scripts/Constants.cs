@@ -59,7 +59,7 @@ public static class Constants{
 	public static float HITSTONE_TIME = 0.06f;
 	//ENEMY SPAWNING
 	public static float SPAWNING_MINIMUM_DISTANCE_OF_PLAYER = 8f;
-	public static float SPAWNING_MAXIMUM_DISTANCE_OF_PLAYER = 20f;
+	public static float SPAWNING_MAXIMUM_DISTANCE_OF_PLAYER = 15f;
 
 	public static float TIME_BETWEEN_CHECK_PLAYER_DISTANCE_FOR_DESPAWN = 2f;
 

@@ -64,19 +64,19 @@ public class TowerPlanetEventsManager : PlanetEventsManager {
 			bigPappadaDialogue = bigPappadaDialogueController.createNewDialogue ("Master?!", 1f, false, false);
 			yield return StartCoroutine (WaitInterruptable (1f, bigPappadaDialogue));
 
-			bigPappadaDialogue = bigPappadaDialogueController.createNewDialogue ("What are you doing here?!", 1f, false, false);
+			bigPappadaDialogue = bigPappadaDialogueController.createNewDialogue ("What are you\n doing here?!", 1f, false, false);
 			yield return StartCoroutine (WaitInterruptable (1f, bigPappadaDialogue));
 
-			whiteHeartDialogue = whiteHeartDialogueController.createNewDialogue ("... It's a long story... ", 2f, false, false);
+			whiteHeartDialogue = whiteHeartDialogueController.createNewDialogue ("It's a long story... ", 2f, false, false);
 			yield return StartCoroutine (WaitInterruptable (2f, whiteHeartDialogue));
-			bigPappadaDialogue = bigPappadaDialogueController.createNewDialogue ("Tell me everything! Master! ", 2f, false, false);
+			bigPappadaDialogue = bigPappadaDialogueController.createNewDialogue ("Tell me everything!\n Master! ", 2f, false, false);
 			yield return StartCoroutine (WaitInterruptable (2f, bigPappadaDialogue));
 			GUIManager.fadeIn (Menu.BlackMenu);
 			yield return new WaitForSeconds (2f);
 			GUIManager.fadeOut (null);
-			bigPappadaDialogue = bigPappadaDialogueController.createNewDialogue ("I see... So that's why they kidnapped Little G...! ", 2f, false, false);
+			bigPappadaDialogue = bigPappadaDialogueController.createNewDialogue ("I see... So that's why \n they kidnapped Little G...! ", 2f, false, false);
 			yield return StartCoroutine (WaitInterruptable (2f, bigPappadaDialogue));
-			whiteHeartDialogue = whiteHeartDialogueController.createNewDialogue ("Yes, you are our only option now! ", 2f, false, false);
+			whiteHeartDialogue = whiteHeartDialogueController.createNewDialogue ("Yes, you are our\n only option now! ", 2f, false, false);
 			yield return StartCoroutine (WaitInterruptable (2f, whiteHeartDialogue));
 			bigPappadaDialogue = bigPappadaDialogueController.createNewDialogue ("I'll make them pay! ", 2f, false, false);
 			yield return StartCoroutine (WaitInterruptable (2f, bigPappadaDialogue));

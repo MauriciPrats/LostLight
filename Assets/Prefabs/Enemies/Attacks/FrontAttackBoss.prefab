@@ -73,10 +73,12 @@ MonoBehaviour:
   damage: 2
   cost: 10
   elementAttack: 0
-  timeToChargeAttack: .100000001
-  attackDuration: .100000001
+  timeToChargeAttack: .5
+  attackDuration: .200000003
   particlesAttack: {fileID: 193960}
   animator: {fileID: 0}
+  hasPushBack: 1
+  sphereColliderRadius: 1.29999995
 --- !u!135 &13509964
 SphereCollider:
   m_ObjectHideFlags: 1

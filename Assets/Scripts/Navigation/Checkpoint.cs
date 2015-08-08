@@ -6,6 +6,7 @@ public class Checkpoint : MonoBehaviour {
 	public int checkPointIndex;
 	public GameObject checkPointsManager;
 	public GameObject planetGO;
+	public ParticleSystem onActivationParticleSystem;
 	private Planet planet;
 
 	void Awake(){
@@ -19,6 +20,9 @@ public class Checkpoint : MonoBehaviour {
 	void OnTriggerEnter (Collider col)
 	{
 		if(col.gameObject.tag == "Player"){
+			if(onActivationParticleSystem!=null && GameManager.persistentData.playerLastCheckpoint != checkPointIndex){
+				onActivationParticleSystem.Play();
+			}
 			GameManager.persistentData.playerLastCheckpoint = checkPointIndex;
 		}
 	}

@@ -1244,8 +1244,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 163150}
   m_LocalRotation: {x: 0, y: .707106829, z: 0, w: .707106709}
-  m_LocalPosition: {x: -398.153015, y: 31.8530006, z: -.158000007}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: -398.190002, y: 31.9890003, z: -.158610001}
+  m_LocalScale: {x: 8.43258381, y: 8.43258858, z: 8.43258858}
   m_Children:
   - {fileID: 482064}
   - {fileID: 473360}
@@ -1632,7 +1632,7 @@ MonoBehaviour:
   chargeAttack: 9
   patrolTimeToTurn: 1.5
   lookTime: .100000001
-  maxDistanceMeleeAttack: .200000003
+  maxDistanceMeleeAttack: .800000012
   phase1Duration: 10
   stunDuration: 5
 --- !u!114 &11480128
@@ -1667,7 +1667,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: .0577333979
-  m_Height: .170471579
+  m_Height: .185466498
   m_Direction: 1
   m_Center: {x: 0, y: .109999999, z: .0250000004}
 --- !u!137 &13741424

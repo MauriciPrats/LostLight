@@ -19,7 +19,8 @@ public class SceneManager : MonoBehaviour {
 					  blackMenuGUIPrefab,
 					  tutorialMenuPrefab,
 					  optionsMenuPrefab,
-					  introPrefab;
+					  introPrefab,
+	                  rotatingPlanetMenuPrefab;
 
 	void Awake(){
 		GameManager.registerActualSceneManager (gameObject);
@@ -39,6 +40,7 @@ public class SceneManager : MonoBehaviour {
 		GUIManager.registerTutorialMenu (tutorialMenuPrefab);
 		GUIManager.registerOptionsMenu (optionsMenuPrefab);
 		GUIManager.registerIntroScene (introPrefab);
+		GUIManager.registerOnRotatingPlanetMenu (rotatingPlanetMenuPrefab);
 
 		Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Dashing"),LayerMask.NameToLayer("Enemy"),true);
 		Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Dashing"),LayerMask.NameToLayer("Dashing"),true);

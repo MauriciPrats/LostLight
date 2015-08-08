@@ -141,7 +141,12 @@ public class SpaceGravityBody : GravityBody {
 		isOrbitingAroundPlanet = orbiting;
 		if (!orbiting) {
 			if(isPlayer){
+				GUIManager.deactivateOnRotatingPlanetMenu();
 				GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().unfollowObjective();
+			}
+		}else{
+			if(isPlayer){
+				GUIManager.activateOnRotatingPlanetMenu();
 			}
 		}
 	}

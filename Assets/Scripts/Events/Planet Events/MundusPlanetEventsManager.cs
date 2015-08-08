@@ -10,19 +10,21 @@ public class MundusPlanetEventsManager : PlanetEventsManager {
 	public GameObject lastPlanetPrefab;
 	public GameObject platformPrefab;
 	public GameObject positionEndingBigP;
+	public GameObject littleGHopper;
 	public LayerMask layersToCollideRaycastPlatforms;
 
 	private DialogueController mundusDialogueController; 
 	private DialogueController bigPappadaDialogueController;
+	private DialogueController littleGDialogueController; 
 
 	private GameObject mundusDialogue;
 	private GameObject bigPappadaDialogue;
+	private GameObject littleGDialogue; 
 
 	bool firstCinematicPlayed = false;
 	bool hasBeenActivated = false;
 
 	private GameObject mundus;
-	private GameObject littleGDialogue;
 	private List<GameObject> fisures;
 	private GameObject athmosphere;
 	private GameObject lastPlanet;
@@ -48,6 +50,7 @@ public class MundusPlanetEventsManager : PlanetEventsManager {
 				mundus.transform.position = mundusSpawnPosition.transform.position;
 				mundusDialogueController = mundus.GetComponent<DialogueController>();
 				bigPappadaDialogueController = GameManager.player.GetComponent<DialogueController>();
+				littleGDialogueController = littleGHopper.GetComponent<DialogueController>();
 				GameManager.inputController.disableInputController();
 				GUIManager.deactivateMinimapGUI();
 			}
@@ -101,17 +104,49 @@ public class MundusPlanetEventsManager : PlanetEventsManager {
 	}
 
 	private IEnumerator CinematicEndGame(){
-		GameObject closestPlatform = getClosestPlatformTop (GameManager.player.transform.position);
-		GUIManager.fadeIn (Menu.BlackMenu);
-		GameManager.playerController.isInvulnerable = true;
-		GameManager.inputController.disableInputController ();
-		yield return new WaitForSeconds (1f);
-		GetComponent<PlanetCorruption> ().setCorruptionToClean ();
 
+		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().returnOriginalZ ();
+		//GameObject closestPlatform = getClosestPlatformTop (GameManager.player.transform.position);
+		GUIManager.fadeIn (Menu.BlackMenu);
+		littleGHopper.GetComponent<CharacterController> ().LookLeftOrRight (1f);
+		GameManager.playerController.isInvulnerable = true;
+		yield return new WaitForSeconds (1f);
+		GameManager.inputController.disableInputController ();
+		GetComponent<PlanetCorruption> ().setCorruptionToClean ();
+		GameManager.player.GetComponent<CharacterController> ().LookLeftOrRight (-1f);
+		GameManager.playerController.StopMove ();
+		GameManager.player.GetComponent<Rigidbody> ().velocity = Vector3.zero;
 		GameManager.player.transform.position = positionEndingBigP.transform.position;
+		GameManager.playerAnimator.SetBool ("isDerribado", true);
+
 		yield return new WaitForSeconds (0.5f);
+
 		GUIManager.fadeOut (null);
-		GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().setObjectiveZ (10f);
+		littleGHopper.GetComponentInChildren<Animator> ().SetBool ("isFallingDown",false);
+		yield return new WaitForSeconds (2f);
+
+		littleGDialogue = littleGDialogueController.createNewDialogue ("Master?", 2f, false, false);
+		yield return StartCoroutine (WaitInterruptable (2f, littleGDialogue));
+
+		littleGHopper.GetComponent<CharacterController> ().Move (1f);
+		littleGHopper.GetComponentInChildren<Animator> ().SetBool ("isWalking", true);
+		yield return new WaitForSeconds (1f);
+		littleGHopper.GetComponent<CharacterController> ().StopMoving ();
+		littleGHopper.GetComponentInChildren<Animator> ().SetBool ("isWalking", false);
+
+		littleGDialogue = littleGDialogueController.createNewDialogue ("Big P.?", 2f, false, false);
+		yield return StartCoroutine (WaitInterruptable (2f, littleGDialogue));
+
+		littleGDialogue = littleGDialogueController.createNewDialogue ("Nooooo!!", 2f, false, false);
+		yield return StartCoroutine (WaitInterruptable (2f, littleGDialogue));
+
+		GUIManager.fadeIn (Menu.BlackMenu);
+		yield return new WaitForSeconds (1f);
+		GameManager.persistentData.playerLastCheckpoint = 0;
+		GameManager.restartGame ();
+		GUIManager.fadeOut(null);
+		yield return new WaitForSeconds (1f);
+		GUIManager.fadeIn (Menu.MainMenu);
 	}
 
 	private IEnumerator CinematicChangeToPhase2(){
@@ -254,9 +289,14 @@ public class MundusPlanetEventsManager : PlanetEventsManager {
 	public void mundusInRangeOfCinematic(){
 		StartCoroutine (startingCinematic ());
 	}
+
 	
 	public override void initialize(){
 		if(isEnabled){
+			littleGHopper.GetComponentInChildren<Animator> ().SetBool ("isFallingDown",true);
+			littleGHopper.GetComponent<CharacterController> ().setOriginalOrientation ();
+			littleGHopper.GetComponent<CharacterController> ().LookLeftOrRight (1f);
+
 			athmosphere = GetComponent<GravityAttractor>().getAthmosphere();
 			fisures = new List<GameObject>(0);
 

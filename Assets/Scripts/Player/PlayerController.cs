@@ -294,6 +294,15 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void ChargeJump() {
+		Planet planet = body.getClosestPlanet ();
+		if(planet!=null){
+			if(planet.isPlanetCorrupted()){
+				PlanetCorrupted pc = (PlanetCorrupted) planet;
+				if(pc.getPlanetEventsManager()!=null){
+					pc.getPlanetEventsManager().chargeSpaceJumping();
+				}
+			}
+		}
 		GUIManager.deactivatePlayingGUI ();
 		bpAnimator.SetBool("isChargingSpaceJumping",true);
 		isChargingSpaceJump = true;

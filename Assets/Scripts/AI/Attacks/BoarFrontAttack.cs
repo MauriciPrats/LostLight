@@ -7,6 +7,8 @@ public class BoarFrontAttack : Attack {
 	public float attackDuration = 0.1f;
 	public GameObject particlesAttack;
 	public GameObject animator;
+	public bool hasPushBack = false;
+	public float sphereColliderRadius = 0.15f;
 
 
 	private float attackTimer = 0f;
@@ -85,6 +87,10 @@ public class BoarFrontAttack : Attack {
 	private void attackEffect(){
 		if(isPlayerInsideAttack && !interrupted){
 			GameManager.player.GetComponent<PlayerController>().getHurt(damage,GameManager.player.GetComponentInChildren<Collider>().ClosestPointOnBounds(transform.position));
+			if(hasPushBack){
+				Vector3 direction = GameManager.player.GetComponent<Rigidbody>().worldCenterOfMass - parent.transform.position;
+				GameManager.player.GetComponent<Rigidbody>().AddForce(direction.normalized*15f,ForceMode.VelocityChange);
+			}
 		}
 	}
 
@@ -96,6 +102,7 @@ public class BoarFrontAttack : Attack {
 		transform.parent = parentObject.transform;
 		transform.rotation = parentObject.transform.rotation;
 		transform.position = parentObject.GetComponent<Rigidbody>().worldCenterOfMass + (parentObject.transform.forward*parentObject.GetComponent<WalkOnMultiplePaths>().centerToExtremesDistance*1.5f);
+		GetComponent<SphereCollider> ().radius = sphereColliderRadius;
 		parent = parentObject;
 		iaAnimator = parent.GetComponent<IAController> ().getIAAnimator ();
 		outlineChanger = parent.GetComponent<OutlineChanging> ();

@@ -64,6 +64,10 @@ public class PlanetSpawnerManager : MonoBehaviour {
 						if(GetComponent<PlanetCorrupted>().getPlanetEventsManager()!=null){
 							GetComponent<PlanetCorrupted>().getPlanetEventsManager().firstWaveFinished();
 						}
+					}else if (currentWave==2){
+						if(GetComponent<PlanetCorrupted>().getPlanetEventsManager()!=null){
+							GetComponent<PlanetCorrupted>().getPlanetEventsManager().secondWaveFinished();
+						}
 					}
 					SpawnWave(waves[currentWave]);
 					timerSpawn = 0f;

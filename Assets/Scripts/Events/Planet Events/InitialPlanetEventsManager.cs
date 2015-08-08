@@ -22,6 +22,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 
 	bool firstCinematicPlayed = false;
 	bool hasBeenActivated = false;
+	bool hasDoneTutorialSpaceJumpDirections = false;
 
 	private GameObject bigPappadaDialogue;
 	private GameObject littleGDialogue;
@@ -129,13 +130,13 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 				yield return new WaitForSeconds (1f);
 				bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("You must focus \n Little G.", 4f, false, false);
 				yield return StartCoroutine(WaitInterruptable (4f,bigPappadaDialogue));
-				bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("The balance is not in your body, \n it's in your mind. ", 4f, false, false);
+				bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("The balance is not in your body \n It's in your mind ", 4f, false, false);
 				yield return StartCoroutine(WaitInterruptable (4f,bigPappadaDialogue));
-				littleGDialogue = littleGHopper.GetComponent<DialogueController> ().createNewDialogue ("Yes master! ", 3f, false, false);
+				littleGDialogue = littleGHopper.GetComponent<DialogueController> ().createNewDialogue ("Yes master!", 3f, false, false);
 				yield return StartCoroutine(WaitInterruptable (3f,littleGDialogue));
-				bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("It's enough training \n for today. ", 4f, false, false);
+				bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("It's enough training \n for today ", 4f, false, false);
 				yield return StartCoroutine(WaitInterruptable (4f,bigPappadaDialogue));
-				bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Go to the temple,\n I'll go to hunt something to eat ", 4f, false, false);
+				bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Go to the temple \n I'll go to hunt something to eat ", 4f, false, false);
 				yield return StartCoroutine(WaitInterruptable (4f,bigPappadaDialogue));
 				littleGHopper.GetComponent<CharacterController> ().Move (-1f);
 				littleGHopper.GetComponentInChildren<Animator> ().SetBool ("isWalking", true);
@@ -283,31 +284,55 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			GameManager.audioManager.playSong(3);
 			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("¿Where am I? \n ¿What is this place?", 3f, false, false);
 			yield return StartCoroutine(WaitInterruptable (3f,bigPappadaDialogue));
-			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Looks like i have no choice \n I must press onwards...", 3f, false, false);
+			bigPappadaDialogue = GameManager.player.GetComponent<DialogueController> ().createNewDialogue ("Looks like i have no choice \n but to must press onwards...", 3f, false, false);
 			yield return StartCoroutine(WaitInterruptable (3f,bigPappadaDialogue));
 			GameManager.inputController.enableInputController();
 		}
 	}
 
 	IEnumerator IPTutorial() {
-		GUIManager.setTutorialText ("Press 'Down (hold) +Space' to perform a interplanetary jump.");
+		GUIManager.setTutorialText ("Press 'Down' and Jump to perform a interplanetary jump.");
 		GUIManager.activateTutorialText();
 		yield return new WaitForSeconds(5f);
-		GUIManager.setTutorialText ("You can control the jump direction with 'A' or 'D' (while holding 'Down' key");
-		GUIManager.activateTutorialText();
-		yield return new WaitForSeconds(10f);
-		GUIManager.deactivateTutorialText();
+	}
+
+	IEnumerator IPTutorialDirections(){
+		if(!hasDoneTutorialSpaceJumpDirections){
+			GUIManager.setTutorialText ("You can control the jump direction with 'Left' and 'Right'");
+			GUIManager.activateTutorialText();
+			yield return new WaitForSeconds(5f);
+			GUIManager.deactivateTutorialText();
+			hasDoneTutorialSpaceJumpDirections = true;
+		}
+	}
+
+	public override void chargeSpaceJumping(){
+		if(isEnabled){
+			StartCoroutine (IPTutorialDirections ());
+		}
 	}
 
 	IEnumerator gemPowerAttackTutorial() {
 		//This event is activated when the player has kthe first wave.
-		GUIManager.setTutorialText ("Press 'Triangle' to perform a powerful light attack.");
+		Util.changeTime (0.1f);
+		GUIManager.setTutorialText ("Press 'Y' to perform a powerful light attack.");
 		GUIManager.activateTutorialText();
-		yield return new WaitForSeconds(5f);
-		GUIManager.setTutorialText ("You can control the attack direction with 'Triangle + Right pad'");
-		GUIManager.activateTutorialText();
-		yield return new WaitForSeconds(5f);
+		yield return new WaitForSeconds(5f * Util.getTimeProportion());
+		//GUIManager.setTutorialText ("You can control the attack direction holding 'Y' and then pressing 'Up' and 'Down'");
+		//GUIManager.activateTutorialText();
+		//yield return new WaitForSeconds(5f * Util.getTimeProportion());
 		GUIManager.deactivateTutorialText();
+		Util.changeTime (1f);
+	}
+
+	IEnumerator tongueAttackTutorial() {
+		//This event is activated when the player has kthe first wave.
+		Util.changeTime (0.1f);
+		GUIManager.setTutorialText ("Press 'Up' and 'X' to perform a tongue attack");
+		GUIManager.activateTutorialText();
+		yield return new WaitForSeconds(5f * Util.getTimeProportion());
+		GUIManager.deactivateTutorialText();
+		Util.changeTime (1f);
 	}
 
 	IEnumerator lightgemCinematic(){
@@ -378,7 +403,7 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 			GetComponent<PlanetCorruption>().activateSpawning();
 			GameManager.inputController.enableInputController();
 			GameManager.inputController.enableInputController ();
-			GUIManager.setTutorialText("Press 'Square' to perform a consecutive attack series");
+			GUIManager.setTutorialText("Press 'A' to perform a consecutive attack series");
 			GUIManager.activateTutorialText();			
 			yield return new WaitForSeconds(5f);
 			GUIManager.deactivateTutorialText();
@@ -433,6 +458,8 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 	public override void firstWaveFinished(){
 		StartCoroutine("gemPowerAttackTutorial");
 	}
-
+	public override void secondWaveFinished(){
+		StartCoroutine("tongueAttackTutorial");
+	}
 
 }
