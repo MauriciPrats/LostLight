@@ -332,7 +332,7 @@ public class IAController : MonoBehaviour {
 	public void sendFlyingByConsecutiveHits(Vector3 direction){
 		if(!isUnthrowable){
 			if (consecutiveHits > 1) {
-				StartCoroutine (sendFlyingCoroutine (direction * consecutiveHits, getPlayerDirection ()));
+				StartCoroutine (sendFlyingCoroutine (direction * 3f, getPlayerDirection ()));
 			}
 		}
 	}
@@ -376,7 +376,7 @@ public class IAController : MonoBehaviour {
 
 	//Hit that acumulates strenght when the enemy is thrown (The more hits, the farther it flies)
 	public void hitCanSendFlying(){
-		interruptAttack ();
+		//interruptAttack ();
 		consecutiveHits++;
 		timerConsecutiveHits = 0f;
 		doHitStone ();

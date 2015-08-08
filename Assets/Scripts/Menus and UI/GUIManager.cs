@@ -46,6 +46,7 @@ public class GUIManager : MonoBehaviour {
 	private static GameObject tutorialMenuO;
 	private static GameObject optionsMenuO;
 	private static GameObject introSceneO;
+	private static GameObject rotatingOnPlanetMenuO;
 	
 	private static Text tutorialText;
 
@@ -281,6 +282,13 @@ public class GUIManager : MonoBehaviour {
 		}
 	}
 
+	public static void registerOnRotatingPlanetMenu(GameObject rotatingPlanetMenuGO){
+		if(rotatingPlanetMenuGO!=null && rotatingOnPlanetMenuO == null){
+			rotatingOnPlanetMenuO = GameObject.Instantiate (rotatingPlanetMenuGO) as GameObject;
+			rotatingOnPlanetMenuO.SetActive (false);
+		}
+	}
+
 
 	public static void activatePlayingGUIWithFadeIn(){
 		playingGUIO.SetActive (true);
@@ -310,6 +318,14 @@ public class GUIManager : MonoBehaviour {
 
 	public static void deactivateMinimapGUI(){
 		minimapGUI.SetActive (false);
+	}
+
+	public static void activateOnRotatingPlanetMenu(){
+		rotatingOnPlanetMenuO.SetActive (true);
+	}
+
+	public static void deactivateOnRotatingPlanetMenu(){
+		rotatingOnPlanetMenuO.SetActive (false);
 	}
 
 	public static void deactivatePlayingGUIWithFadeOut(){

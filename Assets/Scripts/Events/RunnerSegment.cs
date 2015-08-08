@@ -3,6 +3,7 @@ using System.Collections;
 
 [System.Serializable]
 public class RunnerSegment {
+	public bool resetPlatforms = false;
 	public bool movePlatforms = false;
 	public float speedPlatforms = 0f;
 

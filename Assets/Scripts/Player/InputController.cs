@@ -77,7 +77,7 @@ public class InputController : MonoBehaviour {
 					attackController.doAttack(onAirAttack,true);
 				}
 			}else{*/
-			if (Input.GetButtonDown("Normal Attack") && Input.GetAxisRaw("Vertical")>0f && isCharacterAllowedToDoNormalAttack()) {
+			if (Input.GetButtonDown("Normal Attack") && Input.GetAxisRaw("Vertical")>0.5f && isCharacterAllowedToDoNormalAttack()) {
 				attackController.doAttack(upNormalAttack,true);
 			}
 				if (Input.GetButtonDown("Normal Attack") && isCharacterAllowedToDoNormalAttack()) {
@@ -120,7 +120,7 @@ public class InputController : MonoBehaviour {
 				character.SpaceJump(); 
 			}
 
-			if(Input.GetButtonDown("Jump") && (Input.GetAxisRaw("Vertical")<0f || isSpaceJumpCharging)){
+			if(Input.GetButtonDown("Jump") && (Input.GetAxisRaw("Vertical")<-0.5f || isSpaceJumpCharging)){
 				if(isCharacterAllowedToSpaceJump()){
 					isSpaceJumpCharged = true; character.ChargeJump();
 				}

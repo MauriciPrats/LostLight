@@ -92,6 +92,7 @@ public class PlanetCorruption : MonoBehaviour {
 		if(!cleaningCorruption){
 			cleaningCorruption = true;
 			GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().setObjectiveZCameraCleansePlanet ();
+			corruptionOrigin.transform.up = corruptionOrigin.transform.position - transform.position;
 			GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().followObjective(corruptionOrigin,13f,2.5f);
 			GameManager.audioManager.playSong(5);
 			StartCoroutine("startCleaningWithDelay");

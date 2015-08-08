@@ -10,6 +10,7 @@ public class FrostFirePlanetEventsManager : PlanetEventsManager {
 	public Material materialCoreOnSolidify;
 
 	public RunnerSegment[] runnerSegments;
+
 	public Checkpoint planetCheckpoint;
 	public GameObject corruptionBlockade;
 	public GameObject penguinAttackEvent;
@@ -17,6 +18,7 @@ public class FrostFirePlanetEventsManager : PlanetEventsManager {
 
 	public GameObject burningCore;
 	public GameObject[] platforms;
+	private Vector3[] platformsOriginalPosition;
 	public GameObject rotatingFire;
 
 	public float objectiveGrowingScale = 1.75f;
@@ -93,6 +95,9 @@ public class FrostFirePlanetEventsManager : PlanetEventsManager {
 
 	private IEnumerator doSegment(){
 
+		if(runnerSegments[lastCompletedSegment].resetPlatforms){
+			resetPlatformPositions();
+		}
 		GameManager.persistentData.playerLastCheckpoint = runnerSegments [lastCompletedSegment].segmentCheckpoint.checkPointIndex;
 		Vector3 startingScale = Vector3.one * runnerSegments [lastCompletedSegment].startingScale;
 		Vector3 endScale = Vector3.one * runnerSegments [lastCompletedSegment].endingScale;
@@ -140,6 +145,12 @@ public class FrostFirePlanetEventsManager : PlanetEventsManager {
 		hydraDead ();
 	}
 
+	private void resetPlatformPositions(){
+		for(int i = 0;i<platformsOriginalPosition.Length;i++){
+			platforms[i].transform.position = platformsOriginalPosition[i];
+		}
+	}
+
 	public override void initialize (){
 		if(isEnabled){
 			GetComponent<PlanetSpawnerManager> ().enabled = false;
@@ -149,6 +160,10 @@ public class FrostFirePlanetEventsManager : PlanetEventsManager {
 			startingScale = new Vector3 (1f, 1f, 1f);
 			rotatingFire.SetActive(false);
 			startingFireRotation = rotatingFire.transform.rotation;
+			platformsOriginalPosition = new Vector3[platforms.Length];
+			for(int i = 0;i<platforms.Length;i++){
+				platformsOriginalPosition[i] = platforms[i].transform.position;
+			}
 		}else{
 			corruptionBlockade.SetActive(false);
 		}

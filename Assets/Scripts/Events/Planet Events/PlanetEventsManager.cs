@@ -15,8 +15,10 @@ abstract public class PlanetEventsManager : MonoBehaviour {
 	public virtual void planetCleansed (){}
 	public virtual void playerDies (){}
 	public virtual void firstWaveFinished(){}
+	public virtual void secondWaveFinished(){}
 	public virtual void playerRespawned(){}
 	public virtual void onFadeOutAfterDeath (){}
+	public virtual void chargeSpaceJumping(){}
 
 	private bool isInterrupted = false;
 
