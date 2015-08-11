@@ -3,6 +3,10 @@ using System.Collections;
 
 public class AudioManager : MonoBehaviour {
 
+
+
+
+
 	public AudioSource musicplayer;
 	public AudioSource bigpplayer;
 
@@ -69,8 +73,12 @@ public class AudioManager : MonoBehaviour {
 	public void PlaySound(int i) {
 		if (0 <= i && i < sfx.Length) 
 		{
-			bigpplayer.pitch = Random.Range (lowPitchRange,highPitchRange);
-			float hitVol = Random.Range (volLowRange, volHighRange);
+			float hitVol = volLowRange;
+			if (!bigpplayer.isPlaying) {
+				bigpplayer.pitch = Random.Range (lowPitchRange,highPitchRange);
+				hitVol = Random.Range (volLowRange, volHighRange);
+			}
+			
 			bigpplayer.PlayOneShot(sfx[i],hitVol);
 		}
 	
@@ -80,6 +88,7 @@ public class AudioManager : MonoBehaviour {
 	public void PlayStableSound(int i) {
 		if (0 <= i && i < sfx.Length) 
 		{
+		
 		bigpplayer.pitch = 1f;
 		bigpplayer.PlayOneShot(sfx[i],volLowRange);
 		}
