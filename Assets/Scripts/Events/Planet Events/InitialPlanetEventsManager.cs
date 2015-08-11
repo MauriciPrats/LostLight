@@ -32,6 +32,9 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 		if(!hasBeenActivated){
 			if(isEnabled){
 				GameObject middlePointBigPLittleG = new GameObject();
+				GameManager.mainCamera.GetComponent<CameraFollowingPlayer>().setObjectiveZ(2.5f);
+				GameManager.mainCamera.GetComponent<CameraFollowingPlayer>().setNewXAngle(0f);
+				GameManager.mainCamera.GetComponent<CameraFollowingPlayer>().setUpMultiplyierWithAngle(0.7f);
 
 				littleGHopper.SetActive(true);
 				GameManager.player.transform.position = new Vector3(bigPappadaInitialPosition.transform.position.x,bigPappadaInitialPosition.transform.position.y,0f);
@@ -108,7 +111,10 @@ public class InitialPlanetEventsManager : PlanetEventsManager {
 				GameManager.mainCamera.GetComponent<CameraFollowingPlayer> ().resetXAngle();
 				GameManager.playerAnimator.SetBool("isDoingCranePosition",false);
 				GameManager.playerAnimator.SetBool ("isJumping", true);
+				GameManager.mainCamera.GetComponent<CameraFollowingPlayer>().returnOriginalZ();
+				GameManager.mainCamera.GetComponent<CameraFollowingPlayer>().resetXAngle();
 				GameManager.mainCamera.GetComponent<CameraFollowingPlayer>().resetObjective();
+				GameManager.mainCamera.GetComponent<CameraFollowingPlayer>().resetUpMultiplyierWithAngle();
 				GameManager.player.GetComponent<CharacterController>().StopMoving();
 				GameManager.playerSpaceBody.setStatic (false);
 				GameManager.player.GetComponent<CharacterController>().Jump(12f);

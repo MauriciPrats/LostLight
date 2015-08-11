@@ -10,7 +10,9 @@ public class IsTouchingGround : MonoBehaviour {
 	}
 	void OnTriggerEnter (Collider col)
 	{
-		gravityBody.checkTouchEnter (col.gameObject);
+		if (!col.isTrigger) {
+			gravityBody.checkTouchEnter (col.gameObject);
+		}
 	}
 	
 	void OnCollisionEnter (Collision col)
@@ -20,7 +22,9 @@ public class IsTouchingGround : MonoBehaviour {
 	
 	void OnTriggerExit(Collider col)
 	{
-		gravityBody.checkTouchExit (col.gameObject);
+		if (!col.isTrigger) {
+			gravityBody.checkTouchExit (col.gameObject);
+		}
 	}
 	
 	void OnCollisionExit(Collision col)
