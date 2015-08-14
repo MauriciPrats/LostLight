@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour {
 		Xft.XWeaponTrail weaponTrail = weapon.GetComponentInChildren<Xft.XWeaponTrail> ();
 		//weapon.GetComponentInChildren<Xft.XWeaponTrail> ().Deactivate ();
 		//We reset the weapon trail because otherwise it will come out of big P original position in space
-		Color color = weaponTrail.MyColor ;
+		Color color = weaponTrail.MyColor;
 		weaponTrail.MyColor = new Color (0f, 0f, 0f, 0f);
 		yield return new WaitForSeconds(1f);
 		weaponTrail.MyColor = color;

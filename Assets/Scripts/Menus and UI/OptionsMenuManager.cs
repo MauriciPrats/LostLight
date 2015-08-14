@@ -1,11 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class OptionsMenuManager : MenuManager {
 
 	public GameObject resolutions;
 	public Toggle defaultToggleResolutionWindowed;
+
+	public AudioMixer mixer;
+	private static string MASTER = "Master";
+	private static string SFX = "Sfx";
+	private static string MUSIC = "Music";
 
 	void Awake(){
 
@@ -31,11 +37,21 @@ public class OptionsMenuManager : MenuManager {
 	}
 	
 	public void OnMusicVolumeSliderChange(float newVolume){
-		Debug.Log ("Music Volume Changed To: " + newVolume);
+		mixer.SetFloat(MUSIC,newVolume);
+		
 	}
 	
 	public void OnFXVolumeSliderChange(float newVolume){
-		Debug.Log ("FX Volume Changed To: " + newVolume);
+		mixer.SetFloat(SFX,newVolume);
+		
 	}
+	
+
+	
+	/*
+	public void setMasterlvl(float lvl){
+		mixer.SetFloat(MASTER,lvl);
+	}
+	*/
 
 }

@@ -30,7 +30,6 @@ public class SpaceGravityBody : GravityBody {
 				//Just landed from spaceJump
 				GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);
 			}
-			objectsTouching++;
 			isTouchingPlanet = true;
 			usesSpaceGravity = false;
 			isFallingIntoPlanet = false;
@@ -43,9 +42,8 @@ public class SpaceGravityBody : GravityBody {
 	public override void checkTouchExit(GameObject obj){
 		if (obj.layer.Equals(LayerMask.NameToLayer("Planets")) || obj.layer.Equals(LayerMask.NameToLayer("Enemy"))) {
 			collidingObjects.Remove(obj);
-			
-			objectsTouching--;
-			if(objectsTouching==0){
+
+			if(collidingObjects.Count==0){
 				isTouchingPlanet = false;
 			}
 		}

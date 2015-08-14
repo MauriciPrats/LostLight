@@ -9,6 +9,8 @@ public class CameraFollowingPlayer : MonoBehaviour {
 	public float distanceCameraOnCleansePlanet = 40;
 	public float upMultiplyierWithAngle = 2.5f;
 	public float upMultiplyierWithoutAngle = 1.2f;
+
+	public float originalUpMultiplyierWithAngle;
 	public float lerpMultiplyierZPosition = 4f;
 	public float minimumUpDistanceOnStartLerpingXAngle = 1f;
 	public float xAngle = 21f;
@@ -52,6 +54,7 @@ public class CameraFollowingPlayer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		originalUpMultiplyierWithAngle = upMultiplyierWithAngle;
 		originalZ = transform.position.z;
 		objectiveZ = originalZ;
 		followingObjective = false;
@@ -102,6 +105,14 @@ public class CameraFollowingPlayer : MonoBehaviour {
 		}
 
 
+	}
+
+	public void setUpMultiplyierWithAngle(float newUpMultiplyierWithAngle){
+		upMultiplyierWithAngle = newUpMultiplyierWithAngle;
+	}
+
+	public void resetUpMultiplyierWithAngle(){
+		upMultiplyierWithAngle = originalUpMultiplyierWithAngle;
 	}
 
 	public void setStaticUp(Vector3 newUp) {

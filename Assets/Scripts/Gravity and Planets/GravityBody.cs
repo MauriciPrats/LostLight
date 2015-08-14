@@ -14,7 +14,6 @@ public class GravityBody : MonoBehaviour {
 	protected float minimumPlanetDistance = float.MaxValue;
 
 	protected List<GameObject> collidingObjects = new List<GameObject>(0);
-	protected int objectsTouching = 0;
 	protected bool hasToApplyForce = true;
 	protected bool hasToChangeFacing = true;
 
@@ -33,7 +32,6 @@ public class GravityBody : MonoBehaviour {
 	public virtual void checkTouchEnter(GameObject obj){
 		if (obj.layer.Equals(LayerMask.NameToLayer("Planets"))|| obj.layer.Equals(LayerMask.NameToLayer("Enemy"))) {
 			collidingObjects.Add (obj);
-			objectsTouching++;
 			isTouchingPlanet = true;
 		}
 	}
@@ -42,8 +40,7 @@ public class GravityBody : MonoBehaviour {
 		if (obj.layer.Equals(LayerMask.NameToLayer("Planets")) || obj.layer.Equals(LayerMask.NameToLayer("Enemy"))) {
 			collidingObjects.Remove(obj);
 
-			objectsTouching--;
-			if(objectsTouching==0){
+			if(collidingObjects.Count==0){
 				isTouchingPlanet = false;
 			}
 		}
@@ -52,14 +49,12 @@ public class GravityBody : MonoBehaviour {
 	public void checkForDestroyedObjects(){
 		List<GameObject> newList = new List<GameObject> (0);
 		foreach(GameObject go in collidingObjects){
-			if(go!=null && go.activeInHierarchy){
+			if(go!=null && go.activeInHierarchy && !Physics.GetIgnoreLayerCollision(go.layer,gameObject.layer)){
 				newList.Add(go);
-			}else{
-				objectsTouching--;
 			}
 		}
 		collidingObjects = newList;
-		if(objectsTouching==0){
+		if (collidingObjects.Count == 0) {
 			isTouchingPlanet = false;
 		}
 	}
@@ -69,7 +64,7 @@ public class GravityBody : MonoBehaviour {
 	}
 
 	public virtual void attract(bool applyForce){
-
+		
 		//transform.parent = null;
 		int closePlanets = 0;
 		minimumPlanetDistance = float.MaxValue;
