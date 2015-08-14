@@ -445,6 +445,7 @@ GameObject:
   - 114: {fileID: 11439962}
   - 114: {fileID: 11431640}
   - 114: {fileID: 11411244}
+  - 95: {fileID: 9578576}
   m_Layer: 10
   m_Name: Rat
   m_TagString: Enemy
@@ -701,7 +702,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 421486}
-  - 95: {fileID: 9596868}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -3300,15 +3300,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: .079914093, y: .0450075716, z: .134041786}
   m_Center: {x: .00103616714, y: .0171041489, z: .013975136}
---- !u!95 &9596868
+--- !u!95 &9578576
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 133634}
+  m_GameObject: {fileID: 120254}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 6aa579bf9a3315b40bbde85b60998931, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 2f8f5c490ad0aa94ab36f59812096598, type: 3}
   m_Controller: {fileID: 9100000, guid: c9619416ac4dd9f49bcb403badedf959, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0

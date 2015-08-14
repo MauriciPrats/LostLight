@@ -20,7 +20,6 @@ public class IAControllerRat : IAController {
 
 	private GameObject burrowParticles;
 
-	private bool isBurried;
 	private bool isJumping;
 
 	protected override void initialize(){
@@ -32,18 +31,14 @@ public class IAControllerRat : IAController {
 		jumpingAttackA.informParent (gameObject);
 
 	
-		iaAnimator.SetBool ("isWalking", true);
-		isBurried = false;
+		//iaAnimator.SetBool ("isWalking", true);
 
 		burrowParticles = gameObject.transform.Find ("BurriedDust").gameObject;
 		burrowParticles.SetActive (false);
 
 		SetMeleeRange (0.025f);
 		SetVisionRange (3f);
-		isBurried = false;
 		isJumping = false;
-
-		initialY = gameObject.transform.Find ("Model").gameObject.transform.position.y;
 	}
 
 	protected override void UpdateAI(){
@@ -51,38 +46,30 @@ public class IAControllerRat : IAController {
 		meleeAttackTimer += Time.deltaTime;
 		chargeAttackTimer += Time.deltaTime;
 		changeBehaviour();*/
-
+		updateParticles ();
+		updateModelHiding ();
 		//Can I see the player? 
 		if(isAtVisionRange() && !attackController.isDoingAnyAttack()){
 			//I'm at melee range?
 			if(isAtMeleeRange()){
-				Debug.Log ("Estoy a mele!");
-				if (isBurried) {
-					Debug.Log("Salgo!");
+				if (isBurried()) {
 					Emerge ();
-					//gameObject.transform.Find ("Model").gameObject.transform.localPosition = new Vector3 (0.391f,0,-0.418f);
 				}
 				//characterController.Move (0f);
-				Debug.Log ("Ataque veneno");
 			} else {
-				Debug.Log ("Me voy debajo tierra. A ver si puedo llegar hasta el.");
-				if (!isBurried) {
+				if (!isBurried()) {
 					Burrow ();				
 				}
-				if (isBurried && isUndergroundState()) {
-					gameObject.transform.Find ("Model").gameObject.SetActive(false);
-				}	
 				//if (!isBurried && isWalkingState()){
-					characterController.Move(getPlayerDirection ());
+					//characterController.Move(getPlayerDirection ());
 				//}
 			}
-
+			//Patrol ();
 		//I can't see the player. Just Patrol.
 		}else if (!attackController.isDoingAnyAttack() && !isJumping) {
-			Debug.Log ("Patrullo en la superficie"); 
 			//characterController.Move (0f);
 			//Emerge ();
-			Patrol ();
+			//Patrol ();
 		}
 	}
 
@@ -92,26 +79,23 @@ public class IAControllerRat : IAController {
 		patrolTime += Time.deltaTime;
 		if(patrolTime>=patrolTimeToTurn){
 			patrolTime = 0f;
-			Move(getLookingDirection()*-1f);
+			characterController.Move(getLookingDirection()*-1f);
 		}else{
-			Move(getLookingDirection());
+			characterController.Move(getLookingDirection());
 		}
-		if (GetComponent<GravityBody>().getIsTouchingPlanet()) {
+		/*if (GetComponent<GravityBody>().getIsTouchingPlanet()) {
 			characterController.Jump(2);
-		}
+		}*/
 	}
 
 	private void Emerge() {
-		burrowParticles.SetActive (false);
 		iaAnimator.SetBool ("Unearthing", true);
-		gameObject.transform.Find ("Model").gameObject.SetActive(true);
-		isBurried = false;
+		iaAnimator.SetBool ("Burrowing", false);
 	}
 
 	private void Burrow() {
 		iaAnimator.SetBool ("Burrowing", true);
-		burrowParticles.SetActive (true);
-		isBurried = true;	
+		iaAnimator.SetBool ("Unearthing", false);
 	}
 
 	private bool isWalkingState(){
@@ -119,8 +103,23 @@ public class IAControllerRat : IAController {
 		return value;
 	}
 
-	private bool isUndergroundState() {
+	private bool isBurried() {
 		bool value = iaAnimator.GetCurrentAnimatorStateInfo (0).IsName("Base.Underground");
 		return value;
+	}
+
+	private void updateParticles()  {
+		if (isWalkingState ()) {
+			burrowParticles.SetActive (false);
+		} else {
+			burrowParticles.SetActive (true);
+		}
+	}
+	private void updateModelHiding() {
+		if (isBurried ()) {
+			gameObject.transform.Find ("Model").gameObject.SetActive (false);
+		} else {
+			gameObject.transform.Find ("Model").gameObject.SetActive (true);
+		}
 	}
 }
