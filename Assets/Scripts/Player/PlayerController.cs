@@ -288,6 +288,21 @@ public class PlayerController : MonoBehaviour {
 		HideArrow ();
 	}
 
+	public void Poison(int totalHitPoints, float timeBetweenTicks) {
+		StartCoroutine (doPoisonTicks(totalHitPoints, timeBetweenTicks));
+	}
+
+	private IEnumerator doPoisonTicks(int totalHitPoints, float timeBetweenTicks) {
+		this.GetComponent<OutlineChanging> ().setMainColor (Color.green);
+		while (totalHitPoints > 0) {
+			getHurt(1,GameManager.player.GetComponent<Rigidbody>().worldCenterOfMass);
+			totalHitPoints--;
+			yield return new WaitForSeconds (timeBetweenTicks);
+		}
+		this.GetComponent<OutlineChanging> ().resetMainColor ();
+		yield return null;
+	}
+
 	public void StopMove() {
 		bpAnimator.SetBool("isWalking",false);
 		characterController.StopMoving ();

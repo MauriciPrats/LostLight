@@ -3463,17 +3463,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d29c76b56108e142b1edf9d0693ccd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onHitEffect: {fileID: 100000, guid: 12bcd11168a419d45b48549497198ad5, type: 2}
+  onHitEffect: {fileID: 178800, guid: 5c387df0365af8347a6256e79541c799, type: 2}
   secondOnHitEffect: {fileID: 138160, guid: 3c32aaf1e6513274b96031f57271f274, type: 2}
   thirdOnHitEffect: {fileID: 161062, guid: a1c5a491ff9fea147a1325163b3b21fb, type: 2}
   onDeathEffects:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 154986, guid: b05c11923c696694bab4746024bdd278, type: 2}
   onDeathLight: {fileID: 190320, guid: 1b14ff513f64b5c47a24d2bcf4e709e7, type: 2}
   corruptionEffect: {fileID: 116714}
-  flySmokeParticles: {fileID: 0}
-  onHitGroundParticles: {fileID: 0}
-  minimumDistanceSeePlayer: 50
+  flySmokeParticles: {fileID: 175594, guid: c66fe661caf10e34e88f148768b4cf3c, type: 2}
+  onHitGroundParticles: {fileID: 156840, guid: d9cc9b81695610444b7dda84df2fb501, type: 2}
+  minimumDistanceSeePlayer: 5
   layersToFindCollision:
     serializedVersion: 2
     m_Bits: 4864
@@ -3482,7 +3481,7 @@ MonoBehaviour:
   jumpStrength: 3
   isIdle: 1
   minimumDistanceAttackPlayer: .200000003
-  meleeRange: 1
+  meleeRange: .100000001
   attackChoosingCooldown: 1
   attackChance: .200000003
   timeToChangeBehaviour: .100000001
@@ -3491,9 +3490,11 @@ MonoBehaviour:
   hitResistance: 3
   isUnthrowable: 0
   isDead: 0
-  jumpingAttack: 12
-  burrowAttack: 11
+  poisonAttack: 11
+  chasingSpeed: 2
+  patrolSpeed: .699999988
   patrolTimeToTurn: 5
+  minimumDistanceToBurrow: 4
 --- !u!136 &13632836
 CapsuleCollider:
   m_ObjectHideFlags: 1
