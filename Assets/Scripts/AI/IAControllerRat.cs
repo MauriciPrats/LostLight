@@ -12,8 +12,8 @@ public class IAControllerRat : IAController {
 	public float patrolSpeed = 0.5f;
 	public float patrolTimeToTurn = 1.5f;
 	public float minimumDistanceToBurrow = 2f;
-	public GameObject burrowParticles;
 
+	private GameObject burrowParticles;
 	private float timeWalkingDirectionIdle = 0f;
 	private float attackTimer = 0f;
 	private float patrolTime = 0f;
@@ -25,8 +25,7 @@ public class IAControllerRat : IAController {
 	protected override void initialize(){
 		Attack poisonAttackA = attackController.getAttack(poisonAttack);
 		poisonAttackA.informParent (gameObject);
-
-		//burrowParticles = gameObject.transform.Find ("BurriedDust").gameObject;
+		burrowParticles = gameObject.transform.Find ("BurriedDust").gameObject;
 		burrowParticles.SetActive (false);
 		isJumping = false;
 	}
@@ -140,9 +139,9 @@ public class IAControllerRat : IAController {
 
 	private void UpdateParticles()  {
 		if (IsWalkingState () || IsAttacking ()) {
-			burrowParticles.SetActive (false);
+			burrowParticles.SetActive(false);
 		} else {
-			burrowParticles.SetActive (true);
+			burrowParticles.SetActive(true);
 		}
 	} 
 
