@@ -30,14 +30,18 @@ public class GravityBody : MonoBehaviour {
 	}
 
 	public virtual void checkTouchEnter(GameObject obj){
-		if (obj.layer.Equals(LayerMask.NameToLayer("Planets"))|| obj.layer.Equals(LayerMask.NameToLayer("Enemy"))) {
-			collidingObjects.Add (obj);
-			isTouchingPlanet = true;
+		if (obj.layer.Equals(LayerMask.NameToLayer("Planets")) || 
+		    obj.layer.Equals(LayerMask.NameToLayer("Enemy")) || 
+		    obj.layer.Equals (LayerMask.NameToLayer ("SlidingPath"))) {
+				collidingObjects.Add (obj);
+				isTouchingPlanet = true;
 		}
 	}
 
 	public virtual void checkTouchExit(GameObject obj){
-		if (obj.layer.Equals(LayerMask.NameToLayer("Planets")) || obj.layer.Equals(LayerMask.NameToLayer("Enemy"))) {
+		if (obj.layer.Equals(LayerMask.NameToLayer("Planets")) ||
+		    obj.layer.Equals(LayerMask.NameToLayer("Enemy")) ||
+		    obj.layer.Equals (LayerMask.NameToLayer ("SlidingPath"))) {
 			collidingObjects.Remove(obj);
 
 			if(collidingObjects.Count==0){
@@ -91,7 +95,7 @@ public class GravityBody : MonoBehaviour {
 
 	public bool getIsTouchingPlanet(){
 		foreach(GameObject collidingObject in collidingObjects){
-			if(collidingObject.layer.Equals(LayerMask.NameToLayer("Planets"))){
+			if(collidingObject.layer.Equals(LayerMask.NameToLayer("Planets")) || collidingObject.layer.Equals (LayerMask.NameToLayer ("SlidingPath"))){
 				return true;
 			}
 		}

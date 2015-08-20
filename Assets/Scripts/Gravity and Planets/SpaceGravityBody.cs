@@ -21,7 +21,10 @@ public class SpaceGravityBody : GravityBody {
 	}
 
 	public override void checkTouchEnter(GameObject obj){
-		if (obj.layer.Equals(LayerMask.NameToLayer("Planets")) || obj.layer.Equals(LayerMask.NameToLayer("Enemy"))) {
+		if (obj.layer.Equals(LayerMask.NameToLayer("Planets")) || 
+		    obj.layer.Equals(LayerMask.NameToLayer("Enemy")) ||
+		    obj.layer.Equals (LayerMask.NameToLayer ("SlidingPath"))) {
+
 			collidingObjects.Add (obj);
 			if(isPlayer && canBreatheInActualPlanet()){
 				GUIManager.deactivateSpaceJumpGUI();
@@ -33,14 +36,14 @@ public class SpaceGravityBody : GravityBody {
 			isTouchingPlanet = true;
 			usesSpaceGravity = false;
 			isFallingIntoPlanet = false;
-			if(obj.layer.Equals(LayerMask.NameToLayer("Planets"))){
+			if(obj.layer.Equals(LayerMask.NameToLayer("Planets")) || obj.layer.Equals (LayerMask.NameToLayer ("SlidingPath"))){
 				GetComponent<Rigidbody>().mass = originalMass;
 			}
 		}
 	}
 
 	public override void checkTouchExit(GameObject obj){
-		if (obj.layer.Equals(LayerMask.NameToLayer("Planets")) || obj.layer.Equals(LayerMask.NameToLayer("Enemy"))) {
+		if (obj.layer.Equals(LayerMask.NameToLayer("Planets")) || obj.layer.Equals(LayerMask.NameToLayer("Enemy")) || obj.layer.Equals (LayerMask.NameToLayer ("SlidingPath"))) {
 			collidingObjects.Remove(obj);
 
 			if(collidingObjects.Count==0){
