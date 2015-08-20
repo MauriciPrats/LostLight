@@ -3447,8 +3447,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attacksGO:
-  - {fileID: 189118, guid: ac16721f4c5a87d428b9fb98b2dfc7ce, type: 2}
-  - {fileID: 148722, guid: a2ac376fcf342c6479f5cdfe5b95d0f0, type: 2}
+  - {fileID: 148722, guid: eae74336037b06e499dd709ea7084249, type: 2}
   currentAttack: {fileID: 0}
   blockGO: {fileID: 0}
   dashGO: {fileID: 0}
@@ -3492,9 +3491,10 @@ MonoBehaviour:
   isDead: 0
   poisonAttack: 11
   chasingSpeed: 2
-  patrolSpeed: .699999988
+  patrolSpeed: .5
   patrolTimeToTurn: 5
-  minimumDistanceToBurrow: 4
+  minimumDistanceToBurrow: 2
+  burrowParticles: {fileID: 191902, guid: 7dbc35ab375d4b64195fe21b3f761597, type: 2}
 --- !u!136 &13632836
 CapsuleCollider:
   m_ObjectHideFlags: 1
