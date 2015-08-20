@@ -12,7 +12,7 @@ public class IAControllerRat : IAController {
 	public float patrolSpeed = 0.5f;
 	public float patrolTimeToTurn = 1.5f;
 	public float minimumDistanceToBurrow = 2f;
-
+	//Hola que tal
 	private GameObject burrowParticles;
 	private float timeWalkingDirectionIdle = 0f;
 	private float attackTimer = 0f;
