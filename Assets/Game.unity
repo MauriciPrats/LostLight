@@ -23287,7 +23287,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
 --- !u!4 &266497031
 Transform:
   m_PrefabParentObject: {fileID: 451792, guid: 5913ca3260765e940849bd3199325f3f, type: 2}
@@ -99957,52 +99957,6 @@ ParticleSystem:
     subEmitterCollision1: {fileID: 0}
     subEmitterDeath: {fileID: 0}
     subEmitterDeath1: {fileID: 0}
---- !u!1001 &1500281137
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 479176, guid: 999201feb5c4f87469260b677c80aaa9, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -398.190002
-      objectReference: {fileID: 0}
-    - target: {fileID: 479176, guid: 999201feb5c4f87469260b677c80aaa9, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 31.9890003
-      objectReference: {fileID: 0}
-    - target: {fileID: 479176, guid: 999201feb5c4f87469260b677c80aaa9, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -.158610001
-      objectReference: {fileID: 0}
-    - target: {fileID: 479176, guid: 999201feb5c4f87469260b677c80aaa9, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 479176, guid: 999201feb5c4f87469260b677c80aaa9, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: .707106829
-      objectReference: {fileID: 0}
-    - target: {fileID: 479176, guid: 999201feb5c4f87469260b677c80aaa9, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 479176, guid: 999201feb5c4f87469260b677c80aaa9, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: .707106709
-      objectReference: {fileID: 0}
-    - target: {fileID: 479176, guid: 999201feb5c4f87469260b677c80aaa9, type: 2}
-      propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 163150, guid: 999201feb5c4f87469260b677c80aaa9, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 999201feb5c4f87469260b677c80aaa9, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &1501555265
 GameObject:
   m_ObjectHideFlags: 0
@@ -115722,7 +115676,7 @@ MonoBehaviour:
   - {fileID: 152610, guid: 3a79967716eb9ae4fa586960487959c2, type: 2}
   - {fileID: 163150, guid: 999201feb5c4f87469260b677c80aaa9, type: 2}
   - {fileID: 167820, guid: a6a425714f26a3e4f868bd14b2dec4f3, type: 2}
-  - {fileID: 120254, guid: 39be1fd8b05b81a41891ca5bfa4173d7, type: 2}
+  - {fileID: 144902, guid: 1cea0318ea189184abebd83fb786c634, type: 2}
   spawnBall: {fileID: 136478, guid: 907aa934c17a6f34c9864ba7cfbf3a4a, type: 2}
   particlesOnContundentHit:
   - {fileID: 100000, guid: 12bcd11168a419d45b48549497198ad5, type: 2}
